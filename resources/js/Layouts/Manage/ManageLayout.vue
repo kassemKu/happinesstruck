@@ -23,18 +23,6 @@
           >
             <slot />
           </main>
-          <!-- <footer
-            class="
-              htm-footer
-              fixed
-              bottom-0
-              h-16
-              bg-base-300 bg-opacity-40
-              w-full
-            "
-          >
-            footer
-          </footer> -->
         </div>
       </div>
     </div>

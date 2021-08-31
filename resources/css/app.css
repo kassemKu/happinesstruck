@@ -87,3 +87,15 @@
 .ht-scrollbar::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+/* 
+  === RTL OVERRIDES TAILWIND CSS
+ */
+
+body[dir='rtl'] {
+  @apply font-body-arabic;
+}
+
+body[dir='rtl'] .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}

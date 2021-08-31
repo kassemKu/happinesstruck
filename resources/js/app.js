@@ -3,8 +3,17 @@ import { createInertiaApp } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
 import { CarbonIconsVue } from '@carbon/icons-vue'
 import { components } from './carbon'
+import { VueCookieNext } from 'vue-cookie-next'
 import { createI18n } from 'vue-i18n'
 import i18n from './i18n'
+
+VueCookieNext.config({
+  expire: '1d',
+  path: '/',
+  domain: '',
+  secure: '',
+  sameSite: '',
+})
 
 const appName =
   window.document.getElementsByTagName('title')[0]?.innerText ||
@@ -18,7 +27,8 @@ createInertiaApp({
       .use(plugin)
       .mixin({ methods: { route } })
       .use(CarbonIconsVue, { components })
-      .use(createI18n({ i18n }))
+      .use(VueCookieNext)
+      .use(createI18n(i18n))
       .mount(el)
   },
 })

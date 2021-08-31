@@ -10,9 +10,9 @@
       w-full
       items-center
       justify-between
-      pl-80
       shadow-xl
     "
+    :class="$i18n.locale === 'ar' ? 'pr-80' : 'pl-80'"
   >
     <button
       class="
@@ -31,17 +31,7 @@
     </button>
     <div class="flex items-center space-x-8 htm-header__user-area">
       <div class="flex">
-        <button
-          class="
-            btn btn-ghost
-            text-base-content
-            transform
-            font-body-arabic
-            hover:bg-transparent hover:scale-105 hover:text-info
-          "
-        >
-          العربية
-        </button>
+        <LanguageSwitcher />
         <div class="dropdown dropdown-right">
           <button
             tabindex="0"
@@ -137,8 +127,14 @@
 </template>
 
 <script>
+import LanguageSwitcher from '@/Shared/Partials/LanguageSwitcher'
+
+const components = { LanguageSwitcher }
+
 export default {
   name: 'ManageHeader',
+
+  components,
 
   setup() {
     const themes = [
