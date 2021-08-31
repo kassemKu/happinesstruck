@@ -1,3 +1,89 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+[data-theme='light'] {
+  --p: 259 94.4% 51.2%;
+  --pf: 259 94.3% 41%;
+  --pc: 0 0% 100%;
+  --s: 314 100% 47.1%;
+  --sf: 314 100% 37.1%;
+  --sc: 0 0% 100%;
+  --a: 174 60% 51%;
+  --af: 174 59.8% 41%;
+  --ac: 0 0% 100%;
+  --n: 219 14.1% 27.8%;
+  --nf: 222 13.4% 19%;
+  --nc: 0 0% 100%;
+  --b1: 0 0% 100%;
+  --b2: 210 20% 98%;
+  --b3: 216 12.2% 83.9%;
+  --bc: 215 27.9% 16.9%;
+  --in: 207 89.8% 53.9%;
+  --su: 174 100% 29%;
+  --wa: 36 100% 50%;
+  --er: 14 100% 57.1%;
+  --rounded-box: 1rem;
+  --rounded-btn: 0.5rem;
+  --rounded-badge: 1.9rem;
+  --animation-btn: 0.25s;
+  --animation-input: 0.2s;
+  --padding-card: 2rem;
+  --btn-text-case: uppercase;
+  --btn-focus-scale: 0.95;
+  --navbar-padding: 0.5rem;
+  --border-btn: 1px;
+  --tab-border: 1px;
+  --tab-radius: 0.5rem;
+  --tab-spacer: 0.5rem;
+  --focus-ring: 2px;
+  --focus-ring-offset: 2px;
+  --glass-opacity: 30%;
+  --glass-border-opacity: 10%;
+  --glass-reflex-degree: 100deg;
+  --glass-reflex-opacity: 10%;
+  --glass-blur: 40px;
+  --glass-text-shadow-opacity: 5%;
+}
+
+.ht-base-transition {
+  transition-property: all;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scroll bar */
+.ht-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.ht-scrollbar::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+.ht-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-info;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+.ht-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+.ht-scrollbar::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+.ht-scrollbar::-webkit-scrollbar-track {
+  @apply bg-info;
+  @apply bg-opacity-25;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+.ht-scrollbar::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+.ht-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}

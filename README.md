@@ -64,3 +64,4 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 1- Add Eslint, prettier, formatting code [DONE]
+work on landing page (ui/ux)

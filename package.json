@@ -17,6 +17,7 @@
         "@tailwindcss/typography": "^0.3.0",
         "@vue/compiler-sfc": "^3.0.5",
         "axios": "^0.21",
+        "daisyui": "^1.13.2",
         "eslint": "^7.32.0",
         "eslint-loader": "^4.0.2",
         "eslint-plugin-vue": "^7.16.0",
@@ -29,7 +30,9 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "@carbon/icons-vue": "^10.37.0",
         "eslint-config-prettier": "^8.3.0",
-        "prettier": "^2.3.2"
+        "prettier": "^2.3.2",
+        "vue-i18n": "^9.1.7"
     }
 }
