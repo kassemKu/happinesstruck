@@ -35,7 +35,14 @@
       <slot name="icon" />
     </span>
     <span
-      class="block text-sm capitalize ht-base-transition transform"
+      class="
+        block
+        text-xs
+        font-semibold
+        capitalize
+        ht-base-transition
+        transform
+      "
       :class="
         active
           ? 'text-info font-semibold  group-hover:scale-110'

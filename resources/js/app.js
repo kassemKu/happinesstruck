@@ -6,6 +6,7 @@ import { components } from './carbon'
 import { VueCookieNext } from 'vue-cookie-next'
 import { createI18n } from 'vue-i18n'
 import i18n from './i18n'
+import { store } from './store'
 
 VueCookieNext.config({
   expire: '1d',
@@ -29,6 +30,7 @@ createInertiaApp({
       .use(CarbonIconsVue, { components })
       .use(VueCookieNext)
       .use(createI18n(i18n))
+      .use(store)
       .mount(el)
   },
 })

@@ -12,9 +12,9 @@
         href="/"
         class="
           htm-sidebar-logo
+          ht-base-transition
           fixed
           top-0
-          w-72
           h-16
           place-content-center
           bg-base-100
@@ -24,9 +24,11 @@
           font-black
           text-lg
           tracking-wider
-          hover:bg-base-100 hover:text-info
           z-10
+          transition
+          hover:bg-base-100 hover:text-info
         "
+        :class="isSidebarOpen ? ' w-72' : 'w-28'"
       >
         {{ $t('site_name') }}
       </Link>
@@ -45,5 +47,13 @@ export default {
   name: 'ManageSidebar',
 
   components,
+
+  props: {
+    isSidebarOpen: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+  },
 }
 </script>

@@ -1,4 +1,5 @@
 import ArrowLeft20 from '@carbon/icons-vue/es/arrow--left/20'
+import ArrowRight20 from '@carbon/icons-vue/es/arrow--right/20'
 import Settings24 from '@carbon/icons-vue/es/settings/24'
 import ChevronDown16 from '@carbon/icons-vue/es/chevron--down/24'
 import Notification24 from '@carbon/icons-vue/es/notification/24'
@@ -42,4 +43,5 @@ export const components = {
   EventSchedule24,
   Tools24,
   Book24,
+  ArrowRight20,
 }

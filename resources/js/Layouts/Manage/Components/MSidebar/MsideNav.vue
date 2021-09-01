@@ -3,82 +3,88 @@
     <nav class="htm-sidebar-nav h-screen overflow-y-auto ht-scrollbar">
       <div class="mt-24">
         <ManageSideNavGroup>
-          <ManageSideNavLink name="dashboard" :href="'/'" active>
+          <ManageSideNavLink :name="$t('dashboard')" :href="'/'" active>
             <template #icon>
               <Dashboard24 />
             </template>
           </ManageSideNavLink>
         </ManageSideNavGroup>
-        <ManageSideNavGroup groupTitle="users management">
+        <ManageSideNavGroup
+          :groupTitle="$t('model_management', { model: $t('users') })"
+        >
           <template #groupIcon>
             <Identification24 />
           </template>
-          <ManageSideNavLink name="permissions" :href="'/'">
+          <ManageSideNavLink :name="$t('permissions')" :href="'/'">
             <template #icon>
               <Password24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink name="roles" :href="'/'">
+          <ManageSideNavLink :name="$t('roles')" :href="'/'">
             <template #icon>
               <Function24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink name="admins" :href="'/'">
+          <ManageSideNavLink :name="$t('admins')" :href="'/'">
             <template #icon>
               <UserSpeaker24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink name="customers" :href="'/'">
+          <ManageSideNavLink :name="$t('customers')" :href="'/'">
             <template #icon>
               <UserCertification24 />
             </template>
           </ManageSideNavLink>
         </ManageSideNavGroup>
-        <ManageSideNavGroup groupTitle="products management">
+        <ManageSideNavGroup
+          :groupTitle="$t('model_management', { model: $t('products') })"
+        >
           <template #groupIcon>
             <Store24 />
           </template>
-          <ManageSideNavLink name="products" :href="'/'">
+          <ManageSideNavLink :name="$t('products')" :href="'/'">
             <template #icon>
               <Product24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink name="orders" :href="'/'">
+          <ManageSideNavLink :name="$t('orders')" :href="'/'">
             <template #icon>
               <ShoppingCartArrowDown24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink name="warehouses" :href="'/'">
+          <ManageSideNavLink :name="$t('warehouses')" :href="'/'">
             <template #icon>
               <DataReference24 />
             </template>
           </ManageSideNavLink>
         </ManageSideNavGroup>
-        <ManageSideNavGroup groupTitle="packages management">
+        <ManageSideNavGroup
+          :groupTitle="$t('model_management', { model: $t('packages') })"
+        >
           <template #groupIcon>
             <Delivery24 />
           </template>
-          <ManageSideNavLink name="packages" :href="'/'">
+          <ManageSideNavLink :name="$t('packages')" :href="'/'">
             <template #icon>
               <DeliveryParcel24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink name="bookings" :href="'/'">
+          <ManageSideNavLink :name="$t('bookings')" :href="'/'">
             <template #icon>
               <EventSchedule24 />
             </template>
           </ManageSideNavLink>
         </ManageSideNavGroup>
-        <ManageSideNavGroup groupTitle="site settings">
+        <ManageSideNavGroup :groupTitle="$t('site_settings')">
           <template #groupIcon>
             <Settings24 />
           </template>
-          <ManageSideNavLink name="general settings" :href="'/'">
+          <ManageSideNavLink :name="$t('site_settings')" :href="'/'">
             <template #icon>
               <Tools24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink name="pages" :href="'/'">
+          <ManageSideNavLink :name="$t('pages')" :href="'/'">
             <template #icon>
               <Book24 />
             </template>

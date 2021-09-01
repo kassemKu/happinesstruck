@@ -96,6 +96,9 @@ body[dir='rtl'] {
   @apply font-body-arabic;
 }
 
-body[dir='rtl'] .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+body[dir='rtl'] .space-x-8 > :not([hidden]) ~ :not([hidden]),
+body[dir='rtl'] .space-x-6 > :not([hidden]) ~ :not([hidden]),
+body[dir='rtl'] .space-x-4 > :not([hidden]) ~ :not([hidden]),
+body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 1;
 }

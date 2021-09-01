@@ -2,6 +2,7 @@
   <div
     class="
       htm-header-container
+      ht-base-transition
       bg-base-300 bg-opacity-40
       h-16
       flex
@@ -11,8 +12,14 @@
       items-center
       justify-between
       shadow-xl
+      transition
     "
-    :class="$i18n.locale === 'ar' ? 'pr-80' : 'pl-80'"
+    :class="{
+      'pr-80': $i18n.locale === 'ar' && isSidebarOpen,
+      'pl-80': $i18n.locale !== 'ar' && isSidebarOpen,
+      'pr-32': $i18n.locale === 'ar' && !isSidebarOpen,
+      'pl-32': $i18n.locale !== 'ar' && !isSidebarOpen,
+    }"
   >
     <button
       class="
@@ -26,8 +33,13 @@
         hover:scale-105
         hover:shadow
       "
+      type="button"
+      @click.prevent="toggleManageSidebar"
     >
-      <ArrowLeft20 />
+      <ArrowLeft20 v-if="$i18n.locale !== 'ar' && isSidebarOpen" />
+      <ArrowRight20 v-else-if="$i18n.locale !== 'ar' && !isSidebarOpen" />
+      <ArrowRight20 v-else-if="$i18n.locale === 'ar' && isSidebarOpen" />
+      <ArrowLeft20 v-else />
     </button>
     <div class="flex items-center space-x-8 htm-header__user-area">
       <div class="flex">
@@ -73,7 +85,7 @@
                 "
                 @click="setTheme(theme)"
               >
-                {{ theme }}
+                {{ $t(theme) }}
               </button>
             </li>
           </ul>
@@ -118,7 +130,7 @@
           hover:bg-base-100 hover:text-warning
         "
       >
-        <span class="font-bold">fulll name</span>
+        <span class="font-bold">{{ $t('full_name') }}</span>
         <img src="/images/me.png" class="h-10 w-10 mask mask-squircle border" />
         <ChevronDown16 class="w-5 h-5" />
       </button>
@@ -168,6 +180,20 @@ export default {
     }
 
     return { themes, setTheme }
+  },
+
+  props: {
+    isSidebarOpen: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+  },
+
+  methods: {
+    toggleManageSidebar() {
+      this.$store.commit('toggleManageSidebar')
+    },
   },
 }
 </script>
