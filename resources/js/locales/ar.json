@@ -15,11 +15,10 @@
   "bookings": "الحجوزات",
   "site_settings": "إعدادات الموقع",
   "general_settings": "الاعدادات العامة",
+  "categories": "الأقسام",
   "pages": "الصفحات",
   "light": "فاتح",
   "dark": "داكن",
-  "pastel": "باستيل",
-  "lofi": "لوفي",
   "cupcake": "كاب كيك",
   "bumblebee": "طنانة",
   "emerald": "زمردي",
@@ -30,5 +29,13 @@
   "valentine": "عيد الحب",
   "halloween": "عيد الرعب",
   "garden": "حديقة",
-  "forest": "غابة"
+  "forest": "غابة",
+  "aqua": "أكوا",
+  "lofi": "لوفي",
+  "pastel": "فاتح اللون",
+  "fantasy": "خيالي",
+  "wireframe": "إطار سلكي",
+  "black": "أسود",
+  "luxury": "رفاهية",
+  "dracula": "دراكولا"
 }

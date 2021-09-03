@@ -8,8 +8,8 @@
         flex
         items-center
         space-x-2
-        mb-4
-        px-8
+        mb-6
+        px-6
         text-gray-400
       "
     >
@@ -30,7 +30,7 @@
           h-px
           bg-base-300 bg-opacity-40
           shadow-inner
-          mt-4
+          mt-6
         "
       ></div>
     </div>

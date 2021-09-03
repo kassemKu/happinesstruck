@@ -25,6 +25,14 @@
             "
           >
             <slot />
+            <div class="bg-error text-white">
+              <span>is sidebar open: </span>
+              <pre class="font-bold uppercase">{{ isManageSidebarOpen }}</pre>
+            </div>
+            <div class="bg-warning text-white">
+              <span>active theme: </span>
+              <pre class="font-bold uppercase">{{ applyTheme }}</pre>
+            </div>
           </main>
         </div>
       </div>
@@ -33,7 +41,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import ManageSidebar from './Components/MSidebar/MSidebar'
 import ManageHeader from './Components/MHeader/MHeader'
 
@@ -44,8 +52,9 @@ export default {
   components,
 
   computed: {
-    ...mapGetters({
-      isManageSidebarOpen: 'isManageSidebarOpen',
+    ...mapState({
+      isManageSidebarOpen: (state) => state.isManageSidebarOpen,
+      applyTheme: (state) => state.applyTheme,
     }),
   },
 }

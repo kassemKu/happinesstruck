@@ -10,8 +10,14 @@ Route::name('web.')
         Route::get('/', 'LandingPageController@index')->name('landing');
 });
 
-Route::name('manage')
+/**
+ * TODO:: To write better comment
+ */
+Route::name('manage.')
+    ->prefix('manage')
     ->namespace('Manage')
     ->group(function () {
-        Route::get('/manage/dashboard', 'ManageDashboardController@index')->name('dashboard');
+        Route::get('/dashboard', 'ManageDashboardController@index')->name('dashboard');
+        // Categories routes
+        Route::resource('/categories', 'ManageCategoriesController', ['parameters' => ['' => 'category']]);
 });

@@ -3267,6 +3267,14 @@ html {
 	--tw-bg-opacity: 1;
 	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
 }
+.bg-error {
+	--tw-bg-opacity: 1;
+	background-color: hsla(var(--er) / var(--tw-bg-opacity));
+}
+.bg-warning {
+	--tw-bg-opacity: 1;
+	background-color: hsla(var(--wa) / var(--tw-bg-opacity));
+}
 .bg-base-300 {
 	--tw-bg-opacity: 1;
 	background-color: hsla(var(--b3) / var(--tw-bg-opacity));
@@ -3282,14 +3290,6 @@ html {
 .bg-primary {
 	--tw-bg-opacity: 1;
 	background-color: hsla(var(--p) / var(--tw-bg-opacity));
-}
-.bg-error {
-	--tw-bg-opacity: 1;
-	background-color: hsla(var(--er) / var(--tw-bg-opacity));
-}
-.bg-warning {
-	--tw-bg-opacity: 1;
-	background-color: hsla(var(--wa) / var(--tw-bg-opacity));
 }
 .bg-blue-500 {
 	--tw-bg-opacity: 1;
@@ -3383,10 +3383,6 @@ html {
 	padding-top: 14rem;
 	padding-bottom: 14rem;
 }
-.px-8 {
-	padding-left: 2rem;
-	padding-right: 2rem;
-}
 .pt-6 {
 	padding-top: 1.5rem;
 }
@@ -3425,12 +3421,6 @@ html {
 }
 .pl-80 {
 	padding-left: 20rem;
-}
-.pr-28 {
-	padding-right: 7rem;
-}
-.pl-28 {
-	padding-left: 7rem;
 }
 .pr-32 {
 	padding-right: 8rem;

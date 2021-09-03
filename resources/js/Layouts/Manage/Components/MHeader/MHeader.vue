@@ -139,6 +139,7 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
 import LanguageSwitcher from '@/Shared/Partials/LanguageSwitcher'
 
 const components = { LanguageSwitcher }
@@ -148,7 +149,17 @@ export default {
 
   components,
 
+  props: {
+    isSidebarOpen: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+  },
+
   setup() {
+    const store = useStore()
+
     const themes = [
       'light',
       'dark',
@@ -174,26 +185,14 @@ export default {
     ]
 
     const setTheme = (theme) => {
-      const htmlTag = document.querySelector('html')
-
-      htmlTag.setAttribute('data-theme', theme)
+      store.commit('themeSwitcher', theme)
     }
 
-    return { themes, setTheme }
-  },
+    const toggleManageSidebar = () => {
+      store.commit('toggleManageSidebar')
+    }
 
-  props: {
-    isSidebarOpen: {
-      type: Boolean,
-      required: true,
-      default: true,
-    },
-  },
-
-  methods: {
-    toggleManageSidebar() {
-      this.$store.commit('toggleManageSidebar')
-    },
+    return { themes, setTheme, toggleManageSidebar }
   },
 }
 </script>

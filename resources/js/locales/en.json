@@ -15,11 +15,10 @@
   "bookings": "bookings",
   "site_settings": "site settings",
   "general_settings": "general settings",
+  "categories": "categories",
   "pages": "pages",
   "light": "light",
   "dark": "dark",
-  "pastel": "pastel",
-  "lofi": "lofi",
   "cupcake": "cupcake",
   "bumblebee": "bumblebee",
   "emerald": "emerald",
@@ -30,5 +29,13 @@
   "valentine": "valentine",
   "halloween": "halloween",
   "garden": "garden",
-  "forest": "forest"
+  "forest": "forest",
+  "aqua": "aqua",
+  "lofi": "lofi",
+  "pastel": "pastel",
+  "fantasy": "fantasy",
+  "wireframe": "wireframe",
+  "black": "black",
+  "luxury": "luxury",
+  "dracula": "dracula"
 }

@@ -3,7 +3,11 @@
     <nav class="htm-sidebar-nav h-screen overflow-y-auto ht-scrollbar">
       <div class="mt-24">
         <ManageSideNavGroup>
-          <ManageSideNavLink :name="$t('dashboard')" :href="'/'" active>
+          <ManageSideNavLink
+            :name="$t('dashboard')"
+            :href="route('manage.dashboard')"
+            :active="$page.url.includes('manage/dashboard')"
+          >
             <template #icon>
               <Dashboard24 />
             </template>
@@ -42,6 +46,15 @@
           <template #groupIcon>
             <Store24 />
           </template>
+          <ManageSideNavLink
+            :name="$t('categories')"
+            :href="route('manage.categories.index')"
+            :active="$page.url.includes('manage/categories')"
+          >
+            <template #icon>
+              <Product24 />
+            </template>
+          </ManageSideNavLink>
           <ManageSideNavLink :name="$t('products')" :href="'/'">
             <template #icon>
               <Product24 />
