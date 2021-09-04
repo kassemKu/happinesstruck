@@ -7,6 +7,7 @@ import { VueCookieNext } from 'vue-cookie-next'
 import { createI18n } from 'vue-i18n'
 import i18n from './i18n'
 import { store } from './store'
+import VueFeather from 'vue-feather'
 
 VueCookieNext.config({
   expire: '1d',
@@ -31,6 +32,7 @@ createInertiaApp({
       .use(VueCookieNext)
       .use(createI18n(i18n))
       .use(store)
+      .component(VueFeather.name, VueFeather)
       .mount(el)
   },
 })

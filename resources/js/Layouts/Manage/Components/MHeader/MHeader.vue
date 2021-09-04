@@ -1,7 +1,7 @@
 <template>
   <div
     class="
-      htm-header-container
+      htm-header
       ht-base-transition
       bg-base-300 bg-opacity-40
       h-16
@@ -11,7 +11,7 @@
       w-full
       items-center
       justify-between
-      shadow-xl
+      shadow-2xl
       transition
     "
     :class="{
@@ -41,7 +41,7 @@
       <ArrowRight20 v-else-if="$i18n.locale === 'ar' && isSidebarOpen" />
       <ArrowLeft20 v-else />
     </button>
-    <div class="flex items-center space-x-8 htm-header__user-area">
+    <div class="flex items-center space-x-2 htm-header__user-area">
       <div class="flex">
         <LanguageSwitcher />
         <div class="dropdown dropdown-right">

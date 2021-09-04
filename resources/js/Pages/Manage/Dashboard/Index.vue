@@ -1,5 +1,8 @@
 <template>
   <ManageLayout>
+    <template #breadcrumb>
+      <Breadcrumb />
+    </template>
     <div>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum eius
@@ -65,8 +68,9 @@
 
 <script>
 import ManageLayout from '@/Layouts/Manage/ManageLayout'
+import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 
-const components = { ManageLayout }
+const components = { ManageLayout, Breadcrumb }
 
 export default {
   name: 'ManageDashboard',

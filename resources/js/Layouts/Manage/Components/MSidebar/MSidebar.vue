@@ -1,18 +1,12 @@
 <template>
   <div
-    class="
-      htm-sidebar-container
-      flex flex-col
-      bg-base-300 bg-opacity-40
-      text-gray-500
-    "
+    class="htm-sidebar flex flex-col bg-base-300 bg-opacity-40 text-gray-500"
   >
     <div class="htm-logo-container">
       <Link
         href="/"
         class="
           htm-sidebar-logo
-          ht-base-transition
           fixed
           top-0
           h-16
@@ -23,6 +17,7 @@
           text-warning
           font-black
           text-lg
+          flex flex-col
           tracking-wider
           z-10
           transition
@@ -30,7 +25,8 @@
         "
         :class="isSidebarOpen ? ' w-72' : 'w-28'"
       >
-        {{ $t('site_name') }}
+        <CircleFilled32 />
+        <span v-if="isSidebarOpen">{{ $t('site_name') }}</span>
       </Link>
     </div>
     <MsideNav />

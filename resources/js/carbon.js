@@ -20,6 +20,8 @@ import DeliveryParcel24 from '@carbon/icons-vue/es/delivery--parcel/24'
 import EventSchedule24 from '@carbon/icons-vue/es/event--schedule/24'
 import Tools24 from '@carbon/icons-vue/es/tools/24'
 import Book24 from '@carbon/icons-vue/es/book/24'
+import ChevronRight42 from '@carbon/icons-vue/es/chevron--right/24'
+import CircleFilled32 from '@carbon/icons-vue/es/circle--filled/32'
 
 export const components = {
   ArrowLeft20,
@@ -44,4 +46,6 @@ export const components = {
   Tools24,
   Book24,
   ArrowRight20,
+  ChevronRight42,
+  CircleFilled32,
 }
