@@ -15,8 +15,14 @@
   "bookings": "الحجوزات",
   "site_settings": "إعدادات الموقع",
   "general_settings": "الاعدادات العامة",
-  "categories": "الأقسام",
+  "category": "فئة",
+  "categories": "فئات",
+  "section": "القسم",
+  "sections": "الأقسام",
   "pages": "الصفحات",
+  "action_model": "{action} {model}",
+  "add": "اضافة",
+  "update": "تحديث",
   "light": "فاتح",
   "dark": "داكن",
   "cupcake": "كاب كيك",
@@ -37,5 +43,11 @@
   "wireframe": "إطار سلكي",
   "black": "أسود",
   "luxury": "رفاهية",
-  "dracula": "دراكولا"
+  "dracula": "دراكولا",
+  "the_arabic": "العربي",
+  "the_english": "الانجليزي",
+  "field": "الحقل",
+  "name": "اسم",
+  "description": "وصف",
+  "field_name_lang": " {name} {field} {lang}"
 }

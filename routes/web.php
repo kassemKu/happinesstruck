@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Manage\ManageCategoriesController;
+use App\Http\Controllers\Manage\ManageDashboardController;
+use App\Http\Controllers\Manage\ManageSectionsController;
 /**
  * TODO:: To write better comment
  */
@@ -15,9 +18,10 @@ Route::name('web.')
  */
 Route::name('manage.')
     ->prefix('manage')
-    ->namespace('Manage')
     ->group(function () {
-        Route::get('/dashboard', 'ManageDashboardController@index')->name('dashboard');
+        Route::get('/dashboard', [ManageDashboardController::class, 'index'] )->name('dashboard');
+        // Sections routes
+        Route::resource('/sections', ManageSectionsController::class, ['parameters' => ['' => 'section']]);
         // Categories routes
-        Route::resource('/categories', 'ManageCategoriesController', ['parameters' => ['' => 'category']]);
+        Route::resource('/categories', ManageCategoriesController::class, ['parameters' => ['' => 'category']]);
 });

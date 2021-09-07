@@ -26,6 +26,7 @@ class Category extends Model
         'published',
         'image_url',
         'slug',
+        'section_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -43,7 +44,7 @@ class Category extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
-    // published product scope
+    // published category scope
     public function scopePublished($query)
     {
         return $query->where('publish', '=', 1);

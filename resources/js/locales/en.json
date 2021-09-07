@@ -15,7 +15,13 @@
   "bookings": "bookings",
   "site_settings": "site settings",
   "general_settings": "general settings",
+  "category": "category",
   "categories": "categories",
+  "section": "section",
+  "sections": "sections",
+  "action_model": "{action} {model}",
+  "add": "add",
+  "update": "update",
   "pages": "pages",
   "light": "light",
   "dark": "dark",
@@ -37,5 +43,11 @@
   "wireframe": "wireframe",
   "black": "black",
   "luxury": "luxury",
-  "dracula": "dracula"
+  "dracula": "dracula",
+  "the_arabic": "the arabic",
+  "the_english": "the english",
+  "field": "field",
+  "name": "name",
+  "description": "description",
+  "field_name_lang": "{field} {name} in {lang}"
 }

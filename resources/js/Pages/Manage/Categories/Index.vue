@@ -5,7 +5,7 @@
         :activeName="$t('categories')"
         activeIcon="grid"
         actionName="create new category"
-        :actionHref="route('manage.categories.index')"
+        :actionHref="route('manage.categories.create')"
       />
     </template>
     <div class="ht-page htm-page htm-page__categories-index">

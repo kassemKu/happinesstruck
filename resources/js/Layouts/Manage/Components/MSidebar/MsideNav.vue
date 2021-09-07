@@ -47,12 +47,21 @@
             <Store24 />
           </template>
           <ManageSideNavLink
+            :name="$t('sections')"
+            :href="route('manage.sections.index')"
+            :active="$page.url.includes('manage/sections')"
+          >
+            <template #icon>
+              <Category24 />
+            </template>
+          </ManageSideNavLink>
+          <ManageSideNavLink
             :name="$t('categories')"
             :href="route('manage.categories.index')"
             :active="$page.url.includes('manage/categories')"
           >
             <template #icon>
-              <Product24 />
+              <Categories24 />
             </template>
           </ManageSideNavLink>
           <ManageSideNavLink :name="$t('products')" :href="'/'">

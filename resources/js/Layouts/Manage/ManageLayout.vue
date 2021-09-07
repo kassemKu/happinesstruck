@@ -18,7 +18,10 @@
           <main
             class="
               htm-content
-              py-56
+              pb-20
+              pt-48
+              px-8
+              bg-base-300 bg-opacity-20
               h-screen
               max-h-screen
               overflow-y-auto
@@ -26,14 +29,6 @@
             "
           >
             <slot />
-            <div class="bg-error text-white">
-              <span>is sidebar open: </span>
-              <pre class="font-bold uppercase">{{ isManageSidebarOpen }}</pre>
-            </div>
-            <div class="bg-warning text-white">
-              <span>active theme: </span>
-              <pre class="font-bold uppercase">{{ applyTheme }}</pre>
-            </div>
           </main>
         </div>
       </div>

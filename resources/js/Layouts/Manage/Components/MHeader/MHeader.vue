@@ -36,10 +36,7 @@
       type="button"
       @click.prevent="toggleManageSidebar"
     >
-      <ArrowLeft20 v-if="$i18n.locale !== 'ar' && isSidebarOpen" />
-      <ArrowRight20 v-else-if="$i18n.locale !== 'ar' && !isSidebarOpen" />
-      <ArrowRight20 v-else-if="$i18n.locale === 'ar' && isSidebarOpen" />
-      <ArrowLeft20 v-else />
+      <VueFeather :type="arrowDirection" />
     </button>
     <div class="flex items-center space-x-2 htm-header__user-area">
       <div class="flex">
@@ -193,6 +190,24 @@ export default {
     }
 
     return { themes, setTheme, toggleManageSidebar }
+  },
+
+  computed: {
+    arrowDirection() {
+      if (this.$i18n.locale !== 'ar') {
+        if (!this.isSidebarOpen) {
+          return 'arrow-right'
+        } else {
+          return 'arrow-left'
+        }
+      }
+      if (this.$i18n.locale === 'ar') {
+        if (!this.isSidebarOpen) {
+          return 'arrow-left'
+        }
+      }
+      return 'arrow-right'
+    },
   },
 }
 </script>

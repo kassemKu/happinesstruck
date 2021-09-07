@@ -10,7 +10,7 @@
       bg-base-100
       flex
       items-center
-      shadow-2xl
+      shadow
       transition
       z-0
       px-8

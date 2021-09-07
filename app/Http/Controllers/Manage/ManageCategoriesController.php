@@ -13,7 +13,7 @@ class ManageCategoriesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return  Inertia\Response
      */
     public function index(): Response
     {
@@ -23,11 +23,11 @@ class ManageCategoriesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return  Inertia\Response
      */
     public function create()
     {
-        //
+        return Inertia::render('Manage/Categories/Create');
     }
 
     /**

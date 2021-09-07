@@ -88,6 +88,14 @@
   background: transparent;
 }
 
+input::placeholder,
+textarea::placeholder {
+  @apply font-semibold;
+  @apply tracking-wide;
+  @apply capitalize;
+  @apply text-base-300;
+}
+
 /* 
   === RTL OVERRIDES TAILWIND CSS
  */
