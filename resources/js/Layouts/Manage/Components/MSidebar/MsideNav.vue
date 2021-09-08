@@ -69,6 +69,11 @@
               <Product24 />
             </template>
           </ManageSideNavLink>
+          <ManageSideNavLink :name="$t('suppliers')" :href="'/'">
+            <template #icon>
+              <Collaborate24 />
+            </template>
+          </ManageSideNavLink>
           <ManageSideNavLink :name="$t('orders')" :href="'/'">
             <template #icon>
               <ShoppingCartArrowDown24 />

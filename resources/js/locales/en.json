@@ -49,5 +49,6 @@
   "field": "field",
   "name": "name",
   "description": "description",
-  "field_name_lang": "{field} {name} in {lang}"
+  "field_name_lang": "{field} {name} in {lang}",
+  "suppliers": "suppliers"
 }

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreSectionRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Section;
 
 class ManageSectionsController extends Controller
 {
@@ -33,12 +36,14 @@ class ManageSectionsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Inertia\Response
+     * @param Illuminate\Support\Facades\Request
+     * @return  Illuminate\Support\Facades\Redirect
      */
-    public function store(Request $request)
+    public function store(StoreSectionRequest $request): RedirectResponse
     {
-        //
+        Section::create($request->all());
+
+        return Redirect::route('manage.sections.index');
     }
 
     /**

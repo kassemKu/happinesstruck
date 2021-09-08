@@ -12,7 +12,7 @@
       />
     </template>
     <div class="ht-page htm-page htm-page__sections-create">
-      <div class="htm-manage-section rounded-sm">
+      <div class="htm-manage-section">
         <div class="htm-manage-section-action">
           <ManageForm
             :formTitle="
@@ -39,9 +39,10 @@
                   lang: $t('the_arabic'),
                 })
               "
+              :serverError="$page.props.errors.ar_name"
+              v-model="form.ar_name"
             />
-            <TextField
-              isTextarea
+            <HTextarea
               optional
               name="ar_description"
               :placeholder="
@@ -58,6 +59,8 @@
                   lang: $t('the_arabic'),
                 })
               "
+              :serverError="$page.props.errors.ar_description"
+              v-model="form.ar_description"
             />
             <TextField
               name="en_name"
@@ -75,9 +78,10 @@
                   lang: $t('the_english'),
                 })
               "
+              :serverError="$page.props.errors.en_name"
+              v-model="form.en_name"
             />
-            <TextField
-              isTextarea
+            <HTextarea
               optional
               name="en_description"
               :placeholder="
@@ -94,6 +98,8 @@
                   lang: $t('the_english'),
                 })
               "
+              :serverError="$page.props.errors.en_description"
+              v-model="form.en_description"
             />
           </ManageForm>
         </div>
@@ -107,17 +113,38 @@ import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 import TextField from '@/Shared/UI/TextField'
 import ManageForm from '@/Shared/Layouts/MForm'
+import HTextarea from '@/Shared/UI/HTextarea'
 
-const components = { ManageLayout, Breadcrumb, TextField, ManageForm }
+const components = {
+  ManageLayout,
+  Breadcrumb,
+  TextField,
+  ManageForm,
+  HTextarea,
+}
 
 export default {
   name: 'ManageSectionCreate',
 
   components,
 
+  data() {
+    return {
+      form: this.$inertia.form({
+        ar_name: '',
+        ar_description: '',
+        en_name: '',
+        en_description: '',
+      }),
+    }
+  },
+
+  remember: 'form',
+
   methods: {
     createSection() {
-      console.log('DONE')
+      console.log(this.form)
+      this.form.post(this.route('manage.sections.store'))
     },
   },
 }

@@ -4,6 +4,7 @@
       <Breadcrumb />
     </template>
     <div>
+      <pre>{{ $page }}</pre>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum eius
         ea earum voluptatibus quo soluta nesciunt voluptatum molestias labore.

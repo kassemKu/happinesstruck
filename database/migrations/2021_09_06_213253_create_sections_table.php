@@ -20,7 +20,7 @@ class CreateSectionsTable extends Migration
             $table->text('en_description')->nullable();
             $table->text('ar_description')->nullable();
             $table->tinyInteger('published')->default('1');
-            $table->string('slug', 191);
+            $table->string('slug', 191)->nullable();
             $table->string('image_url')->nullable();
             $table->timestamps();
             $table->softDeletes();

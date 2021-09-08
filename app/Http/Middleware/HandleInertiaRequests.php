@@ -37,7 +37,13 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request)
     {
         return array_merge(parent::share($request), [
-            //
+            'config' => collect(config('app'))->only('name', 'url', 'asset_url', 'locale'),
+            'locale' => [
+                'accounting' => __('accounting'),
+                'app' => __('app'),
+                'inventory' => __('inventory'),
+                'invoicing' => __('invoicing'),
+            ]
         ]);
     }
 }

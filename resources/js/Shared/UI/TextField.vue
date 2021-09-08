@@ -8,40 +8,23 @@
         >(optional)</span
       >
     </label>
-    <textarea
-      v-if="isTextarea"
-      :class="{ 'cursor-not-allowed': disabled }"
-      :type="type"
-      :placeholder="placeholder"
-      :value="value"
-      :name="name"
-      @input="updateValue($event.target.value)"
-      :disabled="disabled"
-      ref="input"
-      class="
-        textarea
-        h-24
-        textarea-bordered
-        border-base-300 border-2
-        bg-transparent
-      "
-    ></textarea>
     <input
-      v-else
       :class="{ 'cursor-not-allowed': disabled }"
       :type="type"
       :placeholder="placeholder"
-      :value="value"
+      :value="modelValue"
       :name="name"
       @input="updateValue($event.target.value)"
       :disabled="disabled"
       ref="input"
       class="input border border-base-300 border-2 bg-transparent"
     />
-    <!-- <label class="label">
-      <a href="#" class="label-text-alt">Forgot username?</a>
-      <a href="#" class="label-text-alt">Are you sure?</a>
-    </label> -->
+    <label class="label">
+      <span v-show="serverError" class="label-text-alt text-error">{{
+        serverError
+      }}</span>
+      <!-- <a href="#" class="label-text-alt">Are you sure?</a> -->
+    </label>
   </div>
 </template>
 
@@ -50,16 +33,11 @@ export default {
   name: 'TextField',
 
   props: {
-    isTextarea: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
     label: {
       type: String,
       default: null,
     },
-    value: {
+    modelValue: {
       type: String || Number || null,
       default: null,
     },
@@ -68,8 +46,9 @@ export default {
       default: 'text',
       validator: (value) => ['text', 'number'].includes(value.toLowerCase()),
     },
-    error: {
+    serverError: {
       type: String,
+      required: false,
       default: null,
     },
     name: {
@@ -92,7 +71,7 @@ export default {
 
   methods: {
     updateValue(value) {
-      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
     },
 
     focus() {

@@ -4,7 +4,9 @@
       <Breadcrumb
         :activeName="$t('categories')"
         activeIcon="grid"
-        actionName="create new category"
+        :actionName="
+          $t('action_model', { model: $t('category'), action: $t('add') })
+        "
         :actionHref="route('manage.categories.create')"
       />
     </template>

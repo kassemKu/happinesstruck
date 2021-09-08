@@ -78,6 +78,7 @@
         v-show="actionHref"
         class="
           btn btn-sm
+          text-sm
           space-x-2
           bg-info
           border-2 border-info

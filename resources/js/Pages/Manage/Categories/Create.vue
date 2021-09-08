@@ -12,10 +12,13 @@
       />
     </template>
     <div class="ht-page htm-page htm-page__categories-create">
-      <div class="htm-manage-section rounded-sm">
+      <div class="htm-manage-section">
         <div class="htm-manage-section-action">
           <ManageForm
             :formTitle="
+              $t('action_model', { action: $t('add'), model: $t('category') })
+            "
+            :btnTitle="
               $t('action_model', { action: $t('add'), model: $t('category') })
             "
           >
@@ -40,12 +43,6 @@
               label="arabic name"
               optional
             />
-
-            <button class="btn btn-block btn-info">
-              {{
-                $t('action_model', { action: $t('add'), model: $t('category') })
-              }}
-            </button>
           </ManageForm>
         </div>
       </div>

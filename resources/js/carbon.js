@@ -24,6 +24,7 @@ import ChevronRight24 from '@carbon/icons-vue/es/chevron--right/24'
 import CircleFilled32 from '@carbon/icons-vue/es/circle--filled/32'
 import Categories24 from '@carbon/icons-vue/es/categories/24'
 import Category24 from '@carbon/icons-vue/es/category/24'
+import Collaborate24 from '@carbon/icons-vue/es/collaborate/24'
 
 export const components = {
   ArrowLeft20,
@@ -52,4 +53,5 @@ export const components = {
   CircleFilled32,
   Categories24,
   Category24,
+  Collaborate24,
 }

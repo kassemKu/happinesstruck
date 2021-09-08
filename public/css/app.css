@@ -3284,9 +3284,6 @@ html {
 .rounded-full {
 	border-radius: 9999px;
 }
-.rounded-sm {
-	border-radius: 0.125rem;
-}
 .rounded-none {
 	border-radius: 0px;
 }
@@ -3744,6 +3741,10 @@ html {
 .text-info {
 	--tw-text-opacity: 1;
 	color: hsla(var(--in) / var(--tw-text-opacity));
+}
+.text-error {
+	--tw-text-opacity: 1;
+	color: hsla(var(--er) / var(--tw-text-opacity));
 }
 .text-warning {
 	--tw-text-opacity: 1;
