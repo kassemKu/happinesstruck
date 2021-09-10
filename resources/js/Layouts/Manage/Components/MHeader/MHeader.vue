@@ -11,8 +11,9 @@
       w-full
       items-center
       justify-between
-      shadow-2xl
+      shadow-md
       transition
+      z-20
     "
     :class="{
       'pr-80': $i18n.locale === 'ar' && isSidebarOpen,
@@ -114,23 +115,7 @@
           ></span>
         </button>
       </div>
-      <button
-        class="
-          mth-header__user-action
-          bg-base-100
-          btn
-          h-16
-          space-x-2
-          btn-ghost
-          rounded-none
-          text-info
-          hover:bg-base-100 hover:text-warning
-        "
-      >
-        <span class="font-bold">{{ $t('full_name') }}</span>
-        <img src="/images/me.png" class="h-10 w-10 mask mask-squircle border" />
-        <ChevronDown16 class="w-5 h-5" />
-      </button>
+      <UserAreaDropdwon />
     </div>
   </div>
 </template>
@@ -138,8 +123,9 @@
 <script>
 import { useStore } from 'vuex'
 import LanguageSwitcher from '@/Shared/Partials/LanguageSwitcher'
+import UserAreaDropdwon from '@/Shared/UI/UserAreaDropdwon.vue'
 
-const components = { LanguageSwitcher }
+const components = { LanguageSwitcher, UserAreaDropdwon }
 
 export default {
   name: 'ManageHeader',

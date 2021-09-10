@@ -5,6 +5,7 @@ use App\Http\Controllers\WebSettingsController;
 use App\Http\Controllers\Manage\ManageCategoriesController;
 use App\Http\Controllers\Manage\ManageDashboardController;
 use App\Http\Controllers\Manage\ManageSectionsController;
+use App\Http\Controllers\Web\WebDashboardController;
 /**
  * TODO:: To write better comment
  */
@@ -27,4 +28,14 @@ Route::name('manage.')
         Route::resource('/sections', ManageSectionsController::class, ['parameters' => ['' => 'section']]);
         // Categories routes
         Route::resource('/categories', ManageCategoriesController::class, ['parameters' => ['' => 'category']]);
+});
+
+Route::name('web.')
+    ->prefix('')
+    ->group(function() {
+        // routes web needed auth
+        Route::middleware(['auth:sanctum', 'verified'])
+            ->group(function() {
+                Route::get('/dashboard', [WebDashboardController::class, 'index'])->name('dashboard');
+        });
 });

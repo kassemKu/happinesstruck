@@ -11,7 +11,7 @@
         activeIcon="pen-tool"
       />
     </template>
-    <div class="ht-page htm-page htm-page__sections-create">
+    <div class="htm-page htm-page__sections-create">
       <div class="htm-manage-section">
         <div class="htm-manage-section-action">
           <ManageForm
@@ -101,6 +101,27 @@
               :serverError="$page.props.errors.en_description"
               v-model="form.en_description"
             />
+            <div class="mb-8">
+              <div class="form-control">
+                <label class="cursor-pointer label justify-start space-x-2">
+                  <input
+                    type="checkbox"
+                    class="checkbox"
+                    v-model="form.published"
+                    :checked="form.published"
+                  />
+                  <span class="label-text text-sm font-semibold capitalize"
+                    >publish</span
+                  >
+                </label>
+              </div>
+              <p
+                class="text-xs text-red-500 font-bold"
+                v-if="form.errors.published"
+              >
+                {{ form.errors.published }}
+              </p>
+            </div>
           </ManageForm>
         </div>
       </div>
@@ -114,6 +135,8 @@ import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 import TextField from '@/Shared/UI/TextField'
 import ManageForm from '@/Shared/Layouts/MForm'
 import HTextarea from '@/Shared/UI/HTextarea'
+// TODO:: to fix emit checkbox
+// import CheckBox from '@/Shared/UI/CheckBox'
 
 const components = {
   ManageLayout,
@@ -121,6 +144,7 @@ const components = {
   TextField,
   ManageForm,
   HTextarea,
+  // CheckBox,
 }
 
 export default {
@@ -131,10 +155,11 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
-        ar_name: '',
-        ar_description: '',
-        en_name: '',
-        en_description: '',
+        ar_name: null,
+        ar_description: null,
+        en_name: null,
+        en_description: null,
+        published: true,
       }),
     }
   },
@@ -143,7 +168,6 @@ export default {
 
   methods: {
     createSection() {
-      console.log(this.form)
       this.form.post(this.route('manage.sections.store'))
     },
   },

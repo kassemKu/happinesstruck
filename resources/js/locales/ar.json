@@ -23,6 +23,8 @@
   "action_model": "{action} {model}",
   "add": "اضافة",
   "update": "تحديث",
+  "edit": "تعديل",
+  "delete": "حذف",
   "light": "فاتح",
   "dark": "داكن",
   "cupcake": "كاب كيك",

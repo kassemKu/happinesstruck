@@ -28,6 +28,9 @@ class StoreSectionRequest extends FormRequest
             'ar_description' => ['nullable','min:6','string'],
             'en_name' => ['required','min:6','max:191','string'],
             'en_description' => ['nullable','min:6','string'],
+            'published' => ['nullable'],
+            'slug' => ['nullable'],
+            'image_url' => ['nullable'],
         ];
     }
 }

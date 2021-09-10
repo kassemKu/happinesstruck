@@ -1452,18 +1452,39 @@ html {
 	color: #111827;
 	font-weight: 600;
 }
-.prose ol {
-	counter-reset: list-counter;
-	margin-top: 1.25em;
-	margin-bottom: 1.25em;
+.prose ol[type="A"] {
+	--list-counter-style: upper-alpha;
+}
+.prose ol[type="a"] {
+	--list-counter-style: lower-alpha;
+}
+.prose ol[type="A" s] {
+	--list-counter-style: upper-alpha;
+}
+.prose ol[type="a" s] {
+	--list-counter-style: lower-alpha;
+}
+.prose ol[type="I"] {
+	--list-counter-style: upper-roman;
+}
+.prose ol[type="i"] {
+	--list-counter-style: lower-roman;
+}
+.prose ol[type="I" s] {
+	--list-counter-style: upper-roman;
+}
+.prose ol[type="i" s] {
+	--list-counter-style: lower-roman;
+}
+.prose ol[type="1"] {
+	--list-counter-style: decimal;
 }
 .prose ol > li {
 	position: relative;
-	counter-increment: list-counter;
 	padding-left: 1.75em;
 }
 .prose ol > li::before {
-	content: counter(list-counter) ".";
+	content: counter(list-item, var(--list-counter-style, decimal)) ".";
 	position: absolute;
 	font-weight: 400;
 	color: #6b7280;
@@ -1583,10 +1604,10 @@ html {
 	line-height: inherit;
 }
 .prose pre code::before {
-	content: "";
+	content: none;
 }
 .prose pre code::after {
-	content: "";
+	content: none;
 }
 .prose table {
 	width: 100%;
@@ -1652,6 +1673,10 @@ html {
 }
 .prose h3 code {
 	font-size: 0.9em;
+}
+.prose ol {
+	margin-top: 1.25em;
+	margin-bottom: 1.25em;
 }
 .prose ul {
 	margin-top: 1.25em;
@@ -1891,6 +1916,7 @@ html {
 .footer {
 	display: grid;
 	place-items: start;
+	width: 100%;
 	grid-auto-flow: row;
 	font-size: .875rem;
 	line-height: 1.25rem;
@@ -2110,6 +2136,16 @@ html {
 	padding-right: var(--tab-padding,1rem);
 	padding-left: var(--tab-padding,1rem);
 }
+.table {
+	position: relative;
+	text-align: right;
+}
+.table th:first-child {
+	position: sticky;
+	position: -webkit-sticky;
+	right: 0;
+	z-index: 10;
+}
 .textarea {
 	flex-shrink: 1;
 	transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
@@ -2296,6 +2332,23 @@ html {
 }
 .btn-info:focus-visible {
 	box-shadow: 0 0 0 2px hsl(var(--b1)),0 0 0 4px hsl(var(--in));
+}
+.btn-error {
+	--tw-bg-opacity: 1;
+	background-color: hsla(var(--er)/var(--tw-bg-opacity,1));
+	--tw-border-opacity: 1;
+	border-color: hsla(var(--er)/var(--tw-border-opacity,1));
+	--tw-text-opacity: 1;
+	color: hsla(var(--b2)/var(--tw-text-opacity,1));
+}
+.btn-error.btn-active,.btn-error:hover {
+	--tw-bg-opacity: 1;
+	background-color: hsla(var(--er)/var(--tw-bg-opacity,1));
+	--tw-border-opacity: 1;
+	border-color: hsla(var(--er)/var(--tw-border-opacity,1));
+}
+.btn-error:focus-visible {
+	box-shadow: 0 0 0 2px hsl(var(--b1)),0 0 0 4px hsl(var(--er));
 }
 .btn.glass.btn-active,.btn.glass:hover {
 	--glass-opacity: 25%;
@@ -2491,6 +2544,9 @@ html {
 }
 .drawer-toggle:focus-visible~.drawer-content .drawer-button.btn-info {
 	box-shadow: 0 0 0 2px hsl(var(--b1)),0 0 0 4px hsl(var(--in));
+}
+.drawer-toggle:focus-visible~.drawer-content .drawer-button.btn-error {
+	box-shadow: 0 0 0 2px hsl(var(--b1)),0 0 0 4px hsl(var(--er));
 }
 .drawer-toggle:focus-visible~.drawer-content .drawer-button.btn-ghost {
 	box-shadow: 0 0 0 2px currentColor;
@@ -2699,9 +2755,43 @@ html {
 .tab:focus-visible {
 	box-shadow: inset 0 0 0 2px currentColor;
 }
+.table td,.table th {
+	padding: 1rem;
+	vertical-align: middle;
+	white-space: nowrap;
+}
 .table tr.active:nth-child(2n) td,.table tr.active:nth-child(2n) th,.table tr.active td,.table tr.active th {
 	--tw-bg-opacity: 1;
 	background-color: hsla(var(--b3)/var(--tw-bg-opacity,1));
+}
+.table tr.hover:hover td,.table tr.hover:hover th,.table tr.hover:nth-child(2n):hover td,.table tr.hover:nth-child(2n):hover th {
+	--tw-bg-opacity: 1;
+	background-color: hsla(var(--b3)/var(--tw-bg-opacity,1));
+}
+.table:not(.table-zebra) tbody tr:not(:last-child) td,.table:not(.table-zebra) tbody tr:not(:last-child) th,.table:not(.table-zebra) tfoot tr:not(:last-child) td,.table:not(.table-zebra) tfoot tr:not(:last-child) th,.table:not(.table-zebra) thead tr:not(:last-child) td,.table:not(.table-zebra) thead tr:not(:last-child) th {
+	--tw-border-opacity: 1;
+	border-color: hsla(var(--b2)/var(--tw-border-opacity,1));
+	border-bottom-width: 1px;
+}
+.table tfoot td,.table tfoot th,.table thead td,.table thead th {
+	--tw-bg-opacity: 1;
+	background-color: hsla(var(--b2)/var(--tw-bg-opacity,1));
+	font-weight: 700;
+	font-size: .75rem;
+	line-height: 1rem;
+	text-transform: uppercase;
+}
+.table tfoot td:first-child,.table tfoot th:first-child,.table thead td:first-child,.table thead th:first-child {
+	border-top-right-radius: .5rem;
+	border-bottom-right-radius: .5rem;
+}
+.table tfoot td:last-child,.table tfoot th:last-child,.table thead td:last-child,.table thead th:last-child {
+	border-top-left-radius: .5rem;
+	border-bottom-left-radius: .5rem;
+}
+.table tbody td,.table tbody th {
+	--tw-bg-opacity: 1;
+	background-color: hsla(var(--b1)/var(--tw-bg-opacity,1));
 }
 .textarea-bordered {
 	--tw-border-opacity: 0.2;
@@ -2788,6 +2878,15 @@ html {
 .artboard.phone {
 	width: 320px;
 }
+.btn-xs {
+	height: 1.5rem;
+	font-size: .75rem;
+	line-height: 1rem;
+	line-height: 1.625;
+	padding-left: .5rem;
+	padding-right: .5rem;
+	min-height: 1.5rem;
+}
 .btn-sm {
 	height: 2rem;
 	font-size: .875rem;
@@ -2799,6 +2898,11 @@ html {
 }
 .btn-block {
 	width: 100%;
+}
+.btn-square.btn-xs {
+	height: 1.5rem;
+	padding: 0;
+	width: 1.5rem;
 }
 .btn-square.btn-sm {
 	height: 2rem;
@@ -2870,6 +2974,9 @@ html {
 }
 .z-40 {
 	z-index: 40;
+}
+.z-20 {
+	z-index: 20;
 }
 .z-10 {
 	z-index: 10;
@@ -2980,6 +3087,9 @@ html {
 .inline-flex {
 	display: inline-flex;
 }
+.table {
+	display: table;
+}
 .grid {
 	display: grid;
 }
@@ -3087,6 +3197,9 @@ html {
 }
 .w-5\/6 {
 	width: 83.333333%;
+}
+.w-56 {
+	width: 14rem;
 }
 .w-screen {
 	width: 100vw;
@@ -3204,6 +3317,9 @@ html {
 .items-center {
 	align-items: center;
 }
+.justify-start {
+	justify-content: flex-start;
+}
 .justify-end {
 	justify-content: flex-end;
 }
@@ -3255,11 +3371,26 @@ html {
 	margin-right: calc(2.5rem * var(--tw-space-x-reverse));
 	margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
+.divide-y > :not([hidden]) ~ :not([hidden]) {
+	--tw-divide-y-reverse: 0;
+	border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+	border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+.divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+	--tw-divide-opacity: 1;
+	border-color: rgba(229, 231, 235, var(--tw-divide-opacity));
+}
 .justify-self-center {
 	justify-self: center;
 }
+.overflow-auto {
+	overflow: auto;
+}
 .overflow-hidden {
 	overflow: hidden;
+}
+.overflow-x-auto {
+	overflow-x: auto;
 }
 .overflow-y-auto {
 	overflow-y: auto;
@@ -3746,6 +3877,10 @@ html {
 	--tw-text-opacity: 1;
 	color: hsla(var(--er) / var(--tw-text-opacity));
 }
+.text-success {
+	--tw-text-opacity: 1;
+	color: hsla(var(--su) / var(--tw-text-opacity));
+}
 .text-warning {
 	--tw-text-opacity: 1;
 	color: hsla(var(--wa) / var(--tw-text-opacity));
@@ -3845,6 +3980,9 @@ html {
 }
 .duration-1000 {
 	transition-duration: 1000ms;
+}
+.duration-100 {
+	transition-duration: 100ms;
 }
 .ease-in-out {
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -3961,8 +4099,49 @@ input::placeholder, textarea::placeholder {
 	--tw-text-opacity: 1;
 	color: hsla(var(--b3) / var(--tw-text-opacity));
 }
-/* 
-  === RTL OVERRIDES TAILWIND CSS
+/*
+  === OVERRIDES DEFAULT STYLE
+*/
+.table tfoot td,
+.table tfoot th,
+.table thead td,
+.table thead th {
+  --tw-bg-opacity: 0.4;
+  background-color: hsla(var(--b3) / var(--tw-bg-opacity, 1));
+  font-size: 0.8rem;
+}
+.table tfoot td:first-child,
+.table tfoot th:first-child,
+.table thead td:first-child,
+.table thead th:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.table tfoot td:last-child,
+.table tfoot th:last-child,
+.table thead td:last-child,
+.table thead th:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.table:not(.table-zebra) tbody tr:not(:last-child) td,
+.table:not(.table-zebra) tbody tr:not(:last-child) th,
+.table:not(.table-zebra) tfoot tr:not(:last-child) td,
+.table:not(.table-zebra) tfoot tr:not(:last-child) th,
+.table:not(.table-zebra) thead tr:not(:last-child) td,
+.table:not(.table-zebra) thead tr:not(:last-child) th {
+  --tw-border-opacity: 0.3;
+  border-color: hsla(var(--b3) / var(--tw-border-opacity, 1));
+  border-bottom-width: 1px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.table:not(.table-zebra) tbody tr td, .table:not(.table-zebra) tbody tr th, .table:not(.table-zebra) tfoot tr td, .table:not(.table-zebra) tfoot tr th, .table:not(.table-zebra) thead tr td, .table:not(.table-zebra) thead tr th {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+/*
+  === RTL OVERRIDES TAILWIND CSS ===
  */
 body[dir='rtl'] {
 	font-family: bein-normal, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -4013,13 +4192,13 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
 .hover\:bg-transparent:hover {
 	background-color: transparent;
 }
-.hover\:bg-info:hover {
-	--tw-bg-opacity: 1;
-	background-color: hsla(var(--in) / var(--tw-bg-opacity));
-}
 .hover\:bg-base-100:hover {
 	--tw-bg-opacity: 1;
 	background-color: hsla(var(--b1) / var(--tw-bg-opacity));
+}
+.hover\:bg-info:hover {
+	--tw-bg-opacity: 1;
+	background-color: hsla(var(--in) / var(--tw-bg-opacity));
 }
 .hover\:bg-opacity-20:hover {
 	--tw-bg-opacity: 0.2;

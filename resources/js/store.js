@@ -5,10 +5,12 @@ export const store = new Vuex.Store({
   state: {
     applyTheme: Cookies.get('theme') || 'light',
     isManageSidebarOpen: Cookies.get('isManageSidebarOpen') === 'true',
+    isModelOpen: false,
   },
   getters: {
     isManageSidebarOpen: (state) => state.isManageSidebarOpen,
     applyTheme: (state) => state.applyTheme,
+    isModelOpen: (state) => state.isModelOpen,
   },
   mutations: {
     // manage sidebar
@@ -22,6 +24,13 @@ export const store = new Vuex.Store({
       Cookies.set('theme', theme)
       const htmlTag = document.querySelector('html')
       htmlTag.setAttribute('data-theme', theme)
+    },
+    // toggle model
+    closeModel(state) {
+      state.isModelOpen = false
+    },
+    openModel(state) {
+      state.isModelOpen = true
     },
   },
   actions: {},

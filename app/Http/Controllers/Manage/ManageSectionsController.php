@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreSectionRequest;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Section;
+use App\Http\Requests\StoreSectionRequest;
+use App\Http\Requests\UpdateSectionRequest;
 
 class ManageSectionsController extends Controller
 {
@@ -20,7 +20,18 @@ class ManageSectionsController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('Manage/Sections/Index');
+        $sections = Section::paginate(10)
+            ->transform(function($section) {
+                return [
+                    'id' => $section->id,
+                    'ar_name' => $section->ar_name,
+                    'en_name' => $section->en_name,
+                    'created_at' => $section->created_at->diffForHumans(),
+                    'published' => $section->published,
+                ];
+        });
+
+        return Inertia::render('Manage/Sections/Index', ['sections' => $sections]);
     }
 
     /**
@@ -36,8 +47,8 @@ class ManageSectionsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Illuminate\Support\Facades\Request
-     * @return  Illuminate\Support\Facades\Redirect
+     * @param  App\Http\Requests\StoreSectionRequest $request
+     * @return Illuminate\Http\RedirectResponse
      */
     public function store(StoreSectionRequest $request): RedirectResponse
     {
@@ -49,45 +60,56 @@ class ManageSectionsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  obj  $section
      * @return \Inertia\Response
      */
-    public function show($id)
+    public function show(Section $section): Response
     {
-        //
+        return Inertia::render('Manage/Sections/Show', ['section' => $section]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  obj  $section
+     * @param App\Http\Requests\UpdateSectionRequest $request
      * @return \Inertia\Response
      */
-    public function edit($id)
+    public function edit(Section $section): Response
     {
-        //
+        return Inertia::render('Manage/Sections/Edit', ['section' => $section]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  obj  $section
+     *@param Illuminate\Support\Facades\Request
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSectionRequest $request, Section $section): RedirectResponse
     {
-        //
+        $section->update([
+            'ar_name' => $request->ar_name,
+            'ar_description' => $request->ar_description,
+            'en_name' => $request->en_name,
+            'en_description' => $request->en_description,
+            'published' => $request->published
+        ]);
+
+        return Redirect::route('manage.sections.show', $section->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  obj  $section
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Section $section): RedirectResponse
     {
-        //
+        $section->delete();
+
+        return Redirect::route('manage.sections.index');
     }
 }

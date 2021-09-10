@@ -22,6 +22,8 @@
   "action_model": "{action} {model}",
   "add": "add",
   "update": "update",
+  "edit": "edit",
+  "delete": "delete",
   "pages": "pages",
   "light": "light",
   "dark": "dark",

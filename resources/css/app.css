@@ -96,10 +96,57 @@ textarea::placeholder {
   @apply text-base-300;
 }
 
-/* 
-  === RTL OVERRIDES TAILWIND CSS
- */
+/*
+  === OVERRIDES DEFAULT STYLE
+*/
+.table tfoot td,
+.table tfoot th,
+.table thead td,
+.table thead th {
+  --tw-bg-opacity: 0.4;
+  background-color: hsla(var(--b3) / var(--tw-bg-opacity, 1));
+  font-size: 0.8rem;
+}
+.table tfoot td:first-child,
+.table tfoot th:first-child,
+.table thead td:first-child,
+.table thead th:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
 
+.table tfoot td:last-child,
+.table tfoot th:last-child,
+.table thead td:last-child,
+.table thead th:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.table:not(.table-zebra) tbody tr:not(:last-child) td,
+.table:not(.table-zebra) tbody tr:not(:last-child) th,
+.table:not(.table-zebra) tfoot tr:not(:last-child) td,
+.table:not(.table-zebra) tfoot tr:not(:last-child) th,
+.table:not(.table-zebra) thead tr:not(:last-child) td,
+.table:not(.table-zebra) thead tr:not(:last-child) th {
+  --tw-border-opacity: 0.3;
+  border-color: hsla(var(--b3) / var(--tw-border-opacity, 1));
+  border-bottom-width: 1px;
+  @apply text-sm;
+}
+
+.table:not(.table-zebra) tbody tr td,
+.table:not(.table-zebra) tbody tr th,
+.table:not(.table-zebra) tfoot tr td,
+.table:not(.table-zebra) tfoot tr th,
+.table:not(.table-zebra) thead tr td,
+.table:not(.table-zebra) thead tr th {
+  @apply text-sm;
+}
+
+/*
+  === RTL OVERRIDES TAILWIND CSS ===
+ */
 body[dir='rtl'] {
   @apply font-body-arabic;
 }
