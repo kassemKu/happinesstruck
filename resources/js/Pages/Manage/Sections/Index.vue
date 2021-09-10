@@ -30,7 +30,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="section in sections" :key="section.id">
+                <tr v-if="sections.length == 0">
+                  <td class="w-full uppercase font-semibold">
+                    no data to view yet!
+                  </td>
+                </tr>
+                <tr v-else v-for="section in sections" :key="section.id">
                   <td>
                     <label>
                       <input type="checkbox" class="checkbox" />
