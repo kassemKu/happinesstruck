@@ -11,8 +11,10 @@
       />
     </template>
     <div class="htm-page htm-page__sections-index">
-      <div class="htm-table-container">
-        <div class="htm-searsh-filter"></div>
+      <div class="htm-table-container flex flex-col space-y-8">
+        <div class="htm-searsh-filter">
+          <SearchFilter />
+        </div>
         <div class="htm-table">
           <div class="overflow-x-auto ht-scrollbar">
             <table class="table w-full">
@@ -31,9 +33,7 @@
               </thead>
               <tbody>
                 <tr v-if="sections.length == 0">
-                  <td class="w-full uppercase font-semibold">
-                    no data to view yet!
-                  </td>
+                  no data to view yet!
                 </tr>
                 <tr v-else v-for="section in sections" :key="section.id">
                   <td>
@@ -85,8 +85,10 @@
                         aria-expanded="false"
                       />
                     </Link>
+                    <span v-if="section.deleted_at">trashed</span>
                     <button
                       class="btn btn-xs btn-ghost hover:bg-transparent group"
+                      v-else
                       @click="openModel(section)"
                     >
                       <VueFeather
@@ -127,7 +129,11 @@
     modalType="error"
   >
     <template #title>
-      {{ $i18n.locale === 'ar' ? form.section.ar_name : form.section.en_name }}
+      {{
+        $i18n.locale === 'ar'
+          ? sectionToDelete.ar_name
+          : sectionToDelete.en_name
+      }}
     </template>
 
     <template #content>
@@ -155,42 +161,72 @@ import { Link } from '@inertiajs/inertia-vue3'
 import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 import DialogModal from '@/Shared/UI/DialogModal'
+import SearchFilter from '@/Shared/UI/SearchFilter'
 
-const components = { Link, ManageLayout, Breadcrumb, DialogModal }
+import pickBy from 'lodash/pickBy'
+import throttle from 'lodash/throttle'
+import mapValues from 'lodash/mapValues'
+
+const components = { Link, ManageLayout, Breadcrumb, DialogModal, SearchFilter }
 
 export default {
   name: 'ManageSectionsIndex',
 
   components,
 
+  props: {
+    sections: Array,
+    filters: Object,
+  },
+
   data() {
     return {
       confirmDeleteSection: false,
+      sectionToDelete: {},
       form: this.$inertia.form({
-        section: {},
+        search: this.filters.search,
+        trashed: this.filters.trashed,
       }),
     }
   },
 
-  props: {
-    sections: Array,
+  watch: {
+    form: {
+      deep: true,
+      handler: throttle(function () {
+        this.$inertia.get(
+          this.route('manage.sections.index'),
+          pickBy(this.form),
+          {
+            preserveState: true,
+          },
+        )
+      }, 150),
+    },
   },
+
   methods: {
     openModel(section) {
-      this.form.section = section
+      this.sectionToDelete = section
       this.confirmDeleteSection = true
     },
     closeModal() {
-      this.form.section = {}
+      this.sectionToDelete = {}
       this.confirmDeleteSection = false
     },
     deleteSection() {
-      this.form.delete(route('manage.sections.destroy', this.form.section), {
-        preserveScroll: true,
-        onSuccess: () => this.closeModal(),
-        onError: () => console.log('do smomthing on error'),
-        onFinish: () => console.log('do smomthing on finish'),
-      })
+      this.$inertia.delete(
+        route('manage.sections.destroy', { section: this.sectionToDelete }),
+        {
+          preserveScroll: true,
+          onSuccess: () => this.closeModal(),
+          onError: () => console.log('do smomthing on error'),
+          onFinish: () => console.log('do smomthing on finish'),
+        },
+      )
+    },
+    reset() {
+      this.form = mapValues(this.form.search, () => null)
     },
   },
 }

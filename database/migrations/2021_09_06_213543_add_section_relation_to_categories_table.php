@@ -15,6 +15,7 @@ class AddSectionRelationToCategoriesTable extends Migration
     {
         Schema::table('categories', function (Blueprint $table) {
             $table->foreignId('section_id')
+                ->nullable()
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

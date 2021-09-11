@@ -10,6 +10,7 @@ use Inertia\Response;
 use App\Models\Section;
 use App\Http\Requests\StoreSectionRequest;
 use App\Http\Requests\UpdateSectionRequest;
+use Illuminate\Support\Facades\Request;
 
 class ManageSectionsController extends Controller
 {
@@ -20,18 +21,21 @@ class ManageSectionsController extends Controller
      */
     public function index(): Response
     {
+        $filters = Request::all('search', 'trashed');
         $sections = Section::paginate(10)
+            // ->filter(Request::only('search', 'trashed'))
             ->transform(function($section) {
                 return [
                     'id' => $section->id,
                     'ar_name' => $section->ar_name,
                     'en_name' => $section->en_name,
                     'created_at' => $section->created_at->diffForHumans(),
+                    'deleted_at' => $section->deleted_at,
                     'published' => $section->published,
                 ];
         });
 
-        return Inertia::render('Manage/Sections/Index', ['sections' => $sections]);
+        return Inertia::render('Manage/Sections/Index', ['sections' => $sections, 'filters' => $filters,]);
     }
 
     /**
@@ -72,7 +76,6 @@ class ManageSectionsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  obj  $section
-     * @param App\Http\Requests\UpdateSectionRequest $request
      * @return \Inertia\Response
      */
     public function edit(Section $section): Response
@@ -84,7 +87,7 @@ class ManageSectionsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  obj  $section
-     *@param Illuminate\Support\Facades\Request
+     * @param App\Http\Requests\UpdateSectionRequest $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function update(UpdateSectionRequest $request, Section $section): RedirectResponse

@@ -23,6 +23,12 @@ services:
       - sail
     depends_on:
       - pgsql
+  meilisearch:
+    image: getmeili/meilisearch
+    environment:
+      MEILI_MASTER_KEY: 'masterKey'
+    ports:
+      - 7700:7700
   pgsql:
     image: 'postgres:13'
     ports:

@@ -26,6 +26,7 @@ Route::name('web.')
  */
 Route::name('manage.')
     ->prefix('manage')
+    ->middleware(['auth:sanctum', 'verified', 'role:superadministrator|administrator'])
     ->group(function () {
         // app settings TODO
         Route::post('/settings/{locale}', [WebSettingsController::class, 'switchLanguage'])->name('languageSwitcher');
