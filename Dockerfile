@@ -6,7 +6,7 @@ RUN set -ex \
     	&& apk --no-cache add postgresql-dev nodejs yarn npm\
     	&& docker-php-ext-install pdo pdo_pgsql
 
-WORKDIR /var/www/html
+# WORKDIR /var/www/html
 
 RUN apk add shadow && usermod -u 1000 www-data && groupmod -g 1000 www-data
 
