@@ -15,7 +15,7 @@
             hover:bg-base-100 hover:text-warning
           "
         >
-          <span class="font-bold">{{ $t('full_name') }}</span>
+          <span class="font-bold">{{ $page.props.user.full_name }}</span>
           <img
             src="/images/me.png"
             class="h-10 w-10 mask mask-squircle border"
@@ -123,13 +123,14 @@
                   active ? 'bg-info text-white' : 'text-gray-900',
                   'group flex rounded-md items-center w-full px-2 py-2 text-sm',
                 ]"
+                @click="logout"
               >
                 <!-- <DeleteIcon
                   :active="active"
                   class="w-5 h-5 mr-2 text-info"
                   aria-hidden="true"
                 /> -->
-                Delete
+                logout
               </button>
             </MenuItem>
           </div>
@@ -148,5 +149,11 @@ export default {
   name: 'UserAreaDropdown',
 
   components,
+
+  methods: {
+    logout() {
+      this.$inertia.post(route('logout'))
+    },
+  },
 }
 </script>

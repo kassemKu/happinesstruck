@@ -3263,10 +3263,6 @@ html {
 	--tw-translate-y: 0px;
 	transform: var(--tw-transform);
 }
-.rotate-90 {
-	--tw-rotate: 90deg;
-	transform: var(--tw-transform);
-}
 .scale-95 {
 	--tw-scale-x: .95;
 	--tw-scale-y: .95;

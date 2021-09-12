@@ -159,7 +159,7 @@
                       <img
                         class="h-8 w-8 rounded-full object-cover"
                         :src="$page.props.user.profile_photo_url"
-                        :alt="$page.props.user.name"
+                        :alt="$page.props.user.full_name"
                       />
                     </button>
 
@@ -183,7 +183,7 @@
                           transition
                         "
                       >
-                        {{ $page.props.user.name }}
+                        {{ $page.props.user.full_name }}
 
                         <svg
                           class="ml-2 -mr-0.5 h-4 w-4"
@@ -305,13 +305,13 @@
                 <img
                   class="h-10 w-10 rounded-full object-cover"
                   :src="$page.props.user.profile_photo_url"
-                  :alt="$page.props.user.name"
+                  :alt="$page.props.user.full_name"
                 />
               </div>
 
               <div>
                 <div class="font-medium text-base text-gray-800">
-                  {{ $page.props.user.name }}
+                  {{ $page.props.user.full_name }}
                 </div>
                 <div class="font-medium text-sm text-gray-500">
                   {{ $page.props.user.email }}
@@ -390,6 +390,7 @@
                           <path
                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                           ></path>
+                          JetDropdown JetDropdown JetDropdown
                         </svg>
                         <div>{{ team.name }}</div>
                       </div>
