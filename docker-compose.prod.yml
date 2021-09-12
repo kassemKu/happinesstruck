@@ -32,7 +32,7 @@ services:
   pgsql:
     image: 'postgres:13'
     ports:
-      - '${FORWARD_DB_PORT:-5433}:5432'
+      - '${FORWARD_DB_PORT:-5436}:5432'
     environment:
       PGPASSWORD: '${DB_PASSWORD:-secret}'
       POSTGRES_DB: '${DB_DATABASE}'
