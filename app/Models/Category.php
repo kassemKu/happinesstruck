@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
 use App\Models\Product;
+use Facade\Ignition\QueryRecorder\Query;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Category extends Model
 {
@@ -39,24 +42,30 @@ class Category extends Model
     ];
 
 
-    protected function serializeDate(DateTimeInterface $date)
+    protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');
     }
 
     // published category scope
-    public function scopePublished($query)
+    public function scopePublished($query): Query
     {
         return $query->where('publish', '=', 1);
     }
 
     // relation to category
-    public function products()
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
 
-    public function scopeFilter($query, array $filters)
+    // morph relation
+    public function media(): MorphMany
+    {
+        return $this->morphMany(Media::class, 'model');
+    }
+
+    public function scopeFilter($query, array $filters): void
     {
         $query->when($filters['search'] ?? null, function($query, $search) {
             $query->where(function ($query) use ($search) {

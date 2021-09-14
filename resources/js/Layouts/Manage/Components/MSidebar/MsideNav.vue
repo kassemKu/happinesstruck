@@ -64,7 +64,11 @@
               <Categories24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink :name="$t('products')" :href="'/'">
+          <ManageSideNavLink
+            :name="$t('products')"
+            :href="route('manage.products.index')"
+            :active="$page.url.includes('manage/products')"
+          >
             <template #icon>
               <Product24 />
             </template>

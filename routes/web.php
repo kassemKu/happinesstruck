@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebSettingsController;
-use App\Http\Controllers\Manage\ManageCategoriesController;
-use App\Http\Controllers\Manage\ManageDashboardController;
-use App\Http\Controllers\Manage\ManageSectionsController;
 use App\Http\Controllers\Web\WebDashboardController;
 use App\Http\Controllers\Web\LandingPageController;
+use App\Http\Controllers\Manage\ManageDashboardController;
+use App\Http\Controllers\Manage\ManageSectionsController;
+use App\Http\Controllers\Manage\ManageCategoriesController;
+use App\Http\Controllers\Manage\ManageMediaController;
+use App\Http\Controllers\Manage\ManageProductsController;
 /**
  * TODO:: To write better comment
  */
@@ -35,4 +37,8 @@ Route::name('manage.')
         Route::resource('/sections', ManageSectionsController::class, ['parameters' => ['' => 'section']]);
         // Categories routes
         Route::resource('/categories', ManageCategoriesController::class, ['parameters' => ['' => 'category']]);
+        // Products routes
+        Route::resource('/products', ManageProductsController::class, ['parameters' => ['' => 'product']]);
+        // Media routes
+        Route::resource('/media', ManageMediaController::class, ['parameters' => ['' => 'media']]);
 });

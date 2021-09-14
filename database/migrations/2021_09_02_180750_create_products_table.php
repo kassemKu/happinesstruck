@@ -17,12 +17,19 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('ar_name', 191);
             $table->string('en_name', 191);
-            $table->string('price', 24);
+            $table->string('slug', 200)->unique();
+            $table->decimal('price');
+            $table->decimal('sale_price')->nullable();
             $table->longText('ar_description')->nullable();
             $table->longText('en_description')->nullable();
+            $table->text('ar_short_description')->nullable();
+            $table->text('en_short_description')->nullable();
+            $table->string('SKU', 200);
+            $table->enum('stock_status', ['in_stock', 'out_stock', 'low_in_stock']);
+            $table->boolean('featured')->default(false);
+            $table->unsignedInteger('quantity')->default(10);
             $table->integer('review')->nullable();
             $table->tinyInteger('published')->default('1');
-            $table->string('slug', 200);
 
             $table->foreignId('category_id')
                 ->constrained()

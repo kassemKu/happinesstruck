@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Section extends Model
 {
@@ -55,6 +56,12 @@ class Section extends Model
     public function categories()
     {
         return $this->hasMany(Category::class);
+    }
+
+    // morph relation
+    public function media(): MorphMany
+    {
+        return $this->morphMany(Media::class, 'model');
     }
 
     public function scopeFilter($query, array $filters)
