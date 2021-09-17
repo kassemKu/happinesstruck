@@ -80,8 +80,9 @@ class ManageProductsController extends Controller
             'category_id' => 1,
         ]);
 
+
         if(!empty($request->mediaIds)) {
-            Media::find($request->mediaIds)->each->update([
+            Media::whereIn('id', $request->mediaIds)->update([
                 'model_id' => $product->id,
                 'model_type' => Product::class
             ]);
@@ -102,8 +103,8 @@ class ManageProductsController extends Controller
             'id' => $product->id,
             'ar_name' => $product->ar_name,
             'en_name' => $product->en_name,
-            'media' => $product->media()->get(),
-        ]]);
+            'media' => $product->media()->get()->map->only('id', 'directory_name', 'filename'),
+         ]]);
     }
 
     /**

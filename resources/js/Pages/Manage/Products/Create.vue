@@ -431,6 +431,7 @@ export default {
     },
     createProduct() {
       this.form.mediaIds = this.images.map((img) => img.id)
+      console.log(this.form.mediaIds)
       this.form.post(this.route('manage.products.store'), {
         preserverStae: true,
         onStart: () => console.log('Do Something on start'),

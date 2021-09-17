@@ -49,9 +49,6 @@ class ManageMediaController extends Controller
             'size' => $file->getSize(),
             'directory_name' => $request->directory_name,
             'user_id' => $request->user()->id,
-            'category_id' => $request->category_id,
-            'section_id' => $request->section_id,
-            'product_id' => $request->product_id
         ]);
 
         return response()->json([
