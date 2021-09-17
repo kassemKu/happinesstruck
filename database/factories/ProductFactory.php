@@ -24,17 +24,20 @@ class ProductFactory extends Factory
     {
         $product_en_name = $this->faker->unique()->words($nb = 2, $asText = true);
         $product_ar_name = $this->faker->unique()->words($nb = 2, $asText = true);
-        $slug = Str::slug($product_en_name);
+        $ar_slug = Str::slug($product_ar_name);
+        $en_slug = Str::slug($product_en_name);
 
         return [
             'ar_name'     => $product_ar_name,
             'en_name' => $product_en_name,
-            'slug' => $slug,
+            'ar_slug' => $ar_slug,
+            'en_slug' => $en_slug,
             'ar_short_description' => $this->faker->text(200),
             'ar_description' => $this->faker->text(200),
             'en_short_description' => $this->faker->text(200),
             'en_description' => $this->faker->text(200),
             'price' => $this->faker->numberBetween(1, 200),
+            'sale_price' => $this->faker->numberBetween(1, 200),
             'SKU' => 'DIGI' . $this->faker->numberBetween(100, 500),
             'stock_status' => 'in_stock',
             'quantity' => $this->faker->numberBetween(10, 500),

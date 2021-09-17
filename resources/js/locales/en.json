@@ -9,6 +9,7 @@
   "customers": "customers",
   "model_management": "{model} management",
   "products": "products",
+  "product": "product",
   "orders": "orders",
   "warehouses": "warehouses",
   "packages": "packages",
@@ -51,6 +52,7 @@
   "field": "field",
   "name": "name",
   "description": "description",
+  "short_description": "short description",
   "field_name_lang": "{field} {name} in {lang}",
   "suppliers": "suppliers"
 }

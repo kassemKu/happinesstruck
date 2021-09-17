@@ -28,7 +28,7 @@
         h-full
         space-x-2
         flex-col
-        text-gray-500
+        text-gray-400
         hover:bg-transparent hover:text-info
       "
       @click="browse"

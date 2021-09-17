@@ -1432,6 +1432,39 @@ html {
 	--wa: 36 100% 50%;
 	--er: 14 100% 57.1%;
 }
+.container {
+	width: 100%;
+}
+@media (min-width: 640px) {
+
+	.container {
+		max-width: 640px;
+	}
+}
+@media (min-width: 768px) {
+
+	.container {
+		max-width: 768px;
+	}
+}
+@media (min-width: 1024px) {
+
+	.container {
+		max-width: 1024px;
+	}
+}
+@media (min-width: 1280px) {
+
+	.container {
+		max-width: 1280px;
+	}
+}
+@media (min-width: 1536px) {
+
+	.container {
+		max-width: 1536px;
+	}
+}
 .prose {
 	color: #374151;
 	max-width: 65ch;
@@ -1736,6 +1769,36 @@ html {
 .prose > :last-child {
 	margin-bottom: 0;
 }
+.alert>:not([hidden])~:not([hidden]) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(0.5rem*(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(0.5rem*var(--tw-space-y-reverse));
+}
+.alert {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	--tw-bg-opacity: 1;
+	background-color: hsla(var(--b2)/var(--tw-bg-opacity,1));
+	padding: 1rem;
+	border-radius: var(--rounded-box,1rem);
+}
+@media (min-width:768px) {
+
+	.alert>:not([hidden])~:not([hidden]) {
+		--tw-space-y-reverse: 0;
+		margin-top: calc(0px*(1 - var(--tw-space-y-reverse)));
+		margin-bottom: calc(0px*var(--tw-space-y-reverse));
+	}
+
+	.alert {
+		flex-direction: row;
+	}
+}
+.alert>* {
+	display: flex;
+}
 .avatar.placeholder>div {
 	display: flex;
 	align-items: center;
@@ -1839,6 +1902,10 @@ html {
 	to {
 		transform: rotate(-1turn);
 	}
+}
+.btn-group {
+	display: flex;
+	flex-wrap: wrap;
 }
 .btn-group>input[type=radio].btn {
 	-webkit-appearance: none;
@@ -3006,6 +3073,9 @@ html {
 .z-10 {
 	z-index: 10;
 }
+.z-30 {
+	z-index: 30;
+}
 .col-span-6 {
 	grid-column: span 6 / span 6;
 }
@@ -3082,6 +3152,15 @@ html {
 .mb-4 {
 	margin-bottom: 1rem;
 }
+.mb-5 {
+	margin-bottom: 1.25rem;
+}
+.mb-0 {
+	margin-bottom: 0px;
+}
+.ml-auto {
+	margin-left: auto;
+}
 .-mt-px {
 	margin-top: -1px;
 }
@@ -3103,8 +3182,14 @@ html {
 .mb-2 {
 	margin-bottom: 0.5rem;
 }
-.-mt-4 {
-	margin-top: -1rem;
+.ml-0 {
+	margin-left: 0px;
+}
+.mr-4 {
+	margin-right: 1rem;
+}
+.mr-0 {
+	margin-right: 0px;
 }
 .mt-24 {
 	margin-top: 6rem;
@@ -3247,6 +3332,12 @@ html {
 .w-2 {
 	width: 0.5rem;
 }
+.w-80 {
+	width: 20rem;
+}
+.w-32 {
+	width: 8rem;
+}
 .min-w-0 {
 	min-width: 0px;
 }
@@ -3356,9 +3447,6 @@ html {
 .items-center {
 	align-items: center;
 }
-.items-stretch {
-	align-items: stretch;
-}
 .justify-start {
 	justify-content: flex-start;
 }
@@ -3382,6 +3470,10 @@ html {
 }
 .gap-y-8 {
 	row-gap: 2rem;
+}
+.gap-x-10 {
+	-moz-column-gap: 2.5rem;
+	     column-gap: 2.5rem;
 }
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
 	--tw-space-x-reverse: 0;
@@ -3413,15 +3505,15 @@ html {
 	margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(2rem * var(--tw-space-y-reverse));
 }
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-	--tw-space-x-reverse: 0;
-	margin-right: calc(1rem * var(--tw-space-x-reverse));
-	margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
-}
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
 	--tw-space-y-reverse: 0;
 	margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+	--tw-space-x-reverse: 0;
+	margin-right: calc(1rem * var(--tw-space-x-reverse));
+	margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .space-x-10 > :not([hidden]) ~ :not([hidden]) {
 	--tw-space-x-reverse: 0;
@@ -3439,9 +3531,6 @@ html {
 }
 .self-end {
 	align-self: flex-end;
-}
-.justify-self-end {
-	justify-self: end;
 }
 .justify-self-center {
 	justify-self: center;
@@ -3769,6 +3858,9 @@ html {
 }
 .pb-1 {
 	padding-bottom: 0.25rem;
+}
+.pt-0 {
+	padding-top: 0px;
 }
 .pt-8 {
 	padding-top: 2rem;
@@ -4219,6 +4311,9 @@ input::placeholder, textarea::placeholder {
 .table:not(.table-zebra) tbody tr td, .table:not(.table-zebra) tbody tr th, .table:not(.table-zebra) tfoot tr td, .table:not(.table-zebra) tfoot tr th, .table:not(.table-zebra) thead tr td, .table:not(.table-zebra) thead tr th {
 	font-size: 0.875rem;
 	line-height: 1.25rem;
+}
+.label-text {
+  font-size: 0.9rem;
 }
 /*
   === RTL OVERRIDES TAILWIND CSS ===

@@ -9,6 +9,7 @@
   "customers": "العملاء",
   "model_management": "إدارة {model}",
   "products": "المنتجات",
+  "product": "المنتج",
   "orders": "الطلبات",
   "warehouses": "المستودعات",
   "packages": "الحزم",
@@ -51,6 +52,7 @@
   "field": "الحقل",
   "name": "اسم",
   "description": "وصف",
-  "field_name_lang": " {name} {field} {lang}",
+  "short_description": "وصف قصير",
+  "field_name_lang": " {name} {field} ب{lang}",
   "suppliers": "الموردين"
 }

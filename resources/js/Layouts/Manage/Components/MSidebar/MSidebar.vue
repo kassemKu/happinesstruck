@@ -1,6 +1,7 @@
 <template>
   <div
     class="htm-sidebar flex flex-col bg-base-300 bg-opacity-40 text-gray-500"
+    :class="isSidebarOpen ? ' w-72' : 'w-28'"
   >
     <div class="htm-logo-container">
       <Link
@@ -19,9 +20,9 @@
           text-lg
           flex flex-col
           tracking-wider
-          z-10
           transition
           hover:bg-base-100 hover:text-info
+          z-30
         "
         :class="isSidebarOpen ? ' w-72' : 'w-28'"
       >

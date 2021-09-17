@@ -1,5 +1,5 @@
 <template>
-  <div class="form-control mb-8">
+  <div class="form-control mb-4">
     <label class="label">
       <span class="label-text capitalize font-semibold">{{ label }}</span>
       <span
@@ -7,6 +7,12 @@
         class="label-text-alt text-xs uppercase font-bold text-green-500"
         >(optional)</span
       >
+      <button
+        v-if="labelTopHelper"
+        class="label-text-alt text-xs uppercase font-bold text-info"
+      >
+        {{ labelTopHelper }}
+      </button>
     </label>
     <input
       :class="{ 'cursor-not-allowed': disabled }"
@@ -66,6 +72,11 @@ export default {
     optional: {
       type: Boolean,
       default: false,
+    },
+    labelTopHelper: {
+      type: String,
+      default: null,
+      required: false,
     },
   },
 

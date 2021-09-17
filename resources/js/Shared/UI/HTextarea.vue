@@ -1,5 +1,5 @@
 <template>
-  <div class="form-control mb-8">
+  <div class="form-control mb-4">
     <label class="label">
       <span class="label-text capitalize font-semibold">{{ label }}</span>
       <span

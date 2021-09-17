@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
+use App\Models\Media;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Str;
 use App\Models\Product;
 
 class ManageProductsController extends Controller
@@ -35,25 +38,72 @@ class ManageProductsController extends Controller
     }
 
     /**
+     * TODO:: TO Implements this function as setModelAttribute function in Model
+     * @param $quantity int
+     * @returned string('in_stock', 'out_stock', 'low_in_stock')
+     */
+    private function getStockStatus($quantity) {
+        if((int)$quantity <= 0) {
+            return 'out_stock';
+        } elseif((int)$quantity <= 10 ) {
+            return 'low_in_stock';
+        }
+
+        return 'in_stock';
+    }
+    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Inertia\Response
+     * @param  App\Http\Requests\StoreProductRequest $request
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request): RedirectResponse
     {
-        //
+        $product = Product::create([
+            'ar_name' => $request->ar_name,
+            'ar_short_description' => $request->ar_short_description,
+            'ar_description' => $request->ar_description,
+            'en_name' => $request->en_name,
+            'en_short_description' => $request->en_short_description,
+            'en_description' => $request->en_description,
+            'en_slug' => Str::slug($request->en_name),
+            'ar_slug' => Str::slug($request->ar_name),
+            'published' => $request->published,
+            'price' => $request->price,
+            'sale_price' => $request->sale_price,
+            'supplier_percent_discount' => $request->supplier_percent_discount,
+            'SKU' => $request->SKU,
+            'stock_status' => $this->getStockStatus($request->quantity),
+            'featured' => $request->featured,
+            'quantity' => $request->quantity,
+            'review' => $request->review,
+            'category_id' => 1,
+        ]);
+
+        if(!empty($request->mediaIds)) {
+            Media::find($request->mediaIds)->each->update([
+                'model_id' => $product->id,
+                'model_type' => Product::class
+            ]);
+        }
+
+        return Redirect::route('manage.products.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  obj  Product $product
      * @return \Inertia\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        return Inertia::render('Manage/Products/Show', ['product' => [
+            'id' => $product->id,
+            'ar_name' => $product->ar_name,
+            'en_name' => $product->en_name,
+            'media' => $product->media()->get(),
+        ]]);
     }
 
     /**

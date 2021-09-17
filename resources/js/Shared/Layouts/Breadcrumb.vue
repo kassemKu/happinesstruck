@@ -5,6 +5,7 @@
       ht-base-transition
       fixed
       inset-0
+      z-20
       top-16
       h-20
       bg-base-100

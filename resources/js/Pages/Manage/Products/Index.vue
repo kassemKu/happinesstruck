@@ -27,6 +27,7 @@
                   </th>
                   <th>ID</th>
                   <th>product name</th>
+                  <th>product slug</th>
                   <th>created at</th>
                   <th class="text-center">actions</th>
                 </tr>
@@ -45,6 +46,11 @@
                   <td>
                     {{
                       $i18n.locale === 'ar' ? product.ar_name : product.en_name
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      $i18n.locale === 'ar' ? product.ar_slug : product.en_slug
                     }}
                   </td>
                   <td>{{ product.created_at }}</td>
@@ -113,6 +119,7 @@
                   <th>select</th>
                   <th>ID</th>
                   <th>product name</th>
+                  <th>product slug</th>
                   <th>created at</th>
                   <th class="text-center">actions</th>
                 </tr>
@@ -175,7 +182,9 @@ export default {
   },
 
   data() {
-    return {}
+    return {
+      confirmDeleteProduct: false,
+    }
   },
 }
 </script>

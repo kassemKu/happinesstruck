@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
+use Illuminate\Support\Str;
 use App\Models\Category;
 use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,6 +28,7 @@ class Product extends Model
         'en_name',
         'price',
         'sale_price',
+        'supplier_percent_discount',
         'ar_short_description',
         'en_short_description',
         'ar_description',
@@ -38,7 +40,8 @@ class Product extends Model
         'published',
         'category_id',
         'review',
-        'slug',
+        'ar_slug',
+        'en_slug',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -73,6 +76,31 @@ class Product extends Model
     {
         return $this->morphMany(Media::class, 'model');
     }
+
+    // title english name as capitalize
+    public function getEnNameAttribute($value) {
+        return Str::title($value);
+    }
+
+    // TODO:: To fix set  attribute vis model slug attributes
+    // public function setArSlugAttribute($ar_name) {
+    //     return $this->attributes['ar_slug'] = 'slug1';
+    // }
+
+    // public function setEnSlugAttribute($en_name) {
+    //     return $this->attributes['en_slug'] = 'slug2';
+    // }
+
+    // set stock status by product quantity
+    // public function setStockStatusAttribute($quantity) {
+    //     if((int)$quantity <= 0) {
+    //         return $this->attributes['stock_status'] = 'out_stock';
+    //     } elseif((int)$quantity <= 10 ) {
+    //         return $this->attributes['stock_status'] = 'low_in_stock';
+    //     }
+
+    //     return $this->attributes['stock_status'] = 'in_stock';
+    // }
 
     public function scopeFilter($query, array $filters): void
     {

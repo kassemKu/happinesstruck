@@ -28,7 +28,7 @@
       </legend>
       <slot />
       <button
-        class="btn btn-block btn-info font-bold tracking-wider"
+        class="btn btn-block btn-info font-bold tracking-wider text-base"
         type="submit"
       >
         {{ btnTitle }}
