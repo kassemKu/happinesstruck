@@ -77,7 +77,7 @@ class ManageProductsController extends Controller
             'featured' => $request->featured,
             'quantity' => $request->quantity,
             'review' => $request->review,
-            'mediaIds' => $request->mediaIds,
+            'mediaIds.*' => $request->mediaIds,
             'category_id' => 1,
         ]);
 

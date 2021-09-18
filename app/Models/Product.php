@@ -54,7 +54,7 @@ class Product extends Model
         'deleted_at',
     ];
 
-    protected $cast=['mediaIdes'=>'array'];
+    protected $cast=['mediaIds'=>'array'];
 
 
     protected function serializeDate(DateTimeInterface $date): string

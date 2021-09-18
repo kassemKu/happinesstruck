@@ -231,10 +231,10 @@
                     transition
                     ht-base-transition
                   "
-                  v-show="form.media.length > 0"
+                  v-show="media.length > 0"
                 >
                   <div
-                    v-for="(img, index) in form.media"
+                    v-for="(img, index) in media"
                     :key="index"
                     class="relative flex space-x-2 items-center"
                   >
@@ -369,8 +369,8 @@ export default {
         featured: false,
         quantity: null,
         mediaIds: [],
-        media: [],
       }),
+      media: [],
     }
   },
 
@@ -380,10 +380,10 @@ export default {
     uplaodFileMargin() {
       let space
       if (this.$i18n.locale === 'en') {
-        space = this.form.media.length > 0 ? 'ml-4' : 'ml-0'
+        space = this.media.length > 0 ? 'ml-4' : 'ml-0'
       }
       if (this.$i18n.locale === 'ar') {
-        space = this.form.media.length > 0 ? 'mr-4' : 'mr-0'
+        space = this.media.length > 0 ? 'mr-4' : 'mr-0'
       }
 
       return space
@@ -414,23 +414,23 @@ export default {
             item.id = res.data.id
           })
 
-          this.form.media.push(item)
+          this.media.push(item)
         }
       })
     },
     removeImg(index, img) {
-      this.form.media.splice(index, 1)
+      this.media.splice(index, 1)
 
       if (img.id) {
         axios.delete(route('manage.media.destroy', img.id)).catch((error) => {
           console.log(error)
-          this.form.media.splice(index, 0, img)
+          this.media.splice(index, 0, img)
         })
       }
     },
     createProduct() {
-      this.form.mediaIds = this.form.media.map((img) => img.id)
-      console.log(this.form.mediaIds)
+      this.mediaIds = this.media.map((img) => img.id)
+      console.log(this.mediaIds)
       this.form.post(this.route('manage.products.store'), {
         preserverStae: true,
         onStart: () => console.log('Do Something on start'),
@@ -438,8 +438,8 @@ export default {
         onSuccess: () => {
           if (Object.keys(this.$page.props.errors).length === 0) {
             this.form.reset()
-            this.form.media = []
-            this.form.mediaIds = []
+            this.media = []
+            this.mediaIds = []
           }
         },
       })
