@@ -56,7 +56,6 @@ class Product extends Model
 
     protected $cast=['mediaIds'=>'array'];
 
-
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');

@@ -22,7 +22,17 @@ class ManageProductsController extends Controller
      */
     public function index(): Response
     {
-        $products = Product::all();
+        $products = Product::latest()
+            ->paginate()->transform(function($product) {
+                return [
+                    'id' => $product->id,
+                    'ar_name' => $product->ar_name,
+                    'en_name' => $product->en_name,
+                    'created_at' => $product->created_at->diffForHumans(),
+                    'en_slug' => $product->en_slug,
+                    'ar_slug' => $product->ar_slug
+                ];
+            });
 
         return Inertia::render('Manage/Products/Index', ['products' => $products]);
     }
@@ -77,16 +87,15 @@ class ManageProductsController extends Controller
             'featured' => $request->featured,
             'quantity' => $request->quantity,
             'review' => $request->review,
-            'mediaIds.*' => $request->mediaIds,
             'category_id' => 1,
         ]);
-
 
         if(!empty($request->mediaIds)) {
             Media::whereIn('id', $request->mediaIds)->update([
                 'model_id' => $product->id,
                 'model_type' => Product::class
             ]);
+            $product->update(['mediaIds' => $request->mediaIds]);
         }
 
         return Redirect::route('manage.products.index');
@@ -104,7 +113,8 @@ class ManageProductsController extends Controller
             'id' => $product->id,
             'ar_name' => $product->ar_name,
             'en_name' => $product->en_name,
-            'media' => $product->media()->get()->map->only('id', 'directory_name', 'filename'),
+            'mediaIds' => $product->mediaIds,
+            'media' => $product->media()->get()->map->only('id', 'directory_name', 'full_url'),
          ]]);
     }
 
@@ -138,21 +148,49 @@ class ManageProductsController extends Controller
                 'review' => $product->review,
                 'mediaIds' => $product->mediaIds,
                 'category_id' => $product->category_id,
-                'media' => $product->media()->get()->map->only('id', 'directory_name', 'filename'),
+                'media' => $product->media()->get()->map->only('id', 'directory_name', 'full_url'),
             ]
         ]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Inertia\Response
+     * @param  obj  Product $product
+     * @param  App\Http\Requests\StoreProductRequest $request
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(StoreProductRequest $request, Product $product): RedirectResponse
     {
-        //
+        $product->update([
+            'ar_name' => $request->ar_name,
+            'ar_short_description' => $request->ar_short_description,
+            'ar_description' => $request->ar_description,
+            'en_name' => $request->en_name,
+            'en_short_description' => $request->en_short_description,
+            'en_description' => $request->en_description,
+            'en_slug' => Str::slug($request->en_name),
+            'ar_slug' => Str::slug($request->ar_name),
+            'published' => $request->published,
+            'price' => $request->price,
+            'sale_price' => $request->sale_price,
+            'supplier_percent_discount' => $request->supplier_percent_discount,
+            'SKU' => $request->SKU,
+            'stock_status' => $this->getStockStatus($request->quantity),
+            'featured' => $request->featured,
+            'quantity' => $request->quantity,
+            'review' => $request->review,
+            'category_id' => 1,
+        ]);
+
+        if(!empty($request->mediaIds)) {
+            Media::whereIn('id', $request->mediaIds)->update([
+                'model_id' => $product->id,
+                'model_type' => Product::class
+            ]);
+            $product->update(['mediaIds' => $request->mediaIds]);
+        }
+
+        return Redirect::route('manage.products.show', $product->id);
     }
 
     /**

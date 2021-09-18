@@ -39,10 +39,15 @@ class Media extends Model
         'deleted_at',
     ];
 
+    protected $appends = ['full_url'];
 
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function getFullUrlAttribute() {
+        return url('uploaded/' . $this->directory_name . '/' . now()->format('Y') . '/' . now()->format('m') . '/' . $this->filename );
     }
 
     // morph relation

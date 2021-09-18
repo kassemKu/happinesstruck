@@ -244,8 +244,8 @@
                     class="relative flex space-x-2 items-center"
                   >
                     <img
-                      :src="img.url"
-                      alt="happiness truck"
+                      :src="img.full_url"
+                      :alt="product.en_name"
                       class="
                         rounded-2xl
                         h-16
@@ -299,7 +299,6 @@
               </div>
             </div>
             <!-- Media uplaoder -->
-            <pre>{{ form.media }}</pre>
             <div class="mb-6">
               <div class="form-control">
                 <label class="cursor-pointer label justify-start space-x-2">
@@ -409,7 +408,7 @@ export default {
 
         reader.onload = (e) => {
           let item = {
-            url: e.target.result,
+            full_url: e.target.result,
             id: undefined,
             originName: media.name,
             size: (media.size / 1048576).toFixed(2) + ' MB',
@@ -440,8 +439,7 @@ export default {
     },
     createProduct() {
       this.form.mediaIds = this.form.media.map((img) => img.id)
-      console.log(this.form.mediaIds)
-      this.form.post(this.route('manage.products.store'), {
+      this.form.put(this.route('manage.products.update', this.product.id), {
         preserverStae: true,
         onStart: () => console.log('Do Something on start'),
         onFinish: () => console.log('Do Something on finish'),

@@ -429,8 +429,7 @@ export default {
       }
     },
     createProduct() {
-      this.mediaIds = this.media.map((img) => img.id)
-      console.log(this.mediaIds)
+      this.form.mediaIds = this.media.map((img) => img.id)
       this.form.post(this.route('manage.products.store'), {
         preserverStae: true,
         onStart: () => console.log('Do Something on start'),
@@ -439,7 +438,7 @@ export default {
           if (Object.keys(this.$page.props.errors).length === 0) {
             this.form.reset()
             this.media = []
-            this.mediaIds = []
+            this.form.mediaIds = []
           }
         },
       })
