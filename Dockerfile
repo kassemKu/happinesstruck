@@ -1,9 +1,9 @@
 FROM sail-8.0
 
-WORKDIR /var/www/html/happinesstruck
+WORKDIR /var/www
 RUN apt-get update && apt-get install -y libmcrypt-dev mysql-client && docker-php-ext-install mcrypt pdo_mysql
-ADD . /var/www/html/happinesstruck
-RUN chown -R www-data:www-data /var/www/html/happinesstruck
+ADD . /var/www
+RUN chown -R www-data:www-data /var/www
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
