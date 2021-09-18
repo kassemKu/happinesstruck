@@ -25,13 +25,6 @@
           >
             <TextField
               name="ar_name"
-              :placeholder="
-                $t('field_name_lang', {
-                  field: $t('section'),
-                  name: $t('name'),
-                  lang: $t('the_arabic'),
-                })
-              "
               :label="
                 $t('field_name_lang', {
                   field: $t('section'),
@@ -39,19 +32,13 @@
                   lang: $t('the_arabic'),
                 })
               "
+              :placeholder="form.ar_name"
               :serverError="$page.props.errors.ar_name"
               v-model="form.ar_name"
             />
             <HTextarea
               optional
               name="ar_description"
-              :placeholder="
-                $t('field_name_lang', {
-                  field: $t('section'),
-                  name: $t('description'),
-                  lang: $t('the_arabic'),
-                })
-              "
               :label="
                 $t('field_name_lang', {
                   field: $t('section'),
@@ -59,18 +46,12 @@
                   lang: $t('the_arabic'),
                 })
               "
-              :serverError="$page.props.errors.ar_description"
+              :placeholder="form.ar_description"
               v-model="form.ar_description"
+              :serverError="$page.props.errors.ar_description"
             />
             <TextField
               name="en_name"
-              :placeholder="
-                $t('field_name_lang', {
-                  field: $t('section'),
-                  name: $t('name'),
-                  lang: $t('the_english'),
-                })
-              "
               :label="
                 $t('field_name_lang', {
                   field: $t('section'),
@@ -78,19 +59,13 @@
                   lang: $t('the_english'),
                 })
               "
-              :serverError="$page.props.errors.en_name"
+              :placeholder="form.en_name"
               v-model="form.en_name"
+              :serverError="$page.props.errors.en_name"
             />
             <HTextarea
               optional
               name="en_description"
-              :placeholder="
-                $t('field_name_lang', {
-                  field: $t('section'),
-                  name: $t('description'),
-                  lang: $t('the_english'),
-                })
-              "
               :label="
                 $t('field_name_lang', {
                   field: $t('section'),
@@ -98,8 +73,9 @@
                   lang: $t('the_english'),
                 })
               "
-              :serverError="$page.props.errors.en_description"
+              :placeholder="form.en_description"
               v-model="form.en_description"
+              :serverError="$page.props.errors.en_description"
             />
             <div class="mb-8">
               <div class="form-control">

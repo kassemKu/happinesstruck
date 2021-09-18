@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProductRequest extends FormRequest
 {
@@ -42,6 +43,9 @@ class StoreProductRequest extends FormRequest
             'quantity' => ['required', 'numeric'],
             'review' => ['nullable', 'numeric'],
             'published' => ['required'],
+            'mediaIds.*' => [
+                'nullable', 'numeric'
+            ]
         ];
     }
 }

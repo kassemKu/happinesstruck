@@ -42,6 +42,7 @@ class Product extends Model
         'review',
         'ar_slug',
         'en_slug',
+        'mediaIds',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -52,6 +53,8 @@ class Product extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    protected $cast=['mediaIdes'=>'array'];
 
 
     protected function serializeDate(DateTimeInterface $date): string

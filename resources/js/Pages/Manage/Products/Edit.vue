@@ -6,9 +6,14 @@
         :parentName="$t('products')"
         parentIcon="grid"
         :activeName="
-          $t('action_model', { action: $t('add'), model: $t('product') })
+          $t('action_model', { action: $t('edit'), model: $t('product') })
         "
         activeIcon="pen-tool"
+        :actionHref="route('manage.products.destroy', product.id)"
+        :actionName="
+          $t('action_model', { model: $t('product'), action: $t('delete') })
+        "
+        actionIcon="trash-2"
       />
     </template>
     <div class="htm-page htm-page__products-create">
@@ -16,7 +21,7 @@
         <div class="htm-manage-section-action">
           <ManageForm
             :formTitle="
-              $t('action_model', { action: $t('add'), model: $t('product') })
+              $t('action_model', { action: $t('edit'), model: $t('product') })
             "
             :btnTitle="
               $t('action_model', { action: $t('add'), model: $t('product') })
@@ -294,6 +299,7 @@
               </div>
             </div>
             <!-- Media uplaoder -->
+            <pre>{{ form.media }}</pre>
             <div class="mb-6">
               <div class="form-control">
                 <label class="cursor-pointer label justify-start space-x-2">
@@ -351,25 +357,29 @@ export default {
 
   components,
 
+  props: {
+    product: Object,
+  },
+
   data() {
     return {
       form: this.$inertia.form({
-        ar_name: null,
-        ar_short_description: null,
-        ar_description: null,
-        en_name: null,
-        en_short_description: null,
-        en_description: null,
-        published: true,
-        price: null,
-        supplier_percent_discount: null,
-        sale_price: null,
-        SKU: null,
-        stock_status: null,
-        featured: false,
-        quantity: null,
-        mediaIds: [],
-        media: [],
+        ar_name: this.product.ar_name,
+        ar_short_description: this.product.ar_short_description,
+        ar_description: this.product.ar_description,
+        en_name: this.product.en_name,
+        en_short_description: this.product.en_short_description,
+        en_description: this.product.en_description,
+        published: this.product.published,
+        price: this.product.price,
+        supplier_percent_discount: this.product.supplier_percent_discount,
+        sale_price: this.product.sale_price,
+        SKU: this.product.SKU,
+        stock_status: this.product.stock_status,
+        featured: this.product.featured,
+        quantity: String(this.product.quantity),
+        mediaIds: this.product.mediaIds,
+        media: this.product.media,
       }),
     }
   },

@@ -13,7 +13,7 @@
       justify-between
       shadow-md
       transition
-      z-20
+      z-30
     "
     :class="{
       'pr-80': $i18n.locale === 'ar' && isSidebarOpen,

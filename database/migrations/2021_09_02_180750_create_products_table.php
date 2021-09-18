@@ -32,6 +32,7 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('quantity')->default(10);
             $table->integer('review')->nullable();
             $table->tinyInteger('published')->default('1');
+            $table->json('mediaIds')->nullable();
 
             $table->foreignId('category_id')
                 ->constrained()

@@ -6,10 +6,10 @@ RUN set -ex \
     	&& apk --no-cache add postgresql-dev nodejs yarn npm\
     	&& docker-php-ext-install pdo pdo_pgsql
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/happinesstruck
 RUN apt-get update && apt-get install -y libmcrypt-dev mysql-client && docker-php-ext-install mcrypt pdo_mysql
-ADD . /var/www/html
-RUN chown -R www-data:www-data /var/www/html
+ADD . /var/www/html/happinesstruck
+RUN chown -R www-data:www-data /var/www/html/happinesstruck
 
 RUN apk add shadow && usermod -u 1000 www-data && groupmod -g 1000 www-data
 

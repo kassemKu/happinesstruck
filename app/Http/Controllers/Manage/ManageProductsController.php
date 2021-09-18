@@ -77,6 +77,7 @@ class ManageProductsController extends Controller
             'featured' => $request->featured,
             'quantity' => $request->quantity,
             'review' => $request->review,
+            'mediaIds' => $request->mediaIds,
             'category_id' => 1,
         ]);
 
@@ -110,12 +111,36 @@ class ManageProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  obj Product $product
      * @return \Inertia\Response
      */
-    public function edit($id)
+    public function edit(Product $product): Response
     {
-        //
+        return Inertia::render('Manage/Products/Edit', [
+            'product' => [
+                'id' => $product->id,
+                'ar_name' => $product->ar_name,
+                'ar_short_description' => $product->ar_short_description,
+                'ar_description' => $product->ar_description,
+                'en_name' => $product->en_name,
+                'en_short_description' => $product->en_short_description,
+                'en_description' => $product->en_description,
+                'en_slug' => $product->en_name,
+                'ar_slug' => $product->ar_name,
+                'published' => $product->published,
+                'price' => $product->price,
+                'sale_price' => $product->sale_price,
+                'supplier_percent_discount' => $product->supplier_percent_discount,
+                'SKU' => $product->SKU,
+                'stock_status' => $product->stock_status,
+                'featured' => $product->featured,
+                'quantity' => $product->quantity,
+                'review' => $product->review,
+                'mediaIds' => $product->mediaIds,
+                'category_id' => $product->category_id,
+                'media' => $product->media()->get()->map->only('id', 'directory_name', 'filename'),
+            ]
+        ]);
     }
 
     /**

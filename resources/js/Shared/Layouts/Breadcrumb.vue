@@ -112,6 +112,7 @@
           border-2 border-info
           hover:bg-transparent hover:border-info hover:text-info
         "
+        :class="actionBtnClass"
       >
         <VueFeather :type="actionIcon" class="w-5 h-5" />
         <span>{{ actionName }}</span>
@@ -178,6 +179,33 @@ export default {
     ...mapState({
       isManageSidebarOpen: (state) => state.isManageSidebarOpen,
     }),
+    actionBtnClass() {
+      if (
+        this.actionName !== null &&
+        typeof this.actionName !== 'undefined' &&
+        this.actionHref !== null
+      ) {
+        if (
+          this.actionName.includes('delete') ||
+          this.actionName.includes('حذف')
+        ) {
+          return [
+            'bg-error',
+            'border-error',
+            'hover:border-error',
+            'hover:text-error',
+          ]
+        }
+      }
+      return [
+        'bg-info',
+        'border-2',
+        'border-info',
+        'hover:bg-transparent',
+        'hover:border-info',
+        'hover:text-info',
+      ]
+    },
   },
 }
 </script>
