@@ -24,6 +24,9 @@
         </p>
       </div>
     </div>
+    <button class="md:hidden text-white p-2 rounded-full bg-red-600">
+      responsive
+    </button>
   </WebLayout>
 </template>
 

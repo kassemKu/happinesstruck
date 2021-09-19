@@ -281,8 +281,10 @@
                             font-sans
                           "
                         >
-                          <span>{{ img.originName }}</span>
-                          <span class="text-base-300">{{ img.size }}</span>
+                          <span>{{ termFileName(img.filename) }}</span>
+                          <span class="text-base-300">{{
+                            (img.size / 1048576).toFixed(2) + ' MB'
+                          }}</span>
                         </div>
                       </div>
                       <progress
@@ -386,6 +388,9 @@ export default {
   remember: 'form',
 
   computed: {
+    getProductFileSize(file) {
+      return (this.form.media[file.id].size / 1048576).toFixed(2) + ' MB'
+    },
     uplaodFileMargin() {
       let space
       if (this.$i18n.locale === 'en') {
@@ -400,6 +405,14 @@ export default {
   },
 
   methods: {
+    termFileName(name) {
+      const length = 24
+
+      const term =
+        name.length > length ? name.substring(0, length - 3) + '...' : name
+
+      return term
+    },
     uploadProductMedia(files) {
       Array.from(files).forEach((media) => {
         let reader = new FileReader()
@@ -410,8 +423,8 @@ export default {
           let item = {
             full_url: e.target.result,
             id: undefined,
-            originName: media.name,
-            size: (media.size / 1048576).toFixed(2) + ' MB',
+            filename: media.name,
+            size: media.size,
           }
 
           let formData = new FormData()

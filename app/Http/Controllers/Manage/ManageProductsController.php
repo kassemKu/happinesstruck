@@ -148,7 +148,7 @@ class ManageProductsController extends Controller
                 'review' => $product->review,
                 'mediaIds' => $product->mediaIds,
                 'category_id' => $product->category_id,
-                'media' => $product->media()->get()->map->only('id', 'directory_name', 'full_url'),
+                'media' => $product->media()->get()->map->only('id', 'directory_name', 'full_url', 'size', 'filename'),
             ]
         ]);
     }
