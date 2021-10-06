@@ -2,17 +2,17 @@
   <ManageLayout>
     <template #breadcrumb>
       <Breadcrumb
-        :parentHref="route('manage.categories.index')"
-        :parentName="$t('categories')"
-        parentIcon="grid"
-        :activeName="
+        :parent-href="route('manage.categories.index')"
+        :parent-name="$t('categories')"
+        parent-icon="grid"
+        :active-name="
           $i18n.locale === 'ar' ? category.ar_name : category.en_name
         "
-        :actionHref="route('manage.categories.edit', category.id)"
-        :actionName="
+        :action-href="route('manage.categories.edit', category.id)"
+        :action-name="
           $t('action_model', { model: $t('category'), action: $t('edit') })
         "
-        actionIcon="edit"
+        action-icon="edit"
       />
     </template>
     <div class="htm-page htm-page__categories-show">
@@ -33,7 +33,7 @@ export default {
   components,
 
   props: {
-    category: Object,
+    category: { type: Object, default: () => ({}) },
   },
 }
 </script>

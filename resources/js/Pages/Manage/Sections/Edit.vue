@@ -2,28 +2,29 @@
   <ManageLayout>
     <template #breadcrumb>
       <Breadcrumb
-        :parentHref="route('manage.sections.index')"
-        :parentName="$t('sections')"
-        parentIcon="grid"
-        :activeName="
+        :parent-href="route('manage.sections.index')"
+        :parent-name="$t('sections')"
+        parent-icon="grid"
+        :active-name="
           $t('action_model', { action: $t('edit'), model: $t('section') })
         "
-        activeIcon="pen-tool"
+        active-icon="pen-tool"
       />
     </template>
     <div class="htm-page htm-page__sections-edit">
       <div class="htm-manage-section">
         <div class="htm-manage-section-action">
           <ManageForm
-            :formTitle="
+            :form-title="
               $i18n.locale === 'ar' ? section.ar_name : section.en_name
             "
-            :btnTitle="
+            :btn-title="
               $t('action_model', { action: $t('edit'), model: $t('section') })
             "
             @formSubmited="updateSection"
           >
             <TextField
+              v-model="form.ar_name"
               name="ar_name"
               :label="
                 $t('field_name_lang', {
@@ -33,10 +34,10 @@
                 })
               "
               :placeholder="form.ar_name"
-              :serverError="$page.props.errors.ar_name"
-              v-model="form.ar_name"
+              :server-error="$page.props.errors.ar_name"
             />
             <HTextarea
+              v-model="form.ar_description"
               optional
               name="ar_description"
               :label="
@@ -47,10 +48,10 @@
                 })
               "
               :placeholder="form.ar_description"
-              v-model="form.ar_description"
-              :serverError="$page.props.errors.ar_description"
+              :server-error="$page.props.errors.ar_description"
             />
             <TextField
+              v-model="form.en_name"
               name="en_name"
               :label="
                 $t('field_name_lang', {
@@ -60,10 +61,10 @@
                 })
               "
               :placeholder="form.en_name"
-              v-model="form.en_name"
-              :serverError="$page.props.errors.en_name"
+              :server-error="$page.props.errors.en_name"
             />
             <HTextarea
+              v-model="form.en_description"
               optional
               name="en_description"
               :label="
@@ -74,16 +75,15 @@
                 })
               "
               :placeholder="form.en_description"
-              v-model="form.en_description"
-              :serverError="$page.props.errors.en_description"
+              :server-error="$page.props.errors.en_description"
             />
             <div class="mb-8">
               <div class="form-control">
                 <label class="cursor-pointer label justify-start space-x-2">
                   <input
+                    v-model="form.published"
                     type="checkbox"
                     class="checkbox"
-                    v-model="form.published"
                     :checked="form.published"
                   />
                   <span class="label-text text-sm font-semibold capitalize"
@@ -92,8 +92,8 @@
                 </label>
               </div>
               <p
-                class="text-xs text-red-500 font-bold"
                 v-if="form.errors.published"
+                class="text-xs text-red-500 font-bold"
               >
                 {{ form.errors.published }}
               </p>
@@ -129,7 +129,7 @@ export default {
   components,
 
   props: {
-    section: Object,
+    section: { type: Object, default: () => ({}) },
   },
 
   data() {

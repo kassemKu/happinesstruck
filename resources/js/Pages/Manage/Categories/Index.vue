@@ -2,12 +2,12 @@
   <ManageLayout>
     <template #breadcrumb>
       <Breadcrumb
-        :activeName="$t('categories')"
-        activeIcon="grid"
-        :actionName="
+        :active-name="$t('categories')"
+        active-icon="grid"
+        :action-name="
           $t('action_model', { model: $t('category'), action: $t('add') })
         "
-        :actionHref="route('manage.categories.create')"
+        :action-href="route('manage.categories.create')"
       />
     </template>
     <div class="htm-page htm-page__categories-index">
@@ -35,7 +35,7 @@
                 <tr v-if="categories.length == 0">
                   no data to view yet!
                 </tr>
-                <tr v-else v-for="category in categories" :key="category.id">
+                <tr v-for="(category, index) in categories" v-else :key="index">
                   <td>
                     <label>
                       <input type="checkbox" class="checkbox" />
@@ -89,8 +89,8 @@
                     </Link>
                     <span v-if="category.deleted_at">trashed</span>
                     <button
-                      class="btn btn-xs btn-ghost hover:bg-transparent group"
                       v-else
+                      class="btn btn-xs btn-ghost hover:bg-transparent group"
                       @click="openModel(category)"
                     >
                       <VueFeather
@@ -127,8 +127,8 @@
   </ManageLayout>
   <DialogModal
     :show="confirmDeleteCategory"
+    modal-type="error"
     @close="closeModal"
-    modalType="error"
   >
     <template #title>
       {{
@@ -177,8 +177,13 @@ export default {
   components,
 
   props: {
-    categories: Array,
-    filters: Object,
+    categories: {
+      type: Array,
+      default: () => {
+        ;[]
+      },
+    },
+    filters: { type: Object, default: () => ({}) },
   },
 
   data() {

@@ -14,7 +14,7 @@
           </ManageSideNavLink>
         </ManageSideNavGroup>
         <ManageSideNavGroup
-          :groupTitle="$t('model_management', { model: $t('users') })"
+          :group-title="$t('model_management', { model: $t('users') })"
         >
           <template #groupIcon>
             <Identification24 />
@@ -41,7 +41,7 @@
           </ManageSideNavLink>
         </ManageSideNavGroup>
         <ManageSideNavGroup
-          :groupTitle="$t('model_management', { model: $t('products') })"
+          :group-title="$t('model_management', { model: $t('products') })"
         >
           <template #groupIcon>
             <Store24 />
@@ -90,7 +90,7 @@
           </ManageSideNavLink>
         </ManageSideNavGroup>
         <ManageSideNavGroup
-          :groupTitle="$t('model_management', { model: $t('packages') })"
+          :group-title="$t('model_management', { model: $t('packages') })"
         >
           <template #groupIcon>
             <Delivery24 />
@@ -106,7 +106,7 @@
             </template>
           </ManageSideNavLink>
         </ManageSideNavGroup>
-        <ManageSideNavGroup :groupTitle="$t('site_settings')">
+        <ManageSideNavGroup :group-title="$t('site_settings')">
           <template #groupIcon>
             <Settings24 />
           </template>

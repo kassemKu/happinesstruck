@@ -13,9 +13,9 @@
         <jet-label for="full_name" value="full Name" />
         <jet-input
           id="full_name"
+          v-model="form.full_name"
           type="text"
           class="mt-1 block w-full"
-          v-model="form.full_name"
           required
           autofocus
           autocomplete="full_name"
@@ -26,9 +26,9 @@
         <jet-label for="email" value="Email" />
         <jet-input
           id="email"
+          v-model="form.email"
           type="email"
           class="mt-1 block w-full"
-          v-model="form.email"
           required
         />
       </div>
@@ -37,9 +37,9 @@
         <jet-label for="mobile" value="mobile" />
         <jet-input
           id="mobile"
+          v-model="form.mobile"
           type="mobile"
           class="mt-1 block w-full"
-          v-model="form.mobile"
           required
         />
       </div>
@@ -48,9 +48,9 @@
         <jet-label for="password" value="Password" />
         <jet-input
           id="password"
+          v-model="form.password"
           type="password"
           class="mt-1 block w-full"
-          v-model="form.password"
           required
           autocomplete="new-password"
         />
@@ -60,21 +60,21 @@
         <jet-label for="password_confirmation" value="Confirm Password" />
         <jet-input
           id="password_confirmation"
+          v-model="form.password_confirmation"
           type="password"
           class="mt-1 block w-full"
-          v-model="form.password_confirmation"
           required
           autocomplete="new-password"
         />
       </div>
 
       <div
-        class="mt-4"
         v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature"
+        class="mt-4"
       >
         <jet-label for="terms">
           <div class="flex items-center">
-            <jet-checkbox name="terms" id="terms" v-model="form.terms" />
+            <jet-checkbox id="terms" v-model="form.terms" name="terms" />
 
             <div class="ml-2">
               I agree to the

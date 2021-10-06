@@ -1,6 +1,5 @@
 <template>
   <form
-    @submit.prevent="submitted"
     class="
       htm-manage-action-form
       px-12
@@ -12,6 +11,7 @@
       shadow-2xl
     "
     :class="maxWidthClass"
+    @submit.prevent="submitted"
   >
     <fieldset class="htm-manage-action-fieddest">
       <legend
@@ -44,6 +44,7 @@ export default {
   props: {
     formTitle: {
       type: String,
+      default: null,
       required: false,
     },
     btnTitle: {
@@ -72,6 +73,8 @@ export default {
       default: '2xl',
     },
   },
+
+  emits: ['formSubmited'],
 
   computed: {
     maxWidthClass() {

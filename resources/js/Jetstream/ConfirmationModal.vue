@@ -28,10 +28,10 @@
 </template>
 
 <script>
+/* eslint-disable vue/require-prop-types */
     import Modal from './Modal.vue'
 
     export default {
-        emits: ['close'],
 
         components: {
             Modal,
@@ -48,6 +48,7 @@
                 default: true
             },
         },
+        emits: ['close'],
 
         methods: {
             close() {

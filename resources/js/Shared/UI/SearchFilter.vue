@@ -2,7 +2,6 @@
   <div class="w-full h-12 bg-white flex items-center justify-between rounded">
     <div>
       <button
-        @click="showDrop = true"
         class="
           w-12
           h-12
@@ -13,6 +12,7 @@
           text-gray-500
           hover:text-gray-800
         "
+        @click="showDrop = true"
       >
         <VueFeather type="filter" class="w-5 h-5" />
       </button>
@@ -73,8 +73,10 @@ export default {
   name: 'SearchFilter',
 
   props: {
-    value: String,
+    value: { type: String, default: null },
   },
+
+  emits: ['reset', 'input'],
 
   data() {
     return {

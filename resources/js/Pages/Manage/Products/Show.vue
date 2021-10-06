@@ -2,15 +2,15 @@
   <ManageLayout>
     <template #breadcrumb>
       <Breadcrumb
-        :parentHref="route('manage.products.index')"
-        :parentName="$t('products')"
-        parentIcon="grid"
-        :activeName="$i18n.locale === 'ar' ? product.ar_name : product.en_name"
-        :actionHref="route('manage.products.edit', product.id)"
-        :actionName="
+        :parent-href="route('manage.products.index')"
+        :parent-name="$t('products')"
+        parent-icon="grid"
+        :active-name="$i18n.locale === 'ar' ? product.ar_name : product.en_name"
+        :action-href="route('manage.products.edit', product.id)"
+        :action-name="
           $t('action_model', { model: $t('product'), action: $t('edit') })
         "
-        actionIcon="edit"
+        action-icon="edit"
       />
     </template>
     <div class="htm-page htm-page__products-show">
@@ -31,7 +31,7 @@ export default {
   components,
 
   props: {
-    product: Object,
+    product: { type: Object, default: () => ({}) },
   },
 }
 </script>

@@ -2,12 +2,12 @@
   <ManageLayout>
     <template #breadcrumb>
       <Breadcrumb
-        :activeName="$t('sections')"
-        activeIcon="grid"
-        :actionName="
+        :active-name="$t('sections')"
+        active-icon="grid"
+        :action-name="
           $t('action_model', { model: $t('section'), action: $t('add') })
         "
-        :actionHref="route('manage.sections.create')"
+        :action-href="route('manage.sections.create')"
       />
     </template>
     <div class="htm-page htm-page__sections-index">
@@ -35,7 +35,7 @@
                 <tr v-if="sections.length == 0">
                   no data to view yet!
                 </tr>
-                <tr v-else v-for="section in sections" :key="section.id">
+                <tr v-for="section in sections" v-else :key="section.id">
                   <td>
                     <label>
                       <input type="checkbox" class="checkbox" />
@@ -87,8 +87,8 @@
                     </Link>
                     <span v-if="section.deleted_at">trashed</span>
                     <button
-                      class="btn btn-xs btn-ghost hover:bg-transparent group"
                       v-else
+                      class="btn btn-xs btn-ghost hover:bg-transparent group"
                       @click="openModel(section)"
                     >
                       <VueFeather
@@ -124,9 +124,9 @@
     </div>
   </ManageLayout>
   <DialogModal
+    modal-type="error"
     :show="confirmDeleteSection"
     @close="closeModal"
-    modalType="error"
   >
     <template #title>
       {{
@@ -175,8 +175,8 @@ export default {
   components,
 
   props: {
-    sections: Array,
-    filters: Object,
+    sections: { type: Array, default: () => [] },
+    filters: { type: Object, default: () => ({}) },
   },
 
   data() {

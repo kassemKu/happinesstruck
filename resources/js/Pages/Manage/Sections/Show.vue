@@ -2,15 +2,15 @@
   <ManageLayout>
     <template #breadcrumb>
       <Breadcrumb
-        :parentHref="route('manage.sections.index')"
-        :parentName="$t('sections')"
-        parentIcon="grid"
-        :activeName="$i18n.locale === 'ar' ? section.ar_name : section.en_name"
-        :actionHref="route('manage.sections.edit', section.id)"
-        :actionName="
+        :parent-href="route('manage.sections.index')"
+        :parent-name="$t('sections')"
+        parent-icon="grid"
+        :active-name="$i18n.locale === 'ar' ? section.ar_name : section.en_name"
+        :action-href="route('manage.sections.edit', section.id)"
+        :action-name="
           $t('action_model', { model: $t('section'), action: $t('edit') })
         "
-        actionIcon="edit"
+        action-icon="edit"
       />
     </template>
     <div class="htm-page htm-page__sections-show">
@@ -31,7 +31,10 @@ export default {
   components,
 
   props: {
-    section: Object,
+    section: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 }
 </script>

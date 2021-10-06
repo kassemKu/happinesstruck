@@ -7,12 +7,12 @@
         class="ht-base-transition htm-sidebar-container transition"
         :class="isManageSidebarOpen ? ' w-72' : 'w-28'"
       >
-        <ManageSidebar :isSidebarOpen="isManageSidebarOpen" />
+        <ManageSidebar :is-sidebar-open="isManageSidebarOpen" />
       </aside>
       <div class="htm-content flex-1">
         <div class="htm-content-inner">
           <header class="htm-header-container">
-            <ManageHeader :isSidebarOpen="isManageSidebarOpen" />
+            <ManageHeader :is-sidebar-open="isManageSidebarOpen" />
           </header>
           <slot name="breadcrumb" />
           <main

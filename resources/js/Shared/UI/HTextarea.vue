@@ -9,13 +9,6 @@
       >
     </label>
     <textarea
-      :class="{ 'cursor-not-allowed': disabled }"
-      :type="type"
-      :placeholder="placeholder"
-      :value="modelValue"
-      :name="name"
-      @input="updateValue($event.target.value)"
-      :disabled="disabled"
       ref="input"
       class="
         textarea
@@ -24,6 +17,13 @@
         border-base-300 border-2
         bg-transparent
       "
+      :class="{ 'cursor-not-allowed': disabled }"
+      :type="type"
+      :placeholder="placeholder"
+      :value="modelValue"
+      :name="name"
+      :disabled="disabled"
+      @input="updateValue($event.target.value)"
     ></textarea>
     <label class="label">
       <span v-show="serverError" class="label-text-alt text-error">{{
@@ -74,6 +74,8 @@ export default {
       default: false,
     },
   },
+
+  emits: ['update:modelValue'],
 
   methods: {
     updateValue(value) {

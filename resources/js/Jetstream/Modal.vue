@@ -46,11 +46,10 @@
 </template>
 
 <script>
+    /* eslint-disable vue/require-prop-types */
 import { onMounted, onUnmounted } from 'vue'
 
 export default {
-    emits: ['close'],
-
     props: {
         show: {
             default: false,
@@ -62,21 +61,9 @@ export default {
             default: true,
         },
     },
+            emits: ['close'],
 
-    watch: {
-        show: {
-            immediate: true,
-            handler: function (show) {
-                if (show) {
-                    document.body.style.overflow = 'hidden'
-                } else {
-                    document.body.style.overflow = null
-                }
-            },
-        },
-    },
-
-    setup(props, { emit }) {
+            setup(props, { emit }) {
         const close = () => {
             if (props.closeable) {
                 emit('close')
@@ -100,7 +87,7 @@ export default {
         }
     },
 
-    computed: {
+     computed: {
         maxWidthClass() {
             return {
                 sm: 'sm:max-w-sm',
@@ -109,6 +96,19 @@ export default {
                 xl: 'sm:max-w-xl',
                 '2xl': 'sm:max-w-2xl',
             }[this.maxWidth]
+        },
+    },
+
+    watch: {
+        show: {
+            immediate: true,
+            handler: function (show) {
+                if (show) {
+                    document.body.style.overflow = 'hidden'
+                } else {
+                    document.body.style.overflow = null
+                }
+            },
         },
     },
 }

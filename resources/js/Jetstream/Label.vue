@@ -6,6 +6,7 @@
 </template>
 
 <script>
+/* eslint-disable vue/require-prop-types */
     export default {
         props: ['value']
     }

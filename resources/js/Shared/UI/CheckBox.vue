@@ -3,10 +3,10 @@
     <div class="form-control">
       <label class="cursor-pointer label justify-start space-x-2">
         <input
+          v-model="proxyChecked"
           type="checkbox"
           class="checkbox"
           :value="value"
-          v-model="proxyChecked"
           :checked="checked"
         />
         <span class="label-text text-sm font-semibold capitalize">{{
@@ -14,7 +14,7 @@
         }}</span>
       </label>
     </div>
-    <p class="text-xs text-red-500 font-bold" v-if="error">
+    <p v-if="error" class="text-xs text-red-500 font-bold">
       {{ error }}
     </p>
   </div>
@@ -24,14 +24,13 @@
 export default {
   name: 'HapCheckBox',
 
-  emits: ['update:checked'],
-
   props: {
     checked: {
       type: [Array, Boolean],
       default: false,
     },
     value: {
+      type: [String, Boolean, Number],
       default: null,
     },
     label: {
@@ -45,6 +44,8 @@ export default {
       default: null,
     },
   },
+
+  emits: ['update:checked'],
 
   computed: {
     proxyChecked: {

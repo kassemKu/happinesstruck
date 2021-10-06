@@ -58,8 +58,7 @@
 import { onMounted, onUnmounted } from 'vue'
 
 export default {
-  emits: ['close'],
-
+  name: 'Modal',
   props: {
     show: {
       type: Boolean,
@@ -67,25 +66,16 @@ export default {
       default: false,
     },
     maxWidth: {
+      type: String,
       default: '2xl',
     },
     closeable: {
+      type: Boolean,
       default: true,
     },
   },
 
-  watch: {
-    show: {
-      immediate: true,
-      handler: function (show) {
-        if (show) {
-          document.body.style.overflow = 'hidden'
-        } else {
-          document.body.style.overflow = null
-        }
-      },
-    },
-  },
+  emits: ['close'],
 
   setup(props, { emit }) {
     const close = () => {
@@ -120,6 +110,19 @@ export default {
         xl: 'sm:max-w-xl',
         '2xl': 'sm:max-w-2xl',
       }[this.maxWidth]
+    },
+  },
+
+  watch: {
+    show: {
+      immediate: true,
+      handler: function (show) {
+        if (show) {
+          document.body.style.overflow = 'hidden'
+        } else {
+          document.body.style.overflow = null
+        }
+      },
     },
   },
 }

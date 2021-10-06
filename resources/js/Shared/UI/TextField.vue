@@ -15,15 +15,15 @@
       </button>
     </label>
     <input
+      ref="input"
+      class="input border border-base-300 border-2 bg-transparent"
       :class="{ 'cursor-not-allowed': disabled }"
       :type="type"
       :placeholder="placeholder"
       :value="modelValue"
       :name="name"
-      @input="updateValue($event.target.value)"
       :disabled="disabled"
-      ref="input"
-      class="input border border-base-300 border-2 bg-transparent"
+      @input="updateValue($event.target.value)"
     />
     <label class="label">
       <span v-show="serverError" class="label-text-alt text-error">{{
@@ -80,6 +80,7 @@ export default {
     },
   },
 
+  emits: ['update:modelValue'],
   methods: {
     updateValue(value) {
       this.$emit('update:modelValue', value)

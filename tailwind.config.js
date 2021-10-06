@@ -14,6 +14,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Poppins', ...defaultTheme.fontFamily.sans],
+        heading: ['Ubuntu', ...defaultTheme.fontFamily.sans],
         'body-arabic': ['bein-normal', ...defaultTheme.fontFamily.sans],
       },
     },

@@ -30,20 +30,21 @@ import Modal from '@/Shared/UI/Modal'
 export default {
   name: 'DialogModal',
 
-  emits: ['close'],
-
   components: {
     Modal,
   },
 
   props: {
     show: {
+      type: Boolean,
       default: false,
     },
     maxWidth: {
+      type: String,
       default: '2xl',
     },
     closeable: {
+      type: Boolean,
       default: true,
     },
     modalType: {
@@ -53,6 +54,8 @@ export default {
       validator: (value) => ['error', 'info', 'success'].includes(value),
     },
   },
+
+  emits: ['close'],
 
   methods: {
     close() {

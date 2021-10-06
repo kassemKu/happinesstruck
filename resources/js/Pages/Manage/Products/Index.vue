@@ -2,12 +2,12 @@
   <ManageLayout>
     <template #breadcrumb>
       <Breadcrumb
-        :activeName="$t('products')"
-        activeIcon="grid"
-        :actionName="
+        :active-name="$t('products')"
+        active-icon="grid"
+        :action-name="
           $t('action_model', { model: $t('product'), action: $t('add') })
         "
-        :actionHref="route('manage.products.create')"
+        :action-href="route('manage.products.create')"
       />
     </template>
     <div class="htm-page htm-page__products-index">
@@ -36,7 +36,7 @@
                 <tr v-if="products.length == 0">
                   no data to view yet!
                 </tr>
-                <tr v-else v-for="product in products" :key="product.id">
+                <tr v-for="(index, product) in products" v-else :key="index">
                   <td>
                     <label>
                       <input type="checkbox" class="checkbox" />
@@ -93,8 +93,8 @@
                     </Link>
                     <span v-if="product.deleted_at">trashed</span>
                     <button
-                      class="btn btn-xs btn-ghost hover:bg-transparent group"
                       v-else
+                      class="btn btn-xs btn-ghost hover:bg-transparent group"
                       @click="openModel(product)"
                     >
                       <VueFeather
@@ -132,8 +132,8 @@
   </ManageLayout>
   <DialogModal
     :show="confirmDeleteProduct"
+    modal-type="error"
     @close="closeModal"
-    modalType="error"
   >
     <template #title>
       {{
@@ -178,7 +178,7 @@ export default {
   components,
 
   props: {
-    products: Array,
+    products: { type: Array, default: () => [] },
   },
 
   data() {

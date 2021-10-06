@@ -13,9 +13,9 @@
                 {{ content }}
 
                 <div class="mt-4">
-                    <jet-input type="password" class="mt-1 block w-3/4" placeholder="Password"
-                                ref="password"
-                                v-model="form.password"
+                    <jet-input ref="password" v-model="form.password" type="password" class="mt-1 block w-3/4" placeholder="Password"
+
+
                                 @keyup.enter="confirmPassword" />
 
                     <jet-input-error :message="form.error" class="mt-2" />
@@ -27,7 +27,7 @@
                     Cancel
                 </jet-secondary-button>
 
-                <jet-button class="ml-2" @click="confirmPassword" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" class="ml-2" @click="confirmPassword">
                     {{ button }}
                 </jet-button>
             </template>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+/* eslint-disable vue/require-prop-types */
     import JetButton from './Button.vue'
     import JetDialogModal from './DialogModal.vue'
     import JetInput from './Input.vue'
@@ -43,8 +44,13 @@
     import JetSecondaryButton from './SecondaryButton.vue'
 
     export default {
-        emits: ['confirmed'],
-
+components: {
+            JetButton,
+            JetDialogModal,
+            JetInput,
+            JetInputError,
+            JetSecondaryButton,
+        },
         props: {
             title: {
                 default: 'Confirm Password',
@@ -56,14 +62,7 @@
                 default: 'Confirm',
             }
         },
-
-        components: {
-            JetButton,
-            JetDialogModal,
-            JetInput,
-            JetInputError,
-            JetSecondaryButton,
-        },
+        emits: ['confirmed'],
 
         data() {
             return {

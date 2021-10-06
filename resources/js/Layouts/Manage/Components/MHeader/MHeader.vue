@@ -123,7 +123,7 @@
 <script>
 import { useStore } from 'vuex'
 import LanguageSwitcher from '@/Shared/Partials/LanguageSwitcher'
-import UserAreaDropdwon from '@/Shared/UI/UserAreaDropdwon.vue'
+import UserAreaDropdwon from '@/Shared/UI/UserAreaDropdwon'
 
 const components = { LanguageSwitcher, UserAreaDropdwon }
 

@@ -57,15 +57,15 @@
           <span class="mt-1">{{ $t('dashboard') }}</span>
         </Link>
       </li>
-      <li class="mt-1" v-show="parentHref">
+      <li v-show="parent - href" class="mt-1">
         <VueFeather
           :type="$i18n.locale === 'en' ? 'chevron-right' : 'chevron-left'"
           size="1.2rem"
         />
       </li>
-      <li v-show="parentHref">
+      <li v-show="parent - href">
         <Link
-          :href="parentHref"
+          :href="parent - href"
           class="
             flex
             space-x-2
@@ -82,28 +82,31 @@
             size="1.3rem"
             class="w-5 h-5 text-gray-400 group-hover:text-info"
           />
-          <span class="mt-1">{{ parentName }}</span>
+          <span class="mt-1">{{ parent - name }}</span>
         </Link>
       </li>
-      <li class="mt-1" v-show="activeName">
+      <li v-show="active - name" class="mt-1">
         <VueFeather
           :type="$i18n.locale === 'en' ? 'chevron-right' : 'chevron-left'"
           size="1.2rem"
         />
       </li>
-      <li v-show="activeName" class="flex space-x-2 items-center text-gray-400">
+      <li
+        v-show="active - name"
+        class="flex space-x-2 items-center text-gray-400"
+      >
         <VueFeather
           :type="activeIcon"
           size="1.3rem"
           class="w-5 h-5 text-gray-400"
         />
-        <span class="mt-1">{{ activeName }}</span>
+        <span class="mt-1">{{ active - name }}</span>
       </li>
     </ul>
     <div>
       <Link
-        :href="actionHref"
         v-show="actionHref"
+        :href="actionHref"
         class="
           btn btn-sm
           text-sm

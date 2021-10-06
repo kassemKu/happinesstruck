@@ -29,6 +29,7 @@
 </template>
 
 <script>
+/* eslint-disable vue/require-prop-types */
 import { onMounted, onUnmounted, ref } from "vue";
 
 export default {

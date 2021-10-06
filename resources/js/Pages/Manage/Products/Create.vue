@@ -2,30 +2,31 @@
   <ManageLayout>
     <template #breadcrumb>
       <Breadcrumb
-        :parentHref="route('manage.products.index')"
-        :parentName="$t('products')"
-        parentIcon="grid"
-        :activeName="
+        :parent-href="route('manage.products.index')"
+        :parent-name="$t('products')"
+        parent-icon="grid"
+        :active-name="
           $t('action_model', { action: $t('add'), model: $t('product') })
         "
-        activeIcon="pen-tool"
+        active-icon="pen-tool"
       />
     </template>
     <div class="htm-page htm-page__products-create">
       <div class="htm-manage-section">
         <div class="htm-manage-section-action">
           <ManageForm
-            :formTitle="
+            :form-title="
               $t('action_model', { action: $t('add'), model: $t('product') })
             "
-            :btnTitle="
+            :btn-title="
               $t('action_model', { action: $t('add'), model: $t('product') })
             "
+            max-width="5xl"
             @formSubmited="createProduct"
-            maxWidth="5xl"
           >
             <div class="grid grid-cols-2 gap-x-10 items-center">
               <TextField
+                v-model="form.ar_name"
                 name="ar_name"
                 :placeholder="
                   $t('field_name_lang', {
@@ -41,11 +42,11 @@
                     lang: $t('the_arabic'),
                   })
                 "
-                :serverError="$page.props.errors.ar_name"
-                v-model="form.ar_name"
+                :server-error="$page.props.errors.ar_name"
               />
               <!-- arabic name -->
               <TextField
+                v-model="form.en_name"
                 name="en_name"
                 :placeholder="
                   $t('field_name_lang', {
@@ -61,11 +62,11 @@
                     lang: $t('the_english'),
                   })
                 "
-                :serverError="$page.props.errors.en_name"
-                v-model="form.en_name"
+                :server-error="$page.props.errors.en_name"
               />
               <!-- english name -->
               <HTextarea
+                v-model="form.ar_short_description"
                 optional
                 name="ar_short_description"
                 :placeholder="
@@ -80,11 +81,11 @@
                     lang: $t('the_arabic'),
                   })
                 "
-                :serverError="$page.props.errors.ar_short_description"
-                v-model="form.ar_short_description"
+                :server-error="$page.props.errors.ar_short_description"
               />
               <!-- arabic short description -->
               <HTextarea
+                v-model="form.en_short_description"
                 optional
                 name="en_short_description"
                 :placeholder="
@@ -99,11 +100,11 @@
                     lang: $t('the_english'),
                   })
                 "
-                :serverError="$page.props.errors.en_short_description"
-                v-model="form.en_short_description"
+                :server-error="$page.props.errors.en_short_description"
               />
               <!-- en short description -->
               <HTextarea
+                v-model="form.ar_description"
                 optional
                 name="ar_description"
                 :placeholder="
@@ -118,11 +119,11 @@
                     lang: $t('the_arabic'),
                   })
                 "
-                :serverError="$page.props.errors.ar_description"
-                v-model="form.ar_description"
+                :server-error="$page.props.errors.ar_description"
               />
               <!-- arabic description -->
               <HTextarea
+                v-model="form.en_description"
                 optional
                 name="en_description"
                 :placeholder="
@@ -137,64 +138,63 @@
                     lang: $t('the_english'),
                   })
                 "
-                :serverError="$page.props.errors.en_description"
-                v-model="form.en_description"
+                :server-error="$page.props.errors.en_description"
               />
               <!-- en description -->
               <TextField
+                v-model="form.price"
                 type="number"
                 name="price"
                 :placeholder="$t('price')"
                 :label="$t('price')"
-                :serverError="$page.props.errors.price"
-                v-model="form.price"
+                :server-error="$page.props.errors.price"
               />
               <!-- product price -->
               <TextField
+                v-model="form.supplier_percent_discount"
                 optional
                 type="number"
                 name="supplier_percent_discount"
                 :placeholder="$t('supplier_percent_discount')"
                 :label="$t('supplier_percent_discount')"
-                :serverError="$page.props.errors.supplier_percent_discount"
-                v-model="form.supplier_percent_discount"
+                :server-error="$page.props.errors.supplier_percent_discount"
               />
               <!-- product supplier percent discount -->
               <TextField
+                v-model="form.sale_price"
                 type="number"
                 name="sale_price"
                 :placeholder="$t('sale_price')"
                 :label="$t('sale_price')"
-                :serverError="$page.props.errors.sale_price"
-                v-model="form.sale_price"
+                :server-error="$page.props.errors.sale_price"
               />
               <!-- product sale price -->
               <TextField
+                v-model="form.quantity"
                 type="number"
                 name="quantity"
                 :placeholder="$t('quantity')"
                 :label="$t('quantity')"
-                :serverError="$page.props.errors.quantity"
-                v-model="form.quantity"
+                :server-error="$page.props.errors.quantity"
               />
               <!-- product quantity -->
               <TextField
-                labelTopHelper="generate SKU ?"
+                v-model="form.SKU"
+                label-top-helper="generate SKU ?"
                 name="SKU"
                 :placeholder="$t('SKU')"
                 :label="$t('SKU')"
-                :serverError="$page.props.errors.SKU"
-                v-model="form.SKU"
+                :server-error="$page.props.errors.SKU"
               />
               <!-- product SKU -->
               <div>
                 <div class="form-control">
                   <label class="cursor-pointer label justify-start space-x-2">
                     <input
+                      v-model="form.featured"
                       type="checkbox"
                       class="checkbox"
                       name="publish"
-                      v-model="form.featured"
                     />
                     <span class="label-text text-sm font-semibold capitalize"
                       >featured product?</span
@@ -202,8 +202,8 @@
                   </label>
                 </div>
                 <p
-                  class="text-xs text-red-500 font-bold"
                   v-if="form.errors.featured"
+                  class="text-xs text-red-500 font-bold"
                 >
                   {{ form.errors.featured }}
                 </p>
@@ -224,6 +224,7 @@
               </div>
               <div class="w-full flex mb-4">
                 <div
+                  v-show="media.length > 0"
                   class="
                     w-1/2
                     flex flex-col
@@ -231,7 +232,6 @@
                     transition
                     ht-base-transition
                   "
-                  v-show="media.length > 0"
                 >
                   <div
                     v-for="(img, index) in media"
@@ -298,10 +298,10 @@
               <div class="form-control">
                 <label class="cursor-pointer label justify-start space-x-2">
                   <input
+                    v-model="form.published"
+                    name="publish"
                     type="checkbox"
                     class="checkbox"
-                    name="publish"
-                    v-model="form.published"
                   />
                   <span class="label-text text-sm font-semibold capitalize"
                     >publish</span
@@ -309,8 +309,8 @@
                 </label>
               </div>
               <p
-                class="text-xs text-red-500 font-bold"
                 v-if="form.errors.published"
+                class="text-xs text-red-500 font-bold"
               >
                 {{ form.errors.published }}
               </p>

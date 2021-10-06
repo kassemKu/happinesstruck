@@ -5,6 +5,7 @@
 </template>
 
 <script>
+/* eslint-disable vue/require-prop-types */
     import { Link } from '@inertiajs/inertia-vue3';
 
     export default {

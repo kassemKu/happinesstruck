@@ -14,7 +14,7 @@
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md" v-if="hasActions">
+                <div v-if="hasActions" class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
                     <slot name="actions"></slot>
                 </div>
             </form>
@@ -26,11 +26,11 @@
     import JetSectionTitle from './SectionTitle.vue'
 
     export default {
-        emits: ['submitted'],
-
         components: {
             JetSectionTitle,
         },
+        emits: ['submitted'],
+
 
         computed: {
             hasActions() {

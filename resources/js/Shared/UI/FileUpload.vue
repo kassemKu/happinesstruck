@@ -43,6 +43,7 @@
 export default {
   name: 'FileUpload',
 
+  emits: ['input'],
   methods: {
     browse() {
       this.$refs.picker.click()
