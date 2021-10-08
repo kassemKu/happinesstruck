@@ -3,17 +3,20 @@
     <header class="htw-header-container">
       <WebHeader />
     </header>
-    <main class="htw-main-content px-12">
+    <main class="htw-main-content">
       <slot />
     </main>
-    <footer class="htw-footer-container">footer</footer>
+    <section class="htw-footer-container">
+      <WebFooter />
+    </section>
   </div>
 </template>
 
 <script>
 import WebHeader from './Components/WHeader/WHeader'
+import WebFooter from './Components/WFooter/WFooter'
 
-const components = { WebHeader }
+const components = { WebHeader, WebFooter }
 
 export default {
   name: 'WebLayout',

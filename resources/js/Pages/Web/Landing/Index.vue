@@ -7,6 +7,9 @@
       <div class="htw-page__section htw-section__banner">
         <Slider />
       </div>
+      <div class="htw-page__section htw-section__products-slider">
+        <ProductsSlider />
+      </div>
     </div>
   </WebLayout>
 </template>
@@ -14,7 +17,8 @@
 <script>
 import { Head /* Link */ } from '@inertiajs/inertia-vue3'
 import WebLayout from '@/Layouts/Web/WebLayout'
-import Slider from '@/Components/LandingPage/Slider.vue'
+import Slider from '@/Components/LandingPage/Slider'
+import ProductsSlider from '@/Components/LandingPage/ProductsSlider'
 
 export default {
   components: {
@@ -22,6 +26,7 @@ export default {
     // Link,
     WebLayout,
     Slider,
+    ProductsSlider,
   },
 }
 </script>
