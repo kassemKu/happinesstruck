@@ -1,5 +1,31 @@
 <template>
-  <footer class="grid-rows-2 p-10 footer bg-warning text-neutral-content">
+  <footer class="p-10 footer bg-base-200 text-base-content">
+    <div>
+      <Link
+        href="/"
+        class="
+          htw-header-logo
+          inline-flex
+          items-center
+          justify-center
+          space-x-2
+          uppercase
+          font-black
+          text-xl text-warning
+          transform
+          hover:bg-transparent hover:text-info
+        "
+      >
+        <span>happiness</span>
+        <!-- <VueFeather
+        type="truck"
+        stroke-width="3"
+        class="h-10 w-10 text-info-focus"
+      /> -->
+        <span>truck</span>
+      </Link>
+      <p>we make the happiness <br />Providing reliable tech since 1992</p>
+    </div>
     <div>
       <span class="footer-title">Services</span>
       <a class="link link-hover">Branding</a>
@@ -7,12 +33,63 @@
       <a class="link link-hover">Marketing</a>
       <a class="link link-hover">Advertisement</a>
     </div>
-    <div>
-      <span class="footer-title">Company</span>
-      <a class="link link-hover">About us</a>
-      <a class="link link-hover">Contact</a>
-      <a class="link link-hover">Jobs</a>
-      <a class="link link-hover">Press kit</a>
+    <div class="grid-rows-2 gap-y-12">
+      <div class="flex flex-col">
+        <span class="footer-title mb-4">Company</span>
+        <a class="link link-hover">About us</a>
+        <a class="link link-hover">Contact</a>
+        <a class="link link-hover">Jobs</a>
+        <a class="link link-hover">Press kit</a>
+      </div>
+      <div class="flex flex-col">
+        <span class="footer-title mb-4">find us</span>
+        <div class="flex space-x-4">
+          <button
+            class="
+              htw-footer__social
+              htw-instagram-btn
+              btn btn-circle
+              transform
+              hover:scale-105
+            "
+          >
+            <VueFeather type="instagram" stroke-width="2.5" />
+          </button>
+          <button
+            class="
+              htw-footer__social
+              htw-facebook-btn
+              btn btn-circle
+              transform
+              hover:scale-105
+            "
+          >
+            <VueFeather type="facebook" stroke-width="2" />
+          </button>
+          <button
+            class="
+              htw-footer__social
+              htw-twitter-btn
+              btn btn-circle
+              transform
+              hover:scale-105
+            "
+          >
+            <VueFeather type="twitter" stroke-width="2.5" />
+          </button>
+          <button
+            class="
+              htw-footer__social
+              htw-youtube-btn
+              btn btn-circle
+              transform
+              hover:scale-105
+            "
+          >
+            <VueFeather type="youtube" stroke-width="2.5" />
+          </button>
+        </div>
+      </div>
     </div>
     <div>
       <span class="footer-title">Legal</span>
@@ -20,32 +97,58 @@
       <a class="link link-hover">Privacy policy</a>
       <a class="link link-hover">Cookie policy</a>
     </div>
-    <div>
-      <span class="footer-title">Social</span>
-      <a class="link link-hover">Twitter</a>
-      <a class="link link-hover">Instagram</a>
-      <a class="link link-hover">Facebook</a>
-      <a class="link link-hover">Github</a>
-    </div>
-    <div>
-      <span class="footer-title">Explore</span>
-      <a class="link link-hover">Features</a>
-      <a class="link link-hover">Enterprise</a>
-      <a class="link link-hover">Security</a>
-      <a class="link link-hover">Pricing</a>
-    </div>
-    <div>
-      <span class="footer-title">Apps</span>
-      <a class="link link-hover">Mac</a>
-      <a class="link link-hover">Windows</a>
-      <a class="link link-hover">iPhone</a>
-      <a class="link link-hover">Android</a>
-    </div>
   </footer>
 </template>
 
 <script>
-export default {}
+import { Link } from '@inertiajs/inertia-vue3'
+import LanguageSwitcher from '@/Shared/Partials/LanguageSwitcher'
+
+const components = { Link, LanguageSwitcher }
+
+export default {
+  name: 'WebFooter',
+
+  components,
+}
 </script>
 
-<style></style>
+<style scoped>
+.htw-facebook-btn {
+  background-color: #3b5998;
+  border: 1px solid #3b5998;
+}
+.htw-facebook-btn:hover {
+  background-color: transparent;
+  border: 2px solid #3b5998;
+  color: #3b5998;
+}
+
+.htw-instagram-btn {
+  background-color: #c32aa3;
+  border: 1px solid #c32aa3;
+}
+.htw-instagram-btn:hover {
+  background-color: transparent;
+  border: 2px solid #c32aa3;
+  color: #c32aa3;
+}
+.htw-twitter-btn {
+  background-color: #1da1f2;
+  border: 1px solid #1da1f2;
+}
+.htw-twitter-btn:hover {
+  background-color: transparent;
+  border: 2px solid #1da1f2;
+  color: #1da1f2;
+}
+.htw-youtube-btn {
+  background-color: #bd081c;
+  border: 1px solid #bd081c;
+}
+.htw-youtube-btn:hover {
+  background-color: transparent;
+  border: 2px solid #bd081c;
+  color: #bd081c;
+}
+</style>

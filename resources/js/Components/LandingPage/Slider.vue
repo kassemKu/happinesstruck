@@ -104,9 +104,10 @@
                   border-warning
                   transform
                   hover:bg-transparent
-                  hover:border-2
+                  hover:border-1
                   hover:border-warning
                   hover:text-warning
+                  hover:border-2
                   hover:scale-105
                 "
               >
