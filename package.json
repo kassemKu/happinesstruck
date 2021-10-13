@@ -36,7 +36,6 @@
     "@headlessui/vue": "^1.4.1",
     "eslint-config-prettier": "^8.3.0",
     "feather-icons": "^4.28.0",
-    "global": "^4.4.0",
     "gsap": "^3.8.0",
     "js-cookie": "^3.0.0",
     "prettier": "^2.4.1",

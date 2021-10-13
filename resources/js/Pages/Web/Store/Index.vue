@@ -261,6 +261,7 @@
             </div>
           </div>
         </div>
+        <!-- products view -->
       </div>
       <!-- <div class="w-72">side right</div> -->
     </div>
