@@ -21,7 +21,7 @@
           btn btn-outline btn-circle
           border-2
           transform
-          hover:bg-transparent hover:scale-105 hover:text-info hover:border-info
+          hover:bg-transparent hover:scale-110 hover:text-info hover:border-info
         "
       >
         <svg
@@ -85,7 +85,7 @@
             hover:bg-transparent
             transform
             font-bold
-            hover:bg-transparent hover:text-info hover:scale-105
+            hover:bg-transparent hover:text-info hover:scale-110
           "
         >
           login
@@ -97,7 +97,7 @@
             font-bold
             hover:bg-transparent
             transform
-            hover:bg-transparent hover:text-info hover:scale-105
+            hover:bg-transparent hover:text-info hover:scale-110
           "
         >
           register
@@ -122,7 +122,7 @@
             font-semibold
             hover:bg-transparent
             transform
-            hover:bg-transparent hover:text-info hover:scale-105
+            hover:bg-transparent hover:text-info hover:scale-110
           "
         >
           <VueFeather type="shopping-bag" stroke-width="2.5" />
@@ -130,9 +130,20 @@
         <button
           class="
             btn btn-ghost
+            font-semibold
             hover:bg-transparent
             transform
-            hover:bg-transparent hover:text-info hover:scale-105
+            hover:bg-transparent hover:text-info hover:scale-110
+          "
+        >
+          <VueFeather type="heart" stroke-width="2.5" />
+        </button>
+        <button
+          class="
+            btn btn-ghost
+            hover:bg-transparent
+            transform
+            hover:bg-transparent hover:text-info hover:scale-110
           "
         >
           <VueFeather type="search" stroke-width="2.5" />

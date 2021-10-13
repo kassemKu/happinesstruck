@@ -96,7 +96,7 @@
                 />
               </div>
             </div>
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center justify-center space-x-2">
               <button
                 class="
                   btn btn-circle

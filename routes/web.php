@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WebSettingsController;
 use App\Http\Controllers\Web\WebDashboardController;
 use App\Http\Controllers\Web\LandingPageController;
+use App\Http\Controllers\Web\StorePageController;
 use App\Http\Controllers\Manage\ManageDashboardController;
 use App\Http\Controllers\Manage\ManageSectionsController;
 use App\Http\Controllers\Manage\ManageCategoriesController;
@@ -14,8 +14,13 @@ use App\Http\Controllers\Manage\ManageProductsController;
  */
 Route::name('web.')
     ->group(function() {
+        /**
+         * route not need auth
+         */
         // landing page
         Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+        // store page
+        Route::get('/store', [StorePageController::class, 'index'])->name('store');
         // routes web needed auth
         Route::middleware(['auth:sanctum', 'verified'])
             ->group(function() {
