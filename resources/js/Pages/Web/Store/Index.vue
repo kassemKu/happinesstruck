@@ -198,7 +198,8 @@
                 relative
                 cursor-pointer
                 shadow-inner
-                transition-all
+                transform
+                transition
                 duration-500
                 ease-in-out
                 hover:shadow-2xl
@@ -290,7 +291,7 @@
           bg-base-200
           shadow-2xl
           max-w-screen-lg
-          border-t-8 border-success
+          border-t-8 border-info
         "
       >
         <div class="px-12 py-8 flex items-center justify-between">
@@ -495,7 +496,7 @@ export default {
   components,
 
   setup() {
-    let isOpen = ref(true)
+    let isOpen = ref(false)
 
     return {
       isOpen,
