@@ -17,6 +17,10 @@ module.exports = {
         heading: ['Ubuntu', ...defaultTheme.fontFamily.sans],
         'body-arabic': ['bein-normal', ...defaultTheme.fontFamily.sans],
       },
+      spacing: {
+        'v-3/4-screen': '75vh',
+        99: '36rem',
+      },
     },
   },
 

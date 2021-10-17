@@ -62,7 +62,7 @@
             </div>
           </div>
           <!-- title, description, buttons -->
-          <div class="flex-1 flex flex-col space-y-12">
+          <div class="flex-1 flex flex-col space-y-6">
             <div
               class="htw-package-slide__img-wrap relative h-[635px] transform"
             >
