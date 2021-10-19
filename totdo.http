@@ -1,0 +1,6 @@
+POST  https://safitodos.000webhostapp.com/api/todos/update/1
+content-type: application/json
+
+{
+    td_title: "todo 1 updated",
+}

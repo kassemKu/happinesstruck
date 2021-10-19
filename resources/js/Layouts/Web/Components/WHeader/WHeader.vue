@@ -23,6 +23,7 @@
           transform
           hover:bg-transparent hover:scale-110 hover:text-info hover:border-info
         "
+        @click.prevent="openWebSidebar"
       >
         <svg
           width="24"
@@ -69,22 +70,17 @@
       "
     >
       <span>happiness</span>
-      <!-- <VueFeather
-        type="truck"
-        stroke-width="3"
-        class="h-10 w-10 text-info-focus"
-      /> -->
       <span>truck</span>
     </Link>
     <div class="flex space-x-8">
-      <div v-if="!$page.props.user" class="flex">
+      <div v-show="!$page.props.user" class="flex">
         <Link
           :href="route('login')"
           class="
             btn btn-ghost
             hover:bg-transparent
             transform
-            font-bold
+            font-medium
             hover:bg-transparent hover:text-info hover:scale-110
           "
         >
@@ -94,7 +90,7 @@
           :href="route('register')"
           class="
             btn btn-ghost
-            font-bold
+            font-medium
             hover:bg-transparent
             transform
             hover:bg-transparent hover:text-info hover:scale-110
@@ -102,18 +98,6 @@
         >
           register
         </Link>
-      </div>
-      <div v-else class="avatar online cursor-pointer">
-        <div
-          class="
-            rounded-full
-            w-10
-            h-10
-            ring ring-info ring-offset-base-100 ring-offset-2
-          "
-        >
-          <img src="/images/me.png" />
-        </div>
       </div>
       <div class="htw-header-user_area flex">
         <button
@@ -125,7 +109,7 @@
             hover:bg-transparent hover:text-info hover:scale-110
           "
         >
-          <VueFeather type="shopping-bag" stroke-width="2.5" />
+          <ShoppingCartArrowDown24 class="w-7 h-7" />
         </button>
         <button
           class="
@@ -136,7 +120,7 @@
             hover:bg-transparent hover:text-info hover:scale-110
           "
         >
-          <VueFeather type="heart" stroke-width="2.5" />
+          <Favorite24 class="w-7 h-7" />
         </button>
         <button
           class="
@@ -146,7 +130,7 @@
             hover:bg-transparent hover:text-info hover:scale-110
           "
         >
-          <VueFeather type="search" stroke-width="2.5" />
+          <Search24 class="w-7 h-7" />
         </button>
         <LanguageSwitcher />
       </div>
@@ -155,6 +139,7 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
 import { Link } from '@inertiajs/inertia-vue3'
 import LanguageSwitcher from '@/Shared/Partials/LanguageSwitcher'
 
@@ -164,5 +149,15 @@ export default {
   name: 'WebHeader',
 
   components,
+
+  setup() {
+    const store = useStore()
+
+    const openWebSidebar = () => {
+      store.commit('openWebSidebar')
+    }
+
+    return { openWebSidebar }
+  },
 }
 </script>

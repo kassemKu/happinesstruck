@@ -128,7 +128,7 @@
 
 <script>
 import ManageSideNavGroup from '@/Shared/Layouts/MNavGroup'
-import ManageSideNavLink from '@/Shared/Partials/MSideNavLink.vue'
+import ManageSideNavLink from '@/Shared/Partials/MSideNavLink'
 
 const components = { ManageSideNavGroup, ManageSideNavLink }
 
