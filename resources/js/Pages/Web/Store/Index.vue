@@ -9,7 +9,7 @@
         bg-base-200
         flex
         min-h-screen
-        my-36
+        mt-36
         mx-16
         overflow-hidden
         border
@@ -204,7 +204,7 @@
                 ease-in-out
                 hover:shadow-2xl
               "
-              @click="setIsOpen(true)"
+              @click="openProductPopup"
             >
               <button
                 class="
@@ -222,10 +222,7 @@
                 />
               </button>
               <figure class="flex items-center justify-center">
-                <img
-                  :src="product.src"
-                  class="object-scale-down w-full h-64 rounded-3xl"
-                />
+                <img :src="product.src" class="object-scale-down w-full h-64" />
               </figure>
               <div class="flex flex-col space-y-6 mt-4">
                 <div class="flex flex-col">
@@ -279,215 +276,21 @@
       <!-- <div class="w-72">side right</div> -->
     </div>
   </WebLayout>
-  <Dialog class="fixed inset-0 z-40" :open="isOpen" @close="setIsOpen">
-    <div class="fixed inset-0 h-screen w-screen bg-primary-content">
-      <div
-        class="
-          absolute
-          inset-0
-          my-36
-          mx-auto
-          rounded-3xl
-          bg-base-200
-          shadow-2xl
-          max-w-screen-lg
-          border-t-8 border-info
-        "
-      >
-        <div class="px-12 py-8 flex items-center justify-between">
-          <Link
-            href="/"
-            class="
-              htw-header-logo
-              inline-flex
-              items-center
-              justify-center
-              space-x-2
-              uppercase
-              font-black
-              text-xl text-warning
-              transform
-              hover:bg-transparent hover:text-info
-              focus:outline-none
-            "
-          >
-            <span>happiness</span>
-            <span>truck</span>
-          </Link>
-          <button
-            class="
-              htw-product-popup-close-btn
-              btn btn-outline btn-circle
-              border-2
-              transform
-              hover:bg-transparent
-              hover:scale-110
-              hover:text-error
-              hover:border-error
-            "
-            @click="setIsOpen(false)"
-          >
-            <VueFeather type="x" stroke-width="3" />
-          </button>
-        </div>
-        <div class="flex items-center justify-between px-24 mt-24 relative">
-          <div class="w-1/2 flex flex-col space-y-6 items-center">
-            <figure class="flex justify-center">
-              <img
-                src="/images/products/fun-3d-illustration-astronaut-with-vr-helmet-removebg-preview.png"
-                class="object-scale-down w-96 h-96"
-              />
-            </figure>
-            <div class="w-full flex items-center space-x-2">
-              <span
-                v-for="dot in 3"
-                :key="dot"
-                class="
-                  inline-block
-                  w-5
-                  h-5
-                  rounded-full
-                  bg-base-300
-                  cursor-pointer
-                "
-              ></span>
-            </div>
-            <button
-              class="
-                absolute
-                right-0
-                top-1/3
-                h-36
-                w-14
-                bg-info
-                flex
-                items-center
-                justify-center
-                text-base-100
-                rounded-l-lg
-              "
-            >
-              <VueFeather
-                type="chevron-right"
-                stroke-width="3"
-                class="w-8 h-8"
-              />
-            </button>
-            <button
-              class="
-                absolute
-                left-0
-                top-1/3
-                h-36
-                w-14
-                bg-info
-                flex
-                items-center
-                justify-center
-                text-base-100
-                rounded-r-lg
-              "
-            >
-              <VueFeather
-                type="chevron-right"
-                stroke-width="3"
-                class="w-8 h-8"
-              />
-            </button>
-          </div>
-
-          <div class="flex-1 flex flex-col space-y-6 -ml-8">
-            <div>
-              <h1 class="text-4xl font-black capitalize">product name</h1>
-            </div>
-            <div class="flex space-x-8 items-center">
-              <div>
-                <h3 class="text-2xl uppercase font-bold">12 DK</h3>
-              </div>
-              <div class="flex space-x-2 items-center">
-                <span class="capitalize">quantity: </span>
-                <button
-                  class="
-                    btn btn-outline
-                    border-2 border-info
-                    text-info
-                    btn-xs
-                    capitalize
-                    hover:border-success hover:bg-transparent hover:text-success
-                  "
-                >
-                  1
-                  <VueFeather
-                    type="chevron-down"
-                    stroke-width="3"
-                    class="w-5 h-5"
-                  />
-                </button>
-              </div>
-            </div>
-            <div>
-              <p class="inline-block max-w-md text-gray-400 font-medium">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-                perspiciatis molestiae, laudantium facere maxime, nobis mollitia
-                beatae, asperiores deleniti voluptatem repellendus provident?
-                Commodi, pariatur magni ullam quae vitae ducimus minus?
-              </p>
-            </div>
-            <div class="flex flex-col space-y-2 text-sm font-semibold">
-              <div class="flex items-center space-x-6">
-                <div class="flex items-center space-x-2">
-                  <span v-for="star in 5" :key="star">
-                    <VueFeather
-                      type="star"
-                      class="text-gray-400 w-5 h-5 fill-current text-warning"
-                    />
-                  </span>
-                </div>
-                <p>
-                  <span class="uppercase text-info">240</span>
-                  reviews
-                </p>
-              </div>
-              <div class="flex items-center space-x-6 text-gray-500">
-                <p>
-                  last update:
-                  <span class="capitalize text-info">2 days ago</span>
-                </p>
-                <p>store: <span class="text-gray-600">#0098888</span></p>
-              </div>
-            </div>
-            <div>
-              <button class="btn btn-info btn-lg mt-4 w-1/2">
-                add to cart
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </Dialog>
+  <ProductPopup />
 </template>
 
 <script>
+import { useStore } from 'vuex'
 import { Link } from '@inertiajs/inertia-vue3'
 import { Head } from '@inertiajs/inertia-vue3'
 import WebLayout from '@/Layouts/Web/WebLayout'
-import { ref } from 'vue'
-import {
-  Dialog,
-  DialogOverlay,
-  DialogTitle,
-  DialogDescription,
-} from '@headlessui/vue'
+import ProductPopup from '@/Components/StorePage/ProductPopup'
 
 const components = {
   Head,
   WebLayout,
-  Dialog,
-  DialogOverlay,
-  DialogTitle,
-  DialogDescription,
   Link,
+  ProductPopup,
 }
 
 export default {
@@ -496,13 +299,14 @@ export default {
   components,
 
   setup() {
-    let isOpen = ref(false)
+    const store = useStore()
+
+    const openProductPopup = () => {
+      store.commit('openModel')
+    }
 
     return {
-      isOpen,
-      setIsOpen(value) {
-        isOpen.value = value
-      },
+      openProductPopup,
     }
   },
 

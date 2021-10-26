@@ -29,6 +29,8 @@ import Home32 from '@carbon/icons-vue/es/home/32'
 import ShoppingBag32 from '@carbon/icons-vue/es/shopping--bag/32'
 import Favorite24 from '@carbon/icons-vue/es/favorite/24'
 import Search24 from '@carbon/icons-vue/es/search/24'
+import ArrowDown32 from '@carbon/icons-vue/es/arrow--down/32'
+import ArrowUp32 from '@carbon/icons-vue/es/arrow--up/32'
 
 export const components = {
   ArrowLeft20,
@@ -62,4 +64,6 @@ export const components = {
   ShoppingBag32,
   Favorite24,
   Search24,
+  ArrowDown32,
+  ArrowUp32,
 }

@@ -270,12 +270,12 @@
 </template>
 
 <script>
-import HtSection from '@/Shared/Layouts/HtSection'
+import HtSection from "@/Shared/Layouts/HtSection";
 
-const components = { HtSection }
+const components = { HtSection };
 
 export default {
-  name: 'LandingProductsSliders',
+  name: "LandingProductsSliders",
 
   components,
 
@@ -283,65 +283,65 @@ export default {
     return {
       newProducts: [
         {
-          name: 'first product',
-          src: '/images/products/product_11.jpg',
+          name: "first product",
+          src: "/images/products/product_11.jpg",
         },
         {
-          name: 'first product',
-          src: '/images/products/product_17.jpg',
+          name: "first product",
+          src: "/images/products/product_17.jpg",
         },
         {
-          name: 'first product',
-          src: '/images/products/product_24.png',
+          name: "first product",
+          src: "/images/products/product_24.png",
         },
         {
-          name: 'first product',
-          src: '/images/products/product_11.jpg',
+          name: "first product",
+          src: "/images/products/product_11.jpg",
         },
         {
-          name: 'first product',
-          src: '/images/products/product_17.jpg',
+          name: "first product",
+          src: "/images/products/product_17.jpg",
         },
         {
-          name: 'first product',
-          src: '/images/products/product_24.png',
+          name: "first product",
+          src: "/images/products/product_24.png",
         },
         {
-          name: 'first product',
-          src: '/images/products/product_11.jpg',
+          name: "first product",
+          src: "/images/products/product_11.jpg",
         },
       ],
       featuredProducts: [
         {
-          name: 'first product',
-          src: '/images/538c6862971401.Y3JvcCwxMjI4LDk2MCwyOTEsMTcw-removebg-preview.png',
+          name: "first product",
+          src: "/images/538c6862971401.Y3JvcCwxMjI4LDk2MCwyOTEsMTcw-removebg-preview.png",
         },
         {
-          name: 'first product',
-          src: '/images/Barbie_Cover_lifestyle_2_360x.jpg',
+          name: "first product",
+          src: "/images/Barbie_Cover_lifestyle_2_360x.jpg",
         },
         {
-          name: 'first product',
-          src: '/images/AZhu69ap-image-1-6.jpg',
+          name: "first product",
+          src: "/images/AZhu69ap-image-1-6.jpg",
         },
         {
-          name: 'first product',
-          src: '/images/659b72077a54ad832458b88d7873792c.jpg',
+          name: "first product",
+          src: "/images/659b72077a54ad832458b88d7873792c.jpg",
         },
         {
-          name: 'first product',
-          src: '/images/products/product_17.jpg',
+          name: "first product",
+          src: "/images/products/product_17.jpg",
         },
         {
-          name: 'first product',
-          src: '/images/products/4387.jpg',
+          name: "first product",
+          src: "/images/products/4387.jpg",
         },
         {
-          name: 'first product',
-          src: '/images/products/product_23.jpg',
+          name: "first product",
+          src: "/images/products/product_23.jpg",
         },
       ],
-    }
+    };
   },
-}
+};
 </script>

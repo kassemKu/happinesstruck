@@ -7,7 +7,10 @@
     <main class="htw-main-content">
       <slot />
     </main>
-    <section class="htw-footer-container">
+    <section
+      v-show="!$page.url.includes('/our-packages')"
+      class="htw-footer-container"
+    >
       <WebFooter />
     </section>
   </div>

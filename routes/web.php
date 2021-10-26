@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\WebDashboardController;
 use App\Http\Controllers\Web\LandingPageController;
 use App\Http\Controllers\Web\StorePageController;
+use App\Http\Controllers\Web\PackagesPageController;
 use App\Http\Controllers\Manage\ManageDashboardController;
 use App\Http\Controllers\Manage\ManageSectionsController;
 use App\Http\Controllers\Manage\ManageCategoriesController;
@@ -20,7 +21,9 @@ Route::name('web.')
         // landing page
         Route::get('/', [LandingPageController::class, 'index'])->name('landing');
         // store page
-        Route::get('/store', [StorePageController::class, 'index'])->name('store');
+        Route::get('/our-store', [StorePageController::class, 'index'])->name('store');
+        // packages page
+        Route::get('/our-packages', [PackagesPageController::class, 'index'])->name('packages');
         // routes web needed auth
         Route::middleware(['auth:sanctum', 'verified'])
             ->group(function() {

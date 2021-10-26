@@ -72,7 +72,7 @@
       <span>happiness</span>
       <span>truck</span>
     </Link>
-    <div class="flex space-x-8">
+    <div v-show="!$page.url.includes('/our-packages')" class="flex space-x-8">
       <div v-show="!$page.props.user" class="flex">
         <Link
           :href="route('login')"
