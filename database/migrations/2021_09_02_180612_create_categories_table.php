@@ -17,11 +17,18 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('ar_name', 191);
             $table->string('en_name', 191);
-            $table->text('en_description')->nullable();
-            $table->text('ar_description')->nullable();
+            $table->mediumText('en_summary')->nullable();
+            $table->mediumText('ar_summary')->nullable();
             $table->tinyInteger('published')->default('1');
-            $table->string('slug', 191)->nullable();
-            $table->string('image_url')->nullable();
+            $table->string('ar_slug', 191)->unique()->nullable();
+            $table->string('en_slug', 191)->unique()->nullable();
+            $table->json('mediaIds')->nullable();
+            $table->boolean('is_parent')->default(true)->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')
+            ->references('id')->on('categories')
+            ->onUpdate('cascade')
+            ->onDelete('SET NULL');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -17,7 +17,7 @@
       <h5 class="capitalize text-sm">{{ groupTitle }}</h5>
     </div>
     <div
-      class="grid gap-y-8"
+      class="grid gap-y-10"
       :class="isManageSidebarOpen ? 'grid-cols-2' : 'grid-cols-1'"
     >
       <slot />

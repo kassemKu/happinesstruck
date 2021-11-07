@@ -208,7 +208,7 @@
 </template>
 
 <script>
-import HtSection from '@/Shared/Layouts/HtSection.vue'
+import HtSection from '@/Shared/Layouts/HtSection'
 
 const components = { HtSection }
 

@@ -281,7 +281,7 @@
                         </div>
                       </div>
                       <progress
-                        class="progress"
+                        class="progress upload-progress"
                         value="100"
                         max="100"
                       ></progress>
@@ -412,6 +412,11 @@ export default {
 
           axios.post(route('manage.media.store'), formData).then((res) => {
             item.id = res.data.id
+          }).then(() => {
+            this.$store.commit('openNotification', {
+              title: 'upload file',
+              content: `product image uploaded successfully`
+            })
           })
 
           this.media.push(item)
@@ -425,6 +430,11 @@ export default {
         axios.delete(route('manage.media.destroy', img.id)).catch((error) => {
           console.log(error)
           this.media.splice(index, 0, img)
+        }).then(() => {
+          this.$store.commit('openNotification', {
+            title: 'delete file',
+            content: `product image deleted successfully`
+          })
         })
       }
     },
@@ -434,11 +444,23 @@ export default {
         preserverStae: true,
         onStart: () => console.log('Do Something on start'),
         onFinish: () => console.log('Do Something on finish'),
+        onError: (errors) => {
+          this.$store.commit('openNotification', {
+              title: "something went wrong",
+              type: "error",
+              content: errors,
+            })
+        },
         onSuccess: () => {
           if (Object.keys(this.$page.props.errors).length === 0) {
             this.form.reset()
             this.media = []
             this.form.mediaIds = []
+            this.$store.commit('openNotification', {
+              title: "create producut",
+              type: "success",
+              content: "product created successfully",
+            })
           }
         },
       })
@@ -446,9 +468,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.progress {
-  height: 0.3rem;
-}
-</style>

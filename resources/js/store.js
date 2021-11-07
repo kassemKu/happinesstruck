@@ -6,13 +6,25 @@ export const store = new Vuex.Store({
     applyTheme: Cookies.get('theme') || 'light',
     isManageSidebarOpen: Cookies.get('isManageSidebarOpen') === 'true',
     isWebSidebarOpen: Cookies.get('isWebSidebarOpen') === 'true' || false,
-    isModelOpen: false,
+    isModalOpen: false,
+    notification: {
+      isOpen: false,
+      type: 'success',
+      title: '',
+      content: '',
+      dur: 3000,
+      delay: 500
+    },
   },
   getters: {
     isManageSidebarOpen: (state) => state.isManageSidebarOpen,
     isWebSidebarOpen: (state) => state.isWebSidebarOpen,
     applyTheme: (state) => state.applyTheme,
-    isModelOpen: (state) => state.isModelOpen,
+    isModalOpen: (state) => state.isModalOpen,
+    isNotificationOpen: (state) => state.notification.isOpen,
+    notificationType: (state) => state.notification.type,
+    notificationTitle: (state) => state.notification.title,
+    notificationContent: (state) => state.notification.content,
   },
   mutations: {
     // manage sidebar
@@ -37,11 +49,33 @@ export const store = new Vuex.Store({
       htmlTag.setAttribute('data-theme', theme)
     },
     // toggle model
-    closeModel(state) {
-      state.isModelOpen = false
+    closeModal(state) {
+      state.isModalOpen = false
     },
-    openModel(state) {
-      state.isModelOpen = true
+    openModal(state) {
+      state.isModalOpen = true
+    },
+    // Notification
+    closeNotification(state) {
+      state.notification.isOpen = false
+      setTimeout(() => {
+        state.notification.type = ''
+        state.notification.title = ''
+        state.notification.content = ''
+      }, state.notification.delay + state.notification.dur)
+    },
+    openNotification(state, payload) {
+      const openNotificationDelay = setTimeout(() => {
+        state.notification.isOpen = true
+        state.notification.type = payload.type
+        state.notification.title = payload.title
+        state.notification.content = payload.content
+      }, state.notification.delay)
+
+      setTimeout(() => {
+        this.commit('closeNotification')
+        clearTimeout(openNotificationDelay)
+      }, state.notification.dur)
     },
   },
   actions: {},

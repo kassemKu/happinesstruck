@@ -2,6 +2,7 @@
   <div
     class="htm-layout h-screen max-h-screen overflow-hidden text-base-content"
   >
+    <Notifications />
     <div class="htm-inner flex">
       <aside
         class="ht-base-transition htm-sidebar-container transition"
@@ -40,8 +41,9 @@
 import { mapState } from 'vuex'
 import ManageSidebar from './Components/MSidebar/MSidebar'
 import ManageHeader from './Components/MHeader/MHeader'
+import Notifications from '@/Shared/Layouts/Notifications.vue'
 
-const components = { ManageHeader, ManageSidebar }
+const components = { ManageHeader, ManageSidebar, Notifications }
 
 export default {
   name: 'ManageLayout',

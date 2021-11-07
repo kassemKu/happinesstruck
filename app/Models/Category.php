@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -24,11 +25,14 @@ class Category extends Model
     protected $fillable = [
         'ar_name',
         'en_name',
-        'ar_description',
-        'en_description',
+        'ar_summary',
+        'en_summary',
         'published',
-        'image_url',
-        'slug',
+        'media_ids',
+        'ar_slug',
+        'en_slug',
+        'parent_id',
+        'is_parent',
         'section_id',
         'created_at',
         'updated_at',
@@ -64,6 +68,19 @@ class Category extends Model
     {
         return $this->morphMany(Media::class, 'model');
     }
+
+    /**
+     * @return string
+     */
+
+     public function setArSlugAttribute() {
+        return $this->attributes['ar_slug'] = Str::slug($this->attributes['ar_name']);
+     }
+
+     public function setEnSlugAttribute() {
+        return $this->attributes['en_slug'] = Str::slug($this->attributes['en_name']);
+     }
+
 
     public function scopeFilter($query, array $filters): void
     {

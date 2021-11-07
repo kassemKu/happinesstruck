@@ -98,7 +98,7 @@ class ManageProductsController extends Controller
             $product->update(['mediaIds' => $request->mediaIds]);
         }
 
-        return Redirect::route('manage.products.index');
+        return Redirect::route('manage.products.show', $product->id);
     }
 
     /**
@@ -113,6 +113,10 @@ class ManageProductsController extends Controller
             'id' => $product->id,
             'ar_name' => $product->ar_name,
             'en_name' => $product->en_name,
+            'ar_short_description' => $product->ar_short_description,
+            'en_short_description' => $product->en_short_description,
+            'ar_description' => $product->ar_description,
+            'en_description' => $product->en_description,
             'mediaIds' => $product->mediaIds,
             'media' => $product->media()->get()->map->only('id', 'directory_name', 'full_url'),
          ]]);
@@ -196,11 +200,13 @@ class ManageProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  obj  $product
      * @return \Inertia\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product): RedirectResponse
     {
-        //
+        $product->delete();
+
+        return Redirect::route('manage.products.index');
     }
 }

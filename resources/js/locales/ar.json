@@ -21,6 +21,8 @@
   "section": "القسم",
   "sections": "الأقسام",
   "pages": "الصفحات",
+  "banners": "لافتات",
+  "banner": "لافتة",
   "action_model": "{action} {model}",
   "add": "اضافة",
   "update": "تحديث",

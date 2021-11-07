@@ -11,11 +11,13 @@ import Function24 from '@carbon/icons-vue/es/function/24'
 import UserSpeaker24 from '@carbon/icons-vue/es/user--speaker/24'
 import Identification24 from '@carbon/icons-vue/es/identification/24'
 import UserCertification24 from '@carbon/icons-vue/es/user--certification/24'
+import Store24 from '@carbon/icons-vue/es/store/24'
 import Store32 from '@carbon/icons-vue/es/store/32'
 import Product24 from '@carbon/icons-vue/es/product/24'
 import ShoppingCartArrowDown24 from '@carbon/icons-vue/es/shopping--cart--arrow-down/24'
 import DataReference24 from '@carbon/icons-vue/es/data--reference/24'
 import Delivery32 from '@carbon/icons-vue/es/delivery/32'
+import Delivery24 from '@carbon/icons-vue/es/delivery/24'
 import DeliveryParcel24 from '@carbon/icons-vue/es/delivery--parcel/24'
 import EventSchedule24 from '@carbon/icons-vue/es/event--schedule/24'
 import Tools24 from '@carbon/icons-vue/es/tools/24'
@@ -31,6 +33,9 @@ import Favorite24 from '@carbon/icons-vue/es/favorite/24'
 import Search24 from '@carbon/icons-vue/es/search/24'
 import ArrowDown32 from '@carbon/icons-vue/es/arrow--down/32'
 import ArrowUp32 from '@carbon/icons-vue/es/arrow--up/32'
+import FaceActivated32 from '@carbon/icons-vue/es/face--activated/32'
+import Coronavirus32 from '@carbon/icons-vue/es/coronavirus/32'
+import Bullhorn24 from '@carbon/icons-vue/es/bullhorn/24'
 
 export const components = {
   ArrowLeft20,
@@ -45,10 +50,12 @@ export const components = {
   UserSpeaker24,
   Identification24,
   UserCertification24,
+  Store24,
   Store32,
   Product24,
   ShoppingCartArrowDown24,
   DataReference24,
+  Delivery24,
   Delivery32,
   DeliveryParcel24,
   EventSchedule24,
@@ -66,4 +73,7 @@ export const components = {
   Search24,
   ArrowDown32,
   ArrowUp32,
+  FaceActivated32,
+  Coronavirus32,
+  Bullhorn24,
 }

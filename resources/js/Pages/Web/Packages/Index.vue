@@ -16,81 +16,20 @@
             :ref="slideSection"
             class="mtw-slide h-screen w-screen"
           >
-            <div v-if="index === 0" class="grid grid-cols-2 h-full">
-              <div class="h-full w-full bg-error bg-opacity-40 pt-36 pl-16">
-                <div class="alert alert-warning max-w-sm shadow-inner">
-                  <div class="space-x-2 text-yellow-800 text-opacity-50">
-                    <div>
-                      <VueFeather type="alert-circle" />
-                    </div>
-                    <label>
-                      <span
-                        class="font-semibold text-sm capitalize leading-relaxed"
-                        >please note: this package available above 200 DK, you
-                        can choose more items
-                      </span>
-                      <button class="btn btn-sm btn-ghost space-x-2">
-                        <span>from here</span>
-                        <VueFeather type="arrow-right-circle" />
-                      </button>
-                    </label>
-                  </div>
-                </div>
-                <div class="flex flex-col space-y-8 mt-16 capitalize">
-                  <h1 class="text-4xl font-bold max-w-sm leading-10">
-                    {{ slide.name }}
-                  </h1>
-                  <p
-                    class="
-                      text-black text-opacity-40
-                      max-w-lg
-                      leading-wide
-                      text-lg
-                      font-medium
-                    "
-                  >
-                    {{ slide.shortDescription }}
-                  </p>
-                  <div class="flex space-x-4 max-w-lg">
-                    <button class="btn">booking now</button>
-                  </div>
-                </div>
-              </div>
-              <div class="h-full w-full grid grid-cols-2">
-                <div
-                  v-for="item in slide.items"
-                  :key="item"
-                  :class="item.blockClasses"
-                  class="p-8"
-                >
-                  <img
-                    :src="item.src"
-                    alt="item name"
-                    class="object-scale-down w-72 h-72"
-                  />
-                  <div class="flex flex-col space-y-4 capitalize font-medium">
-                    <h3 class="text-3xl">{{ item.name }}</h3>
-                    <p class="text-sm">{{ item.shortDescription }}</p>
-                    <button
-                      class="
-                        btn
-                        bg-base-100
-                        border-base-100
-                        text-base-content
-                        w-36
-                        hover:border-base-100
-                        hover:bg-transparent
-                        hover:text-base-100
-                      "
-                    >
-                      read more
-                    </button>
-                  </div>
-                </div>
-              </div>
+            <div v-if="index === 0" class="h-full w-full">
+              <PackagesPageFirstSlide
+                :items="slide.items"
+                :name="slide.name"
+                :short-description="slide.shortDescription"
+              />
             </div>
-            <div v-else-if="index === 1" class="h-full bg-warning">
-              {{ slide.name }}
+            <div v-else-if="index === 1" class="h-full w-full">
+              <PackagesPageSecondSlide
+                :items="slide.items"
+                :name="slide.name"
+                :short-description="slide.shortDescription"
+                :src="slide.image"
+              />
             </div>
             <div v-else-if="index === 2" class="h-full bg-error">
               {{ slide.name }}
@@ -107,20 +46,95 @@
           </section>
         </div>
       </div>
-      <!-- <div class="fixed h-screen w-36 flex content-end">jkdskjd</div> -->
+      <div
+        ref="fixedNav"
+        class="
+          htw-packages__fixed-slide-nav
+          fixed
+          h-screen
+          w-14
+          flex flex-col
+          justify-between
+          items-center
+          pt-20
+          pb-4
+          space-y-12
+          text-base-content text-opacity-50
+        "
+      >
+        <div class="flex flex-col">
+          <button
+            class="btn btn-ghost transform hover:scale-105 hover:bg-transparent"
+          >
+            <VueFeather type="instagram" stroke-width="2" class="h-5 w-5" />
+          </button>
+          <button
+            class="btn btn-ghost transform hover:scale-105 hover:bg-transparent"
+          >
+            <VueFeather type="facebook" stroke-width="2" class="h-5 w-5" />
+          </button>
+          <button
+            class="btn btn-ghost transform hover:scale-105 hover:bg-transparent"
+          >
+            <VueFeather type="twitter" stroke-width="2" class="h-5 w-5" />
+          </button>
+          <button
+            class="btn btn-ghost transform hover:scale-105 hover:bg-transparent"
+          >
+            <VueFeather type="youtube" stroke-width="2" class="h-5 w-5" />
+          </button>
+        </div>
+
+        <div class="flex flex-col items-center space-y-8">
+          <div class="flex flex-col items-center space-y-24">
+            <div>
+              <progress
+                class="progress w-36 transform rotate-90"
+                :value="activeSlide + 1 * 10"
+                :max="packages.length + 1 * 10"
+              ></progress>
+            </div>
+            <div class="flex flex-col items-center space-y-2">
+              <button type="button" @click="slideUp">
+                <ArrowUp32 class="h-6 w-6" />
+              </button>
+              <button
+                type="button"
+                class="group hover:text-info"
+                @click="slideDown"
+              >
+                <ArrowDown32 class="h-6 w-6" />
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col items-center space-y-2">
+            <p
+              class="uppercase text-xs font-semibold"
+              style="writing-mode: tb-rl"
+            >
+              scroll down
+            </p>
+            <ArrowDown32 class="animate-bounce h-6 w-6" />
+          </div>
+        </div>
+      </div>
     </div>
   </WebLayout>
 </template>
 
 <script>
-import { onBeforeUpdate, onMounted } from 'vue'
+import { onBeforeUpdate, onMounted, ref } from 'vue'
 import { gsap, Power2 } from 'gsap'
 import { Head } from '@inertiajs/inertia-vue3'
 import WebLayout from '@/Layouts/Web/WebLayout'
+import PackagesPageFirstSlide from '@/Components/PackagesPage/Slide1'
+import PackagesPageSecondSlide from '@/Components/PackagesPage/Slide2'
 
 const components = {
   Head,
   WebLayout,
+  PackagesPageFirstSlide,
+  PackagesPageSecondSlide,
 }
 
 export default {
@@ -140,6 +154,8 @@ export default {
     const mouseAnim = gsap.timeline()
     let timeout
 
+    const fixedNav = ref(null)
+
     const setContainer = (el) => {
       container = el
     }
@@ -148,14 +164,16 @@ export default {
       slides.push(el)
     }
 
-    const wheelMouseAnim = (e) => {
-      let newScroll = true
-      activeSlide = e.deltaY > 0 ? (activeSlide += 1) : (activeSlide -= 1)
-
-      // make sure we're not past the end or beginning slide
+    // make sure we're not past the end or beginning slide
+    const wrapSlide = () => {
       activeSlide = activeSlide < 0 ? 0 : activeSlide
       activeSlide =
         activeSlide > slides.length - 1 ? slides.length - 1 : activeSlide
+    }
+
+    const wheelMouseAnim = (e) => {
+      let newScroll = true
+      activeSlide = e.deltaY > 0 ? (activeSlide += 1) : (activeSlide -= 1)
 
       // Make sure there's at least 50ms between the last scroll event and this one
       if (timeout) {
@@ -168,6 +186,8 @@ export default {
       if (!newScroll || mouseAnim.isActive() || gsap.isTweening(container))
         return
 
+      wrapSlide()
+
       if (!mouseAnim.isActive()) {
         newScroll = false
         mouseAnim.to(container, {
@@ -176,6 +196,31 @@ export default {
           ease: Power2.easeInOut,
         })
       }
+    }
+
+    const slideUp = () => {
+      wrapSlide()
+      if (gsap.isTweening(container)) return
+
+      activeSlide -= 1
+
+      mouseAnim.to(container, {
+        y: offsets[activeSlide],
+        duration: dur,
+        ease: Power2.easeInOut,
+      })
+    }
+
+    const slideDown = () => {
+      if (gsap.isTweening(container)) return
+      wrapSlide()
+      activeSlide += 1
+      console.log(activeSlide)
+      mouseAnim.to(container, {
+        y: offsets[activeSlide],
+        duration: dur,
+        ease: Power2.easeInOut,
+      })
     }
 
     onBeforeUpdate(() => {
@@ -192,7 +237,15 @@ export default {
       }
     })
 
-    return { wheelMouseAnim, slideSection, setContainer }
+    return {
+      wheelMouseAnim,
+      slideSection,
+      setContainer,
+      slideDown,
+      slideUp,
+      activeSlide,
+      fixedNav,
+    }
   },
 
   data() {
@@ -202,37 +255,38 @@ export default {
           id: 1,
           name: 'here we find first package name',
           price: 65,
+          image: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
           shortDescription:
             'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias deserunt quas dignissimos consequatur unde? Nemo quia at neque recusandae omnis. Temporibus atque omnis numquam.',
           items: [
             {
-              src: '/images/products/fun-3d-illustration-astronaut-with-vr-helmet-removebg-preview.png',
+              src: '/images/packages/markus-spiske-nvKQ1kxheRc-unsplash.jpg',
               blockClasses:
-                'flex flex-col items-center space-y-8 bg-error text-neutral-content',
+                'flex flex-col items-center space-y-8 bg-error bg-opacity-60 text-neutral-content',
               name: 'item name',
               shortDescription:
                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ea tempore ipsa.',
             },
             {
-              src: '/images/products/4387-removebg-preview.png',
+              src: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
               blockClasses:
-                'bg-warning flex flex-col items-center space-y-8 text-neutral-content',
+                'bg-warning bg-opacity-50 flex flex-col items-center space-y-8 text-neutral-content',
               name: 'item name',
               shortDescription:
                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ea tempore ipsa.',
             },
             {
-              src: '/images/imageedit_7_9494288863-removebg-preview.png',
+              src: '/images/packages/markus-spiske-dWaRJ3WBnGs-unsplash.jpg',
               blockClasses:
-                'bg-blue-600 flex flex-col items-center space-y-8 text-neutral-content',
+                'bg-blue-600 bg-opacity-50 flex flex-col items-center space-y-8 text-neutral-content',
               name: 'item name',
               shortDescription:
                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ea tempore ipsa.',
             },
             {
-              src: '/images/538c6862971401.Y3JvcCwxMjI4LDk2MCwyOTEsMTcw-removebg-preview.png',
+              src: '/images/packages/markus-spiske-OO89_95aUC0-unsplash.jpg',
               blockClasses:
-                'bg-success flex-col items-center space-y-8 text-neutral-content',
+                'bg-success bg-opacity-50 flex-col items-center space-y-8 text-neutral-content',
               name: 'item name',
               shortDescription:
                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ea tempore ipsa.',
@@ -242,8 +296,8 @@ export default {
         {
           id: 2,
           name: 'second product',
-          src: '/images/products/4387-removebg-preview.png',
           price: 65,
+          image: '/images/packages/gustavo-alves-YOXSC4zRcxw-unsplash.jpg',
           imsgesSectionBgColor: 'bg-accent bg-opacity-40',
           textSectionBgColor: 'bg-base-100',
           items: [
@@ -272,16 +326,16 @@ export default {
         {
           id: 3,
           name: 'third product',
-          src: '/images/products/fun-3d-illustration-astronaut-with-vr-helmet-removebg-preview.png',
           price: 65,
+          image: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
           imsgesSectionBgColor: 'bg-warning bg-opacity-40',
           textSectionBgColor: 'bg-base-200',
         },
         {
           id: 4,
-          name: 'five product',
-          src: '/images/538c6862971401.Y3JvcCwxMjI4LDk2MCwyOTEsMTcw-removebg-preview.png',
+          name: 'fore product',
           price: 65,
+          image: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
           imsgesSectionBgColor: 'bg-success bg-opacity-40',
           textSectionBgColor: 'bg-neutral bg-opacity-40',
           items: [
@@ -309,9 +363,9 @@ export default {
         },
         {
           id: 5,
-          name: 'six product',
-          src: '/images/imageedit_7_9494288863-removebg-preview.png',
+          name: 'five product',
           price: 65,
+          image: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
           imsgesSectionBgColor: 'bg-secondary-focus bg-opacity-40',
           textSectionBgColor: 'bg-base-300 bg-opacity-40',
           items: [
@@ -339,9 +393,9 @@ export default {
         },
         {
           id: 6,
-          name: 'seven product',
-          src: '/images/products/4387.jpg',
+          name: 'six product',
           price: 65,
+          image: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
           imsgesSectionBgColor: 'bg-secondary bg-opacity-40',
           textSectionBgColor: 'bg-base-300 bg-opacity-40',
           items: [
@@ -372,3 +426,12 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.htw-packages__fixed-slide-nav {
+  left: calc(50% - 3.5rem);
+}
+.progress {
+  height: 4px;
+}
+</style>

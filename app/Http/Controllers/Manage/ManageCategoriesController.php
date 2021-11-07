@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Category;
+use App\Models\Media;
 
 class ManageCategoriesController extends Controller
 {
@@ -22,7 +23,8 @@ class ManageCategoriesController extends Controller
     public function index(): Response
     {
         $filters = Request::all('search', 'trashed');
-        $categories = Category::paginate(10)
+        $categories = Category::latest()
+            ->paginate(10)
             // ->filter(Request::only('search', 'trashed'))
             ->transform(function($category) {
                 return [
@@ -56,20 +58,43 @@ class ManageCategoriesController extends Controller
      */
     public function store(StoreCategoryRequest $request): RedirectResponse
     {
-        Category::create($request->all());
+        $category = Category::create([
+            'ar_name' => $request->ar_name,
+            'ar_summary' => $request->ar_summary,
+            'en_name' => $request->en_name,
+            'en_summary' => $request->ar_summary,
+            'published' => $request->published,
+            'is_parent' => $request->is_parent,
+        ]);
 
-        return Redirect::route('manage.categories.index');
+        if(!empty($request->mediaIds)) {
+            Media::whereIn('id', $request->mediaIds)->update([
+                'model_id' => $category->id,
+                'model_type' => Category::class
+            ]);
+            $category->update(['mediaIds' => $request->mediaIds]);
+        }
+
+        return Redirect::route('manage.categories.show', $category->id);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  obj  $category
+     * @param  obj $category
      * @return \Inertia\Response
      */
     public function show(Category $category): Response
     {
-        return Inertia::render('Manage/Categories/Show', ['category' => $category]);
+        return Inertia::render('Manage/Categories/Show', [
+            'category' =>  [
+                'id' => $category->id,
+                'ar_name' => $category->ar_name,
+                'en_name' => $category->en_name,
+                'mediaIds' => $category->mediaIds,
+                'media' => $category->media()->get()->map->only('id', 'directory_name', 'full_url'),
+            ]
+        ]);
     }
 
     /**
@@ -94,9 +119,9 @@ class ManageCategoriesController extends Controller
     {
         $category->update([
             'ar_name' => $request->ar_name,
-            'ar_description' => $request->ar_description,
+            'ar_summary' => $request->ar_ar_summary,
             'en_name' => $request->en_name,
-            'en_description' => $request->en_description,
+            'ar_summary' => $request->en_ar_summary,
             'published' => $request->published
         ]);
 

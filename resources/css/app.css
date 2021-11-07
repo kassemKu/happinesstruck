@@ -46,9 +46,13 @@
   --glass-text-shadow-opacity: 5%;
 }
 
+button.btn:focus {
+  @apply outline-none;
+}
+
 .ht-base-transition {
   transition-property: all;
-  transition-duration: 0.2s;
+  transition-duration: 0.1s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -148,6 +152,10 @@ textarea::placeholder {
   font-size: 0.9rem;
 }
 
+.upload-progress {
+  height: 0.3rem;
+}
+
 /*
   === RTL OVERRIDES TAILWIND CSS ===
  */
@@ -155,6 +163,7 @@ body[dir='rtl'] {
   @apply font-body-arabic;
 }
 
+body[dir='rtl'] .space-x-16 > :not([hidden]) ~ :not([hidden]),
 body[dir='rtl'] .space-x-8 > :not([hidden]) ~ :not([hidden]),
 body[dir='rtl'] .space-x-6 > :not([hidden]) ~ :not([hidden]),
 body[dir='rtl'] .space-x-4 > :not([hidden]) ~ :not([hidden]),

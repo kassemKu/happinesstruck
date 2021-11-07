@@ -29,7 +29,8 @@ class CategoryFactory extends Factory
         return [
             'ar_name' =>  $category_ar_name,
             'en_name' =>  $category_en_name,
-            'slug' => $slug
+            'ar_slug' => $slug,
+            'en_slug' => $slug,
         ];
     }
 }

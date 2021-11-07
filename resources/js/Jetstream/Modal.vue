@@ -61,9 +61,9 @@ export default {
             default: true,
         },
     },
-            emits: ['close'],
+    emits: ['close'],
 
-            setup(props, { emit }) {
+    setup(props, { emit }) {
         const close = () => {
             if (props.closeable) {
                 emit('close')

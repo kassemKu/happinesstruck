@@ -36,7 +36,7 @@
                 <tr v-if="products.length == 0">
                   no data to view yet!
                 </tr>
-                <tr v-for="(index, product) in products" v-else :key="index">
+                <tr v-for="product in products" v-else :key="product.id">
                   <td>
                     <label>
                       <input type="checkbox" class="checkbox" />
@@ -57,36 +57,34 @@
                   <td class="w-full flex items-center justify-center">
                     <Link
                       :href="route('manage.products.show', product.id)"
-                      class="btn btn-xs btn-ghost hover:bg-transparent group"
+                      class="
+                        btn btn-xs btn-ghost
+                        hover:bg-transparent
+                        transform
+                        ht-base-transition
+                        hover:scale-125
+                      "
                     >
                       <VueFeather
                         type="eye"
-                        class="
-                          w-5
-                          h-5
-                          text-success
-                          transform
-                          ht-base-transition
-                          group-hover:scale-110
-                        "
+                        class="w-5 h-5 text-success"
                         aria-hidden="true"
                         aria-expanded="false"
                       />
                     </Link>
                     <Link
                       :href="route('manage.products.edit', product.id)"
-                      class="btn btn-xs btn-ghost hover:bg-transparent group"
+                      class="
+                        inline-block
+                        ht-base-transition
+                        btn btn-xs btn-ghost
+                        transform
+                        hover:bg-transparent hover:scale-125
+                      "
                     >
                       <VueFeather
                         type="edit"
-                        class="
-                          w-5
-                          h-5
-                          text-info
-                          transform
-                          ht-base-transition
-                          group-hover:scale-110
-                        "
+                        class="w-5 h-5 text-info"
                         aria-hidden="true"
                         aria-expanded="false"
                       />
@@ -94,19 +92,17 @@
                     <span v-if="product.deleted_at">trashed</span>
                     <button
                       v-else
-                      class="btn btn-xs btn-ghost hover:bg-transparent group"
-                      @click="openModel(product)"
+                      class="
+                        ht-base-transition
+                        btn btn-xs btn-ghost
+                        transform
+                        hover:bg-transparent hover:scale-125
+                      "
+                      @click="openConfirmDelete(product.id)"
                     >
                       <VueFeather
                         type="trash-2"
-                        class="
-                          w-5
-                          h-5
-                          text-error
-                          transform
-                          ht-base-transition
-                          group-hover:scale-110
-                        "
+                        class="w-5 h-5 text-error"
                         aria-hidden="true"
                         aria-expanded="false"
                       />
@@ -130,47 +126,25 @@
       </div>
     </div>
   </ManageLayout>
-  <DialogModal
-    :show="confirmDeleteProduct"
-    modal-type="error"
-    @close="closeModal"
-  >
-    <template #title>
-      {{
-        $i18n.locale === 'ar'
-          ? productToDelete.ar_name
-          : productToDelete.en_name
-      }}
-    </template>
-
-    <template #content>
-      are you sure you want to delete your product, OK, you can restort it in 1
-      month
-      <div class="mt-4"></div>
-    </template>
-
-    <template #footer>
-      <div class="flex space-x-2">
-        <button class="btn btn-sm" @click="closeModal">Cancel</button>
-
-        <button class="btn btn-sm btn-error" @click="deleteproduct">
-          {{
-            $t('action_model', { model: $t('product'), action: $t('delete') })
-          }}
-        </button>
-      </div>
-    </template>
-  </DialogModal>
+  <Modal max-width="xl" @modalAction="deleteProduct" />
 </template>
 
 <script>
+import { Inertia } from '@inertiajs/inertia'
+import { useStore } from 'vuex'
 import { Link } from '@inertiajs/inertia-vue3'
 import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
-import DialogModal from '@/Shared/UI/DialogModal'
 import SearchFilter from '@/Shared/UI/SearchFilter'
+import Modal from '@/Shared/Layouts/Modal'
 
-const components = { Link, ManageLayout, Breadcrumb, DialogModal, SearchFilter }
+const components = {
+  Link,
+  ManageLayout,
+  Breadcrumb,
+  SearchFilter,
+  Modal,
+}
 
 export default {
   name: 'ManageProductsIndex',
@@ -178,13 +152,39 @@ export default {
   components,
 
   props: {
-    products: { type: Array, default: () => [] },
+    products: {
+      type: Array,
+      default: () => [],
+    },
   },
 
-  data() {
-    return {
-      confirmDeleteProduct: false,
+  setup() {
+    let productTodeleteId = 0
+    const store = useStore()
+
+    const isModalOpen = store.state.isModalOpen
+
+    const openConfirmDelete = (productId) => {
+      store.commit('openModal')
+      productTodeleteId = productId
     }
+
+    const deleteProduct = () => {
+      Inertia.delete(route('manage.products.destroy', productTodeleteId), {
+        onFinish: () => {
+          store.commit('closeModal')
+
+          store.commit('openNotification', {
+            title: "delete producut",
+            type: "success",
+            content: "product deleted successfully",
+          })
+
+        },
+      })
+    }
+
+    return { openConfirmDelete, isModalOpen, deleteProduct }
   },
 }
 </script>

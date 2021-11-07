@@ -14,7 +14,12 @@
       />
     </template>
     <div class="htm-page htm-page__products-show">
-      <pre>{{ product }}</pre>
+      <div class="flex flex-col space-y-8">
+        <div>
+          <h2 class="text-xl font-bold capitalize">{{ $i18n.locale === 'ar' ? product.ar_name : product.en_name }}</h2>
+          <p class="text-neutral text-opacity-60">{{ $i18n.locale === 'ar' ? product.ar_short_description : product.en_short_description }}</p>
+        </div>
+      </div>
     </div>
   </ManageLayout>
 </template>

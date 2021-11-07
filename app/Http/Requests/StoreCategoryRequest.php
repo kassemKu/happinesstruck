@@ -25,12 +25,16 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'ar_name' => ['required','min:2','max:191','string'],
-            'ar_description' => ['nullable','min:6','string'],
+            'ar_summary' => ['nullable','min:6','string'],
             'en_name' => ['required','min:6','max:191','string'],
-            'en_description' => ['nullable','min:6','string'],
+            'en_summary' => ['nullable','min:6','string'],
             'published' => ['nullable'],
-            'slug' => ['nullable'],
-            'image_url' => ['nullable'],
+            'ar_slug' => ['nullable', 'alpha_dash', 'unique:categories,ar_slug,', $this->id],
+            'en_slug' => ['nullable', 'alpha_dash', 'unique:categories,en_slug,', $this->id],
+            'is_parent' => ['required'],
+            'mediaIds.*' => [
+                'nullable', 'numeric'
+            ]
         ];
     }
 }

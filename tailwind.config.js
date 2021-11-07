@@ -24,6 +24,12 @@ module.exports = {
     },
   },
 
+  variants: {
+    extend: {
+      animation: ['hover', 'focus'],
+    },
+  },
+
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),

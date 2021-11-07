@@ -24,8 +24,8 @@ class CreateProductsTable extends Migration
             $table->decimal('sale_price');
             $table->longText('ar_description')->nullable();
             $table->longText('en_description')->nullable();
-            $table->text('ar_short_description')->nullable();
-            $table->text('en_short_description')->nullable();
+            $table->mediumText('ar_short_description')->nullable();
+            $table->mediumText('en_short_description')->nullable();
             $table->string('SKU', 200);
             $table->enum('stock_status', ['in_stock', 'out_stock', 'low_in_stock'])->nullable();
             $table->boolean('featured')->default(false)->nullable();

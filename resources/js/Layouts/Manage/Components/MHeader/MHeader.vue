@@ -13,7 +13,6 @@
       justify-between
       shadow-md
       transition
-      z-30
     "
     :class="{
       'pr-80': $i18n.locale === 'ar' && isSidebarOpen,
@@ -31,7 +30,7 @@
         hover:bg-transparent
         hover:border-info
         hover:text-info
-        hover:scale-105
+        hover:scale-110
         hover:shadow
       "
       type="button"

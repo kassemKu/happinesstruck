@@ -20,6 +20,8 @@
   "categories": "categories",
   "section": "section",
   "sections": "sections",
+  "banners": "banners",
+  "banner": "banner",
   "action_model": "{action} {model}",
   "add": "add",
   "update": "update",

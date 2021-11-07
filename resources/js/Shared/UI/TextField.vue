@@ -16,7 +16,7 @@
     </label>
     <input
       ref="input"
-      class="input border border-base-300 border-2 bg-transparent"
+      class="input border border-base-300 border-2 bg-transparent hover:border-neutral hover:border-opacity-50 shadow-sm"
       :class="{ 'cursor-not-allowed': disabled }"
       :type="type"
       :placeholder="placeholder"

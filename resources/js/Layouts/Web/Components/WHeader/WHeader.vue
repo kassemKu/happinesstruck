@@ -80,7 +80,7 @@
             btn btn-ghost
             hover:bg-transparent
             transform
-            font-medium
+            font-semibold
             hover:bg-transparent hover:text-info hover:scale-110
           "
         >
@@ -90,7 +90,7 @@
           :href="route('register')"
           class="
             btn btn-ghost
-            font-medium
+            font-semibold
             hover:bg-transparent
             transform
             hover:bg-transparent hover:text-info hover:scale-110
@@ -100,6 +100,18 @@
         </Link>
       </div>
       <div class="htw-header-user_area flex">
+        <Link
+        :href="route('web.mycart')"
+          class="
+            btn btn-ghost
+            font-semibold
+            hover:bg-transparent
+            transform
+            hover:bg-transparent hover:text-info hover:scale-110
+          "
+        >
+          <VueFeather type="shopping-bag" />
+        </Link>
         <button
           class="
             btn btn-ghost
@@ -109,18 +121,7 @@
             hover:bg-transparent hover:text-info hover:scale-110
           "
         >
-          <ShoppingCartArrowDown24 class="w-7 h-7" />
-        </button>
-        <button
-          class="
-            btn btn-ghost
-            font-semibold
-            hover:bg-transparent
-            transform
-            hover:bg-transparent hover:text-info hover:scale-110
-          "
-        >
-          <Favorite24 class="w-7 h-7" />
+          <VueFeather type="heart" />
         </button>
         <button
           class="
@@ -130,7 +131,7 @@
             hover:bg-transparent hover:text-info hover:scale-110
           "
         >
-          <Search24 class="w-7 h-7" />
+          <VueFeather type="search" />
         </button>
         <LanguageSwitcher />
       </div>

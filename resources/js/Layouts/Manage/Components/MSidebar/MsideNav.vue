@@ -17,7 +17,7 @@
           :group-title="$t('model_management', { model: $t('users') })"
         >
           <template #groupIcon>
-            <Identification24 />
+            <Identification24 class="w-7 h-7" />
           </template>
           <ManageSideNavLink :name="$t('permissions')" :href="'/'">
             <template #icon>
@@ -44,7 +44,7 @@
           :group-title="$t('model_management', { model: $t('products') })"
         >
           <template #groupIcon>
-            <Store24 />
+            <Store24 class="w-7 h-7" />
           </template>
           <ManageSideNavLink
             :name="$t('sections')"
@@ -93,7 +93,7 @@
           :group-title="$t('model_management', { model: $t('packages') })"
         >
           <template #groupIcon>
-            <Delivery24 />
+            <Delivery24 class="w-7 h-7" />
           </template>
           <ManageSideNavLink :name="$t('packages')" :href="'/'">
             <template #icon>
@@ -108,11 +108,20 @@
         </ManageSideNavGroup>
         <ManageSideNavGroup :group-title="$t('site_settings')">
           <template #groupIcon>
-            <Settings24 />
+            <Settings24 class="w-7 h-7" />
           </template>
           <ManageSideNavLink :name="$t('site_settings')" :href="'/'">
             <template #icon>
               <Tools24 />
+            </template>
+          </ManageSideNavLink>
+          <ManageSideNavLink
+            :name="$t('banners')"
+            :href="route('manage.banners.index')"
+            :active="$page.url.includes('manage/banners')"
+          >
+            <template #icon>
+              <Bullhorn24 />
             </template>
           </ManageSideNavLink>
           <ManageSideNavLink :name="$t('pages')" :href="'/'">
