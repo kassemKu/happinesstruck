@@ -75,7 +75,7 @@
     <div v-show="!$page.url.includes('/our-packages')" class="flex space-x-8">
       <div v-show="!$page.props.user" class="flex">
         <Link
-          :href="route('login')"
+          :href="route('auth')"
           class="
             btn btn-ghost
             hover:bg-transparent
@@ -87,7 +87,7 @@
           login
         </Link>
         <Link
-          :href="route('register')"
+          :href="route('auth')"
           class="
             btn btn-ghost
             font-semibold
@@ -101,7 +101,7 @@
       </div>
       <div class="htw-header-user_area flex">
         <Link
-        :href="route('web.mycart')"
+          :href="route('web.mycart')"
           class="
             btn btn-ghost
             font-semibold

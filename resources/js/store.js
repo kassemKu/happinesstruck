@@ -7,13 +7,14 @@ export const store = new Vuex.Store({
     isManageSidebarOpen: Cookies.get('isManageSidebarOpen') === 'true',
     isWebSidebarOpen: Cookies.get('isWebSidebarOpen') === 'true' || false,
     isModalOpen: false,
+    activeAuthView: 'login',
     notification: {
       isOpen: false,
       type: 'success',
       title: '',
       content: '',
       dur: 3000,
-      delay: 500
+      delay: 500,
     },
   },
   getters: {
@@ -25,6 +26,7 @@ export const store = new Vuex.Store({
     notificationType: (state) => state.notification.type,
     notificationTitle: (state) => state.notification.title,
     notificationContent: (state) => state.notification.content,
+    activeAuthView: (state) => state.activeAuthView,
   },
   mutations: {
     // manage sidebar
@@ -76,6 +78,10 @@ export const store = new Vuex.Store({
         this.commit('closeNotification')
         clearTimeout(openNotificationDelay)
       }, state.notification.dur)
+    },
+    // auth screen view
+    setActiveAuthView(state, payload) {
+      state.activeAuthView = payload
     },
   },
   actions: {},

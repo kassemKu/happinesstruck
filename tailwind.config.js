@@ -8,6 +8,7 @@ module.exports = {
     './storage/framework/views/*.php',
     './resources/views/**/*.blade.php',
     './resources/js/**/*.vue',
+    '../node_modules/litepie-datepicker/**/*.js',
   ],
 
   theme: {
@@ -21,12 +22,20 @@ module.exports = {
         'v-3/4-screen': '75vh',
         99: '36rem',
       },
+      //   colors: {
+      //     // Change with you want it
+      //     'litepie-primary': colors.lightBlue, // color system for light mode
+      //     'litepie-secondary': colors.coolGray, // color system for dark mode
+      //   },
     },
   },
 
   variants: {
     extend: {
       animation: ['hover', 'focus'],
+      cursor: ['disabled'],
+      textOpacity: ['disabled'],
+      textColor: ['disabled'],
     },
   },
 

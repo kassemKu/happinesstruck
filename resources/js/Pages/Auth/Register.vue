@@ -1,7 +1,7 @@
 <template>
   <Head title="Register" />
 
-  <jet-authentication-card>
+  <!-- <jet-authentication-card>
     <template #logo>
       <jet-authentication-card-logo />
     </template>
@@ -113,30 +113,30 @@
         </jet-button>
       </div>
     </form>
-  </jet-authentication-card>
+  </jet-authentication-card> -->
 </template>
 
 <script>
-import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
-import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
-import JetButton from '@/Jetstream/Button.vue'
-import JetInput from '@/Jetstream/Input.vue'
-import JetCheckbox from '@/Jetstream/Checkbox.vue'
-import JetLabel from '@/Jetstream/Label.vue'
-import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
-import { Head, Link } from '@inertiajs/inertia-vue3'
+// import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
+// import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
+// import JetButton from '@/Jetstream/Button.vue'
+// import JetInput from '@/Jetstream/Input.vue'
+// import JetCheckbox from '@/Jetstream/Checkbox.vue'
+// import JetLabel from '@/Jetstream/Label.vue'
+// import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
+import { Head } from '@inertiajs/inertia-vue3'
 
 export default {
   components: {
     Head,
-    JetAuthenticationCard,
-    JetAuthenticationCardLogo,
-    JetButton,
-    JetInput,
-    JetCheckbox,
-    JetLabel,
-    JetValidationErrors,
-    Link,
+    // JetAuthenticationCard,
+    // JetAuthenticationCardLogo,
+    // JetButton,
+    // JetInput,
+    // JetCheckbox,
+    // JetLabel,
+    // JetValidationErrors,
+    // Link,
   },
 
   data() {

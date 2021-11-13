@@ -1,5 +1,5 @@
 <template>
-  <div class="form-control mb-4">
+  <div class="form-control">
     <label class="label">
       <span class="label-text capitalize font-semibold">{{ label }}</span>
       <span
@@ -16,7 +16,13 @@
     </label>
     <input
       ref="input"
-      class="input border border-base-300 border-2 bg-transparent hover:border-neutral hover:border-opacity-50 shadow-sm"
+      class="
+        input
+        border border-base-300 border-2
+        bg-transparent
+        hover:border-neutral hover:border-opacity-50
+        shadow-sm
+      "
       :class="{ 'cursor-not-allowed': disabled }"
       :type="type"
       :placeholder="placeholder"
@@ -50,7 +56,8 @@ export default {
     type: {
       type: String,
       default: 'text',
-      validator: (value) => ['text', 'number'].includes(value.toLowerCase()),
+      validator: (value) =>
+        ['text', 'number', 'password', 'email', 'phone'].includes(value),
     },
     serverError: {
       type: String,

@@ -1,5 +1,5 @@
 <template>
-  <section class="ht-section-container" :class="`px-${paddingX}`">
+  <section class="ht-section-container" :class="classes">
     <slot />
   </section>
 </template>
@@ -11,7 +11,19 @@ export default {
   props: {
     paddingX: {
       type: [String, Number],
-      default: 12,
+      default: 16,
+      required: false,
+    },
+    paddingY: {
+      type: [String, Number],
+      default: 8,
+      required: false,
+    },
+  },
+
+  computed: {
+    classes() {
+      return [`px-${this.paddingX}`, `py-${this.paddingY}`]
     },
   },
 }
