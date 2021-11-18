@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class Category extends Model
 {
     use HasFactory;
-
     use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *

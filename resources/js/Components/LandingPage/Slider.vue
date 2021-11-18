@@ -77,72 +77,7 @@
                     </span>
                   </button>
                 </div>
-                <div class="flex-grow h-full">
-                  <!-- <Listbox v-model="selectedPerson">
-                    <ListboxButton>{{ selectedPerson.name }}</ListboxButton>
-                    <ListboxOptions>
-                      <ListboxOption
-                        v-for="person in people"
-                        :key="person"
-                        :value="person"
-                        :disabled="person.unavailable"
-                      >
-                        {{ person.name }}
-                      </ListboxOption>
-                    </ListboxOptions>
-                  </Listbox> -->
-                  <button
-                    class="
-                      h-full
-                      w-full w-full
-                      flex
-                      items-center
-                      justify-center
-                      text-sm
-                      capitalize
-                      font-medium
-                    "
-                    @click="openCalender"
-                  >
-                    <span class="flex flex-col space-y-2">
-                      <span class="text-gray-400">start at</span>
-                      <span class="flex items-center justify-center space-x-2">
-                        <span>jan,21, 22, 7.30PM</span>
-                        <VueFeather
-                          type="chevron-down"
-                          stroke-width="3"
-                          class="h-4 w-4"
-                        />
-                      </span>
-                    </span>
-                  </button>
-                </div>
-                <div class="flex-grow h-full">
-                  <button
-                    class="
-                      h-full
-                      w-full w-full
-                      flex
-                      items-center
-                      justify-center
-                      text-sm
-                      capitalize
-                      font-medium
-                    "
-                  >
-                    <span class="flex flex-col space-y-2">
-                      <span class="text-gray-400">end at</span>
-                      <span class="flex items-center justify-center space-x-2">
-                        <span>jan,21, 22, 7.30PM</span>
-                        <VueFeather
-                          type="chevron-down"
-                          stroke-width="3"
-                          class="h-4 w-4"
-                        />
-                      </span>
-                    </span>
-                  </button>
-                </div>
+                <div class="flex-grow h-full">test date</div>
                 <div class="flex-grow h-full">
                   <button
                     class="
@@ -162,6 +97,7 @@
                 </div>
               </div>
             </div>
+            <litepie-datepicker v-model="dateValue"></litepie-datepicker>
           </div>
         </div>
         <!-- slider -->
@@ -218,21 +154,13 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { ref } from 'vue'
 import HtSection from '@/Shared/Layouts/HtSection'
-import {
-  Listbox,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
-} from '@headlessui/vue'
+import LitepieDatepicker from 'litepie-datepicker'
 
 const components = {
   HtSection,
-  Listbox,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
+  LitepieDatepicker,
 }
 
 export default {
@@ -240,25 +168,16 @@ export default {
 
   components,
 
-  steup() {
-    const people = [
-      { id: 1, name: 'Durward Reynolds', unavailable: false },
-      { id: 2, name: 'Kenton Towne', unavailable: false },
-      { id: 3, name: 'Therese Wunsch', unavailable: false },
-      { id: 4, name: 'Benedict Kessler', unavailable: true },
-      { id: 5, name: 'Katelyn Rohan', unavailable: false },
-    ]
-    const selectedPerson = ref(people[0])
-    const openCalender = () => {}
+  setup() {
+    const dateValue = ref([])
 
-    return { openCalender, selectedPerson, people }
+    return {
+      dateValue,
+    }
   },
 
   data() {
     return {
-      form: this.$inertia.form({
-        startDate: '',
-      }),
       packages: [
         {
           subTitle: 'red title',

@@ -1409,6 +1409,11 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.8.tgz#2f918e330aeb3f56ab1031ca60a5b30672512457"
   integrity sha512-E2DQQnG7Qr4GwTs3GlfPPlHliGVADoufTnhpwfoViw7JlyLMmYtjfnTwM6nXAwvSJWiF7D+7AxpnWBBT3VWo6Q==
 
+"@vueform/multiselect@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@vueform/multiselect/-/multiselect-2.2.0.tgz#4de789e48312bd9e1edc9320cf5bdf9f8dc3f3e7"
+  integrity sha512-ozY8/JDAmrBITgEmgB61Grffw3xlQm0E7od/wRsCjx9eFFCAlguLsPOAXZz5Y8eHVjLR7RPA2M5L6A3Exttmeg==
+
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.11.1.tgz#2bfd767eae1a6996f432ff7e8d7fc75679c0b6a7"
@@ -4430,6 +4435,11 @@ lines-and-columns@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
+
+litepie-datepicker@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/litepie-datepicker/-/litepie-datepicker-1.0.14.tgz#8c6fd91e574bbd6d26692133568992510ef80790"
+  integrity sha512-u1BAsvLv5r7grMrKbRXKXPfk5okiYJBF247PWr5MGmbVxxWmDCoqQWtMdaHrQUzA/BQiU6J6L1nri0QkJISjyA==
 
 loader-runner@^4.2.0:
   version "4.2.0"

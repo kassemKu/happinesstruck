@@ -8,6 +8,7 @@ import { createI18n } from 'vue-i18n'
 import i18n from './i18n'
 import { store } from './store'
 import VueFeather from 'vue-feather'
+import LitepieDatepicker from 'litepie-datepicker'
 
 VueCookieNext.config({
   expire: '1d',
@@ -24,16 +25,21 @@ const appName =
 createInertiaApp({
   title: (title) => `${title} - ${appName}`,
   resolve: (name) => require(`./Pages/${name}.vue`),
+
   setup({ el, app, props, plugin }) {
-    return createApp({ render: () => h(app, props) })
-      .use(plugin)
-      .mixin({ methods: { route } })
-      .use(CarbonIconsVue, { components })
-      .use(VueCookieNext)
-      .use(createI18n(i18n))
-      .use(store)
-      .component(VueFeather.name, VueFeather)
-      .mount(el)
+    const HAPPINESSTRUCKAPP = createApp({ render: () => h(app, props) })
+
+    HAPPINESSTRUCKAPP.use(plugin)
+    HAPPINESSTRUCKAPP.mixin({ methods: { route } })
+    HAPPINESSTRUCKAPP.use(CarbonIconsVue, { components })
+    HAPPINESSTRUCKAPP.use(VueCookieNext)
+    HAPPINESSTRUCKAPP.use(createI18n(i18n))
+    HAPPINESSTRUCKAPP.use(store)
+    HAPPINESSTRUCKAPP.component(VueFeather.name, VueFeather)
+    HAPPINESSTRUCKAPP.use(LitepieDatepicker)
+    HAPPINESSTRUCKAPP.mount(el)
+
+    return HAPPINESSTRUCKAPP
   },
 })
 

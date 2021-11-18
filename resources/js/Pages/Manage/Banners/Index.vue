@@ -149,9 +149,7 @@ export default {
   props: {
     banners: {
       type: Array,
-      default: () => {
-        ;[]
-      },
+      default: () => ([])
     },
   },
 }

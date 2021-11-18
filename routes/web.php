@@ -13,6 +13,9 @@ use App\Http\Controllers\Manage\ManageCategoriesController;
 use App\Http\Controllers\Manage\ManageMediaController;
 use App\Http\Controllers\Manage\ManageProductsController;
 use App\Http\Controllers\Manage\ManageBannersController;
+use App\Http\Controllers\Manage\ManageTrucksController;
+use App\Http\Controllers\Manage\ManagePackagesController;
+use App\Http\Controllers\Manage\ManagePackageItemsController;
 /**
  * TODO:: To write better comment
  */
@@ -53,8 +56,14 @@ Route::name('manage.')
         Route::resource('/categories', ManageCategoriesController::class, ['parameters' => ['' => 'category']]);
         // Products routes
         Route::resource('/products', ManageProductsController::class, ['parameters' => ['' => 'product']]);
-         // Banners routes
-         Route::resource('/banners', ManageBannersController::class, ['parameters' => ['' => 'banner']]);
+        // Banners routes
+        Route::resource('/banners', ManageBannersController::class, ['parameters' => ['' => 'banner']]);
+        // trucks routes
+        Route::resource('/trucks', ManageTrucksController::class, ['parameters' => ['' => 'truck']]);
+        // packages routes
+        Route::resource('/packages', ManagePackagesController::class, ['parameters' => ['' => 'package']]);
+        // package items routes
+        Route::resource('/items', ManagePackageItemsController::class, ['parameters' => ['' => 'item']]);
         // Media routes
         Route::resource('/media', ManageMediaController::class, ['parameters' => ['' => 'media']]);
 });

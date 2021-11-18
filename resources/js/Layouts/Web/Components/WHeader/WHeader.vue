@@ -7,7 +7,7 @@
       justify-between
       px-12
       lg:px-16
-      h-24
+      h-36
       fixed
       w-full
       top-0
@@ -69,10 +69,9 @@
         hover:bg-transparent hover:text-info
       "
     >
-      <span>happiness</span>
-      <span>truck</span>
+      <img src="/images/ht_logo new.png" alt="happiness truck" class="object-cover w-36 h-36" />
     </Link>
-    <div v-show="!$page.url.includes('/our-packages')" class="flex space-x-8">
+    <div class="flex space-x-8">
       <div v-show="!$page.props.user" class="flex">
         <Link
           :href="route('auth')"

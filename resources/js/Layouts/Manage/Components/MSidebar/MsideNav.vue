@@ -93,11 +93,30 @@
           :group-title="$t('model_management', { model: $t('packages') })"
         >
           <template #groupIcon>
-            <Delivery24 class="w-7 h-7" />
+            <DeliveryParcel24 class="w-7 h-7" />
           </template>
-          <ManageSideNavLink :name="$t('packages')" :href="'/'">
+          <ManageSideNavLink
+            :name="$t('trucks')"
+            :href="route('manage.trucks.index')"
+          >
+            <template #icon>
+              <Delivery24 />
+            </template>
+          </ManageSideNavLink>
+          <ManageSideNavLink
+            :name="$t('packages')"
+            :href="route('manage.packages.index')"
+          >
             <template #icon>
               <DeliveryParcel24 />
+            </template>
+          </ManageSideNavLink>
+          <ManageSideNavLink
+            :name="$t('package_items')"
+            :href="route('manage.items.index')"
+          >
+            <template #icon>
+              <Category24 />
             </template>
           </ManageSideNavLink>
           <ManageSideNavLink :name="$t('bookings')" :href="'/'">
@@ -136,14 +155,14 @@
 </template>
 
 <script>
-import ManageSideNavGroup from '@/Shared/Layouts/MNavGroup'
-import ManageSideNavLink from '@/Shared/Partials/MSideNavLink'
+import ManageSideNavGroup from "@/Shared/Layouts/MNavGroup";
+import ManageSideNavLink from "@/Shared/Partials/MSideNavLink";
 
-const components = { ManageSideNavGroup, ManageSideNavLink }
+const components = { ManageSideNavGroup, ManageSideNavLink };
 
 export default {
-  name: 'ManageSidenav',
+  name: "ManageSidenav",
 
   components,
-}
+};
 </script>

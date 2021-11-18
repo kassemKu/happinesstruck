@@ -1,6 +1,6 @@
 <template>
   <HtSection padding-x="0" padding-y="0">
-    <div class="flex space-x-24 px-24 py-16 h-[35rem] bg-purple-100">
+    <div class="flex space-x-24 px-24 py-16 h-[35rem] bg-indigo-100">
       <div class="htw-landing__single-service__img-container w-96">
         <img
           class="h-full w-full object-cover overflow-hidden"

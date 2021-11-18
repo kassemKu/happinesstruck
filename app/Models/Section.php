@@ -12,10 +12,8 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class Section extends Model
 {
     use HasFactory;
-
-    use HasFactory;
-
     use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *

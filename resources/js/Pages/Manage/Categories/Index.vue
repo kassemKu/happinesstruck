@@ -179,9 +179,7 @@ export default {
   props: {
     categories: {
       type: Array,
-      default: () => {
-        ;[]
-      },
+      default: () => ([])
     },
     filters: { type: Object, default: () => ({}) },
   },

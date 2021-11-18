@@ -10,6 +10,7 @@
       justify-center
       cursor-pointer
     "
+    preserve-scroll
   >
     <span
       class="

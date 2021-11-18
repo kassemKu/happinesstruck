@@ -4,7 +4,7 @@
       <meta title="description" content="lorem ipsum" />
     </Head>
     <div class="htw-page htw-page__packages">
-      <div class="htw-slaider-wrap absolute overflow-hidden w-full h-full">
+      <!--<div class="htw-slaider-wrap absolute overflow-hidden w-full h-full">
         <div
           :ref="setContainer"
           class="htw-slide-container w-full h-full"
@@ -117,6 +117,15 @@
             <ArrowDown32 class="animate-bounce h-6 w-6" />
           </div>
         </div>
+      </div> -->
+      <div class="htw-landing__packages-container">
+        <div v-for="(pg, index) in packages" :key="index" class="htw-package h-screen w-screen grid grid-cols-2 gap-x-8 items-center px-16 capitalize">
+          <div :style="{backgroundImage: `url(${pg.media[0].full_url})`}" class="htw-package__img-bg bg-cover bg-center h-full"></div>
+          <div class="flex flex-col space-y-8">
+            <h1 class="text-3xl font-bold max-w-md">{{ pg.en_name }}</h1>
+            <p class="text-neutral text-opacity-60 font-medium">{{ pg.en_short_description }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </WebLayout>
@@ -141,6 +150,13 @@ export default {
   name: 'WebPackagesPage',
 
   components,
+
+  props: {
+    packages: {
+      type: Array,
+      default: () => ([])
+    }
+  },
 
   setup() {
     // dom elements
@@ -247,191 +263,13 @@ export default {
       fixedNav,
     }
   },
-
-  data() {
-    return {
-      packages: [
-        {
-          id: 1,
-          name: 'here we find first package name',
-          price: 65,
-          image: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
-          shortDescription:
-            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias deserunt quas dignissimos consequatur unde? Nemo quia at neque recusandae omnis. Temporibus atque omnis numquam.',
-          items: [
-            {
-              src: '/images/packages/markus-spiske-nvKQ1kxheRc-unsplash.jpg',
-              blockClasses:
-                'flex flex-col items-center space-y-8 bg-error bg-opacity-60 text-neutral-content',
-              name: 'item name',
-              shortDescription:
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ea tempore ipsa.',
-            },
-            {
-              src: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
-              blockClasses:
-                'bg-warning bg-opacity-50 flex flex-col items-center space-y-8 text-neutral-content',
-              name: 'item name',
-              shortDescription:
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ea tempore ipsa.',
-            },
-            {
-              src: '/images/packages/markus-spiske-dWaRJ3WBnGs-unsplash.jpg',
-              blockClasses:
-                'bg-blue-600 bg-opacity-50 flex flex-col items-center space-y-8 text-neutral-content',
-              name: 'item name',
-              shortDescription:
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ea tempore ipsa.',
-            },
-            {
-              src: '/images/packages/markus-spiske-OO89_95aUC0-unsplash.jpg',
-              blockClasses:
-                'bg-success bg-opacity-50 flex-col items-center space-y-8 text-neutral-content',
-              name: 'item name',
-              shortDescription:
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus ea tempore ipsa.',
-            },
-          ],
-        },
-        {
-          id: 2,
-          name: 'second product',
-          price: 65,
-          image: '/images/packages/gustavo-alves-YOXSC4zRcxw-unsplash.jpg',
-          imsgesSectionBgColor: 'bg-accent bg-opacity-40',
-          textSectionBgColor: 'bg-base-100',
-          items: [
-            {
-              src: '/images/659b72077a54ad832458b88d7873792c.jpg',
-              blockClasses: 'bg-warning flex items-center',
-            },
-            {
-              src: '/images/AZhu69ap-image-1-6.jpg',
-              blockClasses: 'bg-primary flex items-center',
-            },
-            {
-              src: '/images/products/product_23.jpg',
-              blockClasses: 'bg-primary flex items-center',
-            },
-            {
-              src: '/images/AZhu69ap-image-1-6.jpg',
-              blockClasses: 'bg-success flex items-center',
-            },
-            {
-              src: '/images/products/product_23.jpg',
-              blockClasses: 'bg-blue-500 flex items-center',
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: 'third product',
-          price: 65,
-          image: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
-          imsgesSectionBgColor: 'bg-warning bg-opacity-40',
-          textSectionBgColor: 'bg-base-200',
-        },
-        {
-          id: 4,
-          name: 'fore product',
-          price: 65,
-          image: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
-          imsgesSectionBgColor: 'bg-success bg-opacity-40',
-          textSectionBgColor: 'bg-neutral bg-opacity-40',
-          items: [
-            {
-              src: '/images/659b72077a54ad832458b88d7873792c.jpg',
-              blockClasses: 'bg-warning flex items-center',
-            },
-            {
-              src: '/images/AZhu69ap-image-1-6.jpg',
-              blockClasses: 'bg-primary flex items-center',
-            },
-            {
-              src: '/images/products/product_23.jpg',
-              blockClasses: 'bg-primary flex items-center',
-            },
-            {
-              src: '/images/AZhu69ap-image-1-6.jpg',
-              blockClasses: 'bg-success flex items-center',
-            },
-            {
-              src: '/images/products/product_23.jpg',
-              blockClasses: 'bg-blue-500 flex items-center',
-            },
-          ],
-        },
-        {
-          id: 5,
-          name: 'five product',
-          price: 65,
-          image: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
-          imsgesSectionBgColor: 'bg-secondary-focus bg-opacity-40',
-          textSectionBgColor: 'bg-base-300 bg-opacity-40',
-          items: [
-            {
-              src: '/images/659b72077a54ad832458b88d7873792c.jpg',
-              blockClasses: 'bg-warning flex items-center',
-            },
-            {
-              src: '/images/AZhu69ap-image-1-6.jpg',
-              blockClasses: 'bg-primary flex items-center',
-            },
-            {
-              src: '/images/products/product_23.jpg',
-              blockClasses: 'bg-primary flex items-center',
-            },
-            {
-              src: '/images/AZhu69ap-image-1-6.jpg',
-              blockClasses: 'bg-success flex items-center',
-            },
-            {
-              src: '/images/products/product_23.jpg',
-              blockClasses: 'bg-blue-500 flex items-center',
-            },
-          ],
-        },
-        {
-          id: 6,
-          name: 'six product',
-          price: 65,
-          image: '/images/packages/stem-t4l-l862hX_FET8-unsplash.jpg',
-          imsgesSectionBgColor: 'bg-secondary bg-opacity-40',
-          textSectionBgColor: 'bg-base-300 bg-opacity-40',
-          items: [
-            {
-              src: '/images/659b72077a54ad832458b88d7873792c.jpg',
-              blockClasses: 'bg-warning flex items-center',
-            },
-            {
-              src: '/images/AZhu69ap-image-1-6.jpg',
-              blockClasses: 'bg-primary flex items-center',
-            },
-            {
-              src: '/images/products/product_23.jpg',
-              blockClasses: 'bg-primary flex items-center',
-            },
-            {
-              src: '/images/AZhu69ap-image-1-6.jpg',
-              blockClasses: 'bg-success flex items-center',
-            },
-            {
-              src: '/images/products/product_23.jpg',
-              blockClasses: 'bg-blue-500 flex items-center',
-            },
-          ],
-        },
-      ],
-    }
-  },
 }
 </script>
 
 <style scoped>
-.htw-packages__fixed-slide-nav {
-  left: calc(50% - 3.5rem);
-}
-.progress {
-  height: 4px;
+.htw-package__img-bg  {
+  height: calc(100vh - 20rem);
+  border-top-left-radius: 7rem;
+  border-bottom-right-radius: 8rem;
 }
 </style>

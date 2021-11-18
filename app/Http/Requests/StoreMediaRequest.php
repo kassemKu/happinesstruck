@@ -21,7 +21,7 @@ class StoreMediaRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'file' => ['required','mimes:csv,txt,xlx,xls,pdf,jpg,png,jpeg', 'max:2048'],

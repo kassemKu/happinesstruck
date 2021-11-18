@@ -21,7 +21,7 @@ class StoreSectionRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'ar_name' => ['required','min:2','max:191','string'],

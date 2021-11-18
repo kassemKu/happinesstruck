@@ -1,41 +1,44 @@
 <template>
-  <TransitionRoot :show="isNotificationOpen"
-  >
+  <TransitionRoot :show="isNotificationOpen">
     <Dialog
       class="htw-notification fixed z-40 top-8 right-12 w-5/6 md:w-1/3"
       @close="closeNotification"
     >
-    <TransitionChild
-      as="template"
-      enter="transform duration-200 ease-out"
-      enter-from="opacity-0 translate-x-20 scale-x-125"
-      enter-to="opacity-100 scale-x-100 translate-x-0"
-      leave="transform ease-in duration-300"
-      leave-from="opacity-100 translate-x-0 scale-x-100"
-      leave-to="translate-x-20 scale-x-125 opacity-0"
-    >
-      <div
-        class="
-          htw-model-content
-          relative
-          flex flex-col
-          space-y-4
-          p-8
-          justify-center
-          border-2 border-green-500
-          bg-base-100 bg-opacity-80
-          rounded-box
-          text-green-500
-        "
-        @click="closeNotification"
+      <TransitionChild
+        as="template"
+        enter="transform duration-200 ease-out"
+        enter-from="opacity-0 translate-x-20 scale-x-125"
+        enter-to="opacity-100 scale-x-100 translate-x-0"
+        leave="transform ease-in duration-300"
+        leave-from="opacity-100 translate-x-0 scale-x-100"
+        leave-to="translate-x-20 scale-x-125 opacity-0"
       >
-        <h3 class="text-lg capitalize font-semibold">
-          {{ notificationTitle }}
-        </h3>
-        <p class="font-medium text-sm">
-          {{ notificationContent }}
-        </p>
-      </div>
+        <div
+          class="
+            htw-model-content
+            relative
+            flex flex-col
+            space-y-4
+            p-8
+            justify-center
+            bg-opacity-80
+            border-2
+            rounded-box
+          "
+          :class="
+            notificationType === 'error'
+              ? 'text-red-500 border-red-500 bg-red-100'
+              : 'text-green-500 border-green-500 bg-base-100 '
+          "
+          @click="closeNotification"
+        >
+          <h3 class="text-lg capitalize font-semibold">
+            {{ notificationTitle }}
+          </h3>
+          <p class="font-medium text-sm">
+            {{ notificationContent }}
+          </p>
+        </div>
       </TransitionChild>
       <button
         class="
@@ -84,11 +87,11 @@ export default {
 
   computed: {
     ...mapState({
-      isNotificationOpen: state => state.notification.isOpen,
-      notificationTitle: state => state.notification.title,
-      notificationContent: state => state.notification.content,
-      notificationType: state => state.notification.type,
-    })
-  }
+      isNotificationOpen: (state) => state.notification.isOpen,
+      notificationTitle: (state) => state.notification.title,
+      notificationContent: (state) => state.notification.content,
+      notificationType: (state) => state.notification.type,
+    }),
+  },
 };
 </script>
