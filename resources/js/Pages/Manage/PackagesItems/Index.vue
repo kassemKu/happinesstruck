@@ -44,10 +44,10 @@
                   </td>
                   <td>{{ item.id }}</td>
                   <td>
-                    {{ $i18n.locale === "ar" ? item.ar_name : item.en_name }}
+                    {{ $i18n.locale === 'ar' ? item.ar_name : item.en_name }}
                   </td>
                   <td>
-                    {{ $i18n.locale === "ar" ? item.ar_slug : item.en_slug }}
+                    {{ $i18n.locale === 'ar' ? item.ar_slug : item.en_slug }}
                   </td>
                   <td>{{ item.created_at }}</td>
                   <td class="w-full flex items-center justify-center">
@@ -122,17 +122,28 @@
       </div>
     </div>
   </ManageLayout>
-  <Modal max-width="xl" @modalAction="deleteItem" />
+  <Modal
+    max-width="xl"
+    :title="`delete item ?`"
+    type="error"
+    action-title="delete item"
+    @modalAction="deleteItem"
+  >
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+      temporibus quo impedit?
+    </p>
+  </Modal>
 </template>
 
 <script>
-import { Inertia } from "@inertiajs/inertia";
-import { useStore } from "vuex";
-import { Link } from "@inertiajs/inertia-vue3";
-import ManageLayout from "@/Layouts/Manage/ManageLayout";
-import Breadcrumb from "@/Shared/Layouts/Breadcrumb";
-import SearchFilter from "@/Shared/UI/SearchFilter";
-import Modal from "@/Shared/Layouts/Modal";
+import { Inertia } from '@inertiajs/inertia'
+import { useStore } from 'vuex'
+import { Link } from '@inertiajs/inertia-vue3'
+import ManageLayout from '@/Layouts/Manage/ManageLayout'
+import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
+import SearchFilter from '@/Shared/UI/SearchFilter'
+import Modal from '@/Shared/Layouts/Modal'
 
 const components = {
   Link,
@@ -140,10 +151,10 @@ const components = {
   Breadcrumb,
   SearchFilter,
   Modal,
-};
+}
 
 export default {
-  name: "ManagePackagesItemsIndex",
+  name: 'ManagePackagesItemsIndex',
 
   components,
 
@@ -155,31 +166,31 @@ export default {
   },
 
   setup() {
-    let packageTodeleteId = 0;
-    const store = useStore();
+    let packageTodeleteId = 0
+    const store = useStore()
 
-    const isModalOpen = store.state.isModalOpen;
+    const isModalOpen = store.state.isModalOpen
 
     const openConfirmDelete = (packageId) => {
-      store.commit("openModal");
-      packageTodeleteId = packageId;
-    };
+      store.commit('openModal')
+      packageTodeleteId = packageId
+    }
 
     const deleteItem = () => {
-      Inertia.delete(route("manage.items.destroy", packageTodeleteId), {
+      Inertia.delete(route('manage.items.destroy', packageTodeleteId), {
         onFinish: () => {
-          store.commit("closeModal");
+          store.commit('closeModal')
 
-          store.commit("openNotification", {
-            title: "delete producut",
-            type: "success",
-            content: "package deleted successfully",
-          });
+          store.commit('openNotification', {
+            title: 'delete producut',
+            type: 'success',
+            content: 'package deleted successfully',
+          })
         },
-      });
-    };
+      })
+    }
 
-    return { openConfirmDelete, isModalOpen, deleteItem };
+    return { openConfirmDelete, isModalOpen, deleteItem }
   },
-};
+}
 </script>

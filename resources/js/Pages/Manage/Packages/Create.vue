@@ -21,7 +21,7 @@
             :btn-title="
               $t('action_model', { action: $t('add'), model: $t('package') })
             "
-            max-width="5xl"
+            max-width="6xl"
             @formSubmited="createPackage"
           >
             <div class="grid grid-cols-2 gap-x-10 items-center">
@@ -158,7 +158,7 @@
                 :label="$t('min_price_per_event')"
                 :server-error="$page.props.errors.min_price_per_event"
               />
-              <!-- package minimum price  per event -->
+              <!-- package price per event -->
               <div class="w-full flex space-x-8">
                 <div class="form-control">
                   <label class="cursor-pointer label justify-start space-x-2">
@@ -200,14 +200,25 @@
                 </p>
               </div>
               <!-- status radio  -->
-              <div class="my-4">
-                <Multiselect
-                  v-model="value"
-                  :options="['first truck', 'second truck', 'third one']"
-                  placeholder="choice truck"
-                />
+              <div class="w-full flex justify-center">
+                <button
+                  type="button"
+                  class="
+                    btn
+                    border-info
+                    text-info
+                    space-x-2
+                    bg-transparent
+                    border-2
+                    hover:text-base-100 hover:bg-info hover:border-info
+                  "
+                  @click.prevent="openAddPackageItemsPopUp"
+                >
+                  <VueFeather type="plus" stroke-width="3" class="w-5 h-5" />
+                  <span>add items to this package</span>
+                </button>
               </div>
-              <!-- truck id selection -->
+              <!-- add itmes button -->
             </div>
             <!-- === grid === -->
             <div class="mt-6 mb-8">
@@ -298,10 +309,133 @@
       </div>
     </div>
   </ManageLayout>
+  <Modal
+    max-width="screen-lg"
+    :title="`add items to this package`"
+    type="info"
+    action-title="save selected items and close"
+    screen-height
+    :disabled-action-btn="form.items.length === 0"
+    @modalAction="savePackageItemAndClose"
+  >
+    <div class="grid grid-cols-4 gap-8 text-sm">
+      <div v-for="item in items" :key="item.id">
+        <div class="flex flex-col space-y-2 font-medium">
+          <div
+            class="
+              max-w-sm
+              flex
+              items-center
+              justify-between
+              bg-base-300 bg-opacity-60
+              rounded-btn
+              h-10
+            "
+            :class="{
+              'border-2 border-info': selectedItem(item),
+            }"
+          >
+            <button
+              type="button"
+              class="
+                h-full
+                w-8
+                flex
+                items-center
+                justify-center
+                bg-base-300 bg-opacity-30
+                flex-grow
+              "
+              :class="
+                selectedItem(item) ? 'cursor-pointer' : 'cursor-not-allowed'
+              "
+              @click="addItemToPackage(item)"
+            >
+              <VueFeather type="plus" stroke-width="3" class="w-4 h-4" />
+            </button>
+            <p
+              class="
+                uppercase
+                flex-shrink
+                px-2
+                h-full
+                flex
+                items-center
+                space-x-1
+              "
+            >
+              <span class="text-xs font-semibold">quantity</span>
+              <span class="font-bold text-lg uppercase text-info">{{
+                getItemsQuantity(item)
+              }}</span>
+            </p>
+            <button
+              type="button"
+              class="
+                h-full
+                w-8
+                flex
+                items-center
+                justify-center
+                bg-base-300 bg-opacity-30
+                flex-grow
+              "
+              :class="
+                selectedItem(item) ? 'cursor-pointer' : 'cursor-not-allowed'
+              "
+              @click.prevent="removeItemFromPackage(item)"
+            >
+              <VueFeather type="minus" stroke-width="3" class="w-4 h-4" />
+            </button>
+          </div>
+          <div
+            class="flex items-center relative rounded-box group"
+            :class="{ 'border-2 border-info': selectedItem(item) }"
+          >
+            <img
+              :src="item.media[0].full_url"
+              :alt="item.en_name"
+              class="w-full h-48 object-cover rounded-box"
+            />
+            <div
+              v-show="!selectedItem(item)"
+              class="
+                absolute
+                inset-0
+                bg-base-300 bg-opacity-80
+                items-center
+                justify-center
+                rounded-box
+                hidden
+                group-hover:flex
+              "
+            >
+              <button
+                type="button"
+                class="
+                  btn btn-outline
+                  border-2 border-info
+                  btn-circle
+                  text-info
+                  hover:bg-info hover:border-info
+                "
+                @click.prevent="addItemToPackage(item)"
+              >
+                <VueFeather type="plus" stroke-width="3" class="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col space-y-2 items-center">
+            <p class="capitalize">{{ item.en_name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Modal>
 </template>
 
 <script>
-import { reactive, computed } from "vue";
+import { reactive, computed, onMounted } from "vue";
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
 import { useStore } from "vuex";
 import axios from "axios";
@@ -313,6 +447,7 @@ import TextField from "@/Shared/UI/TextField";
 import ManageForm from "@/Shared/Layouts/MForm";
 import HTextarea from "@/Shared/UI/HTextarea";
 import FileUpload from "@/Shared/UI/FileUpload";
+import Modal from "@/Shared/Layouts/Modal";
 
 // TODO:: to fix emit checkbox
 
@@ -324,6 +459,7 @@ const components = {
   HTextarea,
   FileUpload,
   Multiselect,
+  Modal,
 };
 
 export default {
@@ -332,9 +468,13 @@ export default {
   components,
 
   props: {
-    // eslint-disable-next-line vue/require-default-prop
     trucks: {
       type: Array,
+      default: () => [],
+    },
+    items: {
+      type: Array,
+      default: () => [],
     },
   },
 
@@ -356,7 +496,33 @@ export default {
       min_price_per_event: null,
       truck_id: 1,
       mediaIds: [],
+      items: [],
     });
+
+    const addItemToPackage = (item) => {
+      form.items.push(item);
+    };
+
+    const removeItemFromPackage = (item) => {
+      form.items.splice(form.items.indexOf(item), 1);
+    };
+
+    const selectedItem = (item) => {
+      return form.items.includes(item);
+    };
+
+    const getItemsQuantity = (item) => {
+      if (!selectedItem(item)) return 0;
+      const quantity = form.items.filter((i) => i.id == item.id);
+
+      item.quantity_per_package = quantity.length;
+
+      return quantity.length;
+    };
+
+    const savePackageItemAndClose = () => {
+      store.commit("closeModal");
+    };
 
     const uplaodFileMargin = computed(() => {
       let space;
@@ -456,6 +622,14 @@ export default {
       });
     };
 
+    const openAddPackageItemsPopUp = () => {
+      store.commit("openModal");
+    };
+
+    onMounted(() => {
+      form.items = [];
+    });
+
     return {
       form,
       uplaodFileMargin,
@@ -464,12 +638,12 @@ export default {
       createPackage,
       media,
       t,
-    };
-  },
-
-  data() {
-    return {
-      value: 0,
+      openAddPackageItemsPopUp,
+      addItemToPackage,
+      removeItemFromPackage,
+      selectedItem,
+      getItemsQuantity,
+      savePackageItemAndClose,
     };
   },
 

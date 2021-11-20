@@ -33,6 +33,8 @@ class PackageItem extends Model
         'stock_status',
         'featured',
         'quantity',
+        'quantity_per_package',
+        'quantity_per_booking',
         'status',
         'category_id',
         'review',

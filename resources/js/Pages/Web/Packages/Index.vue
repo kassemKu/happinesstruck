@@ -119,11 +119,34 @@
         </div>
       </div> -->
       <div class="htw-landing__packages-container">
-        <div v-for="(pg, index) in packages" :key="index" class="htw-package h-screen w-screen grid grid-cols-2 gap-x-8 items-center px-16 capitalize">
-          <div :style="{backgroundImage: `url(${pg.media[0].full_url})`}" class="htw-package__img-bg bg-cover bg-center h-full"></div>
+        <div
+          v-for="(pg, index) in packages"
+          :key="index"
+          class="
+            htw-package
+            h-screen
+            w-screen
+            grid grid-cols-2
+            gap-x-8
+            items-center
+            px-16
+            capitalize
+          "
+        >
+          <div
+            :style="{ backgroundImage: `url(${pg.media[0].full_url})` }"
+            class="htw-package__img-bg bg-cover bg-center h-full"
+          ></div>
           <div class="flex flex-col space-y-8">
-            <h1 class="text-3xl font-bold max-w-md">{{ pg.en_name }}</h1>
-            <p class="text-neutral text-opacity-60 font-medium">{{ pg.en_short_description }}</p>
+            <div class="flex flex-col space-y-8 max-w-mdfont-medium">
+              <h1 class="text-3xl font-bold">{{ pg.en_name }}</h1>
+              <p class="text-neutral text-opacity-60">
+                {{ pg.en_short_description }}
+              </p>
+              <p class="text-neutral text-opacity-40">
+                {{ pg.en_description }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -154,8 +177,8 @@ export default {
   props: {
     packages: {
       type: Array,
-      default: () => ([])
-    }
+      default: () => [],
+    },
   },
 
   setup() {
@@ -267,7 +290,7 @@ export default {
 </script>
 
 <style scoped>
-.htw-package__img-bg  {
+.htw-package__img-bg {
   height: calc(100vh - 20rem);
   border-top-left-radius: 7rem;
   border-bottom-right-radius: 8rem;

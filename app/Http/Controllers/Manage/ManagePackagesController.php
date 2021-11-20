@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StorePackageRequest;
+use Illuminate\Support\Arr;
 use App\Models\Media;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Str;
 use App\Models\Package;
+use App\Models\PackageItem;
 use App\Models\Truck;
 
 class ManagePackagesController extends Controller
@@ -44,9 +46,27 @@ class ManagePackagesController extends Controller
      */
     public function create(): Response
     {
-        $trucks = Truck::all();
+        $trucks = Truck::latest()->get()->transform(function($truck) {
+            return [
+                'id' => $truck->id,
+                'ar_name' => $truck->ar_name,
+                'en_name' => $truck->en_name,
+            ];
+        });
 
-        return Inertia::render('Manage/Packages/Create', ['trucks' => $trucks]);
+        $items = PackageItem::latest()->get()->transform(function($item) {
+            return [
+                'id' => $item->id,
+                'ar_name' => $item->ar_name,
+                'en_name' => $item->en_name,
+                'quantity' => $item->quantity,
+                'quantity_per_packge' => $item->quantity_per_packge,
+                'price_per_event' => $item->price_per_event,
+                'media' => $item->media()->get()->map->only('id', 'directory_name', 'full_url'),
+            ];
+        });
+
+        return Inertia::render('Manage/Packages/Create', ['trucks' => $trucks, 'items' => $items]);
     }
 
     /**
@@ -68,7 +88,6 @@ class ManagePackagesController extends Controller
             'ar_slug' => Str::slug($request->ar_name),
             'status' => $request->status,
             'price_per_event' => $request->price_per_event,
-            'min_price_per_event' => $request->min_price_per_event,
             'truck_id' => $request->truck_id,
         ]);
 
@@ -78,6 +97,14 @@ class ManagePackagesController extends Controller
                 'model_type' => Package::class
             ]);
             $package->update(['mediaIds' => $request->mediaIds]);
+        }
+
+
+        if(!empty($request->items)) {
+            foreach ($request->items as $item) {
+               $packageItem = PackageItem::where('id', $item['id']);
+               $packageItem->update(['package_id' => $package->id, 'quantity_per_package' => $item['quantity_per_package']]);
+            }
         }
 
         return Redirect::route('manage.packages.show', $package->id);
@@ -100,7 +127,8 @@ class ManagePackagesController extends Controller
             'ar_description' => $package->ar_description,
             'en_description' => $package->en_description,
             'mediaIds' => $package->mediaIds,
-            'media' => $package->media()->get()->map->only('id', 'directory_name', 'full_url')
+            'media' => $package->media()->get()->map->only('id', 'directory_name', 'full_url'),
+            'items' => $package->items
         ]]);
     }
 

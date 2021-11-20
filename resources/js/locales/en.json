@@ -62,5 +62,6 @@
   "description": "description",
   "short_description": "short description",
   "field_name_lang": "{field} {name} in {lang}",
-  "suppliers": "suppliers"
+  "suppliers": "suppliers",
+  "package": "package"
 }

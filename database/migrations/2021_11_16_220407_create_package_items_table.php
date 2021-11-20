@@ -28,6 +28,8 @@ class CreatePackageItemsTable extends Migration
             $table->enum('stock_status', ['in_stock', 'out_stock', 'low_in_stock'])->nullable();
             $table->boolean('featured')->default(false)->nullable();
             $table->unsignedInteger('quantity')->default(10);
+            $table->unsignedInteger('quantity_per_package')->default(0)->nullable();
+            $table->unsignedInteger('quantity_per_booking')->default(0)->nullable();
             $table->enum('status',['active','inactive'])->default('active');
             $table->json('mediaIds')->nullable();
 

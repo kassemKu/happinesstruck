@@ -53,6 +53,7 @@ module.exports = {
       cursor: ["disabled"],
       textOpacity: ["disabled"],
       textColor: ["disabled"],
+      disply: ["group-hover"],
     },
   },
 

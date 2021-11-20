@@ -67,7 +67,7 @@ class ManagePackageItemsController extends Controller
             'status' => $request->status,
             'price_per_event' => $request->price_per_event,
             'SKU' => $request->SKU,
-            'truck_id' => $request->truck_id,
+            'package_id' => $request->package_id,
         ]);
 
         if(!empty($request->mediaIds)) {
@@ -116,11 +116,11 @@ class ManagePackageItemsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  App\Http\Requests\StorePackageItemRequest  $request
+     * @param  obj $package
      * @return Inertia\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePackageItemRequest $request, $id)
     {
         //
     }
@@ -128,7 +128,7 @@ class ManagePackageItemsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  obj $package
      * @return Inertia\Response
      */
     public function destroy($id)

@@ -20,26 +20,33 @@
               text-gray-600
               bg-base-100
               shadow-2xl
-              w-1/2
-              p-8
               rounded
-              border-t-4 border-red-500
+              border-t-4
               fixed
               top-12
+              max-h-screen
+              overflow-y-auto
+              ht-scrollbar
             "
-            :class="maxWidthClass"
+            :class="[
+              maxWidthClass,
+              `border-${type}`,
+              screenHeight ? 'pb-20 pt-8 px-8' : 'p-8',
+            ]"
           >
-            <div class="flex flex-col space-y-4">
+            <div class="flex flex-col space-y-8">
               <h2 class="text-lg font-semibold capitalize">
-                here confirm title
+                {{ title }}
               </h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Recusandae temporibus quo impedit?
-              </p>
+              <slot />
               <div class="flex justify-end space-x-4">
-                <button class="btn btn-sm btn-error" @click="modalAction">
-                  delete product
+                <button
+                  class="btn btn-sm"
+                  :class="[`btn-${type}`]"
+                  :disabled="disabledActionBtn ? 'disabled' : null"
+                  @click="modalAction"
+                >
+                  {{ actionTitle }}
                 </button>
                 <button class="btn btn-sm btn-outline" @click="closeModal">
                   never mind
@@ -69,39 +76,67 @@
 </template>
 
 <script>
-import { TransitionRoot, TransitionChild, Dialog } from '@headlessui/vue'
-import { useStore, mapState } from 'vuex'
+import { TransitionRoot, TransitionChild, Dialog } from "@headlessui/vue";
+import { useStore, mapState } from "vuex";
 
-const components = { TransitionRoot, TransitionChild, Dialog }
+const components = { TransitionRoot, TransitionChild, Dialog };
 
 export default {
-  name: 'Modal',
+  name: "Modal",
 
   components,
 
   props: {
+    title: {
+      type: String,
+      required: false,
+      default: null,
+    },
+    actionTitle: {
+      type: String,
+      required: false,
+      default: null,
+    },
+    disabledActionBtn: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+    type: {
+      type: String,
+      required: false,
+      default: (val) => ["warning", "error", "info"].includes(val),
+    },
+    screenHeight: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     maxWidth: {
       type: String,
-      default: '2xl',
+      default: "2xl",
       required: false,
-      validator: (value) => ['sm', 'md', 'lg', 'xl', '2xl'].includes(value),
+      validator: (value) =>
+        ["sm", "md", "lg", "xl", "2xl", "screen-sm", "screen-lg"].includes(
+          value
+        ),
     },
   },
 
-  emits: ['modalAction'],
+  emits: ["modalAction"],
 
   setup(_, { emit }) {
-    const store = useStore()
+    const store = useStore();
 
     const closeModal = () => {
-      store.commit('closeModal')
-    }
+      store.commit("closeModal");
+    };
 
     const modalAction = () => {
-      emit('modalAction')
-    }
+      emit("modalAction");
+    };
 
-    return { closeModal, modalAction }
+    return { closeModal, modalAction };
   },
 
   computed: {
@@ -111,13 +146,15 @@ export default {
 
     maxWidthClass() {
       return {
-        sm: 'sm:max-w-sm',
-        md: 'sm:max-w-md',
-        lg: 'sm:max-w-lg',
-        xl: 'sm:max-w-xl',
-        '2xl': 'sm:max-w-2xl',
-      }[this.maxWidth]
+        sm: "sm:max-w-sm",
+        md: "sm:max-w-md",
+        lg: "sm:max-w-lg",
+        xl: "sm:max-w-xl",
+        "2xl": "sm:max-w-2xl",
+        "screen-sm": "max-w-screen-sm",
+        "screen-lg": "max-w-screen-lg",
+      }[this.maxWidth];
     },
   },
-}
+};
 </script>

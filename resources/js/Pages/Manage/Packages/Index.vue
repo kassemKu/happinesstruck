@@ -122,7 +122,18 @@
       </div>
     </div>
   </ManageLayout>
-  <Modal max-width="xl" @modalAction="deletePackage" />
+  <Modal
+    max-width="xl"
+    :title="`delete package ?`"
+    type="warning"
+    action-title="delete package"
+    @modalAction="deletePackage"
+  >
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+      temporibus quo impedit?
+    </p>
+  </Modal>
 </template>
 
 <script>

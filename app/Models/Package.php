@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Models\Category;
 use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Package extends Model
@@ -65,6 +66,12 @@ class Package extends Model
     public function truck(): BelongsTo
     {
         return $this->belongsTo(Truck::class);
+    }
+
+    // relation to package items
+    public function items(): HasMany
+    {
+        return $this->hasMany(PackageItem::class);
     }
 
     // morph relation
