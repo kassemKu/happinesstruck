@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
 use Illuminate\Support\Str;
-use App\Models\Category;
+use App\Models\Item;
 use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Package extends Model
@@ -69,9 +69,11 @@ class Package extends Model
     }
 
     // relation to package items
-    public function items(): HasMany
+    public function items(): BelongsToMany
     {
-        return $this->hasMany(PackageItem::class);
+        return $this->belongsToMany(Item::class, 'package_item')
+            ->withTimestamps()
+            ->withPivot(['quantity', 'price']);
     }
 
     // morph relation

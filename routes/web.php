@@ -15,7 +15,7 @@ use App\Http\Controllers\Manage\ManageProductsController;
 use App\Http\Controllers\Manage\ManageBannersController;
 use App\Http\Controllers\Manage\ManageTrucksController;
 use App\Http\Controllers\Manage\ManagePackagesController;
-use App\Http\Controllers\Manage\ManagePackageItemsController;
+use App\Http\Controllers\Manage\ManageItemsController;
 /**
  * TODO:: To write better comment
  */
@@ -63,7 +63,7 @@ Route::name('manage.')
         // packages routes
         Route::resource('/packages', ManagePackagesController::class, ['parameters' => ['' => 'package']]);
         // package items routes
-        Route::resource('/items', ManagePackageItemsController::class, ['parameters' => ['' => 'item']]);
+        Route::resource('/items', ManageItemsController::class, ['parameters' => ['' => 'item']]);
         // Media routes
         Route::resource('/media', ManageMediaController::class, ['parameters' => ['' => 'media']]);
 });

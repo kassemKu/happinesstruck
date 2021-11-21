@@ -521,6 +521,9 @@ export default {
     };
 
     const savePackageItemAndClose = () => {
+      form.items.map((item) => {
+        form.price_per_event += item.price_per_event
+      })
       store.commit("closeModal");
     };
 

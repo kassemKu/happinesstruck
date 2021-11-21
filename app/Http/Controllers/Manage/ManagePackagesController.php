@@ -12,7 +12,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Str;
 use App\Models\Package;
-use App\Models\PackageItem;
+use App\Models\Item;
 use App\Models\Truck;
 
 class ManagePackagesController extends Controller
@@ -54,13 +54,13 @@ class ManagePackagesController extends Controller
             ];
         });
 
-        $items = PackageItem::latest()->get()->transform(function($item) {
+        $items = Item::latest()->get()->transform(function($item) {
             return [
                 'id' => $item->id,
                 'ar_name' => $item->ar_name,
                 'en_name' => $item->en_name,
                 'quantity' => $item->quantity,
-                'quantity_per_packge' => $item->quantity_per_packge,
+                'quantity_per_package' => $item->quantity_per_package,
                 'price_per_event' => $item->price_per_event,
                 'media' => $item->media()->get()->map->only('id', 'directory_name', 'full_url'),
             ];
@@ -88,6 +88,7 @@ class ManagePackagesController extends Controller
             'ar_slug' => Str::slug($request->ar_name),
             'status' => $request->status,
             'price_per_event' => $request->price_per_event,
+            'min_price_per_event' => $request->min_price_per_event,
             'truck_id' => $request->truck_id,
         ]);
 
@@ -101,9 +102,9 @@ class ManagePackagesController extends Controller
 
 
         if(!empty($request->items)) {
-            foreach ($request->items as $item) {
-               $packageItem = PackageItem::where('id', $item['id']);
-               $packageItem->update(['package_id' => $package->id, 'quantity_per_package' => $item['quantity_per_package']]);
+            foreach ($request->items as $i) {
+               $item = Item::where('id', $i['id'])->pluck('id');
+               $package->items()->attach($item, ['price' => $i['price_per_event'], 'quantity' => $i['quantity_per_package']]);
             }
         }
 
@@ -126,9 +127,11 @@ class ManagePackagesController extends Controller
             'en_short_description' => $package->en_short_description,
             'ar_description' => $package->ar_description,
             'en_description' => $package->en_description,
+            'price_per_event' => $package->price_per_event,
+            'min_price_per_event' => $package->min_price_per_event,
             'mediaIds' => $package->mediaIds,
             'media' => $package->media()->get()->map->only('id', 'directory_name', 'full_url'),
-            'items' => $package->items
+            'items' => $package->items()->get()->unique('id')
         ]]);
     }
 

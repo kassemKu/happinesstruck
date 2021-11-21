@@ -4,128 +4,14 @@
       <meta title="description" content="lorem ipsum" />
     </Head>
     <div class="htw-page htw-page__packages">
-      <!--<div class="htw-slaider-wrap absolute overflow-hidden w-full h-full">
-        <div
-          :ref="setContainer"
-          class="htw-slide-container w-full h-full"
-          @wheel="wheelMouseAnim($event)"
-        >
-          <section
-            v-for="(slide, index) in packages"
-            :key="slide.id"
-            :ref="slideSection"
-            class="mtw-slide h-screen w-screen"
-          >
-            <div v-if="index === 0" class="h-full w-full">
-              <PackagesPageFirstSlide
-                :items="slide.items"
-                :name="slide.name"
-                :short-description="slide.shortDescription"
-              />
-            </div>
-            <div v-else-if="index === 1" class="h-full w-full">
-              <PackagesPageSecondSlide
-                :items="slide.items"
-                :name="slide.name"
-                :short-description="slide.shortDescription"
-                :src="slide.image"
-              />
-            </div>
-            <div v-else-if="index === 2" class="h-full bg-error">
-              {{ slide.name }}
-            </div>
-            <div v-else-if="index === 3" class="h-full bg-info">
-              {{ slide.name }}
-            </div>
-            <div v-else-if="index === 4" class="h-full bg-accent">
-              {{ slide.name }}
-            </div>
-            <div v-else-if="index === 5" class="h-full bg-neutral">
-              {{ slide.name }}
-            </div>
-          </section>
-        </div>
-      </div>
-      <div
-        ref="fixedNav"
-        class="
-          htw-packages__fixed-slide-nav
-          fixed
-          h-screen
-          w-14
-          flex flex-col
-          justify-between
-          items-center
-          pt-20
-          pb-4
-          space-y-12
-          text-base-content text-opacity-50
-        "
-      >
-        <div class="flex flex-col">
-          <button
-            class="btn btn-ghost transform hover:scale-105 hover:bg-transparent"
-          >
-            <VueFeather type="instagram" stroke-width="2" class="h-5 w-5" />
-          </button>
-          <button
-            class="btn btn-ghost transform hover:scale-105 hover:bg-transparent"
-          >
-            <VueFeather type="facebook" stroke-width="2" class="h-5 w-5" />
-          </button>
-          <button
-            class="btn btn-ghost transform hover:scale-105 hover:bg-transparent"
-          >
-            <VueFeather type="twitter" stroke-width="2" class="h-5 w-5" />
-          </button>
-          <button
-            class="btn btn-ghost transform hover:scale-105 hover:bg-transparent"
-          >
-            <VueFeather type="youtube" stroke-width="2" class="h-5 w-5" />
-          </button>
-        </div>
-
-        <div class="flex flex-col items-center space-y-8">
-          <div class="flex flex-col items-center space-y-24">
-            <div>
-              <progress
-                class="progress w-36 transform rotate-90"
-                :value="activeSlide + 1 * 10"
-                :max="packages.length + 1 * 10"
-              ></progress>
-            </div>
-            <div class="flex flex-col items-center space-y-2">
-              <button type="button" @click="slideUp">
-                <ArrowUp32 class="h-6 w-6" />
-              </button>
-              <button
-                type="button"
-                class="group hover:text-info"
-                @click="slideDown"
-              >
-                <ArrowDown32 class="h-6 w-6" />
-              </button>
-            </div>
-          </div>
-          <div class="flex flex-col items-center space-y-2">
-            <p
-              class="uppercase text-xs font-semibold"
-              style="writing-mode: tb-rl"
-            >
-              scroll down
-            </p>
-            <ArrowDown32 class="animate-bounce h-6 w-6" />
-          </div>
-        </div>
-      </div> -->
       <div class="htw-landing__packages-container">
         <div
-          v-for="(pg, index) in packages"
-          :key="index"
+          v-for="pg in packages"
+          :key="pg.id"
           class="
             htw-package
             h-screen
-            w-screen
+            w-full
             grid grid-cols-2
             gap-x-8
             items-center
@@ -137,8 +23,31 @@
             :style="{ backgroundImage: `url(${pg.media[0].full_url})` }"
             class="htw-package__img-bg bg-cover bg-center h-full"
           ></div>
-          <div class="flex flex-col space-y-8">
-            <div class="flex flex-col space-y-8 max-w-mdfont-medium">
+          <div class="flex flex-col space-y-8 font-medium">
+            <div class="alert alert-warning">
+              <div class="flex-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  class="w-6 h-6 mx-2 stroke-current"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <label
+                  >please note, this package avilable above
+                  <em class="font-semibold text-red-600">{{ pg.min_price_per_event }} DK</em>
+                  !</label
+                >
+              </div>
+            </div>
+            <!-- package min price note -->
+            <div class="flex flex-col space-y-6 max-w-md">
               <h1 class="text-3xl font-bold">{{ pg.en_name }}</h1>
               <p class="text-neutral text-opacity-60">
                 {{ pg.en_short_description }}
@@ -147,30 +56,83 @@
                 {{ pg.en_description }}
               </p>
             </div>
+            <div class="flex flex-col space-y-6">
+              <div
+                v-for="item in pg.items"
+                :key="item.id"
+                class="
+                  bg-info bg-opacity-10
+                  flex
+                  justify-between
+                  rounded-box
+                  px-4 py-2
+                "
+              >
+                <div class="flex space-x-2">
+                  <img
+                    :src="item.media[0].full_url"
+                    :alt="item.en_name"
+                    class="w-16 h-16 object-cover rounded-box border"
+                  />
+                  <div class="flex flex-col">
+                    <p class="text-sm capitalize">{{ item.en_name }}</p>
+                    <p class="text-sm capitalize text-gray-400 text-xs">
+                      #{{ item.SKU }}
+                    </p>
+                  </div>
+                </div>
+                <div class="self-center">
+                  <p class="text-sm capitalize font-bold">
+                    {{item.price_per_event}} DK X {{ item.quantity }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- package items -->
+            <div class="">
+              <button
+                :href="route('web.store')"
+                class="
+                  btn btn-wide btn-info
+                  rounded-none rounded-tl-xl rounded-br-2xl
+                "
+                @click="openBookingBopup"
+              >
+                booking this package now
+              </button>
+            </div>
+            <!-- booking btn -->
           </div>
         </div>
       </div>
     </div>
   </WebLayout>
+  <Modal
+    max-width="screen-lg"
+    :title="`add items to this package`"
+    type="info"
+    action-title="save selected items and close"
+    screen-height
+  >
+    modal
+  </Modal>
 </template>
 
 <script>
-import { onBeforeUpdate, onMounted, ref } from 'vue'
-import { gsap, Power2 } from 'gsap'
-import { Head } from '@inertiajs/inertia-vue3'
-import WebLayout from '@/Layouts/Web/WebLayout'
-import PackagesPageFirstSlide from '@/Components/PackagesPage/Slide1'
-import PackagesPageSecondSlide from '@/Components/PackagesPage/Slide2'
+
+import { useStore } from "vuex";
+import { Head } from "@inertiajs/inertia-vue3";
+import WebLayout from "@/Layouts/Web/WebLayout";
+import Modal from "@/Shared/Layouts/Modal";
 
 const components = {
   Head,
   WebLayout,
-  PackagesPageFirstSlide,
-  PackagesPageSecondSlide,
-}
+  Modal,
+};
 
 export default {
-  name: 'WebPackagesPage',
+  name: "WebPackagesPage",
 
   components,
 
@@ -182,111 +144,17 @@ export default {
   },
 
   setup() {
-    // dom elements
-    let container
-    let slides = []
-    // section slide offset Y
-    let offsets = []
-    let activeSlide = 0
-    const oldSlide = 0
-    let dur = 0.6
-    const mouseAnim = gsap.timeline()
-    let timeout
+    const store = useStore();
 
-    const fixedNav = ref(null)
-
-    const setContainer = (el) => {
-      container = el
-    }
-
-    const slideSection = (el) => {
-      slides.push(el)
-    }
-
-    // make sure we're not past the end or beginning slide
-    const wrapSlide = () => {
-      activeSlide = activeSlide < 0 ? 0 : activeSlide
-      activeSlide =
-        activeSlide > slides.length - 1 ? slides.length - 1 : activeSlide
-    }
-
-    const wheelMouseAnim = (e) => {
-      let newScroll = true
-      activeSlide = e.deltaY > 0 ? (activeSlide += 1) : (activeSlide -= 1)
-
-      // Make sure there's at least 50ms between the last scroll event and this one
-      if (timeout) {
-        clearTimeout(timeout)
-      }
-      timeout = setTimeout(() => {
-        newScroll = true
-      }, 50)
-
-      if (!newScroll || mouseAnim.isActive() || gsap.isTweening(container))
-        return
-
-      wrapSlide()
-
-      if (!mouseAnim.isActive()) {
-        newScroll = false
-        mouseAnim.to(container, {
-          y: offsets[activeSlide],
-          duration: dur,
-          ease: Power2.easeInOut,
-        })
-      }
-    }
-
-    const slideUp = () => {
-      wrapSlide()
-      if (gsap.isTweening(container)) return
-
-      activeSlide -= 1
-
-      mouseAnim.to(container, {
-        y: offsets[activeSlide],
-        duration: dur,
-        ease: Power2.easeInOut,
-      })
-    }
-
-    const slideDown = () => {
-      if (gsap.isTweening(container)) return
-      wrapSlide()
-      activeSlide += 1
-      console.log(activeSlide)
-      mouseAnim.to(container, {
-        y: offsets[activeSlide],
-        duration: dur,
-        ease: Power2.easeInOut,
-      })
-    }
-
-    onBeforeUpdate(() => {
-      slides = []
-    })
-
-    onMounted(() => {
-      slides = gsap.utils.toArray(slides)
-
-      activeSlide = oldSlide
-
-      for (let i = 0; i < slides.length; i++) {
-        offsets.push(-slides[i].offsetTop)
-      }
-    })
+    const openBookingBopup = () => {
+      store.commit("openModal");
+    };
 
     return {
-      wheelMouseAnim,
-      slideSection,
-      setContainer,
-      slideDown,
-      slideUp,
-      activeSlide,
-      fixedNav,
-    }
+      openBookingBopup,
+    };
   },
-}
+};
 </script>
 
 <style scoped>

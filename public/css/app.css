@@ -3271,6 +3271,13 @@ html {
 	padding: 0;
 	width: 4rem;
 }
+.alert-info {
+	--tw-bg-opacity: 1;
+	--tw-bg-opacity: 0.1;
+	background-color: hsla(var(--in)/var(--tw-bg-opacity,1));
+	--tw-text-opacity: 1;
+	color: hsla(var(--in)/var(--tw-text-opacity,1));
+}
 .alert-warning {
 	--tw-bg-opacity: 1;
 	--tw-bg-opacity: 0.1;
@@ -3429,9 +3436,9 @@ html {
 	margin-top: 9rem;
 	margin-bottom: 9rem;
 }
-.my-4 {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
+.mx-2 {
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
 }
 .mx-16 {
 	margin-left: 4rem;
@@ -3440,10 +3447,6 @@ html {
 .my-1 {
 	margin-top: 0.25rem;
 	margin-bottom: 0.25rem;
-}
-.mx-2 {
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
 }
 .ml-3 {
 	margin-left: 0.75rem;
@@ -4139,6 +4142,9 @@ html {
 }
 .self-end {
 	align-self: flex-end;
+}
+.self-center {
+	align-self: center;
 }
 .justify-self-center {
 	justify-self: center;
