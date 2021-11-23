@@ -303,7 +303,7 @@
                 </div>
               </div>
             </div>
-            <!-- Media uplaoder -->
+            <!-- Media uploader -->
           </ManageForm>
         </div>
       </div>
@@ -435,19 +435,19 @@
 </template>
 
 <script>
-import { reactive, computed, onMounted } from "vue";
-import { useForm, usePage } from "@inertiajs/inertia-vue3";
-import { useStore } from "vuex";
-import axios from "axios";
-import { useI18n } from "vue-i18n";
-import Multiselect from "@vueform/multiselect";
-import ManageLayout from "@/Layouts/Manage/ManageLayout";
-import Breadcrumb from "@/Shared/Layouts/Breadcrumb";
-import TextField from "@/Shared/UI/TextField";
-import ManageForm from "@/Shared/Layouts/MForm";
-import HTextarea from "@/Shared/UI/HTextarea";
-import FileUpload from "@/Shared/UI/FileUpload";
-import Modal from "@/Shared/Layouts/Modal";
+import { reactive, computed, onMounted } from 'vue'
+import { useForm, usePage } from '@inertiajs/inertia-vue3'
+import { useStore } from 'vuex'
+import axios from 'axios'
+import { useI18n } from 'vue-i18n'
+import Multiselect from '@vueform/multiselect'
+import ManageLayout from '@/Layouts/Manage/ManageLayout'
+import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
+import TextField from '@/Shared/UI/TextField'
+import ManageForm from '@/Shared/Layouts/MForm'
+import HTextarea from '@/Shared/UI/HTextarea'
+import FileUpload from '@/Shared/UI/FileUpload'
+import Modal from '@/Shared/Layouts/Modal'
 
 // TODO:: to fix emit checkbox
 
@@ -460,10 +460,10 @@ const components = {
   FileUpload,
   Multiselect,
   Modal,
-};
+}
 
 export default {
-  name: "ManagePackageCreate",
+  name: 'ManagePackageCreate',
 
   components,
 
@@ -479,10 +479,10 @@ export default {
   },
 
   setup() {
-    const store = useStore();
-    let media = reactive([]);
-    const { t, locale } = useI18n({ useScope: "global" });
-    const page = usePage();
+    const store = useStore()
+    let media = reactive([])
+    const { t, locale } = useI18n({ useScope: 'global' })
+    const page = usePage()
 
     const form = useForm({
       ar_name: null,
@@ -491,147 +491,147 @@ export default {
       en_name: null,
       en_short_description: null,
       en_description: null,
-      status: "active",
+      status: 'active',
       price_per_event: null,
       min_price_per_event: null,
       truck_id: 1,
       mediaIds: [],
       items: [],
-    });
+    })
 
     const addItemToPackage = (item) => {
-      form.items.push(item);
-    };
+      form.items.push(item)
+    }
 
     const removeItemFromPackage = (item) => {
-      form.items.splice(form.items.indexOf(item), 1);
-    };
+      form.items.splice(form.items.indexOf(item), 1)
+    }
 
     const selectedItem = (item) => {
-      return form.items.includes(item);
-    };
+      return form.items.includes(item)
+    }
 
     const getItemsQuantity = (item) => {
-      if (!selectedItem(item)) return 0;
-      const quantity = form.items.filter((i) => i.id == item.id);
+      if (!selectedItem(item)) return 0
+      const quantity = form.items.filter((i) => i.id == item.id)
 
-      item.quantity_per_package = quantity.length;
+      item.quantity_per_package = quantity.length
 
-      return quantity.length;
-    };
+      return quantity.length
+    }
 
     const savePackageItemAndClose = () => {
       form.items.map((item) => {
         form.price_per_event += item.price_per_event
       })
-      store.commit("closeModal");
-    };
+      store.commit('closeModal')
+    }
 
     const uplaodFileMargin = computed(() => {
-      let space;
-      if (locale === "en") {
-        space = media.value.length > 0 ? "ml-4" : "ml-0";
+      let space
+      if (locale === 'en') {
+        space = media.value.length > 0 ? 'ml-4' : 'ml-0'
       }
-      if (locale === "ar") {
-        space = media.value.length > 0 ? "mr-4" : "mr-0";
+      if (locale === 'ar') {
+        space = media.value.length > 0 ? 'mr-4' : 'mr-0'
       }
 
-      return space;
-    });
+      return space
+    })
 
     const uploadPackageMedia = (files) => {
       Array.from(files).forEach((file) => {
-        let reader = new FileReader();
+        let reader = new FileReader()
 
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file)
 
         reader.onload = (e) => {
           let item = {
             url: e.target.result,
             id: undefined,
             originName: file.name,
-            size: (file.size / 1048576).toFixed(2) + " MB",
-          };
+            size: (file.size / 1048576).toFixed(2) + ' MB',
+          }
 
-          let formData = new FormData();
+          let formData = new FormData()
 
-          formData.append("file", file);
-          formData.append("directory_name", "packages");
+          formData.append('file', file)
+          formData.append('directory_name', 'packages')
 
           axios
-            .post(route("manage.media.store"), formData)
+            .post(route('manage.media.store'), formData)
             .then((res) => {
-              item.id = res.data.id;
+              item.id = res.data.id
             })
             .then(() => {
-              store.commit("openNotification", {
-                title: "upload file",
+              store.commit('openNotification', {
+                title: 'upload file',
                 content: `package image uploaded successfully`,
-              });
-            });
+              })
+            })
 
-          media.push(item);
-        };
-      });
-    };
+          media.push(item)
+        }
+      })
+    }
 
     const removeImg = (index, img) => {
-      media.splice(index, 1);
+      media.splice(index, 1)
 
       if (img.id) {
         axios
-          .delete(route("manage.media.destroy", img.id))
+          .delete(route('manage.media.destroy', img.id))
           .catch((error) => {
-            console.log(error);
-            media.splice(index, 0, img);
+            console.log(error)
+            media.splice(index, 0, img)
           })
           .then(() => {
-            store.commit("openNotification", {
-              title: "delete file",
+            store.commit('openNotification', {
+              title: 'delete file',
               content: `package image deleted successfully`,
-            });
-          });
+            })
+          })
       }
-    };
+    }
 
     const createPackage = () => {
-      form.mediaIds = media.map((img) => img.id);
-      form.post(route("manage.packages.store"), {
+      form.mediaIds = media.map((img) => img.id)
+      form.post(route('manage.packages.store'), {
         preserverStae: true,
-        onStart: () => console.log("Do Something on start"),
-        onFinish: () => console.log("Do Something on finish"),
+        onStart: () => console.log('Do Something on start'),
+        onFinish: () => console.log('Do Something on finish'),
         onError: (errors) => {
-          store.commit("openNotification", {
-            title: "something went wrong",
-            type: "error",
+          store.commit('openNotification', {
+            title: 'something went wrong',
+            type: 'error',
             content: errors,
-          });
+          })
         },
         onSuccess: () => {
           if (
             page.props.errors &&
             Object.keys(page.props.errors).length === 0
           ) {
-            form.reset();
-            media = [];
-            form.mediaIds = [];
-            store.commit("openNotification", {
-              title: "create producut",
-              type: "success",
-              content: "package created successfully",
-            });
+            form.reset()
+            media = []
+            form.mediaIds = []
+            store.commit('openNotification', {
+              title: 'create producut',
+              type: 'success',
+              content: 'package created successfully',
+            })
           }
         },
-      });
-    };
+      })
+    }
 
     const openAddPackageItemsPopUp = () => {
-      store.commit("openModal");
-    };
+      store.commit('openModal')
+    }
 
     onMounted(() => {
-      form.items = [];
-    });
+      form.items = []
+    })
 
     return {
       form,
@@ -647,11 +647,11 @@ export default {
       selectedItem,
       getItemsQuantity,
       savePackageItemAndClose,
-    };
+    }
   },
 
-  remember: "form",
-};
+  remember: 'form',
+}
 </script>
 
 <style src="@vueform/multiselect/themes/default.css"></style>

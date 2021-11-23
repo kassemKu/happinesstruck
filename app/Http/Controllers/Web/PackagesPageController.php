@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Package;
+use App\Models\Item;
 
 class PackagesPageController extends Controller
 {
@@ -42,10 +43,20 @@ class PackagesPageController extends Controller
                             'quantity' => $item->pivot->quantity,
                             'media' => $item->media()->get()->map->only('id', 'directory_name', 'full_url'),
                         ];
-                })
+                })->toArray()
             ];
         });
 
-        return Inertia::render('Web/Packages/Index', ['packages' => $packages]);
+        $items = Item::latest()->get()->transform(function($item) {
+            return [
+                'id' => $item->id,
+                'ar_name' => $item->ar_name,
+                'en_name' => $item->en_name,
+                'price_per_event' => $item->price_per_event,
+                'media' => $item->media()->get()->map->only('id', 'directory_name', 'full_url'),
+            ];
+        });
+
+        return Inertia::render('Web/Packages/Index', ['packages' => $packages, 'allItems' => $items]);
      }
 }
