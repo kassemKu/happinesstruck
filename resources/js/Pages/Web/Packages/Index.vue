@@ -22,11 +22,9 @@
           <div
             :style="{
               background:
-                pg.media.length > 0
-                  ? `url(${pg.media[0].full_url})`
-                  : 'bg-info',
+                pg.media.length > 0 ? `url(${pg.media[0].full_url})` : '',
             }"
-            class="htw-package__img-bg bg-cover bg-center h-full"
+            class="htw-package__img-bg bg-cover bg-center h-full bg-info"
           ></div>
           <div class="flex flex-col space-y-8 font-medium">
             <div class="alert alert-warning">
