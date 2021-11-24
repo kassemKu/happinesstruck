@@ -20,7 +20,12 @@
           "
         >
           <div
-            :style="{ backgroundImage: `url(${pg.media[0].full_url})` }"
+            :style="{
+              background:
+                pg.media.length > 0
+                  ? `url(${pg.media[0].full_url})`
+                  : 'bg-info',
+            }"
             class="htw-package__img-bg bg-cover bg-center h-full"
           ></div>
           <div class="flex flex-col space-y-8 font-medium">
@@ -55,7 +60,7 @@
                 {{ pg.en_short_description }}
               </p>
             </div>
-            <div class="flex flex-col space-y-6">
+            <div v-if="pg.items.length > 0" class="flex flex-col space-y-6">
               <div
                 v-for="item in pg.items"
                 :key="item.id"
