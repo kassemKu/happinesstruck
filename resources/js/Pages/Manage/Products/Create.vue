@@ -22,7 +22,7 @@
               $t('action_model', { action: $t('add'), model: $t('product') })
             "
             max-width="5xl"
-            @formSubmited="createProduct"
+            @formSubmitted="createProduct"
           >
             <div class="grid grid-cols-2 gap-x-10 items-center">
               <TextField
@@ -410,14 +410,17 @@ export default {
           formData.append('file', media)
           formData.append('directory_name', 'products')
 
-          axios.post(route('manage.media.store'), formData).then((res) => {
-            item.id = res.data.id
-          }).then(() => {
-            this.$store.commit('openNotification', {
-              title: 'upload file',
-              content: `product image uploaded successfully`
+          axios
+            .post(route('manage.media.store'), formData)
+            .then((res) => {
+              item.id = res.data.id
             })
-          })
+            .then(() => {
+              this.$store.commit('openNotification', {
+                title: 'upload file',
+                content: `product image uploaded successfully`,
+              })
+            })
 
           this.media.push(item)
         }
@@ -427,15 +430,18 @@ export default {
       this.media.splice(index, 1)
 
       if (img.id) {
-        axios.delete(route('manage.media.destroy', img.id)).catch((error) => {
-          console.log(error)
-          this.media.splice(index, 0, img)
-        }).then(() => {
-          this.$store.commit('openNotification', {
-            title: 'delete file',
-            content: `product image deleted successfully`
+        axios
+          .delete(route('manage.media.destroy', img.id))
+          .catch((error) => {
+            console.log(error)
+            this.media.splice(index, 0, img)
           })
-        })
+          .then(() => {
+            this.$store.commit('openNotification', {
+              title: 'delete file',
+              content: `product image deleted successfully`,
+            })
+          })
       }
     },
     createProduct() {
@@ -446,10 +452,10 @@ export default {
         onFinish: () => console.log('Do Something on finish'),
         onError: (errors) => {
           this.$store.commit('openNotification', {
-              title: "something went wrong",
-              type: "error",
-              content: errors,
-            })
+            title: 'something went wrong',
+            type: 'error',
+            content: errors,
+          })
         },
         onSuccess: () => {
           if (Object.keys(this.$page.props.errors).length === 0) {
@@ -457,9 +463,9 @@ export default {
             this.media = []
             this.form.mediaIds = []
             this.$store.commit('openNotification', {
-              title: "create producut",
-              type: "success",
-              content: "product created successfully",
+              title: 'create producut',
+              type: 'success',
+              content: 'product created successfully',
             })
           }
         },

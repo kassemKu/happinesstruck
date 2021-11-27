@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
 use Illuminate\Support\Str;
-use App\Models\Item;
+use App\Models\Tool;
 use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -31,12 +31,10 @@ class Package extends Model
         'ar_description',
         'en_description',
         'status',
-        'truck_id',
         'ar_slug',
         'en_slug',
         'mediaIds',
         'price_per_event',
-        'min_price_per_event',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -68,10 +66,22 @@ class Package extends Model
         return $this->belongsTo(Truck::class);
     }
 
-    // relation to package items
-    public function items(): BelongsToMany
+    /**
+     *
+     */
+    public function tools(): BelongsToMany
     {
-        return $this->belongsToMany(Item::class, 'package_item')
+        return $this->belongsToMany(Tool::class, 'tool_package', 'package_id', 'tool_id')
+            ->withTimestamps()
+            ->withPivot(['quantity', 'price']);
+    }
+
+    /**
+     *
+     */
+    public function trucks(): BelongsToMany
+    {
+        return $this->belongsToMany(Truck::class, 'truck_package', 'package_id', 'truck_id')
             ->withTimestamps()
             ->withPivot(['quantity', 'price']);
     }

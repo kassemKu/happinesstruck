@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Package;
-use App\Models\Item;
-
+use App\Models\Tool;
 class PackagesPageController extends Controller
 {
     /**
@@ -29,34 +28,28 @@ class PackagesPageController extends Controller
                 'min_price_per_event' => $package->min_price_per_event,
                 'created_at' => $package->created_at->diffForHumans(),
                 'media' => $package->media()->get()->map->only('id', 'directory_name', 'full_url'),
-                'items' => $package
-                    ->items()
+                'tools' => $package
+                    ->tools()
                     ->get()
                     ->unique('id')
-                    ->transform(function($item) {
+                    ->transform(function($tool) {
                         return [
-                            'id' => $item->id,
-                            'ar_name' => $item->ar_name,
-                            'en_name' => $item->en_name,
-                            'price_per_event' => $item->price_per_event,
-                            'SKU' => $item->SKU,
-                            'quantity' => $item->pivot->quantity,
-                            'media' => $item->media()->get()->map->only('id', 'directory_name', 'full_url'),
+                            'id' => $tool->id,
+                            'ar_name' => $tool->ar_name,
+                            'en_name' => $tool->en_name,
+                            'price_per_event' => $tool->price_per_event,
+                            'SKU' => $tool->SKU,
+                            'quantity' => $tool->pivot->quantity,
+                            'media' => $tool->media()->get()->map->only('id', 'directory_name', 'full_url'),
                         ];
                 })->toArray()
             ];
         });
 
-        $items = Item::latest()->get()->transform(function($item) {
-            return [
-                'id' => $item->id,
-                'ar_name' => $item->ar_name,
-                'en_name' => $item->en_name,
-                'price_per_event' => $item->price_per_event,
-                'media' => $item->media()->get()->map->only('id', 'directory_name', 'full_url'),
-            ];
-        });
+        return Inertia::render('Web/Packages/Index', ['packages' => $packages]);
+     }
 
-        return Inertia::render('Web/Packages/Index', ['packages' => $packages, 'allItems' => $items]);
+     public function show(Package $package): Response {
+        return Inertia::render('Web/Packages/Show', ['pack' => $package]);
      }
 }

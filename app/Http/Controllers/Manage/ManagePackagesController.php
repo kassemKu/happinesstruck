@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Manage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StorePackageRequest;
-use Illuminate\Support\Arr;
 use App\Models\Media;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Str;
 use App\Models\Package;
-use App\Models\Item;
-use App\Models\Truck;
+use App\Models\Tool;
 
 class ManagePackagesController extends Controller
 {
@@ -46,27 +44,18 @@ class ManagePackagesController extends Controller
      */
     public function create(): Response
     {
-        $trucks = Truck::latest()->get()->transform(function($truck) {
+        $tools = Tool::latest()->get()->transform(function($tool) {
             return [
-                'id' => $truck->id,
-                'ar_name' => $truck->ar_name,
-                'en_name' => $truck->en_name,
+                'id' => $tool->id,
+                'ar_name' => $tool->ar_name,
+                'en_name' => $tool->en_name,
+                'quantity' => $tool->quantity,
+                'price' => $tool->price,
+                'media' => $tool->media()->get()->map->only('id', 'directory_name', 'full_url'),
             ];
         });
 
-        $items = Item::latest()->get()->transform(function($item) {
-            return [
-                'id' => $item->id,
-                'ar_name' => $item->ar_name,
-                'en_name' => $item->en_name,
-                'quantity' => $item->quantity,
-                'quantity_per_package' => $item->quantity_per_package,
-                'price_per_event' => $item->price_per_event,
-                'media' => $item->media()->get()->map->only('id', 'directory_name', 'full_url'),
-            ];
-        });
-
-        return Inertia::render('Manage/Packages/Create', ['trucks' => $trucks, 'items' => $items]);
+        return Inertia::render('Manage/Packages/Create', ['tools' => $tools]);
     }
 
     /**
@@ -88,7 +77,6 @@ class ManagePackagesController extends Controller
             'ar_slug' => Str::slug($request->ar_name),
             'status' => $request->status,
             'price_per_event' => $request->price_per_event,
-            'min_price_per_event' => $request->min_price_per_event,
             'truck_id' => $request->truck_id,
         ]);
 
@@ -101,10 +89,10 @@ class ManagePackagesController extends Controller
         }
 
 
-        if(!empty($request->items)) {
-            foreach ($request->items as $i) {
-               $item = Item::where('id', $i['id'])->pluck('id');
-               $package->items()->attach($item, ['price' => $i['price_per_event'], 'quantity' => $i['quantity_per_package']]);
+        if(!empty($request->tools)) {
+            foreach ($request->tools as $i) {
+               $tool = Tool::where('id', $i['id'])->firstOrFail();
+               $package->tools()->attach($tool->id, ['price' => $tool->price, 'quantity' => $i['quantity_per_package']]);
             }
         }
 
@@ -131,7 +119,7 @@ class ManagePackagesController extends Controller
             'min_price_per_event' => $package->min_price_per_event,
             'mediaIds' => $package->mediaIds,
             'media' => $package->media()->get()->map->only('id', 'directory_name', 'full_url'),
-            'items' => $package->items()->get()->unique('id')
+            'tools' => $package->tools()->get()->unique('id')
         ]]);
     }
 

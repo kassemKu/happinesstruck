@@ -21,7 +21,7 @@
             :btn-title="
               $t('action_model', { action: $t('edit'), model: $t('section') })
             "
-            @formSubmited="updateSection"
+            @formSubmitted="updateSection"
           >
             <TextField
               v-model="form.ar_name"

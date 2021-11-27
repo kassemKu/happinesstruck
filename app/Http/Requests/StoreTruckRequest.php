@@ -33,6 +33,7 @@ class StoreTruckRequest extends FormRequest
             'ar_type' => ['nullable'],
             'en_type' => ['nullable'],
             'size' => ['nullable'],
+            'min_price_per_event' => ['required', 'numeric'],
             'status' => ['required', 'in:active,inactive'],
             'mediaIds.*' => [
                 'nullable', 'numeric'

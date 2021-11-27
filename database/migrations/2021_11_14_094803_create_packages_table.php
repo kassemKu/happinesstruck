@@ -24,14 +24,8 @@ class CreatePackagesTable extends Migration
             $table->mediumText('ar_short_description')->nullable();
             $table->mediumText('en_short_description')->nullable();
             $table->decimal('price_per_event')->default(0.00);
-            $table->decimal('min_price_per_event')->default(0.00);
             $table->enum('status',['active','inactive'])->default('active');
             $table->json('mediaIds')->nullable();
-
-            $table->foreignId('truck_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();

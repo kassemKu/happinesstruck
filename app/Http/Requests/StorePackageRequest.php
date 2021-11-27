@@ -34,8 +34,6 @@ class StorePackageRequest extends FormRequest
             'ar_slug' => ['nullable', 'alpha_dash', 'unique:products,ar_slug,', $this->id],
             'en_slug' => ['nullable', 'alpha_dash', 'unique:products,en_slug,', $this->id],
             'price_per_event' => ['required', 'numeric'],
-            'min_price_per_event' => ['required', 'numeric'],
-            'truck_id' => ['required'],
             'mediaIds.*' => [
                 'nullable', 'numeric'
             ]

@@ -21,6 +21,7 @@ class TruckSeeder extends Seeder
             'en_type' => 'toyota',
             'ar_type' => 'تويوتا',
             'size' => '12',
+            'min_price_per_event' => 199,
             'en_slug' => Str::slug('first truck'),
             'ar_slug' => Str::slug('العربة الأولى'),
             'status' => 'active',

@@ -170,11 +170,11 @@
                               hover:border-opacity-60
                               hover:text-info
                             "
-                            @click="navigateTo('web.packages')"
+                            @click="navigateTo('web.collection')"
                           >
                             <Delivery32 class="w-6 h-6" />
                             <span class="capitalize font-medium"
-                              >our trucks</span
+                              >our collection</span
                             >
                           </button>
                         </li>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\WebDashboardController;
 use App\Http\Controllers\Web\LandingPageController;
 use App\Http\Controllers\Web\StorePageController;
 use App\Http\Controllers\Web\PackagesPageController;
+use App\Http\Controllers\Web\CollectionPageController;
 use App\Http\Controllers\Web\CheckoutPageController;
 use App\Http\Controllers\Web\MyCartPageController;
 use App\Http\Controllers\Manage\ManageDashboardController;
@@ -15,7 +16,7 @@ use App\Http\Controllers\Manage\ManageProductsController;
 use App\Http\Controllers\Manage\ManageBannersController;
 use App\Http\Controllers\Manage\ManageTrucksController;
 use App\Http\Controllers\Manage\ManagePackagesController;
-use App\Http\Controllers\Manage\ManageItemsController;
+use App\Http\Controllers\Manage\ManageToolsController;
 /**
  * TODO:: To write better comment
  */
@@ -30,6 +31,10 @@ Route::name('web.')
         Route::get('/our-store', [StorePageController::class, 'index'])->name('store');
         // packages page
         Route::get('/our-packages', [PackagesPageController::class, 'index'])->name('packages');
+        // packages page
+        Route::get('/our-packages/{package}', [PackagesPageController::class, 'show'])->name('package');
+         // collection of packages page
+         Route::get('/our-packages-collection', [CollectionPageController::class, 'index'])->name('collection');
         // routes web needed auth
         Route::middleware(['auth:sanctum', 'verified'])
             ->group(function() {
@@ -62,8 +67,8 @@ Route::name('manage.')
         Route::resource('/trucks', ManageTrucksController::class, ['parameters' => ['' => 'truck']]);
         // packages routes
         Route::resource('/packages', ManagePackagesController::class, ['parameters' => ['' => 'package']]);
-        // package items routes
-        Route::resource('/items', ManageItemsController::class, ['parameters' => ['' => 'item']]);
+        // package tools routes
+        Route::resource('/tools', ManageToolsController::class, ['parameters' => ['' => 'tool']]);
         // Media routes
         Route::resource('/media', ManageMediaController::class, ['parameters' => ['' => 'media']]);
 });

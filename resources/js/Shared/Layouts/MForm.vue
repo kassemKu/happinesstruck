@@ -13,7 +13,7 @@
     :class="maxWidthClass"
     @submit.prevent="submitted"
   >
-    <fieldset class="htm-manage-action-fieddest">
+    <fieldset class="htm-manage-action-fieldset">
       <legend
         class="
           htm-manage-action-legend
@@ -74,7 +74,7 @@ export default {
     },
   },
 
-  emits: ['formSubmited'],
+  emits: ['formSubmitted'],
 
   computed: {
     maxWidthClass() {
@@ -95,7 +95,7 @@ export default {
 
   methods: {
     submitted() {
-      this.$emit('formSubmited')
+      this.$emit('formSubmitted')
     },
   },
 }

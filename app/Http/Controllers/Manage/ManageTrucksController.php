@@ -11,6 +11,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Str;
 use App\Models\Truck;
+use App\Models\Package;
 
 class ManageTrucksController extends Controller
 {
@@ -43,7 +44,17 @@ class ManageTrucksController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Manage/Trucks/Create');
+        $packages = Package::latest()->get()->transform(function($package) {
+            return [
+                'id' => $package->id,
+                'ar_name' => $package->ar_name,
+                'en_name' => $package->en_name,
+                'quantity' => $package->quantity,
+                'price_per_event' => $package->price_per_event,
+                'media' => $package->media()->get()->map->only('id', 'directory_name', 'full_url'),
+            ];
+        });
+        return Inertia::render('Manage/Trucks/Create', ['packages' => $packages]);
     }
 
     /**
@@ -62,6 +73,7 @@ class ManageTrucksController extends Controller
             'en_type' => $request->en_type,
             'ar_type' => $request->ar_type,
             'size' => $request->size,
+            'min_price_per_event' => $request->min_price_per_event,
             'en_slug' => Str::slug($request->en_name),
             'ar_slug' => Str::slug($request->ar_name),
             'status' => $request->status,
@@ -75,6 +87,13 @@ class ManageTrucksController extends Controller
             $truck->update(['mediaIds' => $request->mediaIds]);
         }
 
+        if(!empty($request->packages)) {
+            foreach ($request->packages as $item) {
+               $package = Package::where('id', $item['id'])->firstOrFail();
+               $truck->packages()->attach($package->id, ['price' => $package->price_per_event, 'quantity' => $item['quantity_per_package']]);
+            }
+        }
+
         return Redirect::route('manage.trucks.show', $truck->id);
     }
 
@@ -84,9 +103,22 @@ class ManageTrucksController extends Controller
      * @param  obj $truck
      * @return Inertia\Response
      */
-    public function show(Truck $truck)
+    public function show(Truck $truck): Response
     {
-        dd($truck);
+        return Inertia::render('Manage/Trucks/Show', [ 'truck' => [
+            'id' => $truck->id,
+            'ar_name' => $truck->ar_name,
+            'en_name' => $truck->en_name,
+            'ar_short_description' => $truck->ar_short_description,
+            'en_short_description' => $truck->en_short_description,
+            'ar_description' => $truck->ar_description,
+            'en_description' => $truck->en_description,
+            'price_per_event' => $truck->price_per_event,
+            'min_price_per_event' => $truck->min_price_per_event,
+            'mediaIds' => $truck->mediaIds,
+            'media' => $truck->media()->get()->map->only('id', 'directory_name', 'full_url'),
+            'packages' => $truck->packages()->get()->unique('id')
+        ]]);
     }
 
     /**

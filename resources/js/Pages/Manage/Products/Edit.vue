@@ -27,7 +27,7 @@
               $t('action_model', { action: $t('add'), model: $t('product') })
             "
             max-width="5xl"
-            @formSubmited="createProduct"
+            @formSubmitted="createProduct"
           >
             <div class="grid grid-cols-2 gap-x-10 items-center">
               <TextField

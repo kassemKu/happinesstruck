@@ -22,7 +22,7 @@
               $t('action_model', { action: $t('add'), model: $t('truck') })
             "
             max-width="5xl"
-            @formSubmited="createTruck"
+            @formSubmitted="createTruck"
           >
             <div class="grid grid-cols-2 gap-x-10 items-center">
               <TextField
@@ -105,51 +105,6 @@
                 :server-error="$page.props.errors.en_type"
               />
               <!-- english type -->
-              <TextField
-                v-model="form.size"
-                name="size"
-                :placeholder="$t('size')"
-                :label="$t('size')"
-                :server-error="$page.props.errors.size"
-              />
-              <!-- size -->
-              <div class="md:mt-4 w-full flex space-x-8">
-                <div class="form-control">
-                  <label class="cursor-pointer label justify-start space-x-2">
-                    <span class="label-text">active</span>
-                    <input
-                      v-model="form.status"
-                      type="radio"
-                      name="status"
-                      checked="checked"
-                      class="radio"
-                      value="active"
-                    />
-                  </label>
-                </div>
-
-                <div class="form-control">
-                  <label class="cursor-pointer label justify-start space-x-2">
-                    <span class="label-text">inactive</span>
-                    <input
-                      v-model="form.status"
-                      type="radio"
-                      name="status"
-                      checked="checked"
-                      class="radio"
-                      value="inactive"
-                    />
-                  </label>
-                </div>
-
-                <p
-                  v-if="form.errors.status"
-                  class="text-xs text-red-500 font-bold"
-                >
-                  {{ form.errors.status }}
-                </p>
-              </div>
-              <!-- status radio  -->
               <HTextarea
                 v-model="form.ar_note"
                 optional
@@ -187,9 +142,80 @@
                 "
                 :server-error="$page.props.errors.en_note"
               />
+              <TextField
+                v-model="form.size"
+                name="size"
+                :placeholder="$t('size')"
+                :label="$t('size')"
+                :server-error="$page.props.errors.size"
+              />
+              <!-- size -->
+              <TextField
+                v-model="form.min_price_per_event"
+                type="number"
+                name="min_price_per_event"
+                :placeholder="$t('min_price_per_event')"
+                :label="$t('min_price_per_event')"
+                :server-error="$page.props.errors.min_price_per_event"
+              />
+              <!-- package price per event -->
+              <div class="w-full flex space-x-8">
+                <div class="form-control">
+                  <label class="cursor-pointer label justify-start space-x-2">
+                    <span class="label-text">active</span>
+                    <input
+                      v-model="form.status"
+                      type="radio"
+                      name="status"
+                      class="radio"
+                      value="active"
+                    />
+                  </label>
+                </div>
+
+                <div class="form-control">
+                  <label class="cursor-pointer label justify-start space-x-2">
+                    <span class="label-text">inactive</span>
+                    <input
+                      v-model="form.status"
+                      type="radio"
+                      name="status"
+                      class="radio"
+                      value="inactive"
+                    />
+                  </label>
+                </div>
+
+                <p
+                  v-if="form.errors.status"
+                  class="text-xs text-red-500 font-bold"
+                >
+                  {{ form.errors.status }}
+                </p>
+              </div>
+              <!-- status radio  -->
+              <div class="w-full flex justify-center">
+                <button
+                  type="button"
+                  class="
+                    btn
+                    border-info
+                    text-info
+                    space-x-2
+                    bg-transparent
+                    border-2
+                    hover:text-base-100 hover:bg-info hover:border-info
+                  "
+                  @click.prevent="openPackagesPopUp"
+                >
+                  <VueFeather type="plus" stroke-width="3" class="w-5 h-5" />
+                  <span>add tools to this package</span>
+                </button>
+              </div>
+              <!-- add packages button -->
             </div>
             <!-- === grid === -->
-            <div class="mb-6">
+            <div class="mt-6 mb-8">
               <div class="mb-2 flex space-x-2 items-center">
                 <VueFeather
                   type="image"
@@ -266,17 +292,141 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-1/2" :class="uplaodFileMargin">
+                <div class="w-1/2" :class="uploadFileMargin">
                   <FileUpload @input="uploadTruckMedia" />
                 </div>
               </div>
             </div>
-            <!-- Media uplaoder -->
+            <!-- Media uploader -->
           </ManageForm>
         </div>
       </div>
     </div>
   </ManageLayout>
+  <Modal
+    max-width="screen-lg"
+    :title="`add packages to this truck`"
+    type="info"
+    action-title="save selected packages and close"
+    screen-height
+    :disabled-action-btn="form.packages.length === 0"
+    @modalAction="saveAndClose"
+  >
+    <div class="grid grid-cols-4 gap-8 text-sm">
+      <div v-for="packg in packgs" :key="packg.id">
+        <div class="flex flex-col space-y-2 font-medium">
+          <div
+            class="
+              max-w-sm
+              flex
+              items-center
+              justify-between
+              bg-base-300 bg-opacity-60
+              rounded-btn
+              h-10
+            "
+            :class="{
+              'border-2 border-info': selectedPackage(packg),
+            }"
+          >
+            <button
+              type="button"
+              class="
+                h-full
+                w-8
+                flex
+                items-center
+                justify-center
+                bg-base-300 bg-opacity-30
+                flex-grow
+              "
+              :class="
+                selectedPackage(packg) ? 'cursor-pointer' : 'cursor-not-allowed'
+              "
+              @click="addPackageToTruck(packg)"
+            >
+              <VueFeather type="plus" stroke-width="3" class="w-4 h-4" />
+            </button>
+            <p
+              class="
+                uppercase
+                flex-shrink
+                px-2
+                h-full
+                flex
+                items-center
+                space-x-1
+              "
+            >
+              <span class="text-xs font-semibold">quantity</span>
+              <span class="font-bold text-lg uppercase text-info">{{
+                getPackageQuantity(packg)
+              }}</span>
+            </p>
+            <button
+              type="button"
+              class="
+                h-full
+                w-8
+                flex
+                items-center
+                justify-center
+                bg-base-300 bg-opacity-30
+                flex-grow
+              "
+              :class="
+                selectedPackage(packg) ? 'cursor-pointer' : 'cursor-not-allowed'
+              "
+              @click.prevent="removePackageFromTruck(packg)"
+            >
+              <VueFeather type="minus" stroke-width="3" class="w-4 h-4" />
+            </button>
+          </div>
+          <div
+            class="flex items-center relative rounded-box group"
+            :class="{ 'border-2 border-info': selectedPackage(packg) }"
+          >
+            <img
+              v-if="packg.media.length > 0"
+              :src="packg.media[0].full_url"
+              :alt="packg.en_name"
+              class="w-full h-48 object-cover rounded-box"
+            />
+            <div
+              v-show="!selectedPackage(packg)"
+              class="
+                absolute
+                inset-0
+                bg-base-300 bg-opacity-80
+                items-center
+                justify-center
+                rounded-box
+                hidden
+                group-hover:flex
+              "
+            >
+              <button
+                type="button"
+                class="
+                  btn btn-outline
+                  border-2 border-info
+                  btn-circle
+                  text-info
+                  hover:bg-info hover:border-info
+                "
+                @click.prevent="addPackageToTruck(packg)"
+              >
+                <VueFeather type="plus" stroke-width="3" class="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-col space-y-2 items-center">
+            <p class="capitalize">{{ packg.en_name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Modal>
 </template>
 
 <script>
@@ -287,6 +437,11 @@ import TextField from '@/Shared/UI/TextField'
 import ManageForm from '@/Shared/Layouts/MForm'
 import HTextarea from '@/Shared/UI/HTextarea'
 import FileUpload from '@/Shared/UI/FileUpload'
+import { useForm, usePage } from '@inertiajs/inertia-vue3'
+import { reactive, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n'
+import Modal from '@/Shared/Layouts/Modal'
 // TODO:: to fix emit checkbox
 
 const components = {
@@ -296,64 +451,72 @@ const components = {
   ManageForm,
   HTextarea,
   FileUpload,
+  Modal,
 }
 
 export default {
-  name: 'ManagetruckCreate',
+  name: 'ManageTruckCreate',
 
   components,
 
-  data() {
-    return {
-      form: this.$inertia.form({
-        ar_name: null,
-        ar_note: null,
-        en_name: null,
-        en_note: null,
-        ar_type: null,
-        en_type: null,
-        size: null,
-        status: 'active',
-        mediaIds: [],
-      }),
-      media: [],
-    }
-  },
-
-  remember: 'form',
-
-  computed: {
-    uplaodFileMargin() {
-      let space
-      if (this.$i18n.locale === 'en') {
-        space = this.media.length > 0 ? 'ml-4' : 'ml-0'
-      }
-      if (this.$i18n.locale === 'ar') {
-        space = this.media.length > 0 ? 'mr-4' : 'mr-0'
-      }
-
-      return space
+  props: {
+    packages: {
+      type: Array,
+      default: () => [],
     },
   },
 
-  methods: {
-    uploadTruckMedia(files) {
-      Array.from(files).forEach((media) => {
+  setup(props) {
+    const store = useStore()
+    const page = usePage()
+    const { t, locale } = useI18n({ useScope: 'global' })
+    const packgs = reactive(props.packages)
+
+    let media = reactive([])
+
+    const form = useForm({
+      ar_name: null,
+      ar_note: null,
+      en_name: null,
+      en_note: null,
+      ar_type: null,
+      en_type: null,
+      size: null,
+      status: 'active',
+      min_price_per_event: null,
+      mediaIds: [],
+      packages: [],
+    })
+
+    const uploadFileMargin = computed(() => {
+      let space
+      if (locale === 'en') {
+        space = media.value.length > 0 ? 'ml-4' : 'ml-0'
+      }
+      if (locale === 'ar') {
+        space = media.value.length > 0 ? 'mr-4' : 'mr-0'
+      }
+
+      return space
+    })
+
+    const uploadTruckMedia = (files) => {
+      Array.from(files).forEach((file) => {
         let reader = new FileReader()
 
-        reader.readAsDataURL(media)
+        reader.readAsDataURL(file)
 
         reader.onload = (e) => {
           let item = {
             url: e.target.result,
             id: undefined,
-            originName: media.name,
-            size: (media.size / 1048576).toFixed(2) + ' MB',
+            originName: file.name,
+            size: (file.size / 1048576).toFixed(2) + ' MB',
           }
 
           let formData = new FormData()
 
-          formData.append('file', media)
+          formData.append('file', file)
           formData.append('directory_name', 'trucks')
 
           axios
@@ -362,53 +525,91 @@ export default {
               item.id = res.data.id
             })
             .then(() => {
-              this.$store.commit('openNotification', {
+              store.commit('openNotification', {
                 title: 'upload file',
-                content: `truck image uploaded successfully`,
+                content: `package image uploaded successfully`,
               })
             })
 
-          this.media.push(item)
+          media.push(item)
         }
       })
-    },
-    removeImg(index, img) {
-      this.media.splice(index, 1)
+    }
+
+    const removeImg = (index, img) => {
+      media.splice(index, 1)
 
       if (img.id) {
         axios
           .delete(route('manage.media.destroy', img.id))
           .catch((error) => {
             console.log(error)
-            this.media.splice(index, 0, img)
+            media.splice(index, 0, img)
           })
           .then(() => {
-            this.$store.commit('openNotification', {
+            store.commit('openNotification', {
               title: 'delete file',
               content: `truck image deleted successfully`,
             })
           })
       }
-    },
-    createTruck() {
-      this.form.mediaIds = this.media.map((img) => img.id)
-      this.form.post(this.route('manage.trucks.store'), {
-        preserverStae: true,
+    }
+
+    const openPackagesPopUp = () => {
+      store.commit('openModal')
+    }
+
+    const selectedPackage = (packg) => {
+      return form.packages.includes(packg)
+    }
+
+    const addPackageToTruck = (packg) => {
+      form.packages.push(packg)
+    }
+
+    const removePackageFromTruck = (packg) => {
+      form.packages.splice(form.packages.indexOf(packg), 1)
+    }
+
+    const getPackageQuantity = (packg) => {
+      if (!selectedPackage(packg)) return 0
+      const quantity = form.packages.filter((i) => i.id == packg.id)
+
+      packg.quantity_per_package = quantity.length
+
+      return quantity.length
+    }
+
+    const saveAndClose = () => {
+      store.commit('closeModal')
+    }
+
+    onMounted(() => {
+      form.packages = []
+    })
+
+    const createTruck = () => {
+      form.mediaIds = media.map((img) => img.id)
+      form.post(route('manage.trucks.store'), {
+        preserverState: true,
         onStart: () => console.log('Do Something on start'),
         onFinish: () => console.log('Do Something on finish'),
         onError: (errors) => {
-          this.$store.commit('openNotification', {
+          commit('openNotification', {
             title: 'something went wrong',
             type: 'error',
             content: errors,
           })
         },
         onSuccess: () => {
-          if (Object.keys(this.$page.props.errors).length === 0) {
-            this.form.reset()
-            this.media = []
-            this.form.mediaIds = []
-            this.$store.commit('openNotification', {
+          if (
+            page.props.errors &&
+            Object.keys(page.props.errors).length === 0
+          ) {
+            form.reset()
+            media = []
+            form.mediaIds = []
+            store.commit('openNotification', {
               title: 'create truck',
               type: 'success',
               content: 'truck created successfully',
@@ -416,7 +617,27 @@ export default {
           }
         },
       })
-    },
+    }
+
+    return {
+      openPackagesPopUp,
+      form,
+      media,
+      uploadFileMargin,
+      uploadTruckMedia,
+      removeImg,
+      t,
+      locale,
+      packgs,
+      selectedPackage,
+      addPackageToTruck,
+      getPackageQuantity,
+      removePackageFromTruck,
+      saveAndClose,
+      createTruck,
+    }
   },
+
+  remember: 'form',
 }
 </script>

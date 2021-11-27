@@ -22,7 +22,7 @@
             :btn-title="
               $t('action_model', { action: $t('add'), model: $t('category') })
             "
-            @formSubmited="createCategory"
+            @formSubmitted="createCategory"
           >
             <div class="grid grid-cols-2 gap-x-10 items-center">
               <TextField

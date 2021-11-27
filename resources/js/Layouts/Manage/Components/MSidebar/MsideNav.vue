@@ -112,8 +112,8 @@
             </template>
           </ManageSideNavLink>
           <ManageSideNavLink
-            :name="$t('package_items')"
-            :href="route('manage.items.index')"
+            :name="$t('tools')"
+            :href="route('manage.tools.index')"
           >
             <template #icon>
               <Category24 />
@@ -155,14 +155,14 @@
 </template>
 
 <script>
-import ManageSideNavGroup from "@/Shared/Layouts/MNavGroup";
-import ManageSideNavLink from "@/Shared/Partials/MSideNavLink";
+import ManageSideNavGroup from '@/Shared/Layouts/MNavGroup'
+import ManageSideNavLink from '@/Shared/Partials/MSideNavLink'
 
-const components = { ManageSideNavGroup, ManageSideNavLink };
+const components = { ManageSideNavGroup, ManageSideNavLink }
 
 export default {
-  name: "ManageSidenav",
+  name: 'ManageSidenav',
 
   components,
-};
+}
 </script>

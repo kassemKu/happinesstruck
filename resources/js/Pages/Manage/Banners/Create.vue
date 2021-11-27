@@ -21,7 +21,7 @@
             :btn-title="
               $t('action_model', { action: $t('add'), model: $t('category') })
             "
-            @formSubmited="createCategory"
+            @formSubmitted="createCategory"
           >
             <TextField
               v-model="form.ar_name"

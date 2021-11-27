@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Package;
 use Facade\Ignition\QueryRecorder\Query;
 
@@ -32,6 +33,7 @@ class Truck extends Model
         'en_note',
         'size',
         'status',
+        'min_price_per_event',
         'mediaIds',
         'created_at',
         'updated_at',
@@ -56,15 +58,19 @@ class Truck extends Model
         return $query->where('status', '=', 'active');
     }
 
+    /**
+     *
+     */
+    public function packages(): BelongsToMany
+    {
+        return $this->belongsToMany(Package::class, 'truck_package', 'truck_id', 'package_id')
+            ->withTimestamps()
+            ->withPivot(['quantity', 'price']);
+    }
+
     // morph relation
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'model');
-    }
-
-    // relation to category
-    public function packages(): HasMany
-    {
-        return $this->hasMany(Package::class);
     }
 }

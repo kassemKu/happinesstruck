@@ -22,7 +22,7 @@
               $t('action_model', { action: $t('add'), model: $t('package') })
             "
             max-width="6xl"
-            @formSubmited="createPackage"
+            @formSubmitted="createPackage"
           >
             <div class="grid grid-cols-2 gap-x-10 items-center">
               <TextField
@@ -149,17 +149,8 @@
                 :label="$t('price_per_event')"
                 :server-error="$page.props.errors.price_per_event"
               />
-              <!-- package price  per event -->
-              <TextField
-                v-model="form.min_price_per_event"
-                type="number"
-                name="min_price_per_event"
-                :placeholder="$t('min_price_per_event')"
-                :label="$t('min_price_per_event')"
-                :server-error="$page.props.errors.min_price_per_event"
-              />
               <!-- package price per event -->
-              <div class="w-full flex space-x-8">
+              <div class="w-full flex space-x-8 justify-end">
                 <div class="form-control">
                   <label class="cursor-pointer label justify-start space-x-2">
                     <span class="label-text font-semibold capitalize"
@@ -169,7 +160,6 @@
                       v-model="form.status"
                       type="radio"
                       name="status"
-                      checked="checked"
                       class="radio"
                       value="active"
                     />
@@ -185,7 +175,6 @@
                       v-model="form.status"
                       type="radio"
                       name="status"
-                      checked="checked"
                       class="radio"
                       value="inactive"
                     />
@@ -200,27 +189,27 @@
                 </p>
               </div>
               <!-- status radio  -->
-              <div class="w-full flex justify-center">
-                <button
-                  type="button"
-                  class="
-                    btn
-                    border-info
-                    text-info
-                    space-x-2
-                    bg-transparent
-                    border-2
-                    hover:text-base-100 hover:bg-info hover:border-info
-                  "
-                  @click.prevent="openAddPackageItemsPopUp"
-                >
-                  <VueFeather type="plus" stroke-width="3" class="w-5 h-5" />
-                  <span>add items to this package</span>
-                </button>
-              </div>
-              <!-- add itmes button -->
             </div>
             <!-- === grid === -->
+            <div class="w-full flex justify-center">
+              <button
+                type="button"
+                class="
+                  btn
+                  border-info
+                  text-info
+                  space-x-2
+                  bg-transparent
+                  border-2
+                  hover:text-base-100 hover:bg-info hover:border-info
+                "
+                @click.prevent="openAddPackageToolsPopUp"
+              >
+                <VueFeather type="plus" stroke-width="3" class="w-5 h-5" />
+                <span>add tools to this package</span>
+              </button>
+            </div>
+            <!-- add tools button -->
             <div class="mt-6 mb-8">
               <div class="mb-2 flex space-x-2 items-center">
                 <VueFeather
@@ -298,7 +287,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-1/2" :class="uplaodFileMargin">
+                <div class="w-1/2" :class="uploadFileMargin">
                   <FileUpload @input="uploadPackageMedia" />
                 </div>
               </div>
@@ -311,15 +300,15 @@
   </ManageLayout>
   <Modal
     max-width="screen-lg"
-    :title="`add items to this package`"
+    :title="`add tools to this package`"
     type="info"
-    action-title="save selected items and close"
+    action-title="save selected tools and close"
     screen-height
-    :disabled-action-btn="form.items.length === 0"
-    @modalAction="savePackageItemAndClose"
+    :disabled-action-btn="form.tools.length === 0"
+    @modalAction="savePackageToolsAndClose"
   >
     <div class="grid grid-cols-4 gap-8 text-sm">
-      <div v-for="item in items" :key="item.id">
+      <div v-for="tool in tools" :key="tool.id">
         <div class="flex flex-col space-y-2 font-medium">
           <div
             class="
@@ -332,7 +321,7 @@
               h-10
             "
             :class="{
-              'border-2 border-info': selectedItem(item),
+              'border-2 border-info': selectedTool(tool),
             }"
           >
             <button
@@ -347,9 +336,9 @@
                 flex-grow
               "
               :class="
-                selectedItem(item) ? 'cursor-pointer' : 'cursor-not-allowed'
+                selectedTool(tool) ? 'cursor-pointer' : 'cursor-not-allowed'
               "
-              @click="addItemToPackage(item)"
+              @click="addToolToPackage(tool)"
             >
               <VueFeather type="plus" stroke-width="3" class="w-4 h-4" />
             </button>
@@ -366,7 +355,7 @@
             >
               <span class="text-xs font-semibold">quantity</span>
               <span class="font-bold text-lg uppercase text-info">{{
-                getItemsQuantity(item)
+                getToolsQuantity(tool)
               }}</span>
             </p>
             <button
@@ -381,24 +370,25 @@
                 flex-grow
               "
               :class="
-                selectedItem(item) ? 'cursor-pointer' : 'cursor-not-allowed'
+                selectedTool(tool) ? 'cursor-pointer' : 'cursor-not-allowed'
               "
-              @click.prevent="removeItemFromPackage(item)"
+              @click.prevent="removeTollFromPackage(tool)"
             >
               <VueFeather type="minus" stroke-width="3" class="w-4 h-4" />
             </button>
           </div>
           <div
             class="flex items-center relative rounded-box group"
-            :class="{ 'border-2 border-info': selectedItem(item) }"
+            :class="{ 'border-2 border-info': selectedTool(tool) }"
           >
             <img
-              :src="item.media[0].full_url"
-              :alt="item.en_name"
+              v-if="tool.media.length > 0"
+              :src="tool.media[0].full_url"
+              :alt="tool.en_name"
               class="w-full h-48 object-cover rounded-box"
             />
             <div
-              v-show="!selectedItem(item)"
+              v-show="!selectedTool(tool)"
               class="
                 absolute
                 inset-0
@@ -419,14 +409,14 @@
                   text-info
                   hover:bg-info hover:border-info
                 "
-                @click.prevent="addItemToPackage(item)"
+                @click.prevent="addToolToPackage(tool)"
               >
                 <VueFeather type="plus" stroke-width="3" class="w-4 h-4" />
               </button>
             </div>
           </div>
           <div class="flex flex-col space-y-2 items-center">
-            <p class="capitalize">{{ item.en_name }}</p>
+            <p class="capitalize">{{ tool.en_name }}</p>
           </div>
         </div>
       </div>
@@ -440,7 +430,6 @@ import { useForm, usePage } from '@inertiajs/inertia-vue3'
 import { useStore } from 'vuex'
 import axios from 'axios'
 import { useI18n } from 'vue-i18n'
-import Multiselect from '@vueform/multiselect'
 import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 import TextField from '@/Shared/UI/TextField'
@@ -458,7 +447,6 @@ const components = {
   ManageForm,
   HTextarea,
   FileUpload,
-  Multiselect,
   Modal,
 }
 
@@ -472,7 +460,7 @@ export default {
       type: Array,
       default: () => [],
     },
-    items: {
+    tools: {
       type: Array,
       default: () => [],
     },
@@ -493,41 +481,36 @@ export default {
       en_description: null,
       status: 'active',
       price_per_event: null,
-      min_price_per_event: null,
-      truck_id: 1,
       mediaIds: [],
-      items: [],
+      tools: [],
     })
 
-    const addItemToPackage = (item) => {
-      form.items.push(item)
+    const addToolToPackage = (tool) => {
+      form.tools.push(tool)
     }
 
-    const removeItemFromPackage = (item) => {
-      form.items.splice(form.items.indexOf(item), 1)
+    const removeTollFromPackage = (tool) => {
+      form.tools.splice(form.tools.indexOf(tool), 1)
     }
 
-    const selectedItem = (item) => {
-      return form.items.includes(item)
+    const selectedTool = (tool) => {
+      return form.tools.includes(tool)
     }
 
-    const getItemsQuantity = (item) => {
-      if (!selectedItem(item)) return 0
-      const quantity = form.items.filter((i) => i.id == item.id)
+    const getToolsQuantity = (tool) => {
+      if (!selectedTool(tool)) return 0
+      const quantity = form.tools.filter((i) => i.id == tool.id)
 
-      item.quantity_per_package = quantity.length
+      tool.quantity_per_package = quantity.length
 
       return quantity.length
     }
 
-    const savePackageItemAndClose = () => {
-      form.items.map((item) => {
-        form.price_per_event += item.price_per_event
-      })
+    const savePackageToolsAndClose = () => {
       store.commit('closeModal')
     }
 
-    const uplaodFileMargin = computed(() => {
+    const uploadFileMargin = computed(() => {
       let space
       if (locale === 'en') {
         space = media.value.length > 0 ? 'ml-4' : 'ml-0'
@@ -597,7 +580,7 @@ export default {
     const createPackage = () => {
       form.mediaIds = media.map((img) => img.id)
       form.post(route('manage.packages.store'), {
-        preserverStae: true,
+        preserverState: true,
         onStart: () => console.log('Do Something on start'),
         onFinish: () => console.log('Do Something on finish'),
         onError: (errors) => {
@@ -616,7 +599,7 @@ export default {
             media = []
             form.mediaIds = []
             store.commit('openNotification', {
-              title: 'create producut',
+              title: 'create package',
               type: 'success',
               content: 'package created successfully',
             })
@@ -625,33 +608,31 @@ export default {
       })
     }
 
-    const openAddPackageItemsPopUp = () => {
+    const openAddPackageToolsPopUp = () => {
       store.commit('openModal')
     }
 
     onMounted(() => {
-      form.items = []
+      form.tools = []
     })
 
     return {
       form,
-      uplaodFileMargin,
+      uploadFileMargin,
       uploadPackageMedia,
       removeImg,
       createPackage,
       media,
       t,
-      openAddPackageItemsPopUp,
-      addItemToPackage,
-      removeItemFromPackage,
-      selectedItem,
-      getItemsQuantity,
-      savePackageItemAndClose,
+      openAddPackageToolsPopUp,
+      addToolToPackage,
+      removeTollFromPackage,
+      selectedTool,
+      getToolsQuantity,
+      savePackageToolsAndClose,
     }
   },
 
   remember: 'form',
 }
 </script>
-
-<style src="@vueform/multiselect/themes/default.css"></style>

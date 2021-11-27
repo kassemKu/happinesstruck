@@ -24,6 +24,7 @@ class CreateTrucksTable extends Migration
             $table->string('size')->nullable();
             $table->text('ar_note')->nullable();
             $table->text('en_note')->nullable();
+            $table->decimal('min_price_per_event')->default(0.00);
             $table->enum('status',['active','inactive'])->default('inactive');
             $table->json('mediaIds')->nullable();
             $table->softDeletes();
