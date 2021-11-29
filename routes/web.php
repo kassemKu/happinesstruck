@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\PackagesPageController;
 use App\Http\Controllers\Web\CollectionPageController;
 use App\Http\Controllers\Web\CheckoutPageController;
 use App\Http\Controllers\Web\MyCartPageController;
+use App\Http\Controllers\Web\BookingPageController;
 use App\Http\Controllers\Manage\ManageDashboardController;
 use App\Http\Controllers\Manage\ManageSectionsController;
 use App\Http\Controllers\Manage\ManageCategoriesController;
@@ -34,11 +35,15 @@ Route::name('web.')
         // packages page
         Route::get('/our-packages/{package}', [PackagesPageController::class, 'show'])->name('package');
          // collection of packages page
-         Route::get('/our-packages-collection', [CollectionPageController::class, 'index'])->name('collection');
+         Route::get('/our-packages-collections', [CollectionPageController::class, 'index'])->name('collection');
+         // booking collection of packages page
+         Route::get('/{collection}/booking', [BookingPageController::class, 'bookingPage'])->name('booking');
         // routes web needed auth
         Route::middleware(['auth:sanctum', 'verified'])
             ->group(function() {
                 Route::get('/dashboard', [WebDashboardController::class, 'index'])->name('dashboard');
+                // booking checkout
+                Route::get('/booking/checkout', [BookingPageController::class, 'bookingCheckout'])->name('bookingCheckout');
         });
         // my-cart page
         Route::get('/my-cart', [MyCartPageController::class, 'index'])->name('mycart');

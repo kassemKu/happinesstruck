@@ -209,7 +209,7 @@
                   @click.prevent="openPackagesPopUp"
                 >
                   <VueFeather type="plus" stroke-width="3" class="w-5 h-5" />
-                  <span>add tools to this package</span>
+                  <span>add package to this truck</span>
                 </button>
               </div>
               <!-- add packages button -->

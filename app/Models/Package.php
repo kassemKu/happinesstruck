@@ -33,6 +33,7 @@ class Package extends Model
         'status',
         'ar_slug',
         'en_slug',
+        'booking_id',
         'mediaIds',
         'price_per_event',
         'created_at',
@@ -58,12 +59,6 @@ class Package extends Model
     public function scopeActive($query): Query
     {
         return $query->where('status', '=', 'active');
-    }
-
-    // relation to truck
-    public function truck(): BelongsTo
-    {
-        return $this->belongsTo(Truck::class);
     }
 
     /**
@@ -93,9 +88,15 @@ class Package extends Model
     }
 
     /**
+     *
+     */
+    public function booking(): BelongsTo {
+        return $this->belongsTo(Booking::class);
+    }
+
+    /**
      * @return string
      */
-
      public function setArSlugAttribute() {
         return $this->attributes['ar_slug'] = Str::slug($this->attributes['ar_name']);
      }

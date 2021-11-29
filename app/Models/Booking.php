@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
-use App\Models\Product;
-use Illuminate\Support\Str;
-use Facade\Ignition\QueryRecorder\Query;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
@@ -23,8 +21,9 @@ class Booking extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
-        'cost',
+        'event_title',
+        'event_location',
+        'price',
         'description',
         'media_ids',
         'slug',
@@ -60,5 +59,19 @@ class Booking extends Model
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'model');
+    }
+
+    /**
+     *
+     */
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     *
+     */
+    public function packages(): HasMany {
+        return $this->hasMany(Package::class);
     }
 }

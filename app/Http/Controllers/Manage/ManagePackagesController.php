@@ -116,7 +116,6 @@ class ManagePackagesController extends Controller
             'ar_description' => $package->ar_description,
             'en_description' => $package->en_description,
             'price_per_event' => $package->price_per_event,
-            'min_price_per_event' => $package->min_price_per_event,
             'mediaIds' => $package->mediaIds,
             'media' => $package->media()->get()->map->only('id', 'directory_name', 'full_url'),
             'tools' => $package->tools()->get()->unique('id')

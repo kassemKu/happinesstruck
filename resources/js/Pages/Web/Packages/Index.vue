@@ -1,5 +1,5 @@
 <template>
-  <WebLayout>
+  <WebLayout padding-x="16">
     <Head title="OUR-PACKAGES">
       <meta title="description" content="lorem ipsum" />
     </Head>

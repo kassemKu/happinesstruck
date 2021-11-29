@@ -89,7 +89,7 @@ class ManageTrucksController extends Controller
 
         if(!empty($request->packages)) {
             foreach ($request->packages as $item) {
-               $package = Package::where('id', $item['id'])->firstOrFail();
+               $package = Package::where('id', $item['id'])->first();
                $truck->packages()->attach($package->id, ['price' => $package->price_per_event, 'quantity' => $item['quantity_per_package']]);
             }
         }
@@ -117,7 +117,21 @@ class ManageTrucksController extends Controller
             'min_price_per_event' => $truck->min_price_per_event,
             'mediaIds' => $truck->mediaIds,
             'media' => $truck->media()->get()->map->only('id', 'directory_name', 'full_url'),
-            'packages' => $truck->packages()->get()->unique('id')
+            'packages' => $truck
+                ->packages()
+                ->get()
+                ->unique('id')
+                ->transform(function($package) {
+                    return [
+                        'id' => $package->id,
+                        'ar_name' => $package->ar_name,
+                        'en_name' => $package->en_name,
+                        'price_per_event' => $package->price_per_event,
+                        'SKU' => $package->SKU,
+                        'quantity' => $package->pivot->quantity,
+                        'media' => $package->media()->get()->map->only('id', 'directory_name', 'full_url'),
+                    ];
+            })
         ]]);
     }
 

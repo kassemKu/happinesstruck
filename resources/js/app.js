@@ -8,8 +8,10 @@ import { createI18n } from 'vue-i18n'
 import i18n from './i18n'
 import { store } from './store'
 import VueFeather from 'vue-feather'
-import Datepicker from 'vue3-date-time-picker'
+// datePicker
+import Datepicker from 'vue3-date-time-picker';
 import 'vue3-date-time-picker/dist/main.css'
+
 
 VueCookieNext.config({
   expire: '1d',

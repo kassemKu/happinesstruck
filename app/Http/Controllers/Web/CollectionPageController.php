@@ -10,7 +10,7 @@ use Inertia\Response;
 class CollectionPageController extends Controller
 {
     public function index (): Response {
-        $trucks = Truck::latest()
+        $collections = Truck::latest()
             ->get()
             ->transform(function($truck) {
             return [
@@ -38,10 +38,10 @@ class CollectionPageController extends Controller
                             'quantity' => $package->pivot->quantity,
                             'media' => $package->media()->get()->map->only('id', 'directory_name', 'full_url'),
                         ];
-                })->toArray()
+                })
             ];
         });
 
-        return Inertia::render('Web/Trucks/Index', ['trucks' => $trucks]);
+        return Inertia::render('Web/Collections/Index', ['collections' => $collections]);
     }
 }

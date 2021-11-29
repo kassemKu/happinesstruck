@@ -97,7 +97,6 @@
                 </div>
               </div>
             </div>
-            <litepie-datepicker v-model="dateValue"></litepie-datepicker>
           </div>
         </div>
         <!-- slider -->
@@ -156,11 +155,9 @@
 <script>
 import { ref } from 'vue'
 import HtSection from '@/Shared/Layouts/HtSection'
-import LitepieDatepicker from 'litepie-datepicker'
 
 const components = {
   HtSection,
-  LitepieDatepicker,
 }
 
 export default {

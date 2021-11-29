@@ -15,10 +15,11 @@ class CreateBookingsTable extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title', 191);
+            $table->string('event_title', 191);
+            $table->string('event_location', 191);
+            $table->longText('event_description')->nullable();
             $table->string('slug', 200)->unique()->nullable();
-            $table->decimal('cost');
-            $table->longText('description')->nullable();
+            $table->decimal('price');
             $table->date('started_at')->nullable();
             $table->date('ended_at')->nullable();
             $table->enum('status', ['pending','processing','completed','decline'])->default('pending');

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Package;
 use Facade\Ignition\QueryRecorder\Query;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Truck extends Model
 {
