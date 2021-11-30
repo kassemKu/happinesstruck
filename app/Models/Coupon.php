@@ -20,7 +20,10 @@ class Coupon extends Model
         'code',
         'type',
         'value',
-        'cart_value',
+        'couponable_id',
+        'couponable_type',
+        'expiry_date',
+        'start_date',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -30,6 +33,8 @@ class Coupon extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'expiry_date',
+        'start_date',
     ];
 
 

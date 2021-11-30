@@ -181,12 +181,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-1/2" :class="uplaodFileMargin">
+                <div class="w-1/2" :class="uploadFileMargin">
                   <FileUpload @input="uploadProductMedia" />
                 </div>
               </div>
             </div>
-            <!-- Media uplaoder -->
+            <!-- Media uploader -->
             <div class="mb-8 flex space-x-8">
               <div>
                 <div class="form-control">
@@ -219,7 +219,7 @@
                       :checked="form.is_parent"
                     />
                     <span class="label-text text-sm font-semibold capitalize"
-                      >is parent catecory ?</span
+                      >is parent category ?</span
                     >
                   </label>
                 </div>
@@ -283,7 +283,7 @@ export default {
   remember: 'form',
 
   computed: {
-    uplaodFileMargin() {
+    uploadFileMargin() {
       let space
       if (this.$i18n.locale === 'en') {
         space = this.media.length > 0 ? 'ml-4' : 'ml-0'
@@ -339,7 +339,7 @@ export default {
     createCategory() {
       this.form.mediaIds = this.media.map((img) => img.id)
       this.form.post(this.route('manage.categories.store'), {
-        preserverStae: true,
+        preserverState: true,
         onStart: () => console.log('Do Something on start'),
         onFinish: () => console.log('Do Something on finish'),
         onSuccess: () => {

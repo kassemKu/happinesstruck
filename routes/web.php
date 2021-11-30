@@ -18,6 +18,7 @@ use App\Http\Controllers\Manage\ManageBannersController;
 use App\Http\Controllers\Manage\ManageTrucksController;
 use App\Http\Controllers\Manage\ManagePackagesController;
 use App\Http\Controllers\Manage\ManageToolsController;
+use App\Http\Controllers\Manage\ManageCouponsController;
 /**
  * TODO:: To write better comment
  */
@@ -38,6 +39,8 @@ Route::name('web.')
          Route::get('/our-packages-collections', [CollectionPageController::class, 'index'])->name('collection');
          // booking collection of packages page
          Route::get('/{collection}/booking', [BookingPageController::class, 'bookingPage'])->name('booking');
+         // store booking
+         Route::post('/{collection}/booking', [BookingPageController::class, 'store'])->name('storeBooking');
         // routes web needed auth
         Route::middleware(['auth:sanctum', 'verified'])
             ->group(function() {
@@ -74,6 +77,8 @@ Route::name('manage.')
         Route::resource('/packages', ManagePackagesController::class, ['parameters' => ['' => 'package']]);
         // package tools routes
         Route::resource('/tools', ManageToolsController::class, ['parameters' => ['' => 'tool']]);
+        // coupons routes
+        Route::resource('/coupons', ManageCouponsController::class, ['parameters' => ['' => 'coupon']]);
         // Media routes
         Route::resource('/media', ManageMediaController::class, ['parameters' => ['' => 'media']]);
 });

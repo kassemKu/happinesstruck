@@ -13,7 +13,6 @@
 import { Head } from '@inertiajs/inertia-vue3'
 import WebLayout from '@/Layouts/Web/WebLayout'
 import HtSection from '@/Shared/Layouts/HtSection'
-import { useCookie } from 'vue-cookie-next'
 
 const components = {
   Head,

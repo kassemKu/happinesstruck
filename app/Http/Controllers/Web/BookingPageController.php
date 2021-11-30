@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Truck;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -50,8 +51,15 @@ class BookingPageController extends Controller
         return Inertia::render('Web/Booking/Index', ['collection' => $collection]);
     }
 
-    public function bookingCheckout(): Response
+    public function store(Request $request): Response
     {
+        dd($request->all());
+        return Inertia::render('Web/Booking/Checkout');
+    }
+
+    public function bookingCheckout(Request $request): Response
+    {
+        dd($request->all());
         return Inertia::render('Web/Booking/Checkout');
     }
 }

@@ -10,6 +10,7 @@
       <button
         v-if="labelTopHelper"
         class="label-text-alt text-xs uppercase font-bold text-info"
+        @click.prevent="actionTopHelper"
       >
         {{ labelTopHelper }}
       </button>
@@ -87,7 +88,8 @@ export default {
     },
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'topHelperAction'],
+
   methods: {
     updateValue(value) {
       this.$emit('update:modelValue', value)
@@ -95,6 +97,10 @@ export default {
 
     focus() {
       this.$refs.input.focus()
+    },
+
+    actionTopHelper() {
+      this.$emit('topHelperAction')
     },
   },
 }

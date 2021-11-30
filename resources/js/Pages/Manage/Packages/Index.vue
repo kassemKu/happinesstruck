@@ -166,23 +166,23 @@ export default {
   },
 
   setup() {
-    let packageTodeleteId = 0
+    let packageToDeleteId = 0
     const store = useStore()
 
     const isModalOpen = store.state.isModalOpen
 
     const openConfirmDelete = (packageId) => {
       store.commit('openModal')
-      packageTodeleteId = packageId
+      packageToDeleteId = packageId
     }
 
     const deletePackage = () => {
-      Inertia.delete(route('manage.packages.destroy', packageTodeleteId), {
+      Inertia.delete(route('manage.packages.destroy', packageToDeleteId), {
         onFinish: () => {
           store.commit('closeModal')
 
           store.commit('openNotification', {
-            title: 'delete producut',
+            title: 'delete product',
             type: 'success',
             content: 'package deleted successfully',
           })

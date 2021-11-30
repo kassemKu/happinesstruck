@@ -339,7 +339,6 @@
 
 <script>
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
-import { Inertia } from '@inertiajs/inertia'
 import { onMounted, ref } from 'vue'
 import WebLayout from '@/Layouts/Web/WebLayout'
 import HtSection from '@/Shared/Layouts/HtSection'
@@ -389,6 +388,8 @@ export default {
       event_start_date: new Date(),
       event_end_date: new Date(),
       packages: [],
+      subtotal: null,
+      total: null,
       full_name: null,
       email: null,
       mobile: null,
@@ -467,22 +468,50 @@ export default {
         subtotal += item.quantity * item.price_per_event
       })
 
+      form.subtotal = subtotal
+
       return subtotal
     }
 
     const increasePicassoPackage = (packg) => {
-      return (packg.quantity += 1)
+      return ++packg.quantity
     }
 
     const decreasePicassoPackage = (packg) => {
       if (packg.quantity <= 5) return
-      return (packg.quantity -= 1)
+      return --packg.quantity
     }
 
     const storeBooking = () => {
       setCookie('booking', form)
-      console.log(form)
-      Inertia.get(route('web.bookingCheckout'))
+
+      form.post(route('web.storeBooking', { collection: props.collection }), {
+        preserverState: true,
+        onStart: () => console.log('Do Something on start'),
+        onFinish: () => console.log('Do Something on finish'),
+        onError: (errors) => {
+          store.commit('openNotification', {
+            title: 'something went wrong',
+            type: 'error',
+            content: errors,
+          })
+        },
+        onSuccess: () => {
+          if (
+            page.props.errors &&
+            Object.keys(page.props.errors).length === 0
+          ) {
+            form.reset()
+            media = []
+            form.mediaIds = []
+            store.commit('openNotification', {
+              title: 'create package',
+              type: 'success',
+              content: 'package created successfully',
+            })
+          }
+        },
+      })
     }
 
     onMounted(() => {

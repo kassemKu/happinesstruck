@@ -78,12 +78,20 @@
               <Collaborate24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink :name="$t('orders')" :href="'/'">
+          <ManageSideNavLink
+            :name="$t('orders')"
+            :href="'/'"
+            :active="$page.url.includes('manage/orders')"
+          >
             <template #icon>
               <ShoppingCartArrowDown24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink :name="$t('warehouses')" :href="'/'">
+          <ManageSideNavLink
+            :name="$t('warehouses')"
+            :href="'/'"
+            :active="$page.url.includes('manage/warehouses')"
+          >
             <template #icon>
               <DataReference24 />
             </template>
@@ -98,6 +106,7 @@
           <ManageSideNavLink
             :name="$t('trucks')"
             :href="route('manage.trucks.index')"
+            :active="$page.url.includes('manage/trucks')"
           >
             <template #icon>
               <Delivery24 />
@@ -106,6 +115,7 @@
           <ManageSideNavLink
             :name="$t('packages')"
             :href="route('manage.packages.index')"
+            :active="$page.url.includes('manage/packages')"
           >
             <template #icon>
               <DeliveryParcel24 />
@@ -114,12 +124,26 @@
           <ManageSideNavLink
             :name="$t('tools')"
             :href="route('manage.tools.index')"
+            :active="$page.url.includes('manage/tools')"
           >
             <template #icon>
               <Category24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink :name="$t('bookings')" :href="'/'">
+          <ManageSideNavLink
+            :name="$t('bookings')"
+            :href="'/'"
+            :active="$page.url.includes('manage/bookings')"
+          >
+            <template #icon>
+              <EventSchedule24 />
+            </template>
+          </ManageSideNavLink>
+          <ManageSideNavLink
+            :name="$t('coupons')"
+            :href="route('manage.coupons.index')"
+            :active="$page.url.includes('manage/coupons')"
+          >
             <template #icon>
               <EventSchedule24 />
             </template>
@@ -129,7 +153,11 @@
           <template #groupIcon>
             <Settings24 class="w-7 h-7" />
           </template>
-          <ManageSideNavLink :name="$t('site_settings')" :href="'/'">
+          <ManageSideNavLink
+            :name="$t('site_settings')"
+            :href="'/'"
+            :active="$page.url.includes('manage/site_settings')"
+          >
             <template #icon>
               <Tools24 />
             </template>
@@ -143,7 +171,11 @@
               <Bullhorn24 />
             </template>
           </ManageSideNavLink>
-          <ManageSideNavLink :name="$t('pages')" :href="'/'">
+          <ManageSideNavLink
+            :name="$t('pages')"
+            :href="'/'"
+            :active="$page.url.includes('manage/pages')"
+          >
             <template #icon>
               <Book24 />
             </template>
