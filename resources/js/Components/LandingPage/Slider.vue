@@ -1,163 +1,86 @@
 <template>
-  <HtSection padding-x="12" padding-y="0">
-    <div
-      class="
-        htw-landing__packages-slider-container
-        w-full
-        h-full
-        relative
-        overflow-hidden
-        mt-36
-        mb-12
-      "
-    >
-      <div class="htw-landing__packages-slider">
-        <div
-          class="
-            htw-landing__packages-slide
-            bg-info bg-cover bg-center
-            flex
-            items-center
-            relative
-          "
-        >
-          <div
-            class="w-full flex flex-col items px-24 text-base-100 space-y-12"
-          >
-            <div class="max-w-xl">
-              <h1
-                class="text-3xl capitalize font-black leading-10 tracking-wider"
-              >
-                happiness truck package
-              </h1>
-              <p class="mt-8 leading-7 text-opacity-50 text-base font-medium">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Voluptas neque reiciendis eligendi ad praesentium dolor ducimus
-                nesciunt tempore? Iure esse autem ab dolor ex mollitia excepturi
-                nihil enim provident repellat.
-              </p>
-            </div>
-            <div>
-              <div
-                class="
-                  flex
-                  h-20
-                  max-w-3xl
-                  bg-base-100 bg-opacity-85
-                  rounded-sm rounded-tl-3xl rounded-br-3xl
-                  flex
-                  items-center
-                  text-neutral text-opacity-85
-                  overflow-hidden
-                "
-              >
-                <div class="flex-grow h-full">
-                  <button
-                    class="
-                      h-full
-                      w-full w-full
-                      flex
-                      items-center
-                      justify-center
-                      text-sm
-                      capitalize
-                      font-medium
-                    "
-                  >
-                    <span class="flex flex-col space-y-2">
-                      <span class="text-gray-400">person</span>
-                      <span class="flex items-center justify-center space-x-2">
-                        <span>1 adult</span>
-                        <VueFeather
-                          type="chevron-down"
-                          stroke-width="3"
-                          class="h-4 w-4"
-                        />
-                      </span>
-                    </span>
-                  </button>
-                </div>
-                <div class="flex-grow h-full">test date</div>
-                <div class="flex-grow h-full">
-                  <button
-                    class="
-                      h-full
-                      w-full
-                      bg-warning
-                      text-base-100
-                      font-semibold
-                      uppercase
-                      flex
-                      items-center
-                      justify-center
-                    "
-                  >
-                    booking now
-                  </button>
-                </div>
-              </div>
-            </div>
+  <div class="relative min-h-screen w-full grid grid-cols-2">
+    <div class="absolute top top-48 htw-site-title">
+      <div class="w-full flex flex-col items-center justify-center">
+        <h3 class="text-5xl uppercase font-bold">happiness truck</h3>
+        <p class="text-lg font-semibold text-neutral text-opacity-60 uppercase">
+          we make the happiness
+        </p>
+      </div>
+    </div>
+    <div class="bg-warning bg-opacity-40">
+      <HtSection padding-x="16">
+        <div class="flex flex-col space-y-6 mt-96">
+          <div>
+            <h3 class="text-4xl uppercase font-bold max-w-sm">
+              collections of our packages for your kids events
+            </h3>
+          </div>
+          <div>
+            <p class="text-neutral text-opacity-60">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
+              quas deleniti odio obcaecati unde eligendi, ducimus rerum dolores
+              dolorum eum libero possimus facere repellat nostrum, similique ut
+              iste! Doloremque, delectus.
+            </p>
+          </div>
+          <div>
+            <Link
+              :href="route('web.collections')"
+              class="
+                btn btn-block btn-info
+                max-w-xs
+                rounded-none rounded-tl-xl rounded-br-2xl
+              "
+              >visit our awesome collections</Link
+            >
           </div>
         </div>
-        <!-- slider -->
-      </div>
-      <div
-        class="
-          flex
-          items-center
-          justify-end
-          space-x-4
-          h-48
-          px-12
-          absolute
-          -bottom-8
-          right-8
-        "
-      >
-        <button
-          class="
-            btn btn-circle
-            bg-transparent
-            border-base-100
-            text-base-100
-            border-2
-            transform
-            hover:bg-transparent
-            hover:border-base-100
-            hover:text-base-100
-            hover:scale-110
-          "
-        >
-          <VueFeather type="chevron-left" stroke-width="3" />
-        </button>
-        <button
-          class="
-            btn btn-circle
-            bg-transparent
-            border-base-100
-            text-base-100
-            border-2
-            transform
-            hover:bg-transparent
-            hover:border-base-100
-            hover:text-base-100
-            hover:scale-110
-          "
-        >
-          <VueFeather type="chevron-right" stroke-width="3" />
-        </button>
-      </div>
-      <!-- arrow nav -->
+      </HtSection>
     </div>
-  </HtSection>
+    <!-- our packages collections -->
+    <div class="bg-info bg-opacity-40">
+      <HtSection padding-x="16">
+        <div class="flex flex-col space-y-6 mt-96">
+          <div>
+            <h3 class="text-4xl uppercase font-bold max-w-sm">
+              Lots of lots of toy sets your child deserves
+            </h3>
+          </div>
+          <div>
+            <p class="text-neutral text-opacity-60">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
+              quas deleniti odio obcaecati unde eligendi, ducimus rerum dolores
+              dolorum eum libero possimus facere repellat nostrum, similique ut
+              iste! Doloremque, delectus.
+            </p>
+          </div>
+          <div>
+            <Link
+              :href="route('web.store')"
+              class="
+                btn btn-block btn-warning
+                max-w-xs
+                rounded-none rounded-tl-xl rounded-br-2xl
+              "
+              >visit our store</Link
+            >
+          </div>
+        </div>
+      </HtSection>
+    </div>
+    <!-- our store -->
+  </div>
 </template>
 
 <script>
 import { ref } from 'vue'
 import HtSection from '@/Shared/Layouts/HtSection'
+import { Link } from '@inertiajs/inertia-vue3'
 
 const components = {
   HtSection,
+  Link,
 }
 
 export default {
@@ -265,6 +188,9 @@ export default {
 </script>
 
 <style scoped>
+.htw-site-title {
+  left: 34%;
+}
 .htw-landing__packages-slide {
   height: calc(100vh - 20rem);
   border-top-left-radius: 7rem;

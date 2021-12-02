@@ -170,7 +170,7 @@
                               hover:border-opacity-60
                               hover:text-info
                             "
-                            @click="navigateTo('web.collection')"
+                            @click="navigateTo('web.collections')"
                           >
                             <Delivery32 class="w-6 h-6" />
                             <span class="capitalize font-medium"

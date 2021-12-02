@@ -119,6 +119,7 @@
                 :placeholder="$t('SKU')"
                 :label="$t('SKU')"
                 :server-error="$page.props.errors.SKU"
+                @topHelperAction="generateSKU"
               />
               <!-- tool SKU -->
               <div class="w-full flex h-full items-center space-x-8">
@@ -310,6 +311,19 @@ export default {
       mediaIds: [],
     })
 
+    const generateSKU = () => {
+      const char =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+      let SKU = '#'
+
+      for (let i = 0; i < 8; i++) {
+        SKU += char.charAt(Math.floor(Math.random() * char.length))
+      }
+
+      form.SKU = SKU
+    }
+
     const uploadFileMargin = computed(() => {
       let space
       if (locale === 'en') {
@@ -416,6 +430,7 @@ export default {
       createTool,
       media,
       t,
+      generateSKU,
     }
   },
 

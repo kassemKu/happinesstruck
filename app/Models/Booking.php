@@ -27,8 +27,8 @@ class Booking extends Model
         'description',
         'media_ids',
         'slug',
-        'started_at',
-        'ended_at',
+        'date',
+        'time',
         'status',
         'created_at',
         'updated_at',
@@ -39,8 +39,7 @@ class Booking extends Model
         'created_at',
         'updated_at',
         'deleted_at',
-        'started_at',
-        'ended_at',
+        'date',
     ];
 
 

@@ -20,8 +20,8 @@ class CreateBookingsTable extends Migration
             $table->longText('event_description')->nullable();
             $table->string('slug', 200)->unique()->nullable();
             $table->decimal('price');
-            $table->date('started_at')->nullable();
-            $table->date('ended_at')->nullable();
+            $table->date('date')->nullable();
+            $table->string('time')->nullable();
             $table->enum('status', ['pending','processing','completed','decline'])->default('pending');
             $table->json('mediaIds')->nullable();
 

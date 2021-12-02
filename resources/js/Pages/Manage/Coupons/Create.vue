@@ -81,15 +81,51 @@
                 </p>
               </div>
               <!-- type radio  -->
-              <litepie-datepicker
-                v-model="form.date"
-                i18n="id"
-                :shortcuts="false"
-                :formatter="formatter"
-                separator=" TO "
-              ></litepie-datepicker>
-              <!-- expiry date -->
+              <div class="form-control mb-4">
+                <label class="label">
+                  <span class="label-text capitalize font-semibold"
+                    >event date</span
+                  ></label
+                >
+                <litepie-datepicker
+                  v-model="form.date"
+                  i18n="id"
+                  :shortcuts="false"
+                  separator=" TO "
+                ></litepie-datepicker>
+              </div>
+              <!-- coupon date -->
             </div>
+            <div class="w-full flex h-full items-center space-x-8 my-4">
+              <div class="form-control">
+                <label class="cursor-pointer label justify-start space-x-2">
+                  <span class="label-text font-semibold capitalize">fixed</span>
+                  <input
+                    v-model="form.type"
+                    type="radio"
+                    name="type"
+                    class="radio"
+                    value="fixed"
+                  />
+                </label>
+              </div>
+
+              <div class="form-control">
+                <label class="cursor-pointer label justify-start space-x-2">
+                  <span class="label-text font-semibold capitalize"
+                    >coupon related to</span
+                  >
+                  <input
+                    v-model="form.related"
+                    type="radio"
+                    name="type"
+                    class="radio"
+                    value="percent"
+                  />
+                </label>
+              </div>
+            </div>
+            <!-- type radio  -->
           </ManageForm>
         </div>
       </div>
@@ -105,7 +141,7 @@ import TextField from '@/Shared/UI/TextField'
 import ManageForm from '@/Shared/Layouts/MForm'
 import HTextarea from '@/Shared/UI/HTextarea'
 import FileUpload from '@/Shared/UI/FileUpload'
-import { useForm } from '@inertiajs/inertia-vue3'
+import { useForm, usePage } from '@inertiajs/inertia-vue3'
 // TODO:: to fix emit checkbox
 // import CheckBox from '@/Shared/UI/CheckBox'
 
@@ -124,6 +160,13 @@ export default {
 
   components,
 
+  props: {
+    collections: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+
   setup() {
     const form = useForm({
       code: null,
@@ -133,34 +176,50 @@ export default {
         start_date: null,
         expiry_date: null,
       },
+      related: 'product',
     })
+
+    const page = usePage()
 
     const formatter = ref({
       date: 'DD MMM YYYY',
       month: 'MMM',
     })
 
+    // const disabledDate = (date) => {
+    //   return date < new Date()
+    // }
+
     const generateCouponCode = () => {
       const char =
         'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
-      form.code = char.charAt(Math.floor(Math.random() * char.length))
+      let code = ''
+
+      for (let i = 0; i < 16; i++) {
+        code += char.charAt(Math.floor(Math.random() * char.length))
+      }
+
+      form.code = code
     }
 
+    const related = ref(['collection', 'product', 'cart'])
+
     const createCoupon = () => {
-      form.post(this.route('manage.coupons.store'), {
+      form.post(route('manage.coupons.store'), {
         preserverState: true,
         onStart: () => console.log('Do Something on start'),
         onFinish: () => console.log('Do Something on finish'),
         onSuccess: () => {
-          if (Object.keys(this.$page.props.errors).length === 0) {
+          // TODO:: To solve error message
+          if (Object.keys(page.props.errors).length === 0) {
             form.reset()
           }
         },
       })
     }
 
-    return { form, formatter, createCoupon, generateCouponCode }
+    return { form, formatter, createCoupon, generateCouponCode, page, related }
   },
 
   remember: 'form',

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCouponRequest;
 use App\Models\Coupon;
+use App\Models\Truck;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -21,18 +24,18 @@ class ManageCouponsController extends Controller
     {
         $coupons = Coupon::latest()
         ->paginate(10)
-        ->transform(function($category) {
+        ->transform(function($coupon) {
             return [
-                'id' => $category->id,
-                'code' => $category->code,
-                'type' => $category->type,
-                'created_at' => $category->created_at->diffForHumans(),
-                'deleted_at' => $category->deleted_at,
-                'expire_at' => $category->expire_at->diffForHumans(),
+                'id' => $coupon->id,
+                'code' => $coupon->code,
+                'type' => $coupon->type,
+                'deleted_at' => $coupon->deleted_at,
+                'start_date' => $coupon->start_date->diffForHumans(),
+                'expiry_date' => $coupon->expiry_date->diffForHumans(),
             ];
         });
 
-        return Inertia::render('Manage/Coupons/Index');
+        return Inertia::render('Manage/Coupons/Index', ['coupons' => $coupons]);
     }
 
     /**
@@ -42,7 +45,9 @@ class ManageCouponsController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Manage/Coupons/Create');
+        $collections = Truck::latest()->get()->unique('id');
+
+        return Inertia::render('Manage/Coupons/Create', ['collections' => $collections]);
     }
 
     /**
@@ -51,26 +56,34 @@ class ManageCouponsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Inertia\Response
      */
-    public function store(Request $request)
+    public function store(StoreCouponRequest $request): RedirectResponse
     {
-        //
+        $coupon = Coupon::create([
+            'code' => $request->code,
+            'value' => $request->value,
+            'type' => $request->type,
+            'start_date' => $request->date['start_date'],
+            'expiry_date' => $request->date['expiry_date'],
+        ]);
+
+        return Redirect::route('manage.coupons.show', $coupon->id);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  object $coupon
      * @return Inertia\Response
      */
-    public function show($id)
+    public function show(Coupon $coupon): Response
     {
-        //
+        return inertia('Manage/Coupons/Show', ['coupon' => $coupon]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  object $coupon
      * @return Inertia\Response
      */
     public function edit($id)
@@ -82,7 +95,7 @@ class ManageCouponsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  object $coupon
      * @return Inertia\Response
      */
     public function update(Request $request, $id)
@@ -93,7 +106,7 @@ class ManageCouponsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  object $coupon
      * @return Inertia\Response
      */
     public function destroy($id)

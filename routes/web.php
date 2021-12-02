@@ -36,7 +36,7 @@ Route::name('web.')
         // packages page
         Route::get('/our-packages/{package}', [PackagesPageController::class, 'show'])->name('package');
          // collection of packages page
-         Route::get('/our-packages-collections', [CollectionPageController::class, 'index'])->name('collection');
+         Route::get('/our-packages-collections', [CollectionPageController::class, 'index'])->name('collections');
          // booking collection of packages page
          Route::get('/{collection}/booking', [BookingPageController::class, 'bookingPage'])->name('booking');
          // store booking

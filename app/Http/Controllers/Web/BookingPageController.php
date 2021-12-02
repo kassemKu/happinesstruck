@@ -26,8 +26,7 @@ class BookingPageController extends Controller
                     'en_short_description' => $item->en_short_description,
                     'ar_description' => $item->ar_description,
                     'en_description' => $item->en_description,
-                    'price_per_event' => $item->price_per_event,
-                    'min_price_per_event' => $item->min_price_per_event,
+                    'price' => $item->price,
                     'mediaIds' => $item->mediaIds,
                     'media' => $item->media()->get()->map->only('id', 'directory_name', 'full_url'),
                     'packages' => $item
@@ -53,13 +52,11 @@ class BookingPageController extends Controller
 
     public function store(Request $request): Response
     {
-        dd($request->all());
         return Inertia::render('Web/Booking/Checkout');
     }
 
     public function bookingCheckout(Request $request): Response
     {
-        dd($request->all());
         return Inertia::render('Web/Booking/Checkout');
     }
 }

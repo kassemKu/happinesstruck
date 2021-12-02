@@ -199,7 +199,7 @@
                   />
                   <!-- event description -->
                   <div></div>
-                  <div class="w-full relative mt-1">
+                  <!-- <div class="w-full relative mt-1">
                     <Listbox v-model="form.event_location">
                       <ListboxButton
                         class="
@@ -301,6 +301,20 @@
                         </ListboxOptions>
                       </transition>
                     </Listbox>
+                  </div> -->
+                  <div class="form-control mb-4">
+                    <label class="label">
+                      <span class="label-text capitalize font-semibold"
+                        >state and city</span
+                      ></label
+                    >
+                    <Multiselect
+                      v-model="form.event_location"
+                      :groups="true"
+                      :options="states"
+                      placeholder="select state and city"
+                    >
+                    </Multiselect>
                   </div>
                   <!-- event location -->
                   <TextField
@@ -311,14 +325,20 @@
                     :server-error="$page.props.errors.event_address"
                   />
                   <!-- event address -->
-                  <div class="flex">
-                    <Datepicker v-model="form.event_start_date" :is24="false" />
+                  <div class="form-control mb-4">
+                    <label class="label">
+                      <span class="label-text capitalize font-semibold"
+                        >event date</span
+                      ></label
+                    >
+                    <litepie-datepicker
+                      v-model="form.date"
+                      placeholder="choice event date"
+                      :formatter="formatter"
+                      as-single
+                    ></litepie-datepicker>
                   </div>
-                  <!-- event start date -->
-                  <div class="flex">
-                    <Datepicker v-model="form.event_end_date" :is24="false" />
-                  </div>
-                  <!-- event end date -->
+                  <!-- event date -->
                 </div>
                 <!-- form grid -->
               </div>
@@ -339,7 +359,7 @@
 
 <script>
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import WebLayout from '@/Layouts/Web/WebLayout'
 import HtSection from '@/Shared/Layouts/HtSection'
 import TextField from '@/Shared/UI/TextField'
@@ -352,6 +372,7 @@ import {
   ListboxOption,
 } from '@headlessui/vue'
 import { useCookie } from 'vue-cookie-next'
+import Multiselect from '@vueform/multiselect'
 
 const components = {
   Head,
@@ -365,6 +386,7 @@ const components = {
   ListboxButton,
   ListboxOptions,
   ListboxOption,
+  Multiselect,
 }
 
 export default {
@@ -385,8 +407,7 @@ export default {
       event_description: null,
       event_location: null,
       event_address: null,
-      event_start_date: new Date(),
-      event_end_date: new Date(),
+      date: null,
       packages: [],
       subtotal: null,
       total: null,
@@ -395,60 +416,224 @@ export default {
       mobile: null,
     })
 
-    const locations = [
+    const states = [
       {
         ar_name: 'مدينة الكويت',
-        en_name: 'kuwait city',
+        label: 'kuwait city',
         isAvailable: true,
+        options: [
+          'الخالدية - مدينة الكويت',
+          'الدسمة - مدينة الكويت',
+          'الدعية - مدينة الكويت',
+          'الدوحة - مدينة الكويت',
+          'الروضة - مدينة الكويت',
+          'الري - مدينة الكويت',
+          'السرة - مدينة الكويت',
+          'الشامية - مدينة الكويت',
+          'الشويخ - مدينة الكويت',
+          'الصالحية - مدينة الكويت',
+          'الصليبيخات - مدينة الكويت',
+          'الصوابر - مدينة الكويت',
+          'العديلية - مدينة الكويت',
+          'الفيحاء - مدينة الكويت',
+          'القادسيىة - مدينة الكويت',
+          'القبلة - مدينة الكويت',
+          'القيروان - مدينة الكويت',
+          'المرقاب - مدينة الكويت',
+          'المنصورية - مدينة الكويت',
+          'النزهة - مدينة الكويت',
+          'النهضة - مدينة الكويت',
+          'اليرموك - مدينة الكويت',
+          'بنيد القار - مدينة الكويت',
+          'جابر الأحمد - مدينة الكويت',
+          'دسمان - مدينة الكويت',
+          'شرق - مدينة الكويت',
+          'عبدالله السالم - مدينة الكويت',
+          'غرب الصليبيخات - مدينة الكويت',
+          'غرناطة - مدينة الكويت',
+          'قرطبة - مدينة الكويت',
+          'كيفان - مدينة الكويت',
+          'مدينة الكويت - مدينة الكويت',
+        ],
       },
       {
         ar_name: 'الجهراء',
-        en_name: 'aljahra',
+        label: 'aljahra',
         isAvailable: false,
+        options: [
+          'الجهراء - الجهراء',
+          'الصبية - الجهراء',
+          'الصليبة - الجهراء',
+          'الصليبة الصناعية - الجهراء',
+          'الصليبة الزراعية - الجهراء',
+          'العبداي - الجهراء',
+          'العيون - الجهراء',
+          'المطلاع - الجهراء',
+          'النسيم - الجهراء',
+          'النعيم - الجهراء',
+          'الواحة - الجهراء',
+          'أمغرة - الجهراء',
+          'تيماء - الجهراء',
+          'سعد العبدالله - الجهراء',
+          'قصر - الجهراء',
+          'قيروان جنوب الدوحة - الجهراء',
+          'كبد - الجهراء',
+          'مطار الشيخ سعد العبدالله - الجهراء',
+        ],
       },
       {
         ar_name: 'الفروانية',
-        en_name: 'alfarwaniyah',
+        label: 'alfarwaniyah',
         isAvailable: false,
+        options: [
+          'أبرق خيطان - الفروانية',
+          'اشبيليا - الفروانية',
+          'الاندلس - الفروانية',
+          'الرابية - الفروانية',
+          'الرحاب - الفروانية',
+          'الرفعي - الفروانية',
+          'الري الصناعية - الفروانية',
+          'الشدادية - الفروانية',
+          'الضجيج - الفروانية',
+          'العارضية - الفروانية',
+          'العارضية الصناعية - الفروانية',
+          'العمرية - الفروانية',
+          'الفردوس - الفروانية',
+          'الفروانية - الفروانية',
+          'المطار - الفروانية',
+          'جليب شيوخ - الفروانية',
+          'العارضية - الفروانية',
+          'خيطان - الفروانية',
+          'صباح الناصر - الفروانية',
+          'عارضية مخازن - الفروانية',
+          'عباسية - الفروانية',
+          'عبدالله المبارك - الفروانية',
+          'منطقة المعرض جنوبخيطان - الفروانية',
+        ],
       },
       {
         ar_name: 'حولي',
-        en_name: 'hawli',
+        label: 'hawli',
         isAvailable: false,
+        options: [
+          'البدع - حولي',
+          'الجابرية - حولي',
+          'الرميثة - حولي',
+          'الزهراء - حولي',
+          'السالمية - حولي',
+          'السلام - حولي',
+          'الشعب - حولي',
+          'الشهداء - حولي',
+          'الصديق - حولي',
+          'بيان - حولي',
+          'حطين - حولي',
+          'حولي - حولي',
+          'سلوى - حولي',
+          'مبارك العبدلله - حولي',
+          'مشرف - حولي',
+          'ميدان حولي - حولي',
+        ],
       },
       {
         ar_name: 'مبارك الكبير',
-        en_name: 'mubarak alkabir',
+        label: 'mubarak alkabir',
         isAvailable: false,
+        options: [
+          'أبو الحصانية - مبارك الكبير',
+          'أبو فطيرة - مبارك الكبير',
+          'العدان - مبارك الكبير',
+          'الفنطاس - مبارك الكبير',
+          'الفنيطيس - مبارك الكبير',
+          'القرين - مبارك الكبير',
+          'القصور - مبارك الكبير',
+          'المسايل - مبارك الكبير',
+          'المسيلة - مبارك الكبير',
+          'جنوب الوسطى - مبارك الكبير',
+          'صباح السالم - مبارك الكبير',
+          'صبحان الصناعية - مبارك الكبير',
+          'غرب أبو فطيرة - مبارك الكبير',
+          'مبارك الكبير - مبارك الكبير',
+          'وسطى - مبارك الكبير',
+        ],
       },
       {
         ar_name: 'الاحمدي',
-        en_name: 'alahmadi',
+        label: 'alahmadi',
         isAvailable: false,
+        options: [
+          'أبو حليفة - الأحمدي',
+          'الأحمدي - الأحمدي',
+          'الخيزران - الأحمدي',
+          'الرقة - الأحمدي',
+          'الصباحية - الأحمدي',
+          'الظهر - الأحمدي',
+          'العقيلة - الأحمدي',
+          'الفحيل - الأحمدي',
+          'الفنطاس - الأحمدي',
+          'المنقف - الأحمدي',
+          'المهبولة - الأحمدي',
+          'النويصب - الأحمدي',
+          'الوفرة - الأحمدي',
+          'بنيدر - الأحمدي',
+          'جابر العلي - الأحمدي',
+          'شرق الأحمدي - الأحمدي',
+          'علي صباح السالم - الأحمدي',
+          'فهد الأحمد - الأحمدي',
+          'مدينة صباح الأحمد - الأحمدي',
+          'مقوع - الأحمدي',
+          'ميناء الأحدي - الأحمدي',
+          'ميناء الشعيبة - الأحمدي',
+          'ميناء عبدالله - الأحمدي',
+          'هدية - الأحمدي',
+        ],
       },
       {
         ar_name: 'السالمية',
-        en_name: 'alsalimya',
+        label: 'alsalimya',
         isAvailable: false,
+        options: [
+          'one in -alsalimya',
+          'tow in -alsalimya',
+          'three in -alsalimya',
+          'four in -alsalimya',
+        ],
       },
       {
         ar_name: 'ضاحية صباح السالم',
-        en_name: 'dahyat sabah alsalem',
+        label: 'dahyat sabah alsalem',
         isAvailable: false,
+        options: [
+          'one in - dahyat sabah alsalem',
+          'tow in - dahyat sabah alsalem',
+          'three in - dahyat sabah alsalem',
+          'four in - dahyat sabah alsalem',
+        ],
       },
       {
         ar_name: 'الفحيحيل',
-        en_name: 'alfuhayhil',
+        label: 'alfuhayhil',
         isAvailable: false,
+        options: [
+          'one in - alfuhayhil',
+          'tow in - alfuhayhil',
+          'three in - alfuhayhil',
+          'four in - alfuhayhil',
+        ],
       },
       {
         ar_name: 'سلوى',
-        en_name: 'salwa',
+        label: 'salwa',
         isAvailable: false,
+        options: [
+          'one in - salwa',
+          'tow in - salwa',
+          'three in - salwa',
+          'four in - salwa',
+        ],
       },
     ]
 
-    form.event_location = ref(locations[0])
+    // form.event_location = ref(states[0])
 
     const { setCookie } = useCookie()
 
@@ -480,6 +665,11 @@ export default {
     const decreasePicassoPackage = (packg) => {
       if (packg.quantity <= 5) return
       return --packg.quantity
+    }
+    // date
+    const formatter = {
+      date: 'DD MMM YYYY',
+      month: 'MMM',
     }
 
     const storeBooking = () => {
@@ -526,14 +716,16 @@ export default {
       getCollectionSubtotal,
       increasePicassoPackage,
       decreasePicassoPackage,
-      locations,
+      states,
       storeBooking,
+      formatter,
     }
   },
 }
 </script>
 
-<style scoped>
+<style src="@vueform/multiselect/themes/default.css"></style>
+<style>
 .htw-collection-package__img {
   width: 100%;
   height: 60vh;

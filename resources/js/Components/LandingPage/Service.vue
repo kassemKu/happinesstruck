@@ -85,7 +85,7 @@
               btn btn-wide btn-info
               rounded-none rounded-tl-xl rounded-br-2xl
             "
-            >visiste our services page</Link
+            >visit our services page</Link
           >
         </div>
       </div>

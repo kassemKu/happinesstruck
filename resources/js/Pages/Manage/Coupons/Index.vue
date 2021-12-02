@@ -28,8 +28,8 @@
                   <th>ID</th>
                   <th>coupon code</th>
                   <th>coupon type</th>
-                  <th>created at</th>
-                  <th>expired at</th>
+                  <th>start at</th>
+                  <th>expiry at</th>
                   <th class="text-center">actions</th>
                 </tr>
               </thead>
@@ -50,8 +50,8 @@
                   <td>
                     {{ coupon.type }}
                   </td>
-                  <td>{{ coupon.created_at }}</td>
-                  <td>{{ coupon.expire_at }}</td>
+                  <td>{{ coupon.start_date }}</td>
+                  <td>{{ coupon.expiry_date }}</td>
                   <td class="w-full flex items-center justify-center">
                     <Link
                       :href="route('manage.coupons.show', coupon.id)"
@@ -114,8 +114,8 @@
                   <th>ID</th>
                   <th>coupon code</th>
                   <th>coupon type</th>
-                  <th>created at</th>
-                  <th>expired at</th>
+                  <th>start at</th>
+                  <th>expiry at</th>
                   <th class="text-center">actions</th>
                 </tr>
               </tfoot>
