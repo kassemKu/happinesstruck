@@ -40,7 +40,7 @@ Route::name('web.')
          // booking collection of packages page
          Route::get('/{collection}/booking', [BookingPageController::class, 'bookingPage'])->name('booking');
          // store booking
-         Route::post('/{collection}/booking', [BookingPageController::class, 'store'])->name('storeBooking');
+         Route::post('/collection/booking', [BookingPageController::class, 'store'])->name('storeBooking');
         // routes web needed auth
         Route::middleware(['auth:sanctum', 'verified'])
             ->group(function() {

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Truck;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -50,13 +52,16 @@ class BookingPageController extends Controller
         return Inertia::render('Web/Booking/Index', ['collection' => $collection]);
     }
 
-    public function store(Request $request): Response
+    public function store(Request $request): RedirectResponse
     {
-        return Inertia::render('Web/Booking/Checkout');
+        $request->session()->put('packages', $request->packages);
+        return Redirect::route('web.bookingCheckout');
     }
 
     public function bookingCheckout(Request $request): Response
     {
-        return Inertia::render('Web/Booking/Checkout');
+        $bookingItems = $request->session()->get('packages');
+
+        return Inertia::render('Web/Booking/Checkout', ['bookingItems' => $bookingItems]);
     }
 }

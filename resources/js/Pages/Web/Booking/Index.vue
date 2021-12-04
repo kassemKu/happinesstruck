@@ -5,352 +5,134 @@
     </Head>
     <div class="htw-page htw-page__collection mt-36">
       <HtSection>
-        <div class="flex flex-col space-y-12">
-          <div class="flex space-x-4">
-            <div class="order-last sticky top-36 ml-4">
-              <div class="w-96">
-                <div class="mb-4">
-                  <h2 class="text-lg capitalize font-semibold text-info">
-                    cart total
-                  </h2>
-                </div>
+        <div class="flex space-x-8">
+          <div class="flex-1">
+            <div class="mb-4">
+              <h2 class="text-lg capitalize font-semibold text-info">
+                booking summary
+              </h2>
+            </div>
+            <div class="grid grid-cols-2 gap-x-4">
+              <div
+                v-for="packg in form.packages"
+                :key="packg.id"
+                class="flex flex-col space-y-4"
+              >
+                <img
+                  :src="packg.media[0].full_url"
+                  :alt="packg.en_name"
+                  class="h-96 object-cover rounded-box"
+                />
                 <div
-                  class="
-                    divide-y-2
-                    border-2
-                    rounded-box
-                    p-4
-                    uppercase
-                    font-semibold
-                    text-sm
+                  v-show="
+                    packg.en_name === 'package picasso' ||
+                    packg.ar_name === 'باكاج بيكاسو'
                   "
+                  class="flex justify-between"
                 >
-                  <div
-                    v-for="packg in form.packages"
-                    :key="packg.id"
-                    class="flex justify-between py-4 items-center"
-                  >
-                    <p>
-                      {{ packg.en_name }}
-                      <span class="text-warning">
-                        ({{ packg.price_per_event }} X
-                        {{ packg.quantity }})</span
-                      >
-                    </p>
-                    <p class="bg-gray-200 py-1 px-2 rounded">
-                      {{
-                        getPackageTotalPrice(
-                          packg.price_per_event,
-                          packg.quantity,
-                        )
-                      }}
-                      dk
-                    </p>
-                  </div>
-                  <div class="flex justify-between py-4 items-center">
-                    <p>subtotal</p>
-                    <p class="bg-gray-200 py-1 px-2 rounded">
-                      {{ getCollectionSubtotal() }} dk
-                    </p>
-                  </div>
-                  <div class="flex justify-between py-4 items-center">
-                    <p>total</p>
-                    <p class="bg-gray-200 py-1 px-2 rounded">
-                      {{ getCollectionSubtotal() }} dk
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- cart total -->
-            <div class="w-full">
-              <div class="mb-4">
-                <h2 class="text-lg capitalize font-semibold text-info">
-                  booking aummary
-                </h2>
-              </div>
-              <div class="grid grid-cols-2 gap-x-4">
-                <div
-                  v-for="packg in form.packages"
-                  :key="packg.id"
-                  class="flex flex-col space-y-4"
-                >
-                  <img
-                    :src="packg.media[0].full_url"
-                    :alt="packg.en_name"
-                    class="h-96 object-cover rounded-box"
-                  />
-                  <div
-                    v-show="
-                      packg.en_name === 'package picasso' ||
-                      packg.ar_name === 'باكاج بيكاسو'
+                  <button
+                    type="button"
+                    class="
+                      btn
+                      border-info
+                      text-info
+                      space-x-2
+                      bg-transparent
+                      border-2
+                      hover:text-base-100 hover:bg-info hover:border-info
                     "
-                    class="flex justify-between"
+                    @click="increasePicassoPackage(packg)"
                   >
-                    <button
-                      type="button"
-                      class="
-                        btn
-                        border-info
-                        text-info
-                        space-x-2
-                        bg-transparent
-                        border-2
-                        hover:text-base-100 hover:bg-info hover:border-info
-                      "
-                      @click="increasePicassoPackage(packg)"
-                    >
-                      <VueFeather
-                        type="plus"
-                        stroke-width="3"
-                        class="w-5 h-5"
-                      />
-                      <span>increase one more</span>
-                    </button>
-                    <button
-                      type="button"
-                      class="
-                        btn
-                        border-red-500
-                        text-red-500
-                        space-x-2
-                        bg-transparent
-                        border-2
-                        hover:text-base-100
-                        hover:bg-red-500
-                        hover:border-red-500
-                      "
-                      :disabled="packg.quantity <= 5 ? 'disabled' : null"
-                      @click="decreasePicassoPackage(packg)"
-                    >
-                      <VueFeather
-                        type="minus"
-                        stroke-width="3"
-                        class="w-5 h-5"
-                      />
-                      <span>decrease one</span>
-                    </button>
-                  </div>
+                    <VueFeather type="plus" stroke-width="3" class="w-5 h-5" />
+                    <span>increase one more</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="
+                      btn
+                      border-red-500
+                      text-red-500
+                      space-x-2
+                      bg-transparent
+                      border-2
+                      hover:text-base-100 hover:bg-red-500 hover:border-red-500
+                    "
+                    :disabled="packg.quantity <= 5 ? 'disabled' : null"
+                    @click="decreasePicassoPackage(packg)"
+                  >
+                    <VueFeather type="minus" stroke-width="3" class="w-5 h-5" />
+                    <span>decrease one</span>
+                  </button>
                 </div>
               </div>
             </div>
-            <!-- booking summary -->
           </div>
-
-          <form @submit.prevent="storeBooking">
-            <div class="grid grid-cols-2 gap-x-8">
-              <div>
-                <div class="mb-4">
-                  <h2 class="text-lg capitalize font-semibold text-info">
-                    user information
-                  </h2>
-                </div>
-                <div class="grid grid-cols-2 gap-x-4 items-center">
-                  <TextField
-                    v-model="form.full_name"
-                    name="full_name"
-                    :placeholder="'full name'"
-                    :label="'full name'"
-                    :server-error="$page.props.errors.ar_name"
-                  />
-                  <TextField
-                    v-model="form.email"
-                    name="email"
-                    :type="'email'"
-                    :placeholder="'email'"
-                    :label="'email'"
-                    :server-error="$page.props.errors.email"
-                  />
-                  <TextField
-                    v-model="form.mobile"
-                    name="mobile"
-                    :type="'phone'"
-                    :placeholder="'mobile'"
-                    :label="'mobile'"
-                    :server-error="$page.props.errors.mobile"
-                  />
-                </div>
-                <!-- form grid -->
-              </div>
-              <!-- user details -->
-              <div>
-                <div class="mb-4">
-                  <h2 class="text-lg capitalize font-semibold text-info">
-                    event information
-                  </h2>
-                </div>
-                <div class="grid grid-cols-2 gap-x-4 items-center">
-                  <TextField
-                    v-model="form.event_title"
-                    name="event_title"
-                    :placeholder="$t('event_title')"
-                    :label="$t('event_title')"
-                    :server-error="$page.props.errors.event_title"
-                  />
-                  <!-- event title -->
-                  <div></div>
-                  <HTextarea
-                    v-model="form.event_description"
-                    optional
-                    name="event_description"
-                    :placeholder="$t('event_description')"
-                    :label="$t('event_description')"
-                    :server-error="$page.props.errors.event_description"
-                  />
-                  <!-- event description -->
-                  <div></div>
-                  <!-- <div class="w-full relative mt-1">
-                    <Listbox v-model="form.event_location">
-                      <ListboxButton
-                        class="
-                          w-full
-                          input
-                          border border-base-300 border-2
-                          bg-transparent
-                          hover:border-neutral hover:border-opacity-50
-                          shadow-sm
-                        "
-                      >
-                        <span class="block truncate text-left">{{
-                          form.event_location.en_name
-                        }}</span>
-                        <span
-                          class="
-                            absolute
-                            inset-y-0
-                            right-0
-                            flex
-                            items-center
-                            pr-2
-                            pointer-events-none
-                          "
-                        >
-                          <VueFeather
-                            type="chevron-down"
-                            class="w-5 h-5 text-gray-400"
-                            aria-hidden="true"
-                          />
-                        </span>
-                      </ListboxButton>
-                      <transition
-                        leave-active-class="transition duration-100 ease-in"
-                        leave-from-class="opacity-100"
-                        leave-to-class="opacity-0"
-                      >
-                        <ListboxOptions
-                          class="
-                            ht-scrollbar
-                            z-40
-                            absolute
-                            w-full
-                            py-1
-                            mt-1
-                            overflow-auto
-                            text-base
-                            bg-white
-                            rounded-md
-                            shadow-lg
-                            max-h-60
-                            ring-1 ring-black ring-opacity-5
-                            focus:outline-none
-                            sm:text-sm
-                          "
-                        >
-                          <ListboxOption
-                            v-for="location in locations"
-                            :key="location.en_name"
-                            v-slot="{ active, selected }"
-                            :value="location"
-                            as="template"
-                          >
-                            <li
-                              :class="[
-                                active
-                                  ? 'text-yellow-900 bg-yellow-100'
-                                  : 'text-gray-900',
-                                'cursor-default select-none relative py-2 pl-10 pr-4',
-                              ]"
-                            >
-                              <span
-                                :class="[
-                                  selected ? 'font-medium' : 'font-normal',
-                                  'block truncate',
-                                ]"
-                                >{{ location.en_name }}</span
-                              >
-                              <span
-                                v-if="selected"
-                                class="
-                                  absolute
-                                  inset-y-0
-                                  left-0
-                                  flex
-                                  items-center
-                                  pl-3
-                                  text-amber-600
-                                "
-                              >
-                                <VueFeather
-                                  type="check"
-                                  class="w-5 h-5"
-                                  aria-hidden="true"
-                                />
-                              </span>
-                            </li>
-                          </ListboxOption>
-                        </ListboxOptions>
-                      </transition>
-                    </Listbox>
-                  </div> -->
-                  <div class="form-control mb-4">
-                    <label class="label">
-                      <span class="label-text capitalize font-semibold"
-                        >state and city</span
-                      ></label
-                    >
-                    <Multiselect
-                      v-model="form.event_location"
-                      :groups="true"
-                      :options="states"
-                      placeholder="select state and city"
-                    >
-                    </Multiselect>
-                  </div>
-                  <!-- event location -->
-                  <TextField
-                    v-model="form.event_address"
-                    name="event_address"
-                    :placeholder="$t('event_address')"
-                    :label="$t('event_address')"
-                    :server-error="$page.props.errors.event_address"
-                  />
-                  <!-- event address -->
-                  <div class="form-control mb-4">
-                    <label class="label">
-                      <span class="label-text capitalize font-semibold"
-                        >event date</span
-                      ></label
-                    >
-                    <litepie-datepicker
-                      v-model="form.date"
-                      placeholder="choice event date"
-                      :formatter="formatter"
-                      as-single
-                    ></litepie-datepicker>
-                  </div>
-                  <!-- event date -->
-                </div>
-                <!-- form grid -->
-              </div>
-              <!-- event details -->
+          <div class="w-96">
+            <div class="mb-4">
+              <h2 class="text-lg capitalize font-semibold text-info">
+                cart total
+              </h2>
             </div>
-            <div class="w-full flex items-center justify-center mt-8">
-              <button type="submit" class="btn btn-info btn-wide">
-                proceed to checkout
+            <div
+              class="
+                divide-y-2
+                border-2
+                rounded-box
+                p-4
+                uppercase
+                font-semibold
+                text-sm
+              "
+            >
+              <div
+                v-for="packg in form.packages"
+                :key="packg.id"
+                class="flex justify-between py-4 items-center"
+              >
+                <p>
+                  {{ packg.en_name }}
+                  <span class="text-warning">
+                    ({{ packg.price_per_event }} X {{ packg.quantity }})</span
+                  >
+                </p>
+                <p class="bg-gray-200 py-1 px-2 rounded">
+                  {{
+                    getPackageTotalPrice(packg.price_per_event, packg.quantity)
+                  }}
+                  dk
+                </p>
+              </div>
+              <div class="flex justify-between py-4 items-center">
+                <p>subtotal</p>
+                <p class="bg-gray-200 py-1 px-2 rounded">
+                  {{ getCollectionSubtotal() }} dk
+                </p>
+              </div>
+              <div class="flex justify-between py-4 items-center">
+                <p>total</p>
+                <p class="bg-gray-200 py-1 px-2 rounded">
+                  {{ getCollectionSubtotal() }} dk
+                </p>
+              </div>
+            </div>
+            <form
+              class="mt-8 w-full flex items-center justify-center"
+              @submit.prevent="storeBooking"
+            >
+              <button
+                type="submit"
+                class="
+                  btn btn-wide
+                  space-x-2
+                  bg-info
+                  border-2 border-info
+                  hover:bg-transparent hover:border-info hover:text-info
+                "
+              >
+                <span>proceed to checkout</span>
               </button>
-            </div>
-          </form>
-          <!-- event and user details -->
+            </form>
+          </div>
         </div>
       </HtSection>
     </div>
@@ -358,7 +140,8 @@
 </template>
 
 <script>
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3'
+import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3'
+import { useStore } from 'vuex'
 import { onMounted } from 'vue'
 import WebLayout from '@/Layouts/Web/WebLayout'
 import HtSection from '@/Shared/Layouts/HtSection'
@@ -403,18 +186,14 @@ export default {
 
   setup(props) {
     const form = useForm({
-      event_title: null,
-      event_description: null,
-      event_location: null,
-      event_address: null,
-      date: null,
       packages: [],
       subtotal: null,
       total: null,
-      full_name: null,
-      email: null,
-      mobile: null,
     })
+
+    const page = usePage()
+
+    const store = useStore()
 
     const states = [
       {
@@ -463,7 +242,7 @@ export default {
         options: [
           'الجهراء - الجهراء',
           'الصبية - الجهراء',
-          'الصليبة - الجهراء',
+          'الصبية - الجهراء',
           'الصليبة الصناعية - الجهراء',
           'الصليبة الزراعية - الجهراء',
           'العبداي - الجهراء',
@@ -675,7 +454,7 @@ export default {
     const storeBooking = () => {
       setCookie('booking', form)
 
-      form.post(route('web.storeBooking', { collection: props.collection }), {
+      form.post(route('web.storeBooking'), {
         preserverState: true,
         onStart: () => console.log('Do Something on start'),
         onFinish: () => console.log('Do Something on finish'),
@@ -688,12 +467,9 @@ export default {
         },
         onSuccess: () => {
           if (
-            page.props.errors &&
-            Object.keys(page.props.errors).length === 0
+            page.props.value.errors &&
+            Object.keys(page.props.value.errors).length === 0
           ) {
-            form.reset()
-            media = []
-            form.mediaIds = []
             store.commit('openNotification', {
               title: 'create package',
               type: 'success',
@@ -719,6 +495,7 @@ export default {
       states,
       storeBooking,
       formatter,
+      page,
     }
   },
 }
