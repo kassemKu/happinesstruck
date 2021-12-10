@@ -11,6 +11,7 @@ use App\Models\Tool;
 use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Package extends Model
@@ -81,10 +82,16 @@ class Package extends Model
             ->withPivot(['quantity', 'price']);
     }
 
-    // morph relation
+    // morph relation to media
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'model');
+    }
+
+    // relation to coupons
+    public function coupon(): HasOne
+    {
+        return $this->hasOne(Coupon::class);
     }
 
     /**

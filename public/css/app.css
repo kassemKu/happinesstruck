@@ -3318,6 +3318,10 @@ html {
 	padding: 0;
 	width: 4rem;
 }
+.checkbox-sm {
+	height: 1.25rem;
+	width: 1.25rem;
+}
 .avatar.online:before {
 	content: "";
 	--tw-bg-opacity: 1;
@@ -3469,6 +3473,10 @@ html {
 .my-4 {
 	margin-top: 1rem;
 	margin-bottom: 1rem;
+}
+.my-6 {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 .my-8 {
 	margin-top: 2rem;
@@ -4971,6 +4979,10 @@ html {
 	--tw-text-opacity: 1;
 	color: rgba(217, 119, 6, var(--tw-text-opacity));
 }
+.text-accent {
+	--tw-text-opacity: 1;
+	color: hsla(var(--a) / var(--tw-text-opacity));
+}
 .text-blue-600 {
 	--tw-text-opacity: 1;
 	color: rgba(37, 99, 235, var(--tw-text-opacity));
@@ -5010,6 +5022,9 @@ html {
 }
 .underline {
 	text-decoration: underline;
+}
+.line-through {
+	text-decoration: line-through;
 }
 .antialiased {
 	-webkit-font-smoothing: antialiased;

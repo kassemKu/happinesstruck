@@ -69,7 +69,11 @@
         hover:bg-transparent hover:text-info
       "
     >
-      <img src="/images/ht_logo new.png" alt="happiness truck" class="object-cover w-36 h-36" />
+      <img
+        src="/images/imageedit_3_9616434340.png"
+        alt="happiness truck"
+        class="object-cover w-36 h-36"
+      />
     </Link>
     <div class="flex space-x-8">
       <div v-show="!$page.props.user" class="flex">

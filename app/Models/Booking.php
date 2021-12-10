@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Booking extends Model
@@ -54,7 +55,7 @@ class Booking extends Model
         return $this->hasMany(PackageItem::class);
     }
 
-    // morph relation
+    // morph relation to media
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'model');
@@ -72,5 +73,11 @@ class Booking extends Model
      */
     public function packages(): HasMany {
         return $this->hasMany(Package::class);
+    }
+
+    // relation to coupons
+    public function coupon(): HasOne
+    {
+        return $this->hasOne(Coupon::class);
     }
 }

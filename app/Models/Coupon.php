@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Coupon extends Model
 {
@@ -20,8 +22,6 @@ class Coupon extends Model
         'code',
         'type',
         'value',
-        'couponable_id',
-        'couponable_type',
         'expiry_date',
         'start_date',
         'created_at',
@@ -41,5 +41,10 @@ class Coupon extends Model
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class);
     }
 }

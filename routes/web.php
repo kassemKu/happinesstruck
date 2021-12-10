@@ -19,6 +19,8 @@ use App\Http\Controllers\Manage\ManageTrucksController;
 use App\Http\Controllers\Manage\ManagePackagesController;
 use App\Http\Controllers\Manage\ManageToolsController;
 use App\Http\Controllers\Manage\ManageCouponsController;
+use App\Http\Controllers\Web\CheckCouponsController;
+
 /**
  * TODO:: To write better comment
  */
@@ -47,6 +49,9 @@ Route::name('web.')
                 Route::get('/dashboard', [WebDashboardController::class, 'index'])->name('dashboard');
                 // booking checkout
                 Route::get('/booking/checkout', [BookingPageController::class, 'bookingCheckout'])->name('bookingCheckout');
+                // check valid coupon
+                Route::post('/check-coupon', CheckCouponsController::class)->name('checkCoupon');
+
         });
         // my-cart page
         Route::get('/my-cart', [MyCartPageController::class, 'index'])->name('mycart');

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCouponRequest;
+use App\Models\Booking;
 use App\Models\Coupon;
+use App\Models\Package;
+use App\Models\Product;
 use App\Models\Truck;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -45,11 +47,41 @@ class ManageCouponsController extends Controller
      */
     public function create(): Response
     {
-        $collections = Truck::latest()->get()->unique('id');
+        $collections = Truck::latest()->get()->unique('id')->transform(function ($collection) {
+            return [
+                'id' => $collection->id,
+                'ar_name' => $collection->ar_name,
+                'en_name' => $collection->en_name,
+                'media' => $collection->media()->get()->map->only('id', 'directory_name', 'full_url')
+            ];
+        });
 
-        return Inertia::render('Manage/Coupons/Create', ['collections' => $collections]);
+        $products = Product::latest()->get()->unique('id')->transform(function ($product) {
+            return [
+                'id' => $product->id,
+                'ar_name' => $product->ar_name,
+                'en_name' => $product->en_name,
+                'media' => $product->media()->get()->map->only('id', 'directory_name', 'full_url')
+            ];
+        });
+
+        return Inertia::render('Manage/Coupons/Create', ['collections' => $collections, 'products' => $products]);
     }
 
+    /**
+     * return model
+     */
+    private function getTargetModel(string $model, int $id) {
+        if($model === 'product') {
+            return Product::where('id', $id)->first();
+        }
+        // elseif($model === 'package') {
+        //     return Package::where('id', $id)->first();
+        // }
+        elseif($model === 'collection') {
+            return Truck::where('id', $id)->first();
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -65,6 +97,13 @@ class ManageCouponsController extends Controller
             'start_date' => $request->date['start_date'],
             'expiry_date' => $request->date['expiry_date'],
         ]);
+
+        if(!empty($request->relatedModels)) {
+            foreach($request->relatedModels as $model) {
+                $targetModel = $this->getTargetModel($request->related, $model);
+                $coupon->update([$request->related . '_id' => $targetModel->id]);
+            }
+        }
 
         return Redirect::route('manage.coupons.show', $coupon->id);
     }

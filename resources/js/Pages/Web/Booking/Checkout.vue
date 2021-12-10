@@ -191,7 +191,7 @@
                             "
                           >
                             <span class="block truncate text-left">{{
-                              form.event_neighborhood.en_name
+                              form.event_neighborhood
                             }}</span>
                             <span
                               class="
@@ -237,9 +237,9 @@
                               "
                             >
                               <ListboxOption
-                                v-for="(neighborhood, index) in neighborhoods"
+                                v-for="neighborhood in form.neighborhoods"
                                 v-slot="{ active, selected }"
-                                :key="index"
+                                :key="neighborhood.en_name"
                                 :value="neighborhood"
                                 as="template"
                               >
@@ -487,7 +487,7 @@
                 </div>
               </form>
             </div>
-            <div class="w-96">
+            <div class="w-96 sticky top-36 h-96">
               <div class="mb-4">
                 <h2 class="text-lg capitalize font-semibold text-info">
                   cart total
@@ -504,38 +504,128 @@
                   text-sm
                 "
               >
+                <template v-if="form.packages.length > 0">
+                  <div
+                    v-for="packg in form.packages"
+                    :key="packg.id"
+                    class="flex justify-between py-4 items-center"
+                  >
+                    <p>
+                      {{ packg.en_name }}
+                      <span class="text-warning">
+                        ({{ packg.price_per_event }} X
+                        {{ packg.quantity }})</span
+                      >
+                    </p>
+                    <p class="bg-gray-200 py-1 px-2 rounded">
+                      {{ packg.price_per_event * packg.quantity }}
+                      dk
+                    </p>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="text-center py-4">
+                    <p class="text-error">no items in this booking!</p>
+                  </div>
+                </template>
+                <div v-show="form.packages.length > 0">
+                  <div
+                    class="flex justify-between py-4 items-center"
+                    :class="{ 'line-through': !form.subtotal }"
+                  >
+                    <p>subtotal</p>
+                    <p class="bg-gray-200 py-1 px-2 rounded">
+                      {{ form.subtotal }} dk
+                    </p>
+                  </div>
+                  <div
+                    v-show="form.couponValue"
+                    class="flex justify-between py-4 items-center text-error"
+                  >
+                    <p>coupon value</p>
+                    <p class="bg-gray-200 py-1 px-2 rounded">
+                      - {{ form.couponValue }} dk
+                    </p>
+                  </div>
+                  <div class="form-control py-4">
+                    <label class="cursor-pointer label justify-start space-x-2">
+                      <input
+                        v-model="form.hasCoupon"
+                        type="checkbox"
+                        class="checkbox checkbox-sm checkbox-accent"
+                        :checked="form.hasCoupon"
+                      />
+                      <span
+                        class="
+                          label-text
+                          text-xm
+                          font-semibold
+                          capitalize
+                          text-accent
+                        "
+                        >has coupon?</span
+                      >
+                    </label>
+                  </div>
+                  <form
+                    v-show="form.hasCoupon"
+                    class="py-4"
+                    @submit.prevent="checkCoupon"
+                  >
+                    <div class="form-control">
+                      <label class="label">
+                        <span class="label-text">enter coupon code</span>
+                      </label>
+                      <div>
+                        <div class="flex space-x-2">
+                          <input
+                            v-model="couponForm.code"
+                            type="text"
+                            placeholder="enter coupon code"
+                            class="
+                              w-full
+                              input
+                              border border-base-300 border-2
+                              bg-transparent
+                              hover:border-neutral hover:border-opacity-50
+                              shadow-sm
+                            "
+                          />
+                          <button class="btn btn-info">apply</button>
+                        </div>
+                        <p
+                          v-show="checkCouponError.length > 0"
+                          class="text-error font-semibold text-xs capitalize"
+                        >
+                          {{ checkCouponError[0] }}
+                        </p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
                 <div
-                  v-for="packg in form.packages"
-                  :key="packg.id"
-                  class="flex justify-between py-4 items-center"
+                  class="flex justify-between py-4 items-center text-info"
+                  :class="{ 'line-through': !form.subtotal }"
                 >
-                  <p>
-                    {{ packg.en_name }}
-                    <span class="text-warning">
-                      ({{ packg.price_per_event }} X {{ packg.quantity }})</span
-                    >
-                  </p>
-                  <p class="bg-gray-200 py-1 px-2 rounded">
-                    {{
-                      getPackageTotalPrice(
-                        packg.price_per_event,
-                        packg.quantity,
-                      )
-                    }}
-                    dk
-                  </p>
-                </div>
-                <div class="flex justify-between py-4 items-center">
-                  <p>subtotal</p>
-                  <p class="bg-gray-200 py-1 px-2 rounded">
-                    {{ getBookingSubtotal() }} dk
-                  </p>
-                </div>
-                <div class="flex justify-between py-4 items-center">
                   <p>total</p>
-                  <p class="bg-gray-200 py-1 px-2 rounded">
-                    {{ getBookingSubtotal() }} dk
-                  </p>
+                  <div class="flex space-x-2">
+                    <p
+                      v-show="form.couponValue"
+                      class="
+                        bg-error bg-opacity-10
+                        py-1
+                        px-2
+                        rounded
+                        line-through
+                        text-error
+                      "
+                    >
+                      {{ form.subtotal }} dk
+                    </p>
+                    <p class="bg-gray-200 py-1 px-2 rounded">
+                      {{ getBookingTotal }} dk
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -550,6 +640,7 @@
 <script>
 import { onMounted, ref, watch, computed, reactive } from 'vue'
 import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
+import axios from 'axios'
 import WebLayout from '@/Layouts/Web/WebLayout'
 import HtSection from '@/Shared/Layouts/HtSection'
 import TextField from '@/Shared/UI/TextField'
@@ -581,9 +672,9 @@ export default {
   components,
 
   props: {
-    bookingItems: {
-      type: Array,
-      default: () => [],
+    collection: {
+      type: Object,
+      default: () => ({}),
     },
   },
 
@@ -604,29 +695,20 @@ export default {
       full_name: null,
       mobile: null,
       email: null,
+      neighborhoods: [],
+      hasCoupon: false,
+      couponValue: null,
     })
 
     const page = usePage()
 
-    // cart info
-    const getPackageTotalPrice = (price, quantity) => {
-      return price * quantity
-    }
-
-    const getBookingSubtotal = () => {
-      let subtotal = 0
-
-      form.packages.forEach((item) => {
-        subtotal += item.quantity * item.price_per_event
-      })
-
-      form.subtotal = subtotal
-
-      return subtotal
-    }
-
     const useUserInfo = ref(false)
     const policyAgree = ref(true)
+    const couponForm = reactive({
+      code: null,
+    })
+
+    const checkCouponError = reactive([])
 
     const user = computed(() => page.props.value.user)
 
@@ -907,15 +989,42 @@ export default {
       },
     ]
 
-    let neighborhoods = reactive(kuwaitCity)
-    form.event_neighborhood = neighborhoods[0]
-
     watch(
-      () => neighborhoods,
-      (newVal, prevVal) => {
-        if (form.event_city === 'aljahra') {
-          console.log('aljahraa')
-          neighborhoods = reactive(aljahraCity)
+      () => form.event_city,
+      (newVal) => {
+        switch (newVal.en_name) {
+          case 'aljahra':
+            console.log('yes')
+            form.neighborhoods = []
+            aljahraCity.forEach((n) => form.neighborhoods.push(n))
+            break
+          case 'alfarwaniyah':
+            form.neighborhoods = []
+            alfarwaniyahCity.forEach((n) => form.neighborhoods.push(n))
+            break
+          case 'hawli':
+            console.log('hawli')
+            break
+          case 'mubarak alkabir':
+            console.log('mubarak alkabir')
+            break
+          case 'alahmadi':
+            console.log('alahmadi')
+            break
+          case 'alsalimya':
+            console.log('alsalimya')
+            break
+          case 'dahyat sabah alsalem':
+            console.log('dahyat sabah alsalem')
+            break
+          case 'alfuhayhil':
+            console.log('alfuhayhil')
+            break
+          case 'salwa':
+            console.log('salwa')
+            break
+          default:
+            form.neighborhoods
         }
       },
       {
@@ -932,24 +1041,56 @@ export default {
 
     // event times
     const times = [
-      'from 9PM TO 12AM',
-      'from 12AM TO 3AM',
-      'from 3AM TO 6AM',
-      'from 6AM TO 9AM',
-      'from 9AM TO 12AM',
+      'from 9 PM TO 12 AM',
+      'from 12 AM TO 3 AM',
+      'from 3 AM TO 6 AM',
+      'from 6 AM TO 9 AM',
+      'from 9 AM TO 12 AM',
     ]
-    form.event_time = reactive(times[0])
+
+    form.event_time = ref(times[0])
+
+    // check coupon
+    const checkCoupon = () => {
+      axios
+        .post(route('web.checkCoupon'), couponForm)
+        .then((res) => {
+          form.couponValue = res.data.coupon.value
+          form.hasCoupon = false
+        })
+        .catch((error) => {
+          if (error.response) {
+            // TODO:: To display target error mesage
+            checkCouponError.push(error.response.data.errors.code[0])
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+          }
+        })
+    }
+
+    const getBookingTotal = computed(() => {
+      let total = form.subtotal
+
+      if (form.couponValue) {
+        total = form.subtotal - form.couponValue
+      }
+      return total
+    })
 
     onMounted(() => {
-      props.bookingItems.forEach((item) => {
-        form.packages.push(item)
-      })
+      if (props.collection && Object.keys(props.collection).length > 0) {
+        form.subtotal = props.collection.subtotal
+        props.collection.packages.forEach((item) => {
+          form.packages.push(item)
+        })
+      }
+      kuwaitCity.forEach((n) => form.neighborhoods.push(n))
+      form.event_neighborhood = form.neighborhoods[0]
     })
 
     return {
       form,
-      getBookingSubtotal,
-      getPackageTotalPrice,
       useUserInfo,
       page,
       policyAgree,
@@ -957,9 +1098,12 @@ export default {
       kuwaitCity,
       aljahraCity,
       alfarwaniyahCity,
-      neighborhoods,
       formatter,
       times,
+      getBookingTotal,
+      checkCoupon,
+      couponForm,
+      checkCouponError,
     }
   },
 }

@@ -54,14 +54,19 @@ class BookingPageController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->session()->put('packages', $request->packages);
+        $request->session()->put(['collection' => [
+                'packages' =>  $request->packages,
+                'subtotal' =>  $request->subtotal,
+                'total' =>  $request->total,
+            ]
+        ]);
         return Redirect::route('web.bookingCheckout');
     }
 
     public function bookingCheckout(Request $request): Response
     {
-        $bookingItems = $request->session()->get('packages');
+        $collection = $request->session()->get('collection');
 
-        return Inertia::render('Web/Booking/Checkout', ['bookingItems' => $bookingItems]);
+        return Inertia::render('Web/Booking/Checkout', ['collection' => $collection]);
     }
 }

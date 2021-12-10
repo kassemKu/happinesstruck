@@ -20,7 +20,8 @@ class ManageBannersController extends Controller
     public function index(): Response
     {
         $banners = Banner::latest()
-            ->paginate()->transform(function($banner) {
+            ->paginate()
+            ->transform(function($banner) {
                 return [
                     'id' => $banner->id,
                     'ar_title' => $banner->ar_title,

@@ -10,7 +10,9 @@ use Illuminate\Support\Str;
 use App\Models\Category;
 use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Product extends Model
 {
@@ -71,10 +73,16 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    // morph relation
+    // morph relation to media
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'model');
+    }
+
+    // relation to coupons
+    public function coupon(): HasOne
+    {
+        return $this->hasOne(Coupon::class, 'model');
     }
 
     // title english name as capitalize

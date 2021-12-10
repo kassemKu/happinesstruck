@@ -84,7 +84,7 @@
               <div class="form-control mb-4">
                 <label class="label">
                   <span class="label-text capitalize font-semibold"
-                    >event date</span
+                    >valid date</span
                   ></label
                 >
                 <litepie-datepicker
@@ -97,51 +97,155 @@
               <!-- coupon date -->
             </div>
             <div class="w-full flex h-full items-center space-x-8 my-4">
-              <div class="form-control">
-                <label class="cursor-pointer label justify-start space-x-2">
-                  <span class="label-text font-semibold capitalize">fixed</span>
-                  <input
-                    v-model="form.type"
-                    type="radio"
-                    name="type"
-                    class="radio"
-                    value="fixed"
-                  />
-                </label>
-              </div>
-
-              <div class="form-control">
+              <div
+                v-for="(model, index) in related"
+                :key="index"
+                class="form-control"
+              >
                 <label class="cursor-pointer label justify-start space-x-2">
                   <span class="label-text font-semibold capitalize"
-                    >coupon related to</span
+                    >{{ model }} coupon</span
                   >
                   <input
                     v-model="form.related"
                     type="radio"
-                    name="type"
+                    name="related"
                     class="radio"
-                    value="percent"
+                    :value="model"
                   />
                 </label>
               </div>
             </div>
-            <!-- type radio  -->
+            <!-- coupon related radio  -->
+            <div class="w-full flex justify-center my-6">
+              <button
+                type="button"
+                class="
+                  btn
+                  border-info
+                  text-info
+                  space-x-2
+                  bg-transparent
+                  border-2
+                  hover:text-base-100 hover:bg-info hover:border-info
+                "
+                @click.prevent="openRelatedModal"
+              >
+                <span>choice {{ form.related }}</span>
+              </button>
+            </div>
           </ManageForm>
         </div>
       </div>
     </div>
   </ManageLayout>
+  <Modal
+    max-width="screen-lg"
+    :title="`add models to this package`"
+    type="info"
+    action-title="save selected models and close"
+    screen-height
+    :disabled-action-btn="form.relatedModels.length === 0"
+    @modalAction="saveModelsToCoupon"
+  >
+    <div class="grid grid-cols-4 gap-8 text-sm">
+      <div v-for="model in models" :key="model.id">
+        <div class="flex flex-col space-y-2 font-medium">
+          <div class="flex justify-center">
+            <p
+              class="capitalize"
+              :class="{ 'text-info font-bold': selectedModel(model) }"
+            >
+              {{ model.en_name }}
+            </p>
+          </div>
+          <div
+            class="flex items-center relative rounded-box group"
+            :class="{ 'border-2 border-info': selectedModel(model) }"
+          >
+            <img
+              v-if="model.media.length > 0"
+              :src="model.media[0].full_url"
+              :alt="model.en_name"
+              class="w-full h-48 object-cover rounded-box"
+            />
+            <div
+              v-else
+              class="
+                w-full
+                h-48
+                object-cover
+                rounded-box
+                bg-info bg-opacity-10
+                flex
+                items-center
+                justify-center
+              "
+            >
+              <Product24 class="w-10 h-10 text-base-300" />
+            </div>
+            <div
+              class="
+                absolute
+                inset-0
+                bg-base-300 bg-opacity-80
+                items-center
+                justify-center
+                rounded-box
+                hidden
+                group-hover:flex
+              "
+            >
+              <button
+                v-if="!selectedModel(model)"
+                type="button"
+                class="
+                  btn btn-outline
+                  border-2 border-info
+                  btn-circle
+                  text-info
+                  hover:bg-info hover:border-info
+                "
+                @click.prevent="addModelToCoupon(model)"
+              >
+                <VueFeather type="plus" stroke-width="3" class="w-4 h-4" />
+              </button>
+              <button
+                v-else
+                type="button"
+                class="
+                  btn btn-outline
+                  border-2 border-error
+                  btn-circle
+                  text-error
+                  hover:bg-error hover:border-error
+                "
+                @click.prevent="removeModelFromCoupon(model)"
+              >
+                <VueFeather type="minus" stroke-width="3" class="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <pre>
+        {{ form.relatedModels }}
+      </pre>
+    </div>
+  </Modal>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted, watch, reactive } from 'vue'
+import { useStore } from 'vuex'
+import { useForm, usePage } from '@inertiajs/inertia-vue3'
 import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 import TextField from '@/Shared/UI/TextField'
 import ManageForm from '@/Shared/Layouts/MForm'
 import HTextarea from '@/Shared/UI/HTextarea'
 import FileUpload from '@/Shared/UI/FileUpload'
-import { useForm, usePage } from '@inertiajs/inertia-vue3'
+import Modal from '@/Shared/Layouts/Modal'
 // TODO:: to fix emit checkbox
 // import CheckBox from '@/Shared/UI/CheckBox'
 
@@ -152,6 +256,7 @@ const components = {
   ManageForm,
   HTextarea,
   FileUpload,
+  Modal,
   // CheckBox,
 }
 
@@ -162,12 +267,16 @@ export default {
 
   props: {
     collections: {
-      type: Object,
-      default: () => ({}),
+      type: Array,
+      default: () => [],
+    },
+    products: {
+      type: Array,
+      default: () => [],
     },
   },
 
-  setup() {
+  setup(props) {
     const form = useForm({
       code: null,
       type: 'fixed',
@@ -176,10 +285,15 @@ export default {
         start_date: null,
         expiry_date: null,
       },
-      related: 'product',
+      relatedModels: [],
+      related: null,
     })
 
+    let models = reactive([])
+
     const page = usePage()
+
+    const store = useStore()
 
     const formatter = ref({
       date: 'DD MMM YYYY',
@@ -203,7 +317,49 @@ export default {
       form.code = code
     }
 
-    const related = ref(['collection', 'product', 'cart'])
+    const related = ref(['product', 'collection' /* 'cart', 'booking' */])
+    form.related = related.value[0]
+
+    watch(
+      () => form.related,
+      (newVal) => {
+        switch (newVal) {
+          case 'collection':
+            models.splice(0, models.length)
+            form.relatedModels.splice(0, form.relatedModels.length)
+            props.collections.forEach((m) => models.push(m))
+            break
+          default:
+            models.splice(0, models.length)
+            form.relatedModels.splice(0, form.relatedModels.length)
+            props.products.forEach((m) => models.push(m))
+        }
+      },
+      {
+        immediate: true,
+        deep: false,
+      },
+    )
+
+    const openRelatedModal = () => {
+      store.commit('openModal')
+    }
+
+    const selectedModel = (model) => {
+      return form.relatedModels.includes(model.id)
+    }
+
+    const saveModelsToCoupon = () => {
+      store.commit('closeModal')
+    }
+
+    const addModelToCoupon = (model) => {
+      form.relatedModels.push(model.id)
+    }
+
+    const removeModelFromCoupon = (model) => {
+      form.relatedModels.splice(form.relatedModels.indexOf(model.id), 1)
+    }
 
     const createCoupon = () => {
       form.post(route('manage.coupons.store'), {
@@ -212,14 +368,32 @@ export default {
         onFinish: () => console.log('Do Something on finish'),
         onSuccess: () => {
           // TODO:: To solve error message
-          if (Object.keys(page.props.errors).length === 0) {
+          if (Object.keys(page.props.value.errors).length === 0) {
             form.reset()
           }
         },
       })
     }
 
-    return { form, formatter, createCoupon, generateCouponCode, page, related }
+    onMounted(() => {
+      models.splice(0, models.length)
+      props.products.forEach((m) => models.push(m))
+    })
+
+    return {
+      form,
+      formatter,
+      createCoupon,
+      generateCouponCode,
+      page,
+      related,
+      openRelatedModal,
+      selectedModel,
+      addModelToCoupon,
+      removeModelFromCoupon,
+      saveModelsToCoupon,
+      models,
+    }
   },
 
   remember: 'form',
