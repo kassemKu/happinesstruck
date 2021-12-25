@@ -185,6 +185,7 @@
                 :placeholder="$t('SKU')"
                 :label="$t('SKU')"
                 :server-error="$page.props.errors.SKU"
+                @topHelperAction="generateSKU"
               />
               <!-- product SKU -->
               <div>
@@ -288,7 +289,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-1/2" :class="uplaodFileMargin">
+                <div class="w-1/2" :class="uploadFileMargin">
                   <FileUpload @input="uploadProductMedia" />
                 </div>
               </div>
@@ -377,7 +378,7 @@ export default {
   remember: 'form',
 
   computed: {
-    uplaodFileMargin() {
+    uploadFileMargin() {
       let space
       if (this.$i18n.locale === 'en') {
         space = this.media.length > 0 ? 'ml-4' : 'ml-0'
@@ -443,6 +444,18 @@ export default {
             })
           })
       }
+    },
+    generateSKU() {
+      const char =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+      let SKU = '#'
+
+      for (let i = 0; i < 8; i++) {
+        SKU += char.charAt(Math.floor(Math.random() * char.length))
+      }
+
+      this.form.SKU = SKU
     },
     createProduct() {
       this.form.mediaIds = this.media.map((img) => img.id)

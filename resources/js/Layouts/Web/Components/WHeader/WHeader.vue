@@ -81,7 +81,6 @@
           :href="route('auth')"
           class="
             btn btn-ghost
-            hover:bg-transparent
             transform
             font-semibold
             hover:bg-transparent hover:text-info hover:scale-110
@@ -94,7 +93,6 @@
           class="
             btn btn-ghost
             font-semibold
-            hover:bg-transparent
             transform
             hover:bg-transparent hover:text-info hover:scale-110
           "
@@ -102,24 +100,27 @@
           register
         </Link>
       </div>
-      <div class="htw-header-user_area flex">
-        <Link
-          :href="route('web.mycart')"
-          class="
-            btn btn-ghost
-            font-semibold
-            hover:bg-transparent
-            transform
-            hover:bg-transparent hover:text-info hover:scale-110
-          "
-        >
-          <VueFeather type="shopping-bag" />
-        </Link>
+      <div class="htw-header-user_area flex items-center">
+        <div class="indicator">
+          <div class="indicator-item badge badge-info text-sm font-semibold">
+            {{ getCartItemsCount }}
+          </div>
+          <Link
+            :href="route('web.mycart')"
+            class="
+              btn btn-ghost
+              font-semibold
+              transform
+              hover:bg-transparent hover:text-info hover:scale-110
+            "
+          >
+            <VueFeather type="shopping-bag" />
+          </Link>
+        </div>
         <button
           class="
             btn btn-ghost
             font-semibold
-            hover:bg-transparent
             transform
             hover:bg-transparent hover:text-info hover:scale-110
           "
@@ -129,7 +130,6 @@
         <button
           class="
             btn btn-ghost
-            hover:bg-transparent
             transform
             hover:bg-transparent hover:text-info hover:scale-110
           "
@@ -137,17 +137,22 @@
           <VueFeather type="search" />
         </button>
         <LanguageSwitcher />
+        <template v-if="$page.props.user">
+          <UserAreaDropdown />
+        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link, usePage } from '@inertiajs/inertia-vue3'
 import LanguageSwitcher from '@/Shared/Partials/LanguageSwitcher'
+import UserAreaDropdown from '@/Shared/UI/UserAreaDropdown'
 
-const components = { Link, LanguageSwitcher }
+const components = { Link, LanguageSwitcher, UserAreaDropdown }
 
 export default {
   name: 'WebHeader',
@@ -156,12 +161,21 @@ export default {
 
   setup() {
     const store = useStore()
+    const page = usePage()
 
     const openWebSidebar = () => {
       store.commit('openWebSidebar')
     }
 
-    return { openWebSidebar }
+    const getCartItemsCount = computed(() => {
+      return store.state.cartCount
+    })
+
+    onMounted(() => {
+      store.commit('updateCartCount', page.props.value.cartCount)
+    })
+
+    return { openWebSidebar, getCartItemsCount }
   },
 }
 </script>

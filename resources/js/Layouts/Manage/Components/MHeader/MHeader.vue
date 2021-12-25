@@ -8,6 +8,7 @@
       flex
       fixed
       inset-0
+      z-10
       w-full
       items-center
       justify-between
@@ -114,7 +115,9 @@
           ></span>
         </button>
       </div>
-      <UserAreaDropdwon />
+      <div class="bg-base-100">
+        <UserAreaDropdown />
+      </div>
     </div>
   </div>
 </template>
@@ -122,9 +125,9 @@
 <script>
 import { useStore } from 'vuex'
 import LanguageSwitcher from '@/Shared/Partials/LanguageSwitcher'
-import UserAreaDropdwon from '@/Shared/UI/UserAreaDropdwon'
+import UserAreaDropdown from '@/Shared/UI/UserAreaDropdown'
 
-const components = { LanguageSwitcher, UserAreaDropdwon }
+const components = { LanguageSwitcher, UserAreaDropdown }
 
 export default {
   name: 'ManageHeader',

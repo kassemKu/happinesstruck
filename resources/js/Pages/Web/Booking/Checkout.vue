@@ -49,6 +49,7 @@
                       :label="'event title'"
                       :server-error="$page.props.errors.event_title"
                     />
+                    <!-- event title -->
                     <TextField
                       v-model="form.event_kids_count"
                       name="event_kids_count"
@@ -57,6 +58,7 @@
                       :label="'kids count in the event'"
                       :server-error="$page.props.errors.event_kids_count"
                     />
+                    <!-- kids count -->
                     <div class="form-control mb-4">
                       <label class="label">
                         <span class="label-text capitalize font-semibold"
@@ -174,10 +176,10 @@
                     <div class="form-control mb-4">
                       <label class="label">
                         <span class="label-text capitalize font-semibold"
-                          >event neighborhood</span
+                          >event aria</span
                         >
                       </label>
-                      <Listbox v-model="form.event_neighborhood">
+                      <Listbox v-model="form.event_aria">
                         <div class="relative mt-1">
                           <ListboxButton
                             class="
@@ -191,7 +193,7 @@
                             "
                           >
                             <span class="block truncate text-left">{{
-                              form.event_neighborhood
+                              form.event_aria
                             }}</span>
                             <span
                               class="
@@ -237,10 +239,10 @@
                               "
                             >
                               <ListboxOption
-                                v-for="neighborhood in form.neighborhoods"
+                                v-for="aria in form.arias"
                                 v-slot="{ active, selected }"
-                                :key="neighborhood.en_name"
-                                :value="neighborhood"
+                                :key="aria.en_name"
+                                :value="aria"
                                 as="template"
                               >
                                 <li
@@ -256,7 +258,7 @@
                                       selected ? 'font-medium' : 'font-normal',
                                       'block truncate',
                                     ]"
-                                    >{{ neighborhood.en_name }}</span
+                                    >{{ aria.en_name }}</span
                                   >
                                   <span
                                     v-if="selected"
@@ -284,7 +286,34 @@
                         </div>
                       </Listbox>
                     </div>
-                    <!-- event neighborhood select -->
+                    <!-- event aria select -->
+                    <TextField
+                      v-model="form.event_Avenue"
+                      name="event_Avenue"
+                      type="text"
+                      :placeholder="'event Avenue'"
+                      :label="'event Avenue'"
+                      :server-error="$page.props.errors.event_Avenue"
+                    />
+                    <!-- event Avenue -->
+                    <TextField
+                      v-model="form.event_street"
+                      name="event_street"
+                      type="text"
+                      :placeholder="'street'"
+                      :label="'street'"
+                      :server-error="$page.props.errors.event_street"
+                    />
+                    <!-- event street -->
+                    <TextField
+                      v-model="form.event_house_number"
+                      name="event_house_number"
+                      type="text"
+                      :placeholder="'house number'"
+                      :label="'house number'"
+                      :server-error="$page.props.errors.event_house_number"
+                    />
+                    <!-- event house number -->
                     <div class="form-control mb-4">
                       <label class="label">
                         <span class="label-text capitalize font-semibold"
@@ -684,7 +713,7 @@ export default {
       event_kids_count: null,
       event_description: null,
       event_city: null,
-      event_neighborhood: null,
+      event_aria: null,
       event_address: null,
       event_house_number: null,
       event_date: '',
@@ -695,7 +724,7 @@ export default {
       full_name: null,
       mobile: null,
       email: null,
-      neighborhoods: [],
+      arias: [],
       hasCoupon: false,
       couponValue: null,
     })
@@ -919,7 +948,7 @@ export default {
     ])
     form.event_city = cities[0]
 
-    // neighborhood
+    // aria
     const kuwaitCity = [
       {
         ar_name: 'الخالدية',
@@ -995,12 +1024,12 @@ export default {
         switch (newVal.en_name) {
           case 'aljahra':
             console.log('yes')
-            form.neighborhoods = []
-            aljahraCity.forEach((n) => form.neighborhoods.push(n))
+            form.arias = []
+            aljahraCity.forEach((n) => form.arias.push(n))
             break
           case 'alfarwaniyah':
-            form.neighborhoods = []
-            alfarwaniyahCity.forEach((n) => form.neighborhoods.push(n))
+            form.arias = []
+            alfarwaniyahCity.forEach((n) => form.arias.push(n))
             break
           case 'hawli':
             console.log('hawli')
@@ -1024,7 +1053,7 @@ export default {
             console.log('salwa')
             break
           default:
-            form.neighborhoods
+            form.arias
         }
       },
       {
@@ -1085,8 +1114,8 @@ export default {
           form.packages.push(item)
         })
       }
-      kuwaitCity.forEach((n) => form.neighborhoods.push(n))
-      form.event_neighborhood = form.neighborhoods[0]
+      kuwaitCity.forEach((n) => form.arias.push(n))
+      form.event_aria = form.arias[0]
     })
 
     return {

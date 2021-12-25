@@ -69,29 +69,29 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
-import ManageLayout from "@/Layouts/Manage/ManageLayout";
-import Breadcrumb from "@/Shared/Layouts/Breadcrumb";
+import { useStore } from 'vuex'
+import ManageLayout from '@/Layouts/Manage/ManageLayout'
+import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 
-const components = { ManageLayout, Breadcrumb };
+const components = { ManageLayout, Breadcrumb }
 
 export default {
-  name: "ManageDashboard",
+  name: 'ManageDashboard',
 
   components,
 
   setup() {
-    const store = useStore();
+    const store = useStore()
 
     const openNotification = () => {
-      store.commit("openNotification", {
-        title: "lorem ipsum",
-        type: "success",
-        content: "lorem ipsum",
-      });
-    };
+      store.commit('openNotification', {
+        title: 'lorem ipsum',
+        type: 'success',
+        content: 'lorem ipsum',
+      })
+    }
 
-    return { openNotification };
+    return { openNotification }
   },
-};
+}
 </script>

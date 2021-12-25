@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use \Illuminate\Support\Facades\Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -36,6 +38,8 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+        $user = Auth::user();
+
         return array_merge(parent::share($request), [
             'config' => collect(config('app'))->only('name', 'url', 'asset_url', 'locale'),
             'locale' => [
@@ -43,7 +47,12 @@ class HandleInertiaRequests extends Middleware
                 'app' => __('app'),
                 'inventory' => __('inventory'),
                 'invoicing' => __('invoicing'),
-            ]
+            ],
+            'isAdmins' =>  $user ? $user->hasRole(['superadministrator', 'administrator']) : null,
+            'cartCount' => Cart::count(),
+            'cart' => Cart::content(),
+            'cartSubtotal' => Cart::subtotal(),
+            'cartTotal' => Cart::total()
         ]);
     }
 }

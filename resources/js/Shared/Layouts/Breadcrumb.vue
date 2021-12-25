@@ -5,7 +5,6 @@
       ht-base-transition
       fixed
       inset-0
-      z-20
       top-16
       h-20
       bg-base-100
@@ -13,7 +12,6 @@
       items-center
       shadow
       transition
-      z-0
       px-8
       max-w-full
     "
@@ -54,7 +52,7 @@
             size="1.3rem"
             class="w-5 h-5 text-gray-400 group-hover:text-info"
           />
-          <span class="mt-1">{{ $t('dashboard') }}</span>
+          <span class="mt-1">{{ $t("dashboard") }}</span>
         </Link>
       </li>
       <li v-show="parentHref" class="mt-1">
@@ -122,13 +120,13 @@
 </template>
 
 <script>
-import { Link } from '@inertiajs/inertia-vue3'
-import { mapState } from 'vuex'
+import { Link } from "@inertiajs/inertia-vue3";
+import { mapState } from "vuex";
 
-const components = { Link }
+const components = { Link };
 
 export default {
-  name: 'ManageBreadcrumb',
+  name: "ManageBreadcrumb",
 
   components,
 
@@ -146,7 +144,7 @@ export default {
     actionIcon: {
       type: String,
       required: false,
-      default: 'plus',
+      default: "plus",
     },
     parentHref: {
       type: String,
@@ -161,7 +159,7 @@ export default {
     parentIcon: {
       type: String,
       required: false,
-      default: 'plus',
+      default: "plus",
     },
     activeName: {
       type: String,
@@ -171,7 +169,7 @@ export default {
     activeIcon: {
       type: String,
       required: false,
-      default: 'edit-2',
+      default: "edit-2",
     },
   },
 
@@ -182,30 +180,30 @@ export default {
     actionBtnClass() {
       if (
         this.actionName !== null &&
-        typeof this.actionName !== 'undefined' &&
+        typeof this.actionName !== "undefined" &&
         this.actionHref !== null
       ) {
         if (
-          this.actionName.includes('delete') ||
-          this.actionName.includes('حذف')
+          this.actionName.includes("delete") ||
+          this.actionName.includes("حذف")
         ) {
           return [
-            'bg-error',
-            'border-error',
-            'hover:border-error',
-            'hover:text-error',
-          ]
+            "bg-error",
+            "border-error",
+            "hover:border-error",
+            "hover:text-error",
+          ];
         }
       }
       return [
-        'bg-info',
-        'border-2',
-        'border-info',
-        'hover:bg-transparent',
-        'hover:border-info',
-        'hover:text-info',
-      ]
+        "bg-info",
+        "border-2",
+        "border-info",
+        "hover:bg-transparent",
+        "hover:border-info",
+        "hover:text-info",
+      ];
     },
   },
-}
+};
 </script>

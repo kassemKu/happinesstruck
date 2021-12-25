@@ -106,7 +106,7 @@ class ManageProductsController extends Controller
      * @param  obj  Product $product
      * @return \Inertia\Response
      */
-    public function show(Product $product)
+    public function show(Product $product): Response
     {
         return Inertia::render('Manage/Products/Show', ['product' => [
             'id' => $product->id,

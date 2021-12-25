@@ -1,7 +1,12 @@
 POST https://development.payzah.net/ws/paymentgateway/index
 content-type: application/json
+Authorization: "a475dc7de27ef5e71aee671bc6149af33349258c"
 
 {
-    "name": "sample",
-    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+    "trackid": 12,
+    "amount": 32,
+    "success_url": "http://happinesstruck.test/booking/checkout",
+    "error_url": "",
+    "language": "ARA",
+    "currency": 414
 }

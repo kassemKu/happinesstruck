@@ -43,6 +43,15 @@ Route::name('web.')
          Route::get('/{collection}/booking', [BookingPageController::class, 'bookingPage'])->name('booking');
          // store booking
          Route::post('/collection/booking', [BookingPageController::class, 'store'])->name('storeBooking');
+        // my-cart page
+        Route::get('/my-cart', [MyCartPageController::class, 'index'])->name('mycart');
+        // add to cart
+        Route::post('/add-to-cart/{product}', [MyCartPageController::class, 'addToCart'])->name('addToCart');
+        // update cart items @pram item id and quantity
+        Route::post('/cart-update-quantity/{rowId}', [MyCartPageController::class, 'updateCart'])->name('update.quantity');
+        // checkout page
+        Route::get('/checkout', [CheckoutPageController::class, 'index'])->name('checkout');
+
         // routes web needed auth
         Route::middleware(['auth:sanctum', 'verified'])
             ->group(function() {
@@ -51,12 +60,7 @@ Route::name('web.')
                 Route::get('/booking/checkout', [BookingPageController::class, 'bookingCheckout'])->name('bookingCheckout');
                 // check valid coupon
                 Route::post('/check-coupon', CheckCouponsController::class)->name('checkCoupon');
-
         });
-        // my-cart page
-        Route::get('/my-cart', [MyCartPageController::class, 'index'])->name('mycart');
-         // checkout page
-         Route::get('/checkout', [CheckoutPageController::class, 'index'])->name('checkout');
 });
 
 /**
