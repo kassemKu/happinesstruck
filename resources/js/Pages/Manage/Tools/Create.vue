@@ -152,7 +152,6 @@
                     />
                   </label>
                 </div>
-
                 <p
                   v-if="$page.props.errors.status"
                   class="text-xs text-red-500 font-bold"
@@ -406,8 +405,8 @@ export default {
         },
         onSuccess: () => {
           if (
-            page.props.errors &&
-            Object.keys(page.props.errors).length === 0
+            page.props.value.errors &&
+            Object.keys(page.props.value.errors).length === 0
           ) {
             form.reset()
             media = []

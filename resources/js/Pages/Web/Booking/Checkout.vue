@@ -72,7 +72,7 @@
                               relative
                               w-full
                               input
-                              border border-base-300 border-2
+                              border-base-300 border-2
                               bg-transparent
                               hover:border-neutral hover:border-opacity-50
                               shadow-sm
@@ -186,7 +186,7 @@
                               relative
                               w-full
                               input
-                              border border-base-300 border-2
+                              border-base-300 border-2
                               bg-transparent
                               hover:border-neutral hover:border-opacity-50
                               shadow-sm
@@ -340,7 +340,7 @@
                               relative
                               w-full
                               input
-                              border border-base-300 border-2
+                              border-base-300 border-2
                               bg-transparent
                               hover:border-neutral hover:border-opacity-50
                               shadow-sm
@@ -614,7 +614,7 @@
                             class="
                               w-full
                               input
-                              border border-base-300 border-2
+                              border-base-300 border-2
                               bg-transparent
                               hover:border-neutral hover:border-opacity-50
                               shadow-sm

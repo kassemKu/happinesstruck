@@ -103,21 +103,52 @@
                     </td>
                     <td class="py-6 text-center">
                       <div class="form-control">
-                        <input
-                          v-model="item.qty"
-                          :placeholder="item.qty"
-                          class="
-                            rounded-btn
-                            border-none
-                            text-center
-                            oldstyle-nums
-                            w-24
-                            placeholder-gray-800
-                            bg-slate-200
-                          "
-                          type="number"
-                          @change="updateQty(item.rowId, item.qty)"
-                        />
+                        <div class="flex items-center justify-center space-x-4">
+                          <button
+                            class="
+                              btn btn-outline btn-square btn-sm btn-info
+                              hover:text-base-100 hover:bg-info
+                            "
+                            @click="updateQty(item.rowId, item.qty, 'increase')"
+                          >
+                            <VueFeather
+                              type="plus"
+                              class="w-5 h-5"
+                              stroke-width="3"
+                              aria-hidden="true"
+                              aria-expanded="false"
+                            />
+                          </button>
+                          <input
+                            :placeholder="item.qty"
+                            class="
+                              rounded-btn
+                              border-none
+                              text-center
+                              oldstyle-nums
+                              w-12
+                              placeholder-gray-800
+                              bg-slate-200
+                              cursor-not-allowed
+                            "
+                            type="text"
+                          />
+                          <button
+                            class="
+                              btn btn-outline btn-square btn-sm btn-info
+                              hover:text-base-100 hover:bg-info
+                            "
+                            @click="updateQty(item.rowId, item.qty, 'decrease')"
+                          >
+                            <VueFeather
+                              type="minus"
+                              class="w-5 h-5"
+                              stroke-width="3"
+                              aria-hidden="true"
+                              aria-expanded="false"
+                            />
+                          </button>
+                        </div>
                       </div>
                     </td>
                     <td class="text-center py-6">
@@ -140,7 +171,7 @@
                           bg-error bg-opacity-30
                           hover:text-base-100 hover:bg-error
                         "
-                        @click.prevent="deleteItem(item.id)"
+                        @click.prevent="deleteItem(item.rowId)"
                       >
                         <VueFeather
                           type="trash-2"
@@ -165,7 +196,7 @@
             </Link>
             <Link
               v-if="cart.length > 0"
-              :href="route('web.store')"
+              :href="route('web.checkout')"
               class="btn btn-outline btn-success border-2"
             >
               Proceed to checkout
@@ -180,10 +211,10 @@
 
 <script>
 import { reactive, ref } from 'vue'
-import axios from 'axios'
 import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
 import WebLayout from '@/Layouts/Web/WebLayout'
 import HtSection from '@/Shared/Layouts/HtSection'
+import axios from 'axios'
 
 const components = {
   Head,
@@ -203,15 +234,33 @@ export default {
     const cartSubtotal = ref(page.props.value.cartSubtotal)
     const cartTotal = ref(page.props.value.cartTotal)
 
-    const updateQty = (rowId, qty) => {
-      if (qty === 0) return
+    const updateQty = (rowId, qty, type) => {
+      if (qty < 1) return
 
-      axios.post(route('web.update.quantity', rowId, { qty })).then(() => {
-        cart
+      if (type === 'increase') {
+        qty++
+      } else {
+        qty--
+      }
+
+      axios
+        .post(route('web.updateQuantity', { rowId, qty }), { type })
+        .then((res) => console.log(res))
+
+      //   Inertia.post(route('web.updateQuantity', { rowId, qty }), {
+      //     onSuccess: () => {
+      //       cart, cartSubtotal, cartTotal
+      //     },
+      //   })
+    }
+
+    const deleteItem = (rowId) => {
+      Inertia.post(route('web.deleteCartItem', { rowId }), {
+        onSuccess: () => {},
       })
     }
 
-    return { cart, cartSubtotal, cartTotal, updateQty }
+    return { cart, cartSubtotal, cartTotal, updateQty, deleteItem }
   },
 }
 </script>

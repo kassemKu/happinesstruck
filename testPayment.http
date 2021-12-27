@@ -1,7 +1,7 @@
 POST https://development.payzah.net/ws/paymentgateway/index
 content-type: application/json
 Authorization: "a475dc7de27ef5e71aee671bc6149af33349258c"
-
+# https://payzah.net/production770/pgaction?PaymentID=2021122718201739974
 {
     "trackid": 12,
     "amount": 32,

@@ -19,7 +19,7 @@
       ref="input"
       class="
         input
-        border border-base-300 border-2
+        border-2 border-base-300
         bg-transparent
         hover:border-neutral hover:border-opacity-50
         shadow-sm

@@ -20,6 +20,7 @@ use App\Http\Controllers\Manage\ManagePackagesController;
 use App\Http\Controllers\Manage\ManageToolsController;
 use App\Http\Controllers\Manage\ManageCouponsController;
 use App\Http\Controllers\Web\CheckCouponsController;
+use App\Http\Controllers\Web\OrdersController;
 
 /**
  * TODO:: To write better comment
@@ -37,29 +38,47 @@ Route::name('web.')
         Route::get('/our-packages', [PackagesPageController::class, 'index'])->name('packages');
         // packages page
         Route::get('/our-packages/{package}', [PackagesPageController::class, 'show'])->name('package');
-         // collection of packages page
-         Route::get('/our-packages-collections', [CollectionPageController::class, 'index'])->name('collections');
-         // booking collection of packages page
-         Route::get('/{collection}/booking', [BookingPageController::class, 'bookingPage'])->name('booking');
-         // store booking
-         Route::post('/collection/booking', [BookingPageController::class, 'store'])->name('storeBooking');
+        // collection of packages page
+        Route::get('/our-packages-collections', [CollectionPageController::class, 'index'])->name('collections');
+        // booking collection of packages page
+        Route::get('/{collection}/booking', [BookingPageController::class, 'bookingPage'])->name('booking');
+        // store booking
+        Route::post('/collection/booking', [BookingPageController::class, 'store'])->name('storeBooking');
         // my-cart page
         Route::get('/my-cart', [MyCartPageController::class, 'index'])->name('mycart');
         // add to cart
         Route::post('/add-to-cart/{product}', [MyCartPageController::class, 'addToCart'])->name('addToCart');
         // update cart items @pram item id and quantity
-        Route::post('/cart-update-quantity/{rowId}', [MyCartPageController::class, 'updateCart'])->name('update.quantity');
-        // checkout page
-        Route::get('/checkout', [CheckoutPageController::class, 'index'])->name('checkout');
+        Route::post('/cart-update-quantity/{rowId}/{qty}', [MyCartPageController::class, 'updateCart'])->name('updateQuantity');
+        // remove item from cart
+        Route::post('/cart-remove-item/{rowId}', [MyCartPageController::class, 'deleteCartItem'])->name('deleteCartItem');
 
-        // routes web needed auth
-        Route::middleware(['auth:sanctum', 'verified'])
+        // routes web need auth
+        Route::middleware(['auth:sanctum', 'verified', 'role:superadministrator|customer'])
             ->group(function() {
                 Route::get('/dashboard', [WebDashboardController::class, 'index'])->name('dashboard');
                 // booking checkout
                 Route::get('/booking/checkout', [BookingPageController::class, 'bookingCheckout'])->name('bookingCheckout');
                 // check valid coupon
                 Route::post('/check-coupon', CheckCouponsController::class)->name('checkCoupon');
+                // checkout page
+                Route::get('/checkout', [CheckoutPageController::class, 'index'])->name('checkout');
+                /**
+                 * urls begin with (/order) prefix
+                 * names starts with web.order
+                 * only Customer Auth user && Supper Admin can access this routes
+                 */
+                Route::name('orders.')
+                ->prefix('orders')
+                ->group(function() {
+                    // orders routes
+                    Route::post('/store', [OrdersController::class, 'store'])->name('store');
+                    Route::get('/index', [OrdersController::class, 'index'])->name('index');
+
+
+                    // Thawani Controller
+                    Route::get('/thawani/checkout/{order}', 'ThawaniPayController@checkout')->name('thawani.checkout');
+                });
         });
 });
 

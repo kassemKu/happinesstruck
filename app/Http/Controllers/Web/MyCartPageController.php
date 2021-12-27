@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
-use Ramsey\Uuid\Type\Integer;
 use Symfony\Component\HttpFoundation\Request;
 
 class MyCartPageController extends Controller
@@ -58,17 +59,27 @@ class MyCartPageController extends Controller
 
     /**
      * @param string $rowId
-     * @param string $type
-     * @return Illuminate\Http\JsonResponse;
+     * @param int $qty
+     * @return Illuminate\Http\RedirectResponse;
      */
-    public function updateCart(String $rowId, Request $request) {
+    public function updateCart(String $rowId, Int $qty, Request $request): JsonResponse {
+        // dd($rowId, $qty, $request->all());
         Cart::update($rowId, [
-            'qty' => $request->qty
+            'qty' => $qty
         ]);
 
         return response()->json([
-            "status" => 201,
-            'message' => 'cart updated successfully',
+            'status' => 201
         ]);
+    }
+
+    /**
+     * @param string $rowId
+     * @return Illuminate\Http\RedirectResponse;
+     */
+    public function deleteCartItem(String $rowId): RedirectResponse {
+        Cart::remove($rowId);
+
+        return Redirect::back()->with('success', 'item removed');
     }
 }
