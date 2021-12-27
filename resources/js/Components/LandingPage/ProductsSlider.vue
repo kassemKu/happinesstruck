@@ -40,7 +40,10 @@
             </button>
           </div>
         </div>
-        <div class="grid grid-cols-4 gap-x-12">
+        <div
+          v-if="featuredProducts.length > 0"
+          class="grid grid-cols-4 gap-x-12"
+        >
           <div
             v-for="(featuredProduct, index) in featuredProducts"
             :key="index"
@@ -138,7 +141,7 @@
             </button>
           </div>
         </div>
-        <div class="grid grid-cols-4 gap-x-12">
+        <div v-if="recentProducts.length > 0" class="grid grid-cols-4 gap-x-12">
           <div
             v-for="(recentProduct, index) in recentProducts"
             :key="index"
