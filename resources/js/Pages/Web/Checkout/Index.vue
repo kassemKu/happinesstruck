@@ -177,14 +177,14 @@
                   <div class="flex justify-between py-4">
                     <p>subtotal</p>
                     <p class="bg-gray-200 py-1 px-2 rounded">
-                      {{ $page.props.cartSubtotal }} DK
+                      {{ $page.props.cartSubtotal }} KD
                     </p>
                   </div>
                   <div>
                     <div class="flex justify-between py-4 items-center">
                       <p>total</p>
                       <p class="bg-gray-200 py-1 px-2 rounded">
-                        {{ $page.props.cartTotal }} DK
+                        {{ $page.props.cartTotal }} KD
                       </p>
                     </div>
                   </div>

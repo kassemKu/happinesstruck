@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Order;
+use Illuminate\Support\Facades\Redirect;
 
 class OrdersController extends Controller
 {
@@ -37,6 +38,20 @@ class OrdersController extends Controller
 
         $order->save();
 
-        dd($order);
+         //save order items
+         $cartItems = Cart::content();
+
+         foreach($cartItems as $item) {
+            $order->items()->attach($item->id, ['price'=> $item->price, 'quantity'=> $item->qty]);
+        }
+
+        return Redirect::route('web.orders.payzah.checkout',  $order->id);
+
+        $order->is_paid = true;
+
+        Cart::destroy();
+
+        // send email to user
+
     }
 }

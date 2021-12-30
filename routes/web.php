@@ -21,6 +21,7 @@ use App\Http\Controllers\Manage\ManageToolsController;
 use App\Http\Controllers\Manage\ManageCouponsController;
 use App\Http\Controllers\Web\CheckCouponsController;
 use App\Http\Controllers\Web\OrdersController;
+use App\Http\Controllers\Web\PayzahPayController;
 
 /**
  * TODO:: To write better comment
@@ -74,10 +75,8 @@ Route::name('web.')
                     // orders routes
                     Route::post('/store', [OrdersController::class, 'store'])->name('store');
                     Route::get('/index', [OrdersController::class, 'index'])->name('index');
-
-
-                    // Thawani Controller
-                    Route::get('/thawani/checkout/{order}', 'ThawaniPayController@checkout')->name('thawani.checkout');
+                    // payzah payment Controller
+                    Route::get('/payzah/checkout/{order}', [PayzahPayController::class, 'checkout'])->name('payzah.checkout');
                 });
         });
 });

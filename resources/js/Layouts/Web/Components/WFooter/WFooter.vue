@@ -23,7 +23,9 @@
         <div class="flex flex-col mt-8">
           <span class="footer-title mb-4">find us</span>
           <div class="flex space-x-4">
-            <button
+            <a
+              href="https://instagram.com/h_truckq8?utm_medium=copy_link"
+              target="_blank"
               class="
                 htw-footer__social
                 htw-instagram-btn
@@ -33,8 +35,10 @@
               "
             >
               <VueFeather type="instagram" stroke-width="2.5" />
-            </button>
-            <button
+            </a>
+            <a
+              href="https://www.facebook.com/profile.php?id=100035061467878"
+              target="_blank"
               class="
                 htw-footer__social
                 htw-facebook-btn
@@ -44,7 +48,7 @@
               "
             >
               <VueFeather type="facebook" stroke-width="2" />
-            </button>
+            </a>
             <button
               class="
                 htw-footer__social
@@ -56,7 +60,9 @@
             >
               <VueFeather type="twitter" stroke-width="2.5" />
             </button>
-            <button
+            <a
+              href="https://youtube.com/channel/UCADBH6tDEsnNMkDlbxltINg"
+              target="_blank"
               class="
                 htw-footer__social
                 htw-youtube-btn
@@ -66,7 +72,7 @@
               "
             >
               <VueFeather type="youtube" stroke-width="2.5" />
-            </button>
+            </a>
           </div>
         </div>
       </div>

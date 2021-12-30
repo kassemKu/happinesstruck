@@ -31,14 +31,14 @@
                   <div class="flex justify-between py-4">
                     <p>subtotal</p>
                     <p class="bg-gray-200 py-1 px-2 rounded">
-                      {{ cartSubtotal }} DK
+                      {{ cartSubtotal }} KD
                     </p>
                   </div>
                   <div>
                     <div class="flex justify-between py-4 items-center">
                       <p>total</p>
                       <p class="bg-gray-200 py-1 px-2 rounded">
-                        {{ cartTotal }} DK
+                        {{ cartTotal }} KD
                       </p>
                     </div>
                   </div>
@@ -154,13 +154,13 @@
                     <td class="text-center py-6">
                       <span
                         class="py-2 px-2 rounded-md bg-blue-100 text-blue-500"
-                        >{{ item.price }} DK</span
+                        >{{ item.price }} KD</span
                       >
                     </td>
                     <td class="text-center py-6">
                       <span
                         class="py-2 px-2 rounded-md bg-green-100 text-green-500"
-                        >{{ item.subtotal }} DK</span
+                        >{{ item.subtotal }} KD</span
                       >
                     </td>
                     <td class="text-center">
@@ -205,7 +205,6 @@
         </div>
       </HtSection>
     </div>
-    <pre>{{ cart }}</pre>
   </WebLayout>
 </template>
 
