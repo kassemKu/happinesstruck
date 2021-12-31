@@ -47,7 +47,7 @@ class Media extends Model
     }
 
     public function getFullUrlAttribute() {
-        return url('uploaded/' . $this->directory_name . '/' . now()->format('Y') . '/' . now()->format('m') . '/' . $this->filename );
+        return url('storage/uploaded/' . $this->directory_name . '/' . now()->format('Y') . '/' . now()->format('m') . '/' . $this->filename );
     }
 
     // morph relation

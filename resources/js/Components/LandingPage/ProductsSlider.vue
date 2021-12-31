@@ -18,7 +18,8 @@
             class="px-4"
           >
             <div class="carousel__item w-full h-96">
-              <div
+              <Link
+                :href="route('web.showProduct', featuredProduct.id)"
                 class="
                   htw-landing__products-slide
                   bg-indigo-100
@@ -71,7 +72,7 @@
                     </button>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </slide>
 
@@ -98,7 +99,8 @@
             class="px-4"
           >
             <div class="carousel__item w-full h-96">
-              <div
+              <Link
+                :href="route('web.showProduct', recentProduct.id)"
                 class="
                   htw-landing__products-slide
                   bg-indigo-100
@@ -151,7 +153,7 @@
                     </button>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </slide>
 

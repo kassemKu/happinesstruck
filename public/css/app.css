@@ -4217,10 +4217,6 @@ html {
   -moz-column-gap: 2rem;
        column-gap: 2rem;
 }
-.gap-x-12 {
-  -moz-column-gap: 3rem;
-       column-gap: 3rem;
-}
 .gap-x-20 {
   -moz-column-gap: 5rem;
        column-gap: 5rem;
@@ -4483,10 +4479,6 @@ html {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
-.border-warning {
-  --tw-border-opacity: 1;
-  border-color: hsla(var(--wa) / var(--tw-border-opacity));
-}
 .border-info {
   --tw-border-opacity: 1;
   border-color: hsla(var(--in) / var(--tw-border-opacity));
@@ -4586,9 +4578,6 @@ html {
   --tw-bg-opacity: 1;
   background-color: rgb(224 231 255 / var(--tw-bg-opacity));
 }
-.bg-transparent {
-  background-color: transparent;
-}
 .bg-base-100 {
   --tw-bg-opacity: 1;
   background-color: hsla(var(--b1) / var(--tw-bg-opacity));
@@ -4604,6 +4593,9 @@ html {
 .bg-error {
   --tw-bg-opacity: 1;
   background-color: hsla(var(--er) / var(--tw-bg-opacity));
+}
+.bg-transparent {
+  background-color: transparent;
 }
 .bg-black {
   --tw-bg-opacity: 1;
@@ -5109,10 +5101,6 @@ html {
   --tw-text-opacity: 1;
   color: hsla(var(--n) / var(--tw-text-opacity));
 }
-.text-warning {
-  --tw-text-opacity: 1;
-  color: hsla(var(--wa) / var(--tw-text-opacity));
-}
 .text-blue-700 {
   --tw-text-opacity: 1;
   color: rgb(29 78 216 / var(--tw-text-opacity));
@@ -5120,6 +5108,10 @@ html {
 .text-base-content {
   --tw-text-opacity: 1;
   color: hsla(var(--bc) / var(--tw-text-opacity));
+}
+.text-warning {
+  --tw-text-opacity: 1;
+  color: hsla(var(--wa) / var(--tw-text-opacity));
 }
 .text-base-100 {
   --tw-text-opacity: 1;
@@ -5589,10 +5581,6 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-border-opacity: 1;
   border-color: hsla(var(--in) / var(--tw-border-opacity));
 }
-.hover\:border-warning:hover {
-  --tw-border-opacity: 1;
-  border-color: hsla(var(--wa) / var(--tw-border-opacity));
-}
 .hover\:border-error:hover {
   --tw-border-opacity: 1;
   border-color: hsla(var(--er) / var(--tw-border-opacity));
@@ -5711,10 +5699,6 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-text-opacity: 1;
   color: hsla(var(--in) / var(--tw-text-opacity));
 }
-.hover\:text-warning:hover {
-  --tw-text-opacity: 1;
-  color: hsla(var(--wa) / var(--tw-text-opacity));
-}
 .hover\:text-error:hover {
   --tw-text-opacity: 1;
   color: hsla(var(--er) / var(--tw-text-opacity));
@@ -5722,6 +5706,10 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
 .hover\:text-green-500:hover {
   --tw-text-opacity: 1;
   color: rgb(34 197 94 / var(--tw-text-opacity));
+}
+.hover\:text-warning:hover {
+  --tw-text-opacity: 1;
+  color: hsla(var(--wa) / var(--tw-text-opacity));
 }
 .hover\:text-base-100:hover {
   --tw-text-opacity: 1;
