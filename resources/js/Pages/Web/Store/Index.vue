@@ -276,7 +276,6 @@
       <!-- <div class="w-72">side right</div> -->
     </div>
   </WebLayout>
-  <ProductPopup />
 </template>
 
 <script>
@@ -285,13 +284,11 @@ import { Head } from '@inertiajs/inertia-vue3'
 import axios from 'axios'
 import { useStore } from 'vuex'
 import WebLayout from '@/Layouts/Web/WebLayout'
-import ProductPopup from '@/Components/StorePage/ProductPopup'
 
 const components = {
   Head,
   WebLayout,
   Link,
-  ProductPopup,
 }
 
 export default {
