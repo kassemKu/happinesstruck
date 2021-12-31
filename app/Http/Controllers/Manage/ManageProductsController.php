@@ -112,6 +112,8 @@ class ManageProductsController extends Controller
             'id' => $product->id,
             'ar_name' => $product->ar_name,
             'en_name' => $product->en_name,
+            'price' => $product->price,
+            'sale_price' => $product->sale_price,
             'ar_short_description' => $product->ar_short_description,
             'en_short_description' => $product->en_short_description,
             'ar_description' => $product->ar_description,

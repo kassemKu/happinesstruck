@@ -52,7 +52,7 @@ export const store = new Vuex.Store({
       const htmlTag = document.querySelector('html')
       htmlTag.setAttribute('data-theme', theme)
     },
-    // toggle model
+    // toggle modal
     closeModal(state) {
       state.isModalOpen = false
     },
@@ -89,6 +89,7 @@ export const store = new Vuex.Store({
     updateCartCount(state, payload) {
       state.cartCount = payload
     },
+    // cart quantity
     addItemToCart(state) {
       ++state.cartCount
     },

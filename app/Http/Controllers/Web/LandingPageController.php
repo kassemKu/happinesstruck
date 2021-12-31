@@ -19,7 +19,7 @@ class LandingPageController extends Controller
                     'en_name' => $product->en_name,
                     'ar_short_description' => $product->ar_short_description,
                     'en_short_description' => $product->en_short_description,
-                    'price' => $product->price,
+                    'sale_price' => $product->sale_price,
                     'media' =>  $product->media()->get()->map->only('full_url'),
                 ];
             });
@@ -34,7 +34,7 @@ class LandingPageController extends Controller
                     'en_name' => $product->en_name,
                     'ar_short_description' => $product->ar_short_description,
                     'en_short_description' => $product->en_short_description,
-                    'price' => $product->price,
+                    'sale_price' => $product->sale_price,
                     'media' =>  $product->media()->get()->map->only('full_url'),
                 ];
             });

@@ -35,6 +35,8 @@ Route::name('web.')
         Route::get('/', [LandingPageController::class, 'index'])->name('landing');
         // store page
         Route::get('/our-store', [StorePageController::class, 'index'])->name('store');
+        // product page
+        Route::get('/our-store/{product}', [StorePageController::class, 'show'])->name('showProduct');
         // packages page
         Route::get('/our-packages', [PackagesPageController::class, 'index'])->name('packages');
         // packages page

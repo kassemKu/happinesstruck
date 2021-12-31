@@ -187,7 +187,7 @@
                     <span v-for="star in 5" :key="star">
                       <VueFeather
                         type="star"
-                        class="text-gray-400 w-5 h-5 fill-current text-warning"
+                        class="w-5 h-5 fill-current text-warning"
                       />
                     </span>
                   </div>
@@ -247,18 +247,25 @@ export default {
 
   components,
 
+  props: {
+    product: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+
   setup() {
     const store = useStore()
 
     const closeProductPopup = () => {
-      store.commit('closeModel')
+      store.commit('closeModal')
     }
     return { closeProductPopup }
   },
 
   computed: {
     ...mapState({
-      isOpen: (state) => state.isModelOpen,
+      isOpen: (state) => state.isModalOpen,
     }),
   },
 }

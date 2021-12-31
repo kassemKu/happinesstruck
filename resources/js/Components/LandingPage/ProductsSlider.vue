@@ -65,7 +65,7 @@
                   {{ featuredProduct.en_name }}
                 </p>
                 <p class="font-bold uppercase">
-                  {{ featuredProduct.price }} DK
+                  {{ featuredProduct.sale_price }} KD
                 </p>
               </div>
               <div class="flex space-x-2">
@@ -162,7 +162,9 @@
                 <p class="font-semibold text-sm capitalize leading-8">
                   {{ recentProduct.en_name }}
                 </p>
-                <p class="font-bold uppercase">{{ recentProduct.price }} DK</p>
+                <p class="font-bold uppercase">
+                  {{ recentProduct.sale_price }} KD
+                </p>
               </div>
               <div class="flex space-x-2">
                 <button
