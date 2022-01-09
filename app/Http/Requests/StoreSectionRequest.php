@@ -24,13 +24,16 @@ class StoreSectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ar_name' => ['required','min:2','max:191','string'],
+            'ar_name' => ['required','min:2','max:191','string', 'unique:sections,ar_name,', $this->id],
             'ar_description' => ['nullable','min:6','string'],
-            'en_name' => ['required','min:6','max:191','string'],
+            'en_name' => ['required','min:6','max:191','string', 'unique:sections,en_name,', $this->id],
             'en_description' => ['nullable','min:6','string'],
             'published' => ['nullable'],
-            'slug' => ['nullable'],
-            'image_url' => ['nullable'],
+            'ar_slug' => ['nullable', 'string', 'max:191'],
+            'en_slug' => ['nullable', 'string', 'max:191'],
+            'mediaIds.*' => [
+                'nullable', 'numeric'
+            ]
         ];
     }
 }

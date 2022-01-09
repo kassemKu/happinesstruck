@@ -114,8 +114,10 @@ class Product extends Model
     {
         $query->when($filters['search'] ?? null, function($query, $search) {
             $query->where(function ($query) use ($search) {
-                $query->where('name', 'like', '%'.$search.'%')
-                ->orWhere('description', 'like', '%'.$search.'%');
+                $query->where('en_name', 'like', '%'.$search.'%')
+                ->orWhere('en_description', 'like', '%'.$search.'%')
+                ->orWhere('ar_name', 'like', '%'.$search.'%')
+                ->orWhere('ar_description', 'like', '%'.$search.'%');
             });
         })
         ->when($filters['category'] ?? null, function($query, $category) {

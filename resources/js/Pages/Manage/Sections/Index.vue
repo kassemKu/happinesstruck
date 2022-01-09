@@ -12,7 +12,7 @@
     </template>
     <div class="htm-page htm-page__sections-index">
       <div class="htm-table-container flex flex-col space-y-8">
-        <div class="htm-searsh-filter">
+        <div class="htm-search-filter">
           <SearchFilter />
         </div>
         <div class="htm-table">
@@ -35,7 +35,7 @@
                 <tr v-if="sections.length == 0">
                   no data to view yet!
                 </tr>
-                <tr v-for="section in sections" v-else :key="section.id">
+                <tr v-for="section in sections.data" v-else :key="section.id">
                   <td>
                     <label>
                       <input type="checkbox" class="checkbox" />
@@ -175,7 +175,7 @@ export default {
   components,
 
   props: {
-    sections: { type: Array, default: () => [] },
+    sections: { type: Object, default: () => ({}) },
     filters: { type: Object, default: () => ({}) },
   },
 
@@ -220,8 +220,8 @@ export default {
         {
           preserveScroll: true,
           onSuccess: () => this.closeModal(),
-          onError: () => console.log('do smomthing on error'),
-          onFinish: () => console.log('do smomthing on finish'),
+          onError: () => console.log('do something on error'),
+          onFinish: () => console.log('do something on finish'),
         },
       )
     },

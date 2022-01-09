@@ -8,11 +8,11 @@
         <TransitionChild
           as="template"
           enter="transform transition ease-in-out duration-200"
-          enter-from="-translate-x-full"
+          enter-from="-translate-x-full rtl:translate-x-full"
           enter-to="translate-0"
           leave="transform transition ease-in-out duration-200"
           leave-from="translate-0"
-          leave-to="-translate-x-full"
+          leave-to="-translate-x-full rtl:translate-x-full"
         >
           <aside
             class="
@@ -57,17 +57,18 @@
                   "
                   @click="navigateTo('web.landing')"
                 >
-                  <span>happiness</span>
-                  <span>truck</span>
+                  {{ $t('site_title') }}
                 </button>
                 <button
                   class="
                     htw-sidebar-close-btn
                     absolute
-                    -right-12
+                    ltr:-right-12
+                    rtl:-left-12
                     bg-base-100
                     btn
-                    rounded-r-full
+                    ltr:rounded-r-full
+                    rtl:rounded-l-full
                     border-none
                     text-base-300
                     transform
@@ -91,350 +92,84 @@
               >
                 <div class="pb-56 pt-8">
                   <div class="flex flex-col space-y-6">
-                    <nav class="flex flex-col space-y-2 border-b">
-                      <h4 class="text-gray-400 uppercase px-6 font-semibold">
-                        main
-                      </h4>
-                      <ul class="flex flex-col">
-                        <li>
-                          <button
-                            type="button"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                            @click="navigateTo('web.landing')"
-                          >
-                            <Home32 class="w-6 h-6" />
-                            <span class="capitalize font-medium">home</span>
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            type="button"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                            @click="navigateTo('web.store')"
-                          >
-                            <Store32 class="w-6 h-6" />
-                            <span class="capitalize font-medium"
-                              >our store</span
-                            >
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            type="button"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                            @click="navigateTo('web.collections')"
-                          >
-                            <Delivery32 class="w-6 h-6" />
-                            <span class="capitalize font-medium"
-                              >our collection</span
-                            >
-                          </button>
-                        </li>
-                        <li>
-                          <button
-                            type="button"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                            @click="navigateTo('web.packages')"
-                          >
-                            <DeliveryParcel24 class="w-6 h-6" />
-                            <span class="capitalize font-medium"
-                              >our packages</span
-                            >
-                          </button>
-                        </li>
-                      </ul>
-                    </nav>
-                    <nav class="flex flex-col space-y-2 border-b">
-                      <h4 class="text-gray-400 uppercase px-6 font-semibold">
-                        other navigation
-                      </h4>
-                      <ul class="flex flex-col">
-                        <li>
-                          <Link
-                            href="/store"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                          >
-                            <Home32 class="w-6 h-6" />
-                            <span class="capitalize font-medium">home</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="/store"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                          >
-                            <Store32 class="w-6 h-6" />
-                            <span class="capitalize font-medium"
-                              >our store</span
-                            >
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="/store"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                          >
-                            <Delivery32 class="w-6 h-6" />
-                            <span class="capitalize font-medium"
-                              >our trucks</span
-                            >
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="/store"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                          >
-                            <DeliveryParcel24 class="w-6 h-6" />
-                            <span class="capitalize font-medium"
-                              >our packages</span
-                            >
-                          </Link>
-                        </li>
-                      </ul>
-                    </nav>
-                    <nav class="flex flex-col space-y-2">
-                      <h4 class="text-gray-400 uppercase px-6 font-semibold">
-                        last one
-                      </h4>
-                      <ul class="flex flex-col">
-                        <li>
-                          <Link
-                            href="/store"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                          >
-                            <Home32 class="w-6 h-6" />
-                            <span class="capitalize font-medium">home</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="/store"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                          >
-                            <Store32 class="w-6 h-6" />
-                            <span class="capitalize font-medium"
-                              >our store</span
-                            >
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="/store"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                          >
-                            <Delivery32 class="w-6 h-6" />
-                            <span class="capitalize font-medium"
-                              >our trucks</span
-                            >
-                          </Link>
-                        </li>
-                        <li>
-                          <button
-                            type="button"
-                            class="
-                              w-full
-                              h-14
-                              flex
-                              items-center
-                              space-x-2
-                              px-6
-                              border-l-4 border-transparent
-                              transition
-                              ease-in-out
-                              duration-200
-                              hover:bg-info
-                              hover:bg-opacity-10
-                              hover:border-info
-                              hover:border-opacity-60
-                              hover:text-info
-                            "
-                            @click="navigateTo('web.packages')"
-                          >
-                            <DeliveryParcel24 class="w-6 h-6" />
-                            <span class="capitalize font-medium"
-                              >our packages</span
-                            >
-                          </button>
-                        </li>
-                      </ul>
-                    </nav>
+                    <WNavGroup :title="$t('main')">
+                      <WNavLink
+                        :title="$t('home')"
+                        @navigate-to="navigateTo('web.landing')"
+                      >
+                        <Home32 class="w-6 h-6" />
+                      </WNavLink>
+                      <WNavLink
+                        :title="$t('our_store')"
+                        @navigate-to="navigateTo('web.store')"
+                      >
+                        <Store32 class="w-6 h-6" />
+                      </WNavLink>
+                      <WNavLink
+                        :title="$t('collections')"
+                        @navigate-to="navigateTo('web.collections')"
+                      >
+                        <Delivery32 class="w-6 h-6" />
+                      </WNavLink>
+                      <WNavLink
+                        :title="$t('our_packages')"
+                        @navigate-to="navigateTo('web.packages')"
+                      >
+                        <DeliveryParcel24 class="w-6 h-6" />
+                      </WNavLink>
+                    </WNavGroup>
+                    <WNavGroup :title="$t('main')">
+                      <WNavLink
+                        :title="$t('about')"
+                        @navigate-to="navigateTo('web.store')"
+                      >
+                        <Home32 class="w-6 h-6" />
+                      </WNavLink>
+                      <WNavLink
+                        :title="$t('services')"
+                        @navigate-to="navigateTo('web.store')"
+                      >
+                        <Store32 class="w-6 h-6" />
+                      </WNavLink>
+                      <WNavLink
+                        :title="$t('projects')"
+                        @navigate-to="navigateTo('web.landing')"
+                      >
+                        <Delivery32 class="w-6 h-6" />
+                      </WNavLink>
+                      <WNavLink
+                        :title="$t('vision')"
+                        @navigate-to="navigateTo('web.packages')"
+                      >
+                        <DeliveryParcel24 class="w-6 h-6" />
+                      </WNavLink>
+                    </WNavGroup>
+                    <WNavGroup :title="$t('main')">
+                      <WNavLink
+                        :title="$t('terms')"
+                        @navigate-to="navigateTo('web.store')"
+                      >
+                        <Home32 class="w-6 h-6" />
+                      </WNavLink>
+                      <WNavLink
+                        :title="$t('values')"
+                        @navigate-to="navigateTo('web.store')"
+                      >
+                        <Store32 class="w-6 h-6" />
+                      </WNavLink>
+                      <WNavLink
+                        :title="$t('our_message')"
+                        @navigate-to="navigateTo('web.landing')"
+                      >
+                        <Delivery32 class="w-6 h-6" />
+                      </WNavLink>
+                      <WNavLink
+                        :title="$t('why_us')"
+                        @navigate-to="navigateTo('web.packages')"
+                      >
+                        <DeliveryParcel24 class="w-6 h-6" />
+                      </WNavLink>
+                    </WNavGroup>
                   </div>
                 </div>
               </div>
@@ -495,18 +230,25 @@
 </template>
 
 <script>
-import { useStore } from 'vuex'
 import { Inertia } from '@inertiajs/inertia'
+import { useStore } from 'vuex'
 import { Link } from '@inertiajs/inertia-vue3'
 import { TransitionRoot, TransitionChild, Dialog } from '@headlessui/vue'
+import WNavGroup from './WNavGroup.vue'
+import WNavLink from './WNavLink.vue'
 
-const components = { Link, TransitionRoot, TransitionChild, Dialog }
+const components = {
+  Link,
+  TransitionRoot,
+  TransitionChild,
+  Dialog,
+  WNavGroup,
+  WNavLink,
+}
 
 export default {
   name: 'WebSidebar',
-
   components,
-
   props: {
     isWebSidebarOpen: {
       type: Boolean,
@@ -514,21 +256,17 @@ export default {
       default: true,
     },
   },
-
   setup() {
     const store = useStore()
-
     const closeWebSidebar = () => {
       store.commit('closeWebSidebar')
     }
-
     const navigateTo = (routeName) => {
       Inertia.get(route(routeName))
       setTimeout(() => {
         store.commit('closeWebSidebar')
       }, 300)
     }
-
     return { closeWebSidebar, navigateTo }
   },
 }

@@ -86,7 +86,7 @@
             hover:bg-transparent hover:text-info hover:scale-110
           "
         >
-          login
+          {{ $t('login') }}
         </Link>
         <Link
           :href="route('auth')"
@@ -97,7 +97,7 @@
             hover:bg-transparent hover:text-info hover:scale-110
           "
         >
-          register
+          {{ $t('register') }}
         </Link>
       </div>
       <div class="htw-header-user_area flex items-center">

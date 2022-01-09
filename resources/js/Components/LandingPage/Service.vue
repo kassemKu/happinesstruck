@@ -9,12 +9,11 @@
       </div>
       <div class="flex-grow h-full flex flex-col justify-between">
         <div class="max-w-lg text-neutral">
-          <h3 class="text-2xl uppercase font-bold leading-10">service title</h3>
+          <h3 class="text-2xl uppercase font-bold leading-10">
+            {{ $t('service_title') }}
+          </h3>
           <p class="text-neutral text-opacity-60 leading-relaxed">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit enim
-            quos, non dolor assumenda mollitia suscipit facilis cum
-            reprehenderit ad sint! A quae vitae ad recusandae reiciendis saepe
-            at beatae.
+            {{ $t('lorem') }}
           </p>
         </div>
         <div class="grid grid-cols-2 gap-y-12 capitalize font-semibold">
@@ -26,13 +25,13 @@
                   font-semibold
                   text-neutral text-opacity-40 text-xs
                 "
-                >more then</span
+                >{{ $t('more_than') }}</span
               >
               <span class="text-blue-700 font-bold uppercase text-2xl">
                 12</span
               >
             </p>
-            <p>ready packages</p>
+            <p>{{ $t('ready_packages') }}</p>
           </div>
           <div class="flex flex-col justify-center">
             <p>
@@ -42,13 +41,13 @@
                   font-semibold
                   text-neutral text-opacity-40 text-xs
                 "
-                >more then</span
+                >{{ $t('more_than') }}</span
               >
               <span class="text-blue-700 font-bold uppercase text-2xl">
                 12</span
               >
             </p>
-            <p>ready trucks</p>
+            <p>{{ $t('ready_trucks') }}</p>
           </div>
           <div class="flex flex-col justify-center">
             <p>
@@ -58,24 +57,25 @@
                   font-semibold
                   text-neutral text-opacity-40 text-xs
                 "
-                >more then</span
+                >{{ $t('more_than') }}</span
               >
               <span class="text-blue-700 font-bold uppercase text-2xl">
                 12</span
               >
             </p>
-            <p>ready packages</p>
+            <p>{{ $t('ready_packages') }}</p>
           </div>
           <div class="flex flex-col justify-center">
             <p>
-              <span class="font-semibold text-neutral text-opacity-40 text-xs"
-                >more then</span
+              <span
+                class="font-semibold text-neutral text-opacity-40 text-xs"
+                >{{ $t('more_then') }}</span
               >
               <span class="text-blue-700 font-bold uppercase text-2xl">
                 12</span
               >
             </p>
-            <p>ready trucks</p>
+            <p>{{ $t('ready_trucks') }}</p>
           </div>
         </div>
         <div class="w-full">
@@ -85,7 +85,7 @@
               btn btn-wide btn-info
               rounded-none rounded-tl-xl rounded-br-2xl
             "
-            >visit our services page</Link
+            >{{ $t('visit_our_services_page') }}</Link
           >
         </div>
       </div>
@@ -100,7 +100,7 @@ import { Link } from '@inertiajs/inertia-vue3'
 const components = { HtSection, Link }
 
 export default {
-  name: 'LandingSrevice',
+  name: 'LandingService',
 
   components,
 }

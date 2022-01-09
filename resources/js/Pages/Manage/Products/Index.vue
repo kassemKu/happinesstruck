@@ -12,8 +12,8 @@
     </template>
     <div class="htm-page htm-page__products-index">
       <div class="htm-table-container flex flex-col space-y-8">
-        <div class="htm-searsh-filter">
-          <SearchFilter />
+        <div class="htm-search-filter">
+          <SearchFilter v-model="form.search" @reset="clearSearch" />
         </div>
         <div class="htm-table">
           <div class="overflow-x-auto ht-scrollbar">
@@ -33,10 +33,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="products.length == 0">
+                <tr v-if="products.data.length == 0">
                   no data to view yet!
                 </tr>
-                <tr v-for="product in products" v-else :key="product.id">
+                <tr
+                  v-for="(product, index) in products.data"
+                  v-else
+                  :key="index"
+                >
                   <td>
                     <label>
                       <input type="checkbox" class="checkbox" />
@@ -123,10 +127,11 @@
             </table>
           </div>
         </div>
+        <Pagination :links="products.links" />
       </div>
     </div>
   </ManageLayout>
-  <Modal max-width="xl" @modalAction="deleteProduct" />
+  <Modal max-width="xl" type="success" @modalAction="deleteProduct" />
 </template>
 
 <script>
@@ -137,6 +142,10 @@ import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 import SearchFilter from '@/Shared/UI/SearchFilter'
 import Modal from '@/Shared/Layouts/Modal'
+import throttle from 'lodash/throttle'
+import pickBy from 'lodash/pickBy'
+import mapValues from 'lodash/mapValues'
+import Pagination from '@/Shared/UI/Pagination.vue'
 
 const components = {
   Link,
@@ -144,47 +153,89 @@ const components = {
   Breadcrumb,
   SearchFilter,
   Modal,
+  Pagination,
 }
 
 export default {
   name: 'ManageProductsIndex',
-
   components,
-
   props: {
     products: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => ({}),
+    },
+    filters: {
+      type: Object,
+      default: () => ({}),
     },
   },
-
   setup() {
-    let productTodeleteId = 0
+    let productToDeleteId = 0
     const store = useStore()
-
     const isModalOpen = store.state.isModalOpen
-
     const openConfirmDelete = (productId) => {
       store.commit('openModal')
-      productTodeleteId = productId
+      productToDeleteId = productId
     }
-
     const deleteProduct = () => {
-      Inertia.delete(route('manage.products.destroy', productTodeleteId), {
+      Inertia.delete(route('manage.products.destroy', productToDeleteId), {
         onFinish: () => {
           store.commit('closeModal')
-
           store.commit('openNotification', {
-            title: "delete producut",
-            type: "success",
-            content: "product deleted successfully",
+            title: 'delete product',
+            type: 'success',
+            content: 'product deleted successfully',
           })
-
         },
       })
     }
-
-    return { openConfirmDelete, isModalOpen, deleteProduct }
+    return {
+      openConfirmDelete,
+      isModalOpen,
+      deleteProduct,
+    }
+  },
+  data() {
+    return {
+      form: {
+        search: this.filters.search,
+        filter: this.filters.filter,
+      },
+    }
+  },
+  // filter and search
+  watch: {
+    form: {
+      deep: true,
+      handler: throttle(function () {
+        Inertia.get(route('manage.products.index'), pickBy(this.form), {
+          preserveState: true,
+        })
+      }, 150),
+    },
+  },
+  methods: {
+    clearSearch() {
+      this.form = mapValues(this.form, () => null)
+    },
   },
 }
 </script>
+
+<style>
+.btn-group > .btn:first-child,
+.btn-group > .btn:last-child {
+  border-radius: var(--rounded-btn);
+}
+
+.btn-group > .btn:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-group > .btn:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-right: -1px;
+}
+</style>

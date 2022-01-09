@@ -76,13 +76,13 @@
 </template>
 
 <script>
-import { TransitionRoot, TransitionChild, Dialog } from "@headlessui/vue";
-import { useStore, mapState } from "vuex";
+import { TransitionRoot, TransitionChild, Dialog } from '@headlessui/vue'
+import { useStore, mapState } from 'vuex'
 
-const components = { TransitionRoot, TransitionChild, Dialog };
+const components = { TransitionRoot, TransitionChild, Dialog }
 
 export default {
-  name: "Modal",
+  name: 'Modal',
 
   components,
 
@@ -105,7 +105,7 @@ export default {
     type: {
       type: String,
       required: false,
-      default: (val) => ["warning", "error", "info"].includes(val),
+      default: (val) => ['warning', 'error', 'info', 'success'].includes(val),
     },
     screenHeight: {
       type: Boolean,
@@ -114,29 +114,29 @@ export default {
     },
     maxWidth: {
       type: String,
-      default: "2xl",
+      default: '2xl',
       required: false,
       validator: (value) =>
-        ["sm", "md", "lg", "xl", "2xl", "screen-sm", "screen-lg"].includes(
-          value
+        ['sm', 'md', 'lg', 'xl', '2xl', 'screen-sm', 'screen-lg'].includes(
+          value,
         ),
     },
   },
 
-  emits: ["modalAction"],
+  emits: ['modalAction'],
 
   setup(_, { emit }) {
-    const store = useStore();
+    const store = useStore()
 
     const closeModal = () => {
-      store.commit("closeModal");
-    };
+      store.commit('closeModal')
+    }
 
     const modalAction = () => {
-      emit("modalAction");
-    };
+      emit('modalAction')
+    }
 
-    return { closeModal, modalAction };
+    return { closeModal, modalAction }
   },
 
   computed: {
@@ -146,15 +146,15 @@ export default {
 
     maxWidthClass() {
       return {
-        sm: "sm:max-w-sm",
-        md: "sm:max-w-md",
-        lg: "sm:max-w-lg",
-        xl: "sm:max-w-xl",
-        "2xl": "sm:max-w-2xl",
-        "screen-sm": "max-w-screen-sm",
-        "screen-lg": "max-w-screen-lg",
-      }[this.maxWidth];
+        sm: 'sm:max-w-sm',
+        md: 'sm:max-w-md',
+        lg: 'sm:max-w-lg',
+        xl: 'sm:max-w-xl',
+        '2xl': 'sm:max-w-2xl',
+        'screen-sm': 'max-w-screen-sm',
+        'screen-lg': 'max-w-screen-lg',
+      }[this.maxWidth]
     },
   },
-};
+}
 </script>

@@ -1,10 +1,10 @@
 <template>
   <div class="relative min-h-screen w-full grid grid-cols-2">
-    <div class="absolute top top-48 htw-site-title">
-      <div class="w-full flex flex-col items-center justify-center">
-        <h3 class="text-5xl uppercase font-bold">happiness truck</h3>
+    <div class="absolute top-48 htw-site-title">
+      <div class="w-full flex flex-col items-center justify-center rtl:ml-48">
+        <h3 class="text-5xl uppercase font-bold">{{ $t('site_title') }}</h3>
         <p class="text-lg font-semibold text-neutral text-opacity-60 uppercase">
-          we make the happiness
+          {{ $t('site_subtitle') }}
         </p>
       </div>
     </div>
@@ -13,15 +13,12 @@
         <div class="flex flex-col space-y-6 mt-96">
           <div>
             <h3 class="text-4xl uppercase font-bold max-w-sm">
-              collections of our packages for your kids events
+              {{ $t('our_collection') }}
             </h3>
           </div>
           <div>
             <p class="text-neutral text-opacity-60">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-              quas deleniti odio obcaecati unde eligendi, ducimus rerum dolores
-              dolorum eum libero possimus facere repellat nostrum, similique ut
-              iste! Doloremque, delectus.
+              {{ $t('lorem') }}
             </p>
           </div>
           <div>
@@ -31,8 +28,10 @@
                 btn btn-block btn-info
                 max-w-xs
                 rounded-none rounded-tl-xl rounded-br-2xl
+                ltr:text-base
+                rtl:text-lg
               "
-              >visit our awesome collections</Link
+              >{{ $t('visit_page', { page: $t('collections') }) }}</Link
             >
           </div>
         </div>
@@ -44,15 +43,12 @@
         <div class="flex flex-col space-y-6 mt-96">
           <div>
             <h3 class="text-4xl uppercase font-bold max-w-sm">
-              Lots of lots of toy sets your child deserves
+              {{ $t('lots_toys') }}
             </h3>
           </div>
           <div>
             <p class="text-neutral text-opacity-60">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-              quas deleniti odio obcaecati unde eligendi, ducimus rerum dolores
-              dolorum eum libero possimus facere repellat nostrum, similique ut
-              iste! Doloremque, delectus.
+              {{ $t('lorem') }}
             </p>
           </div>
           <div>
@@ -62,8 +58,10 @@
                 btn btn-block btn-warning
                 max-w-xs
                 rounded-none rounded-tl-xl rounded-br-2xl
+                ltr:text-base
+                rtl:text-lg
               "
-              >visit our store</Link
+              >{{ $t('visit_our_store_page') }}</Link
             >
           </div>
         </div>
@@ -74,19 +72,19 @@
 </template>
 
 <script>
-import HtSection from "@/Shared/Layouts/HtSection";
-import { Link } from "@inertiajs/inertia-vue3";
+import HtSection from '@/Shared/Layouts/HtSection'
+import { Link } from '@inertiajs/inertia-vue3'
 
 const components = {
   HtSection,
   Link,
-};
+}
 
 export default {
-  name: "LandingMainSections",
+  name: 'LandingMainSections',
 
   components,
-};
+}
 </script>
 
 <style scoped>

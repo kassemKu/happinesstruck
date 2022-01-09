@@ -13,7 +13,6 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Str;
 use App\Models\Tool;
-use App\Models\Package;
 
 class ManageToolsController extends Controller
 {

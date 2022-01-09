@@ -13,26 +13,27 @@
       "
     >
       <div class="max-w-md">
-        <h3 class="text-2xl uppercase font-bold leading-10">rcent blog</h3>
+        <h3 class="text-2xl uppercase font-bold leading-10">
+          {{ $t('recent_blog') }}
+        </h3>
         <p class="text-neutral text-opacity-60 leading-relaxed font-medium">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit enim
-          quos.
+          {{ $t('lorem_11') }}
         </p>
       </div>
       <div class="grid grid-cols-3 gap-x-20">
         <div
           v-for="(post, index) in blog"
           :key="index"
-          class="htw-landing__rcent-blog bg-white shadow-lg overflow-hidden"
+          class="htw-landing__recent-blog bg-white shadow-lg overflow-hidden"
         >
           <img
             class="h-64 w-full object-cover overflow-hidden"
             :src="post.src"
           />
 
-          <div class="p-4">
+          <div class="ltr:p-4 rtl:px-6 rtl:py-4">
             <p class="font-semibold text-lg capitalize leading-8">
-              {{ post.title }}
+              {{ $t('post_title') }}
             </p>
             <p
               class="
@@ -42,7 +43,7 @@
                 max-w-sm
               "
             >
-              {{ post.contentPrefic }}
+              {{ $t('lorem_11') }}
             </p>
           </div>
         </div>
@@ -90,8 +91,8 @@ export default {
 </script>
 
 <style scoped>
-.htw-landing__rcent-blog,
-.htw-landing__rcent-blog > img {
+.htw-landing__recent-blog,
+.htw-landing__recent-blog > img {
   border-top-left-radius: 2.5rem;
   border-bottom-right-radius: 4rem;
 }

@@ -3,7 +3,9 @@
     <div class="capitalize flex flex-col space-y-12 bg-indigo-50 px-24 py-12">
       <div v-if="featuredProducts.length > 0" class="flex flex-col space-y-8">
         <div class="w-full flex items-center space-x-4">
-          <h3 class="text-2xl font-semibold">featured products</h3>
+          <h3 class="text-2xl font-semibold">
+            {{ $t('featured_products') }}
+          </h3>
           <div class="flex-grow bg-gray-600 h-px bg-opacity-10"></div>
         </div>
         <carousel
@@ -35,10 +37,15 @@
                 <div class="p-4 flex justify-between items-center">
                   <div>
                     <p class="font-semibold text-sm capitalize leading-8">
-                      {{ featuredProduct.en_name }}
+                      {{
+                        $i18n.locale === 'ar'
+                          ? featuredProduct.ar_name
+                          : featuredProduct.en_name
+                      }}
                     </p>
                     <p class="font-bold uppercase">
-                      {{ featuredProduct.sale_price }} KD
+                      {{ featuredProduct.sale_price }}
+                      {{ $i18n.locale === 'ar' ? 'دك' : 'dk' }}
                     </p>
                   </div>
                   <div class="flex space-x-2">
@@ -84,7 +91,9 @@
       </div>
       <div v-if="recentProducts.length > 0" class="flex flex-col space-y-8">
         <div class="w-full flex items-center space-x-4">
-          <h3 class="text-2xl font-semibold">featured products</h3>
+          <h3 class="text-2xl font-semibold">
+            {{ $t('products_type', { type: $t('latest') }) }}
+          </h3>
           <div class="flex-grow bg-gray-600 h-px bg-opacity-10"></div>
         </div>
         <carousel
@@ -116,10 +125,15 @@
                 <div class="p-4 flex justify-between items-center">
                   <div>
                     <p class="font-semibold text-sm capitalize leading-8">
-                      {{ recentProduct.en_name }}
+                      {{
+                        $i18n.locale === 'ar'
+                          ? recentProduct.ar_name
+                          : recentProduct.en_name
+                      }}
                     </p>
                     <p class="font-bold uppercase">
-                      {{ recentProduct.sale_price }} KD
+                      {{ recentProduct.sale_price }}
+                      {{ $i18n.locale === 'ar' ? 'دك' : 'dk' }}
                     </p>
                   </div>
                   <div class="flex space-x-2">
@@ -174,7 +188,7 @@
               rounded-none rounded-tl-xl rounded-br-2xl
               text-base
             "
-            >visit our store page</Link
+            >{{ $t('visit_our_store_page') }}</Link
           >
           <div class="w-1/3 bg-gray-600 h-px bg-opacity-10"></div>
         </div>

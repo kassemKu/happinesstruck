@@ -294,7 +294,7 @@
                 </div>
               </div>
             </div>
-            <!-- Media uplaoder -->
+            <!-- Media uploader -->
             <div class="mb-6">
               <div class="form-control">
                 <label class="cursor-pointer label justify-start space-x-2">

@@ -27,18 +27,18 @@
         :class="isSidebarOpen ? ' w-72' : 'w-28'"
       >
         <CircleFilled32 />
-        <span v-if="isSidebarOpen">{{ $t('site_name') }}</span>
+        <span v-if="isSidebarOpen">{{ $t('site_title') }}</span>
       </Link>
     </div>
-    <MsideNav />
+    <MSideNav />
   </div>
 </template>
 
 <script>
 import { Link } from '@inertiajs/inertia-vue3'
-import MsideNav from './MsideNav'
+import MSideNav from './MSideNav'
 
-const components = { Link, MsideNav }
+const components = { Link, MSideNav }
 
 export default {
   name: 'ManageSidebar',

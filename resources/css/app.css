@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 [data-theme='light'] {
-  --p: 259 94.4% 51.2%;
+  --p: /* 259 94.4% 51.2% */ 222 13.4% 19%;
   --pf: 259 94.3% 41%;
   --pc: 0 0% 100%;
   --s: 314 100% 47.1%;
@@ -163,6 +163,7 @@ body[dir='rtl'] {
   @apply font-body-arabic;
 }
 
+body[dir='rtl'] .space-x-24 > :not([hidden]) ~ :not([hidden]),
 body[dir='rtl'] .space-x-16 > :not([hidden]) ~ :not([hidden]),
 body[dir='rtl'] .space-x-8 > :not([hidden]) ~ :not([hidden]),
 body[dir='rtl'] .space-x-6 > :not([hidden]) ~ :not([hidden]),

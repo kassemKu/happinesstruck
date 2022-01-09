@@ -122,7 +122,7 @@
       </div>
     </div>
   </ManageLayout>
-  <Modal max-width="xl" @modalAction="deleteTruck" />
+  <Modal max-width="xl" type="success" @modalAction="deleteTruck" />
 </template>
 
 <script>

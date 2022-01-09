@@ -3,10 +3,11 @@
     <div class="landing-page-section section__gallery text-neutral px-48 py-12">
       <div class="w-full flex justify-center">
         <div class="max-w-md text-center">
-          <h3 class="text-2xl uppercase font-bold leading-10">our gallery</h3>
+          <h3 class="text-2xl uppercase font-bold leading-10">
+            {{ $t('our_gallery') }}
+          </h3>
           <p class="text-neutral text-opacity-60 leading-relaxed font-medium">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit enim
-            quos.
+            {{ $t('lorem_11') }}
           </p>
         </div>
       </div>
@@ -71,7 +72,7 @@
               rounded-none rounded-tl-xl rounded-br-2xl
               text-base
             "
-            >visiste our gallrey page</Link
+            >{{ $t('visit_our_gallery_page') }}</Link
           >
           <div class="w-1/3 bg-gray-600 h-px bg-opacity-10"></div>
         </div>

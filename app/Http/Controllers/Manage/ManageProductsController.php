@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Media;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -21,19 +22,22 @@ class ManageProductsController extends Controller
      */
     public function index(): Response
     {
-        $products = Product::latest()
-            ->paginate()->transform(function($product) {
-                return [
-                    'id' => $product->id,
-                    'ar_name' => $product->ar_name,
-                    'en_name' => $product->en_name,
-                    'created_at' => $product->created_at->diffForHumans(),
-                    'en_slug' => $product->en_slug,
-                    'ar_slug' => $product->ar_slug
-                ];
-            });
+        $filters = Request::all('search', 'filters');
 
-        return Inertia::render('Manage/Products/Index', ['products' => $products]);
+        $products = Product::latest()
+            ->filter(Request::only('search', 'category'))
+            ->paginate(3)
+            ->withQueryString()
+            ->through(fn($product) => [
+                'id' => $product->id,
+                'ar_name' => $product->ar_name,
+                'en_name' => $product->en_name,
+                'created_at' => $product->created_at->diffForHumans(),
+                'en_slug' => $product->en_slug,
+                'ar_slug' => $product->ar_slug
+        ]);
+
+        return Inertia::render('Manage/Products/Index', ['products' => $products, 'filters' => $filters]);
     }
 
     /**

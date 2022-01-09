@@ -3,7 +3,7 @@
     <div
       class="
         landing-page-section
-        section__ourclients-says
+        section__our-clients-says
         text-neutral
         px-24
         py-12
@@ -11,11 +11,10 @@
     >
       <div class="max-w-md">
         <h3 class="text-2xl uppercase font-bold leading-10">
-          what our client says
+          {{ $t('what_clients_say') }}
         </h3>
         <p class="text-neutral text-opacity-60 leading-relaxed font-medium">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit enim
-          quos.
+          {{ $t('lorem_11') }}
         </p>
       </div>
       <div class="grid grid-cols-4 gap-x-8 mt-12">
@@ -29,9 +28,11 @@
             alt="username"
             class="object-cover h-36 w-36 rounded-l-2xl htw-our-clients__img"
           />
-          <p class="font-semibold capitalize text-base">{{ client.name }}</p>
+          <p class="font-semibold capitalize text-base">
+            {{ $t('client_name_here') }}
+          </p>
           <p class="text-neutral text-opacity-50 font-medium text-sm">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit....
+            {{ $t('lorem_dot') }}
           </p>
         </div>
       </div>
@@ -54,19 +55,19 @@ export default {
     return {
       ourClients: [
         {
-          name: 'clien name here',
+          name: 'client name here',
           src: '/images/me.png',
         },
         {
-          name: 'clien name here',
+          name: 'client name here',
           src: '/images/me.png',
         },
         {
-          name: 'clien name here',
+          name: 'client name here',
           src: '/images/me.png',
         },
         {
-          name: 'clien name here',
+          name: 'client name here',
           src: '/images/me.png',
         },
       ],

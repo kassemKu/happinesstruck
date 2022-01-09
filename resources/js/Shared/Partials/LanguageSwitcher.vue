@@ -38,10 +38,12 @@ export default {
     getLocale() {
       let locale = this.$i18n.locale
       if (locale === 'ar') {
-        document.querySelector('body').setAttribute('dir', 'rtl')
         document.querySelector('html').setAttribute('lang', 'ar')
+        document.querySelector('html').setAttribute('dir', 'rtl')
+        document.querySelector('body').setAttribute('dir', 'rtl')
       } else {
         document.querySelector('html').setAttribute('lang', 'en')
+        document.querySelector('html').setAttribute('dir', 'ltr')
         document.querySelector('body').setAttribute('dir', 'ltr')
       }
       return locale

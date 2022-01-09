@@ -4,7 +4,9 @@
       <div class="">
         <Link
           href="/"
+          type="button"
           class="
+            htw-header-logo
             inline-flex
             items-center
             justify-center
@@ -13,15 +15,16 @@
             font-black
             text-xl text-warning
             transform
+            cursor-pointer
             hover:bg-transparent hover:text-info
           "
+          @click="navigateTo('web.landing')"
         >
-          <span>happiness</span>
-          <span>truck</span>
+          {{ $t('site_title') }}
         </Link>
-        <p>we make the happiness <br />Providing reliable tech since 1992</p>
+        <p>{{ $t('site_subtitle') }}</p>
         <div class="flex flex-col mt-8">
-          <span class="footer-title mb-4">find us</span>
+          <span class="footer-title mb-4">{{ $t('find_us') }}</span>
           <div class="flex space-x-4">
             <a
               href="https://instagram.com/h_truckq8?utm_medium=copy_link"
@@ -77,26 +80,25 @@
         </div>
       </div>
       <div>
-        <span class="footer-title">Services</span>
-        <a class="link link-hover">Branding</a>
-        <a class="link link-hover">Design</a>
-        <a class="link link-hover">Marketing</a>
-        <a class="link link-hover">Advertisement</a>
+        <span class="footer-title">{{ $t('services') }}</span>
+        <a class="link link-hover">{{ $t('service_title') }}</a>
+        <a class="link link-hover">{{ $t('service_title') }}</a>
+        <a class="link link-hover">{{ $t('service_title') }}</a>
+        <a class="link link-hover">{{ $t('service_title') }}</a>
       </div>
       <div class="grid-rows-2 gap-y-12">
         <div class="flex flex-col">
-          <span class="footer-title mb-4">Company</span>
-          <a class="link link-hover">About us</a>
-          <a class="link link-hover">Contact</a>
-          <a class="link link-hover">Jobs</a>
-          <a class="link link-hover">Press kit</a>
+          <span class="footer-title mb-4">{{ $t('company') }}</span>
+          <a class="link link-hover">{{ $t('about') }}</a>
+          <a class="link link-hover">{{ $t('contact') }}</a>
+          <a class="link link-hover">{{ $t('jobs') }}</a>
         </div>
       </div>
       <div>
-        <span class="footer-title">Legal</span>
-        <a class="link link-hover">Terms of use</a>
-        <a class="link link-hover">Privacy policy</a>
-        <a class="link link-hover">Cookie policy</a>
+        <span class="footer-title">{{ $t('legal') }}</span>
+        <a class="link link-hover">{{ $t('terms') }}</a>
+        <a class="link link-hover">{{ $t('privacy') }}</a>
+        <a class="link link-hover">{{ $t('values') }}</a>
       </div>
     </footer>
   </div>
