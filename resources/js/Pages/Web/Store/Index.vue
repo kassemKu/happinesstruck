@@ -21,60 +21,43 @@
           class="h-16 flex items-center space-x-2 px-6 border-b text-gray-400"
         >
           <VueFeather type="filter" />
-          <h5 class="text-xl">filters</h5>
+          <h5 class="text-xl">{{ $t('filters') }}</h5>
         </div>
         <div class="border-b px-6 py-6 flex flex-col space-y-6">
-          <h5 class="font-medium text-gray-500">categories</h5>
+          <h5 class="font-medium text-gray-500">{{ $t('categories') }}</h5>
           <ul class="flex flex-col space-y-8">
             <li class="flex space-x-2">
               <input type="checkbox" class="checkbox" />
-              <span class="text-sm">category one</span>
+              <span class="text-sm">{{ $t('category_name') }}</span>
             </li>
             <li class="flex space-x-2">
               <input type="checkbox" class="checkbox" />
-              <span class="text-sm">category tow</span>
+              <span class="text-sm">{{ $t('category_name') }}</span>
             </li>
             <li class="flex space-x-2">
               <input type="checkbox" class="checkbox" />
-              <span class="text-sm">category three</span>
+              <span class="text-sm">{{ $t('category_name') }}</span>
             </li>
             <li class="flex space-x-2">
               <input type="checkbox" class="checkbox" />
-              <span class="text-sm">category fore</span>
+              <span class="text-sm">{{ $t('category_name') }}e</span>
             </li>
           </ul>
         </div>
         <div class="border-b px-6 py-6 flex flex-col space-y-6">
-          <h5 class="font-medium text-gray-500">price range</h5>
+          <h5 class="font-medium text-gray-500">{{ $t('price_range') }}</h5>
           <div class="flex items-center justify-between">
-            <span class="uppercase text-gray-400">max</span>
+            <span class="uppercase text-gray-400">{{ $t('max') }}</span>
             <input
               type="text"
-              placeholder="400DK"
+              :placeholder="$i18n.locale === 'en' ? '400DK' : '400دك'"
               class="input input-bordered w-24"
             />
           </div>
-          <button class="btn btn btn-info capitalize">set price</button>
+          <button class="btn btn btn-info capitalize">
+            {{ $t('set_price') }}
+          </button>
         </div>
-        <!-- <div class="px-4 py-6 flex flex-col space-y-6">
-          <h5 class="font-medium text-gray-500">rating</h5>
-          <div class="flex items-center justify-between">
-            <input
-              type="checkbox"
-              checked="checked"
-              class="checkbox checkbox-accent"
-            />
-            <div class="flex items-center space-x-2">
-              <span v-for="star in 5" :key="star">
-                <VueFeather
-                  type="star"
-                  class="w-5 h-5 fill-current text-warning"
-                />
-              </span>
-            </div>
-            <span class="lowercase text-sm">above</span>
-          </div>
-        </div> -->
       </div>
       <!-- filters -->
       <div class="flex-1 flex flex-col space-y-8 p-10">
@@ -118,7 +101,8 @@
               btn btn-ghost
               hover:bg-transparent
               absolute
-              right-2
+              ltr:right-2
+              rtl:left-2
               group-focus:text-yellow-300
             "
           >
@@ -133,26 +117,18 @@
 
         <div class="capitalize">
           <p class="text-gray-400">
-            result for search
-            <b class="text-base-content">"some searchable"</b>
+            {{ $t('result_for_search') }}
+            <b class="text-base-content rtl:mr-1 text-sm"
+              >"{{ $t('lorem_11') }}"</b
+            >
           </p>
         </div>
         <!-- result text -->
         <div class="flex items-center space-x-16 capitalize">
-          <p class="text-gray=500">sort</p>
+          <p class="text-gray=500">{{ $t('sort') }}</p>
           <div class="flex space-x-4">
-            <button class="btn btn-accent capitalize btn-sm">relevance</button>
-            <button
-              class="
-                btn btn-outline
-                border-base-300
-                text-gray-400
-                btn-sm
-                capitalize
-                hover:border-gray-500 hover:bg-transparent hover:text-gray-500
-              "
-            >
-              popular
+            <button class="btn btn-accent capitalize btn-sm">
+              {{ $t('relevance') }}
             </button>
             <button
               class="
@@ -164,7 +140,7 @@
                 hover:border-gray-500 hover:bg-transparent hover:text-gray-500
               "
             >
-              most new
+              {{ $t('popular') }}
             </button>
             <button
               class="
@@ -176,7 +152,19 @@
                 hover:border-gray-500 hover:bg-transparent hover:text-gray-500
               "
             >
-              price
+              {{ $t('most_new') }}
+            </button>
+            <button
+              class="
+                btn btn-outline
+                border-base-300
+                text-gray-400
+                btn-sm
+                capitalize
+                hover:border-gray-500 hover:bg-transparent hover:text-gray-500
+              "
+            >
+              {{ $t('price') }}
               <VueFeather
                 type="chevron-down"
                 stroke-width="3"
@@ -224,13 +212,15 @@
               <figure class="flex items-center justify-center">
                 <img
                   :src="product.media[0].full_url"
-                  class="object-scale-down w-full h-64"
+                  class="object-cover w-full h-64"
                 />
               </figure>
               <div class="flex flex-col space-y-6 mt-4">
                 <div class="flex flex-col">
                   <h2 class="card-title font-semibold capitalize">
-                    {{ product.en_name }}
+                    {{
+                      $i18n.locale === 'ar' ? product.ar_name : product.en_name
+                    }}
                   </h2>
                   <!-- <div class="flex items-center space-x-2">
                     <div class="flex items-center space-x-2">
@@ -246,10 +236,13 @@
                 </div>
                 <div class="flex items-center justify-between">
                   <div>
-                    <p class="text-gray-400">price</p>
-                    <span class="font-semibold"
-                      >{{ product.sale_price }} KD</span
-                    >
+                    <p class="text-gray-400">{{ $t('price') }}</p>
+                    <p class="font-semibold">
+                      <span>{{ product.sale_price }} </span>
+                      <span class="uppercase">
+                        {{ $i18n.locale === 'ar' ? 'دك' : 'kd' }}</span
+                      >
+                    </p>
                   </div>
                   <button
                     class="
@@ -264,7 +257,7 @@
                     "
                     @click.prevent="addToCart(product)"
                   >
-                    add to cart
+                    {{ $t('add_to_cart') }}
                   </button>
                 </div>
               </div>
