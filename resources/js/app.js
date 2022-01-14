@@ -12,6 +12,8 @@ import VueFeather from 'vue-feather'
 import LitepieDatepicker from 'litepie-datepicker'
 import Datepicker from 'vue3-date-time-picker'
 import 'vue3-date-time-picker/dist/main.css'
+// three
+import { TroisJSVuePlugin } from 'troisjs'
 
 VueCookieNext.config({
   expire: '1d',
@@ -41,6 +43,7 @@ createInertiaApp({
     HAPPINESSTRUCKAPP.component(VueFeather.name, VueFeather)
     HAPPINESSTRUCKAPP.component('Datepicker', Datepicker)
     HAPPINESSTRUCKAPP.use(LitepieDatepicker)
+    HAPPINESSTRUCKAPP.use(TroisJSVuePlugin)
     HAPPINESSTRUCKAPP.mount(el)
 
     return HAPPINESSTRUCKAPP

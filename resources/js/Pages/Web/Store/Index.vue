@@ -16,7 +16,16 @@
         rounded-box
       "
     >
-      <div class="w-64 flex flex-col border-r capitalize font-medium">
+      <div
+        class="
+          w-64
+          flex flex-col
+          ltr:border-r
+          rtl:border-l
+          capitalize
+          font-medium
+        "
+      >
         <div
           class="h-16 flex items-center space-x-2 px-6 border-b text-gray-400"
         >
@@ -74,13 +83,15 @@
           <VueFeather
             type="search"
             stroke-width="3"
-            class="absolute ml-3 pointer-events-none"
+            class="absolute ltr:ml-3 rtl:mr-3 pointer-events-none"
           />
           <input
-            placeholder="Search..."
+            :placeholder="$i18n.locale === 'en' ? 'Search...' : 'بحث ...'"
             class="
-              pr-4
-              pl-10
+              ltr:pr-4
+              rtl:pl-4
+              ltr:pl-10
+              rtl:pr-10
               py-2
               border-none
               rounded-xl
@@ -212,7 +223,7 @@
               <figure class="flex items-center justify-center">
                 <img
                   :src="product.media[0].full_url"
-                  class="object-cover w-full h-64"
+                  class="object-cover w-full h-64 rounded-box"
                 />
               </figure>
               <div class="flex flex-col space-y-6 mt-4">

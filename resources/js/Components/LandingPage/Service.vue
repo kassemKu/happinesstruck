@@ -69,7 +69,7 @@
             <p>
               <span
                 class="font-semibold text-neutral text-opacity-40 text-xs"
-                >{{ $t('more_then') }}</span
+                >{{ $t('more_than') }}</span
               >
               <span class="text-blue-700 font-bold uppercase text-2xl">
                 12</span

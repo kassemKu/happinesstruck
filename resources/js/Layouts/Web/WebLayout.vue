@@ -3,7 +3,7 @@
     <header class="htw-header-container">
       <WebHeader />
     </header>
-    <WebSidebar :is-web-sidebar-open="isWebSidebarOpen" />
+    <!-- <WebSidebar :is-web-sidebar-open="isWebSidebarOpen" /> -->
     <main class="htw-main-content">
       <slot />
     </main>
@@ -14,15 +14,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import WebHeader from "./Components/WHeader/WHeader";
-import WebFooter from "./Components/WFooter/WFooter";
-import WebSidebar from "./Components/WSidebar/WSidebar";
+import { mapState } from 'vuex'
+import WebHeader from './Components/WHeader/WHeader'
+import WebFooter from './Components/WFooter/WFooter'
+import WebSidebar from './Components/WSidebar/WSidebar'
 
-const components = { WebHeader, WebFooter, WebSidebar };
+const components = { WebHeader, WebFooter, WebSidebar }
 
 export default {
-  name: "WebLayout",
+  name: 'WebLayout',
 
   components,
 
@@ -31,5 +31,5 @@ export default {
       isWebSidebarOpen: (state) => state.isWebSidebarOpen,
     }),
   },
-};
+}
 </script>

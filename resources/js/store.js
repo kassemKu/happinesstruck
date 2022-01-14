@@ -1,11 +1,30 @@
 import Vuex from 'vuex'
 import Cookies from 'js-cookie'
+const convertCookieToBoolean = (str) => {
+  switch (str.toLowerCase().trim()) {
+    case 'true':
+    case 'yes':
+    case '1':
+      return true
+
+    case 'false':
+    case 'no':
+    case '0':
+    case null:
+      return false
+
+    default:
+      return Boolean(str)
+  }
+}
 
 export const store = new Vuex.Store({
   state: {
     applyTheme: Cookies.get('theme') || 'light',
-    isManageSidebarOpen: Cookies.get('isManageSidebarOpen') === 'true',
-    isWebSidebarOpen: Cookies.get('isWebSidebarOpen') === 'true' || false,
+    isManageSidebarOpen:
+      Cookies.get('isManageSidebarOpen') &&
+      convertCookieToBoolean(Cookies.get('isManageSidebarOpen')),
+    isWebMenuOpen: false,
     isModalOpen: false,
     activeAuthView: 'login',
     notification: {
@@ -20,7 +39,7 @@ export const store = new Vuex.Store({
   },
   getters: {
     isManageSidebarOpen: (state) => state.isManageSidebarOpen,
-    isWebSidebarOpen: (state) => state.isWebSidebarOpen,
+    isWebMenuOpen: (state) => state.isWebMenuOpen,
     applyTheme: (state) => state.applyTheme,
     isModalOpen: (state) => state.isModalOpen,
     isNotificationOpen: (state) => state.notification.isOpen,
@@ -36,15 +55,17 @@ export const store = new Vuex.Store({
       state.isManageSidebarOpen = !state.isManageSidebarOpen
       Cookies.set('isManageSidebarOpen', state.isManageSidebarOpen)
     },
-    // web sidebar
-    closeWebSidebar(state) {
-      state.isWebSidebarOpen = false
-      Cookies.set('isWebSidebarOpen', false)
+    // web Menu
+    toggleWebMenu(state) {
+      state.isWebMenuOpen = !state.isWebMenuOpen
     },
-    openWebSidebar(state) {
-      state.isWebSidebarOpen = true
-      Cookies.set('isWebSidebarOpen', true)
+    closeWebMenu(state) {
+      state.isWebMenuOpen = false
     },
+    // openWebSidebar(state) {
+    //   state.isWebMenuOpen = true
+    //   Cookies.set('isWebMenuOpen', true)
+    // },
     // theme switcher
     themeSwitcher(state, theme) {
       state.applyTheme = theme
