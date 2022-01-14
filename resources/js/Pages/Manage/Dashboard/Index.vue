@@ -5,7 +5,7 @@
     </template>
     <div>
       <button class="btn" @click="openNotification">open notification</button>
-      <pre>{{ $page }}</pre>
+      <pre>{{ $page.props }}</pre>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum eius
         ea earum voluptatibus quo soluta nesciunt voluptatum molestias labore.

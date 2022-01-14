@@ -2,44 +2,48 @@
   <div class="htm-sidebar-nav-container">
     <nav class="htm-sidebar-nav h-screen overflow-y-auto ht-scrollbar">
       <div class="mt-24">
-        <ManageSideNavGroup>
-          <ManageSideNavLink
-            :name="$t('dashboard')"
-            :href="route('manage.dashboard')"
-            :active="$page.url.includes('manage/dashboard')"
+        <template v-if="!$page.props.isDataEntry">
+          <ManageSideNavGroup>
+            <ManageSideNavLink
+              :name="$t('dashboard')"
+              :href="route('manage.dashboard')"
+              :active="$page.url.includes('manage/dashboard')"
+            >
+              <template #icon>
+                <Dashboard24 />
+              </template>
+            </ManageSideNavLink>
+          </ManageSideNavGroup>
+        </template>
+        <template v-if="!$page.props.isDataEntry">
+          <ManageSideNavGroup
+            :group-title="$t('model_management', { model: $t('users') })"
           >
-            <template #icon>
-              <Dashboard24 />
+            <template #groupIcon>
+              <Identification24 class="w-7 h-7" />
             </template>
-          </ManageSideNavLink>
-        </ManageSideNavGroup>
-        <ManageSideNavGroup
-          :group-title="$t('model_management', { model: $t('users') })"
-        >
-          <template #groupIcon>
-            <Identification24 class="w-7 h-7" />
-          </template>
-          <ManageSideNavLink :name="$t('permissions')" :href="'/'">
-            <template #icon>
-              <Password24 />
-            </template>
-          </ManageSideNavLink>
-          <ManageSideNavLink :name="$t('roles')" :href="'/'">
-            <template #icon>
-              <Function24 />
-            </template>
-          </ManageSideNavLink>
-          <ManageSideNavLink :name="$t('admins')" :href="'/'">
-            <template #icon>
-              <UserSpeaker24 />
-            </template>
-          </ManageSideNavLink>
-          <ManageSideNavLink :name="$t('customers')" :href="'/'">
-            <template #icon>
-              <UserCertification24 />
-            </template>
-          </ManageSideNavLink>
-        </ManageSideNavGroup>
+            <ManageSideNavLink :name="$t('permissions')" :href="'/'">
+              <template #icon>
+                <Password24 />
+              </template>
+            </ManageSideNavLink>
+            <ManageSideNavLink :name="$t('roles')" :href="'/'">
+              <template #icon>
+                <Function24 />
+              </template>
+            </ManageSideNavLink>
+            <ManageSideNavLink :name="$t('admins')" :href="'/'">
+              <template #icon>
+                <UserSpeaker24 />
+              </template>
+            </ManageSideNavLink>
+            <ManageSideNavLink :name="$t('customers')" :href="'/'">
+              <template #icon>
+                <UserCertification24 />
+              </template>
+            </ManageSideNavLink>
+          </ManageSideNavGroup>
+        </template>
         <ManageSideNavGroup
           :group-title="$t('model_management', { model: $t('products') })"
         >
@@ -149,38 +153,40 @@
             </template>
           </ManageSideNavLink>
         </ManageSideNavGroup>
-        <ManageSideNavGroup :group-title="$t('site_settings')">
-          <template #groupIcon>
-            <Settings24 class="w-7 h-7" />
-          </template>
-          <ManageSideNavLink
-            :name="$t('site_settings')"
-            :href="'/'"
-            :active="$page.url.includes('manage/site_settings')"
-          >
-            <template #icon>
-              <Tools24 />
+        <template v-if="!$page.props.isDataEntry">
+          <ManageSideNavGroup :group-title="$t('site_settings')">
+            <template #groupIcon>
+              <Settings24 class="w-7 h-7" />
             </template>
-          </ManageSideNavLink>
-          <ManageSideNavLink
-            :name="$t('banners')"
-            :href="route('manage.banners.index')"
-            :active="$page.url.includes('manage/banners')"
-          >
-            <template #icon>
-              <Bullhorn24 />
-            </template>
-          </ManageSideNavLink>
-          <ManageSideNavLink
-            :name="$t('pages')"
-            :href="'/'"
-            :active="$page.url.includes('manage/pages')"
-          >
-            <template #icon>
-              <Book24 />
-            </template>
-          </ManageSideNavLink>
-        </ManageSideNavGroup>
+            <ManageSideNavLink
+              :name="$t('site_settings')"
+              :href="'/'"
+              :active="$page.url.includes('manage/site_settings')"
+            >
+              <template #icon>
+                <Tools24 />
+              </template>
+            </ManageSideNavLink>
+            <ManageSideNavLink
+              :name="$t('banners')"
+              :href="route('manage.banners.index')"
+              :active="$page.url.includes('manage/banners')"
+            >
+              <template #icon>
+                <Bullhorn24 />
+              </template>
+            </ManageSideNavLink>
+            <ManageSideNavLink
+              :name="$t('pages')"
+              :href="'/'"
+              :active="$page.url.includes('manage/pages')"
+            >
+              <template #icon>
+                <Book24 />
+              </template>
+            </ManageSideNavLink>
+          </ManageSideNavGroup>
+        </template>
       </div>
     </nav>
   </div>

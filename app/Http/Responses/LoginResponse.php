@@ -7,7 +7,7 @@ class LoginResponse implements ContractsLoginResponse
     {
       $user = auth()->user();
         // here i am checking if the currently logout in users has a role customer which make him a regular user and then redirect to the users dashboard else the admin dashboard
-        if ($user->hasRole(['superadministrator', 'administrator'])) {
+        if ($user->hasRole(['superadministrator', 'administrator', 'entry'])) {
             return redirect()->intended(route('manage.dashboard'));
         }
         return redirect()->intended(route('web.dashboard'));

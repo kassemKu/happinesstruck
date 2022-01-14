@@ -57,7 +57,7 @@ Route::name('web.')
         Route::post('/cart-remove-item/{rowId}', [MyCartPageController::class, 'deleteCartItem'])->name('deleteCartItem');
 
         // routes web need auth
-        Route::middleware(['auth:sanctum', 'verified', 'role:superadministrator|customer'])
+        Route::middleware(['auth:sanctum', 'verified', 'role:superadministrator|customer|entry'])
             ->group(function() {
                 Route::get('/dashboard', [WebDashboardController::class, 'index'])->name('dashboard');
                 // booking checkout
@@ -88,7 +88,7 @@ Route::name('web.')
  */
 Route::name('manage.')
     ->prefix('manage')
-    ->middleware(['auth:sanctum', 'verified', 'role:superadministrator|administrator'])
+    ->middleware(['auth:sanctum', 'verified', 'role:superadministrator|administrator|entry'])
     ->group(function () {
         // app settings TODO
         Route::get('/dashboard', [ManageDashboardController::class, 'index'] )->name('dashboard');

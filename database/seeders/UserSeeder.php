@@ -27,8 +27,15 @@ class UserSeeder extends Seeder
             'mobile' => '18271287',
             'password' => Hash::make('12345678'),
         ]);
+        $entry = User::create([
+            'full_name' => 'I am data entry',
+            'email' => 'entry@app.com',
+            'mobile' => '18271287',
+            'password' => Hash::make('12345678'),
+        ]);
 
         $admin->attachRole('superadministrator');
         $customer->attachRole('customer');
+        $entry->attachRole('entry');
     }
 }

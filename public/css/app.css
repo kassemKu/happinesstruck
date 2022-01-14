@@ -3890,14 +3890,8 @@ html {
 .max-h-60 {
   max-height: 15rem;
 }
-.max-h-full {
-  max-height: 100%;
-}
 .min-h-screen {
   min-height: 100vh;
-}
-.min-h-full {
-  min-height: 100%;
 }
 .w-5 {
   width: 1.25rem;
@@ -4611,10 +4605,6 @@ html {
   --tw-bg-opacity: 1;
   background-color: hsla(var(--n) / var(--tw-bg-opacity));
 }
-.bg-slate-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(71 85 105 / var(--tw-bg-opacity));
-}
 .bg-litepie-primary-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(224 242 254 / var(--tw-bg-opacity));
@@ -5126,10 +5116,6 @@ html {
 .text-neutral-content {
   --tw-text-opacity: 1;
   color: hsla(var(--nc) / var(--tw-text-opacity));
-}
-.text-base-200 {
-  --tw-text-opacity: 1;
-  color: hsla(var(--b2) / var(--tw-text-opacity));
 }
 .text-litepie-secondary-600 {
   --tw-text-opacity: 1;

@@ -21,6 +21,10 @@ return [
             'users' => 'c,r,u,d',
             'profile' => 'r,u'
         ],
+        'entry' => [
+            'products' => 'c,r,u,d',
+            'profile' => 'r,u'
+        ],
         'customer' => [
             'profile' => 'r,u',
         ]
