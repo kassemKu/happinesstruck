@@ -1,6 +1,19 @@
 <template>
   <HtSection padding-x="0" padding-y="0">
-    <div class="landing-page-section section__gallery text-neutral px-48 py-12">
+    <div
+      class="
+        landing-page-section
+        section__gallery
+        text-neutral
+        -mx-8
+        sm:-mx-0
+        px-8
+        md:px-24
+        xl:px-48
+        py-8
+        md:py-12
+      "
+    >
       <div class="w-full flex justify-center">
         <div class="max-w-md text-center">
           <h3 class="text-2xl uppercase font-bold leading-10">
@@ -11,11 +24,12 @@
           </p>
         </div>
       </div>
-      <div class="grid grid-cols-3 gap-x-8 mt-12">
+      <div class="grid grid-cols-1 gap-y-8 md:grid-cols-3 md:gap-x-8 mt-12">
         <div v-if="ourGallery[0]" class="htw-our-gallery">
           <img
             class="
-              h-[30rem]
+              h-[15rem]
+              md:h-[30rem]
               w-full
               object-cover
               overflow-hidden
@@ -25,7 +39,7 @@
           />
         </div>
         <div v-if="ourGallery[1] || ourGallery[2]">
-          <div class="flex flex-col space-y-4 htw-our-gallery">
+          <div class="flex flex-col space-y-8 md:space-y-4 htw-our-gallery">
             <img
               class="
                 h-56
@@ -51,7 +65,8 @@
         <div v-if="ourGallery[ourGallery.length - 1]" class="htw-our-gallery">
           <img
             class="
-              h-[30rem]
+              h-[15rem]
+              md:h-[30rem]
               w-full
               object-cover
               overflow-hidden

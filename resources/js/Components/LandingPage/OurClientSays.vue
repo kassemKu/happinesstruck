@@ -6,12 +6,13 @@
         section__our-clients-says
         text-neutral
         p-8
-        sm:px-24 sm:py-12
+        md:px-24
+        sm:py-12
         -mx-8
         sm:-mx-0
       "
     >
-      <div class="max-w-md">
+      <div class="max-w-md text-center sm:text-left">
         <h3 class="text-2xl uppercase font-bold leading-10">
           {{ $t('what_clients_say') }}
         </h3>
@@ -19,11 +20,26 @@
           {{ $t('lorem_11') }}
         </p>
       </div>
-      <div class="grid grid-cols-1 gap-y-4 md:grid-cols-4 gap-x-8 mt-12">
+      <div
+        class="
+          grid grid-cols-1
+          gap-y-8
+          md:gap-y-0
+          justify-center
+          md:grid-cols-4 md:gap-x-8
+          mt-12
+        "
+      >
         <div
           v-for="(client, index) in ourClients"
           :key="index"
-          class="flex flex-col space-y-4 htw-our-clients"
+          class="
+            flex flex-col
+            items-center
+            justify-center
+            space-y-4
+            htw-our-clients
+          "
         >
           <img
             :src="client.src"

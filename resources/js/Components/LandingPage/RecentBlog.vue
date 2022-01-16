@@ -7,8 +7,13 @@
         capitalize
         flex flex-col
         space-y-12
-        px-24
-        py-12
+        -mx-8
+        sm:-mx-0
+        px-8
+        md:px-24
+        xl:px-48
+        py-8
+        md:py-12
         text-neutral
       "
     >
@@ -20,7 +25,17 @@
           {{ $t('lorem_11') }}
         </p>
       </div>
-      <div class="grid grid-cols-3 gap-x-20">
+      <div
+        class="
+          grid grid-cols-1
+          sm:grid-cols-2
+          lg:grid-cols-3
+          gap-x-0 gap-y-8
+          lg:gap-y-0
+          sm:gap-x-12
+          lg:gap-x-20
+        "
+      >
         <div
           v-for="(post, index) in blog"
           :key="index"
