@@ -150,9 +150,9 @@
         flex
         items-center
         justify-between
-        px-24
+        px-4
         lg:px-16
-        h-36
+        h-24
         w-full
         relative
         z-20
@@ -163,7 +163,8 @@
           type="button"
           class="
             htw-header__logo
-            inline-flex
+            flex flex-col
+            lg:flex-row
             items-center
             justify-center
             space-x-2
@@ -176,36 +177,12 @@
           "
         >
           <CircleFilled32 />
-          <span class="font-black text-xl htw-header__logo-text">{{
+          <span class="font-black text-base lg:text-xl htw-header__logo-text">{{
             $t('site_title')
           }}</span>
         </button>
       </div>
       <div class="flex space-x-8">
-        <div v-show="!$page.props.user" class="flex">
-          <Link
-            :href="route('auth')"
-            class="
-              btn btn-ghost
-              transform
-              font-semibold
-              hover:bg-transparent hover:text-info hover:scale-110
-            "
-          >
-            {{ $t('login') }}
-          </Link>
-          <Link
-            :href="route('auth')"
-            class="
-              btn btn-ghost
-              font-semibold
-              transform
-              hover:bg-transparent hover:text-info hover:scale-110
-            "
-          >
-            {{ $t('register') }}
-          </Link>
-        </div>
         <div class="htw-header-user_area flex items-center">
           <div class="indicator">
             <div class="indicator-item badge badge-info text-sm font-semibold">
@@ -223,16 +200,6 @@
               <VueFeather type="shopping-bag" />
             </Link>
           </div>
-          <button
-            class="
-              btn btn-ghost
-              font-semibold
-              transform
-              hover:bg-transparent hover:text-info hover:scale-110
-            "
-          >
-            <VueFeather type="heart" />
-          </button>
           <button
             class="
               btn btn-ghost
@@ -329,44 +296,67 @@
         w-screen
         z-10
         hidden
+        capitalize
       "
     >
       <div
         ref="menuBlackBg"
-        class="htw-menu__black-bg bg-neutral fixed inset-0 h-full w-full z-0"
+        class="
+          htw-menu__black-bg
+          bg-neutral
+          fixed
+          inset-0
+          h-screen
+          w-screen
+          max-h-screen
+        "
+        style="z-index: -1"
       ></div>
       <div
         ref="menuContent"
         class="
           htw-menu__content
-          bg-warning
+          bg-warning bg-cover bg-center bg-no-repeat
           relative
           inset-0
-          h-full
-          w-full
-          overflow-hidden
+          h-screen
+          w-screen
+          overflow-y-auto
+          ht-scrollbar
         "
       >
-        <div class="htw-menu__nav-wrap relative top-72">
+        <div
+          class="
+            htw-menu__nav-wrap
+            relative
+            flex flex-row
+            justify-between
+            lg:flex-col lg:space-y-12
+            px-6
+            lg:px-16
+            top-28
+            text-neutral-content
+          "
+        >
           <nav class="htw-menu__nav">
-            <ul class="flex flex-col px-24">
+            <ul class="flex flex-col">
               <li
                 class="
                   overflow-hidden
-                  h-32
+                  h-16 h-16
+                  lg:h-28
                   w-max
                   relative
                   flex
                   items-center
                   cursor-pointer
-                  text-neutral-content
                   hover:text-neutral
                 "
               >
                 <button
                   ref="home"
                   type="button"
-                  class="text-8xl font-black capitalize"
+                  class="text-3xl lg:text-7xl font-black capitalize"
                   @click="navigateTo('web.landing')"
                   @mouseenter="handelHover($event)"
                   @mouseleave="handleHoverExit($event)"
@@ -377,20 +367,20 @@
               <li
                 class="
                   overflow-hidden
-                  h-32
+                  h-16
+                  lg:h-32
                   w-max
                   relative
                   flex
                   items-center
                   cursor-pointer
-                  text-neutral-content
                   hover:text-neutral
                 "
               >
                 <button
                   ref="ourStore"
                   type="button"
-                  class="text-8xl font-black capitalize"
+                  class="text-3xl lg:text-7xl font-black capitalize"
                   @click="navigateTo('web.store')"
                   @mouseenter="handelHover($event)"
                   @mouseleave="handleHoverExit($event)"
@@ -401,20 +391,20 @@
               <li
                 class="
                   overflow-hidden
-                  h-32
+                  h-16
+                  lg:h-32
                   w-max
                   relative
                   flex
                   items-center
                   cursor-pointer
-                  text-neutral-content
                   hover:text-neutral
                 "
               >
                 <button
                   ref="collections"
                   type="button"
-                  class="text-8xl font-black capitalize"
+                  class="text-3xl lg:text-7xl font-black capitalize"
                   @click="navigateTo('web.collections')"
                   @mouseenter="handelHover($event)"
                   @mouseleave="handleHoverExit($event)"
@@ -425,20 +415,20 @@
               <li
                 class="
                   overflow-hidden
-                  h-32
+                  h-16
+                  lg:h-32
                   w-max
                   relative
                   flex
                   items-center
                   cursor-pointer
-                  text-neutral-content
                   hover:text-neutral
                 "
               >
                 <button
                   ref="ourPackages"
                   type="button"
-                  class="text-8xl font-black capitalize"
+                  class="text-3xl lg:text-7xl font-black capitalize"
                   @click="navigateTo('web.packages')"
                   @mouseenter="handelHover($event)"
                   @mouseleave="handleHoverExit($event)"
@@ -448,6 +438,116 @@
               </li>
             </ul>
           </nav>
+          <div class="htw-menu__footer lg:w-auto lg:py-8">
+            <ul
+              class="
+                flex flex-col
+                lg:flex-row
+                space-y-4
+                lg:space-y-0 lg:space-x-8
+                font-semibold
+              "
+            >
+              <template v-if="!$page.props.user">
+                <li>
+                  <button
+                    class="
+                      uppercase
+                      font-bold
+                      cursor-pointer
+                      transition-all
+                      duration-300
+                      ease-in-out
+                      hover:bg-neutral hover:py-1 hover:px-2 hover:rounded-btn
+                    "
+                    @click="navigateTo('auth')"
+                  >
+                    {{ $t('login') }}
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="
+                      uppercase
+                      font-bold
+                      cursor-pointer
+                      transition-all
+                      duration-300
+                      ease-in-out
+                      hover:bg-neutral hover:py-1 hover:px-2 hover:rounded-btn
+                    "
+                    @click="navigateTo('auth')"
+                  >
+                    {{ $t('register') }}
+                  </button>
+                </li>
+              </template>
+              <li>
+                <button
+                  class="
+                    uppercase
+                    font-bold
+                    cursor-pointer
+                    transition-all
+                    duration-300
+                    ease-in-out
+                    hover:bg-neutral hover:py-1 hover:px-2 hover:rounded-btn
+                  "
+                  @click="navigateTo('web.landing')"
+                >
+                  {{ $t('blog') }}
+                </button>
+              </li>
+              <li>
+                <button
+                  class="
+                    uppercase
+                    font-bold
+                    cursor-pointer
+                    transition-all
+                    duration-300
+                    ease-in-out
+                    hover:bg-neutral hover:py-1 hover:px-2 hover:rounded-btn
+                  "
+                  @click="navigateTo('web.landing')"
+                >
+                  {{ $t('about') }}
+                </button>
+              </li>
+              <li>
+                <button
+                  class="
+                    uppercase
+                    font-bold
+                    cursor-pointer
+                    transition-all
+                    duration-300
+                    ease-in-out
+                    hover:bg-neutral hover:py-1 hover:px-2 hover:rounded-btn
+                  "
+                  @click="navigateTo('web.landing')"
+                >
+                  {{ $t('terms') }}
+                </button>
+              </li>
+              <li>
+                <button
+                  class="
+                    uppercase
+                    font-bold
+                    cursor-pointer
+                    transition-all
+                    duration-300
+                    ease-in-out
+                    hover:bg-neutral hover:py-1 hover:px-2 hover:rounded-btn
+                  "
+                  @click="navigateTo('web.landing')"
+                >
+                  {{ $t('privacy') }}
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -484,29 +584,34 @@ export default {
     const disabled = ref(false)
     const cities = reactive([
       {
-        en_name: 'al kuwait',
-        ar_name: 'الكويت',
-        src: '',
+        ar_name: 'مدينة الكويت',
+        en_name: 'kuwait city',
+        img: '/images/cities/austin.webp',
       },
       {
-        en_name: 'al kuwait',
-        ar_name: 'الكويت',
-        src: '',
+        ar_name: 'الجهراء',
+        en_name: 'aljahra',
+        img: '/images/cities/beijing.webp',
       },
       {
-        en_name: 'al kuwait',
-        ar_name: 'الكويت',
-        src: '',
+        ar_name: 'الفروانية',
+        en_name: 'alfarwaniyah',
+        img: '/images/cities/dallas.webp',
       },
       {
-        en_name: 'al kuwait',
-        ar_name: 'الكويت',
-        src: '',
+        ar_name: 'حولي',
+        en_name: 'hawli',
+        img: '/images/cities/newyork.webp',
       },
       {
-        en_name: 'al kuwait',
-        ar_name: 'الكويت',
-        src: '',
+        ar_name: 'مبارك الكبير',
+        en_name: 'mubarak alkabir',
+        img: '/images/cities/sanfrancisco.webp',
+      },
+      {
+        ar_name: 'الاحمدي',
+        en_name: 'alahmadi',
+        img: '/images/cities/newyork.webp',
       },
     ])
 
@@ -545,7 +650,7 @@ export default {
     const staggerText = (node1, node2, node3, node4) => {
       gsap.from([node1, node2, node3, node4], {
         duration: 0.8,
-        y: '7rem',
+        y: '8rem',
         delay: 0.2,
         ease: 'power3.inOut',
         stagger: {
@@ -557,6 +662,10 @@ export default {
     watch(isMenuOpen, (val) => {
       if (val) {
         gsap.to(menuWrap.value, { duration: 0, css: { display: 'block' } })
+        gsap.to(document.querySelector('body'), {
+          duration: 0,
+          css: { overflowY: 'hidden' },
+        })
         //Allow menu to have height of 100%
         gsap.to([menuBlackBg.value, menuContent.value], {
           duration: 0,
@@ -573,6 +682,10 @@ export default {
       } else {
         staggerRevealClose(menuContent.value, menuBlackBg.value)
         gsap.to(menuWrap.value, { duration: 1, css: { display: 'none' } })
+        gsap.to(document.querySelector('body'), {
+          duration: 1,
+          css: { overflowY: 'auto' },
+        })
       }
     })
 
@@ -603,6 +716,28 @@ export default {
       })
     }
 
+    // toggle bg city image on mouse enter
+    const handleCityBg = (e, img) => {
+      gsap.to(menuContent.value, {
+        duration: 0.5,
+        background: `url(${img}) center center`,
+      })
+      gsap.from(menuContent.value, {
+        duration: 0.4,
+        skewY: 2,
+        transformOrigin: 'right top',
+      })
+    }
+    // remove bg city image on mouse enter
+    const handleCityBgReturn = () => {
+      gsap.to(menuContent.value, {
+        duration: 0,
+        skewY: 0,
+        backgroundImage: null,
+        backgroundColor: '#ff9900',
+      })
+    }
+
     const getCartItemsCount = computed(() => {
       return store.state.cartCount
     })
@@ -625,6 +760,8 @@ export default {
       handelHover,
       handleHoverExit,
       cities,
+      handleCityBg,
+      handleCityBgReturn,
       navigateTo,
       getCartItemsCount,
     }

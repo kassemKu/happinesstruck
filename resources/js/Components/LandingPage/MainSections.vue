@@ -1,8 +1,10 @@
 <template>
-  <div class="relative min-h-screen w-full grid grid-cols-2">
-    <div class="absolute top-48 htw-site-title">
-      <div class="w-full flex flex-col items-center justify-center rtl:ml-48">
-        <h3 class="text-5xl uppercase font-bold">{{ $t('site_title') }}</h3>
+  <div class="relative min-h-screen w-full grid grid-cols-1 sm:grid-cols-2">
+    <div class="absolute top-16 ltr:left-1/4 rtl:left-1/3 htw-site-title">
+      <div class="w-full flex flex-col items-center justify-center">
+        <h3 class="text-3xl sm:text-5xl uppercase font-bold">
+          {{ $t('site_title') }}
+        </h3>
         <p class="text-lg font-semibold text-neutral text-opacity-60 uppercase">
           {{ $t('site_subtitle') }}
         </p>
@@ -10,9 +12,30 @@
     </div>
     <div class="bg-warning bg-opacity-40">
       <HtSection padding-x="16">
-        <div class="flex flex-col space-y-6 mt-96">
+        <div
+          class="
+            flex flex-col
+            space-y-6
+            sm:space-y-12
+            mt-32
+            sm:mt-48
+            mb-8
+            sm:mb-0
+            px-0
+            md:px-12
+          "
+        >
           <div>
-            <h3 class="text-4xl uppercase font-bold max-w-sm">
+            <h3
+              class="
+                text-2xl
+                sm:text-4xl
+                uppercase
+                font-bold
+                max-w-auto
+                sm:max-w-sm
+              "
+            >
               {{ $t('our_collection') }}
             </h3>
           </div>
@@ -40,9 +63,30 @@
     <!-- our packages collections -->
     <div class="bg-info bg-opacity-40">
       <HtSection padding-x="16">
-        <div class="flex flex-col space-y-6 mt-96">
+        <div
+          class="
+            flex flex-col
+            space-y-6
+            sm:space-y-12
+            mt-8
+            sm:mt-48
+            mb-8
+            sm:mb-0
+            px-0
+            md:px-12
+          "
+        >
           <div>
-            <h3 class="text-4xl uppercase font-bold max-w-sm">
+            <h3
+              class="
+                text-2xl
+                sm:text-4xl
+                uppercase
+                font-bold
+                max-w-auto
+                sm:max-w-sm
+              "
+            >
               {{ $t('lots_toys') }}
             </h3>
           </div>
@@ -88,9 +132,6 @@ export default {
 </script>
 
 <style scoped>
-.htw-site-title {
-  left: 34%;
-}
 .htw-landing__packages-slide {
   height: calc(100vh - 20rem);
   border-top-left-radius: 7rem;

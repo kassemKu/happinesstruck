@@ -1,13 +1,34 @@
 <template>
   <HtSection padding-x="0" padding-y="0">
-    <div class="flex space-x-24 px-24 py-16 h-[35rem] bg-indigo-100">
-      <div class="htw-landing__single-service__img-container w-96">
+    <div
+      class="
+        flex flex-col
+        space-y-8
+        sm:space-y-0 sm:flex-row sm:space-x-8
+        px-8
+        py-12
+        sm:py-16
+        h-auto
+        bg-indigo-100
+        -mx-8
+        sm:-mx-0
+      "
+    >
+      <div
+        class="
+          htw-landing__single-service__img-container
+          h-64
+          sm:h-96
+          w-full
+          sm:w-96
+        "
+      >
         <img
           class="h-full w-full object-cover overflow-hidden"
           src="/images/packages/markus-spiske-OO89_95aUC0-unsplash.jpg"
         />
       </div>
-      <div class="flex-grow h-full flex flex-col justify-between">
+      <div class="flex-grow h-full flex flex-col space-y-8">
         <div class="max-w-lg text-neutral">
           <h3 class="text-2xl uppercase font-bold leading-10">
             {{ $t('service_title') }}
@@ -78,7 +99,7 @@
             <p>{{ $t('ready_trucks') }}</p>
           </div>
         </div>
-        <div class="w-full">
+        <div class="w-full flex items-center">
           <Link
             :href="route('web.store')"
             class="

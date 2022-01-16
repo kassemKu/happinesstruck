@@ -5,8 +5,10 @@
         landing-page-section
         section__our-clients-says
         text-neutral
-        px-24
-        py-12
+        p-8
+        sm:px-24 sm:py-12
+        -mx-8
+        sm:-mx-0
       "
     >
       <div class="max-w-md">
@@ -17,7 +19,7 @@
           {{ $t('lorem_11') }}
         </p>
       </div>
-      <div class="grid grid-cols-4 gap-x-8 mt-12">
+      <div class="grid grid-cols-1 gap-y-4 md:grid-cols-4 gap-x-8 mt-12">
         <div
           v-for="(client, index) in ourClients"
           :key="index"

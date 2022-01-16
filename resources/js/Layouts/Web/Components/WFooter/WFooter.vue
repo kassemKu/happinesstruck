@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-base-200 text-base-content p-10">
-    <footer class="p-12 footer htw-footer bg-yellow-50">
+  <div class="bg-base-200 text-base-content sm:p-10">
+    <footer class="p-6 sm:p-12 footer htw-footer bg-yellow-50">
       <div class="">
         <Link
           href="/"
@@ -86,7 +86,7 @@
         <a class="link link-hover">{{ $t('service_title') }}</a>
         <a class="link link-hover">{{ $t('service_title') }}</a>
       </div>
-      <div class="grid-rows-2 gap-y-12">
+      <div class="grid-rows-2 gap-y-0 lg:gap-y-12">
         <div class="flex flex-col">
           <span class="footer-title mb-4">{{ $t('company') }}</span>
           <a class="link link-hover">{{ $t('about') }}</a>

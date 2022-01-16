@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 export default {
   name: 'HtSection',
 
@@ -21,10 +22,12 @@ export default {
     },
   },
 
-  computed: {
-    classes() {
-      return [`px-${this.paddingX}`, `py-${this.paddingY}`]
-    },
+  setup(props) {
+    const classes = computed(() => {
+      return [`px-8 sm:px-${props.paddingX.toString()}`, `py-${props.paddingY}`]
+    })
+
+    return { classes }
   },
 }
 </script>
