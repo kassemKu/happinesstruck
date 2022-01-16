@@ -3886,8 +3886,8 @@ html {
 .h-36 {
   height: 9rem;
 }
-.h-\[30rem\] {
-  height: 30rem;
+.h-\[15rem\] {
+  height: 15rem;
 }
 .h-56 {
   height: 14rem;
@@ -3924,12 +3924,6 @@ html {
 }
 .h-1 {
   height: 0.25rem;
-}
-.h-\[150rem\] {
-  height: 150rem;
-}
-.h-\[15rem\] {
-  height: 15rem;
 }
 .max-h-screen {
   max-height: 100vh;
@@ -4182,14 +4176,14 @@ html {
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .grid-cols-7 {
   grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -4239,16 +4233,12 @@ html {
 .gap-10 {
   gap: 2.5rem;
 }
-.gap-y-4 {
-  row-gap: 1rem;
+.gap-y-8 {
+  row-gap: 2rem;
 }
-.gap-x-8 {
-  -moz-column-gap: 2rem;
-       column-gap: 2rem;
-}
-.gap-x-20 {
-  -moz-column-gap: 5rem;
-       column-gap: 5rem;
+.gap-x-0 {
+  -moz-column-gap: 0px;
+       column-gap: 0px;
 }
 .gap-y-12 {
   row-gap: 3rem;
@@ -4269,13 +4259,6 @@ html {
 }
 .gap-y-0\.5 {
   row-gap: 0.125rem;
-}
-.gap-y-8 {
-  row-gap: 2rem;
-}
-.gap-x-0 {
-  -moz-column-gap: 0px;
-       column-gap: 0px;
 }
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -4302,15 +4285,15 @@ html {
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
-.space-y-12 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(3rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(3rem * var(--tw-space-y-reverse));
-}
 .space-y-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+.space-y-12 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(3rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(3rem * var(--tw-space-y-reverse));
 }
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -4823,17 +4806,13 @@ html {
   padding-left: 0px;
   padding-right: 0px;
 }
-.px-48 {
-  padding-left: 12rem;
-  padding-right: 12rem;
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 .px-24 {
   padding-left: 6rem;
   padding-right: 6rem;
-}
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 .px-16 {
   padding-left: 4rem;
@@ -6561,11 +6540,6 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
     padding-right: 5rem;
   }
 
-  .sm\:px-24 {
-    padding-left: 6rem;
-    padding-right: 6rem;
-  }
-
   .sm\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -6663,10 +6637,6 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
     margin-top: 0px;
   }
 
-  .md\:mt-12 {
-    margin-top: 3rem;
-  }
-
   .md\:grid {
     display: grid;
   }
@@ -6695,18 +6665,13 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
     gap: 1.5rem;
   }
 
-  .md\:gap-x-8 {
-    -moz-column-gap: 2rem;
-         column-gap: 2rem;
-  }
-
   .md\:gap-y-0 {
     row-gap: 0px;
   }
 
-  .md\:gap-x-20 {
-    -moz-column-gap: 5rem;
-         column-gap: 5rem;
+  .md\:gap-x-8 {
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
   }
 
   .md\:space-y-4 > :not([hidden]) ~ :not([hidden]) {
@@ -6726,11 +6691,6 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   .md\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
-  }
-
-  .md\:px-48 {
-    padding-left: 12rem;
-    padding-right: 12rem;
   }
 
   .md\:px-24 {
@@ -6802,10 +6762,6 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
     flex-wrap: nowrap;
   }
 
-  .lg\:gap-y-12 {
-    row-gap: 3rem;
-  }
-
   .lg\:gap-y-0 {
     row-gap: 0px;
   }
@@ -6813,6 +6769,10 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   .lg\:gap-x-20 {
     -moz-column-gap: 5rem;
          column-gap: 5rem;
+  }
+
+  .lg\:gap-y-12 {
+    row-gap: 3rem;
   }
 
   .lg\:space-y-12 > :not([hidden]) ~ :not([hidden]) {
@@ -6854,11 +6814,6 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   .lg\:py-8 {
     padding-top: 2rem;
     padding-bottom: 2rem;
-  }
-
-  .lg\:px-48 {
-    padding-left: 12rem;
-    padding-right: 12rem;
   }
 
   .lg\:text-xl {

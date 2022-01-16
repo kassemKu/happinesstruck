@@ -118,9 +118,11 @@ export default {
 </script>
 
 <style scoped>
-.htw-footer {
-  border-top-left-radius: 7rem;
-  border-bottom-right-radius: 8rem;
+@media only screen and (min-width: 640) {
+  .htw-footer {
+    border-top-left-radius: 7rem;
+    border-bottom-right-radius: 8rem;
+  }
 }
 
 .htw-facebook-btn {
