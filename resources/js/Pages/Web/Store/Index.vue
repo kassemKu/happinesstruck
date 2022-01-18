@@ -9,8 +9,12 @@
         bg-base-200
         flex
         min-h-screen
-        mt-36
-        mx-16
+        my-12
+        m-4
+        md:m-8
+        lg:m-16
+        p-4
+        md:p-0
         overflow-hidden
         border
         rounded-box
@@ -18,8 +22,10 @@
     >
       <div
         class="
+          hidden
           w-64
-          flex flex-col
+          md:flex
+          flex-col
           ltr:border-r
           rtl:border-l
           capitalize
@@ -69,7 +75,7 @@
         </div>
       </div>
       <!-- filters -->
-      <div class="flex-1 flex flex-col space-y-8 p-10">
+      <div class="flex-1 flex flex-col space-y-8 p-4 md:p-10">
         <div
           class="
             relative
@@ -135,22 +141,20 @@
           </p>
         </div>
         <!-- result text -->
-        <div class="flex items-center space-x-16 capitalize">
+        <div
+          class="
+            flex
+            items-center
+            space-x-8
+            md:space-x-16
+            capitalize
+            justify-center
+            md:justify-start
+          "
+        >
           <p class="text-gray=500">{{ $t('sort') }}</p>
           <div class="flex space-x-4">
             <button class="btn btn-accent capitalize btn-sm">
-              {{ $t('relevance') }}
-            </button>
-            <button
-              class="
-                btn btn-outline
-                border-base-300
-                text-gray-400
-                btn-sm
-                capitalize
-                hover:border-gray-500 hover:bg-transparent hover:text-gray-500
-              "
-            >
               {{ $t('popular') }}
             </button>
             <button
@@ -186,7 +190,7 @@
         </div>
         <!-- sort -->
         <div>
-          <div class="grid grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-8 md:gap-6">
             <Link
               v-for="product in products"
               :key="product.id"
@@ -226,7 +230,7 @@
                   class="object-cover w-full h-64 rounded-box"
                 />
               </figure>
-              <div class="flex flex-col space-y-6 mt-4">
+              <div class="flex flex-col md:space-y-6 mt-4">
                 <div class="flex flex-col">
                   <h2 class="card-title font-semibold capitalize">
                     {{
