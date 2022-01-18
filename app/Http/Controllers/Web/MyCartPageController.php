@@ -69,7 +69,9 @@ class MyCartPageController extends Controller
         ]);
 
         return response()->json([
-            'status' => 201
+            'status' => 200,
+            'message' => 'item added to cart successfully',
+            'count' => Cart::count(),
         ]);
     }
 

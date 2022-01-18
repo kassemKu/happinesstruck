@@ -4,21 +4,29 @@
       <meta title="description" content="lorem ipsum" />
     </Head>
 
-    <HtSection :padding-x="24">
-      <div class="w-full bg-base-200 mt-36 border rounded-box">
-        <div class="p-8 flex items-center justify-between">
-          <div v-if="media.length > 0" class="flex flex-col space-y-6 w-1/2">
+    <div class="my-12 m-4 md:m-8 lg:m-16 p-4 md:p-0">
+      <div class="w-full bg-base-200 border rounded-box">
+        <div
+          class="
+            p-4
+            md:p-8
+            flex flex-col
+            md:flex-row
+            space-y-8
+            md:space-y-0
+            items-center
+            space-x-0
+            md:space-x-12
+          "
+        >
+          <div
+            v-if="media.length > 0"
+            class="flex flex-col space-y-6 w-full md:w-1/2"
+          >
             <figure class="flex justify-center w-full">
               <img
                 :src="media[0].full_url"
-                class="
-                  object-scale-down
-                  w-96
-                  h-full
-                  border
-                  rounded-box
-                  shadow-inner
-                "
+                class="object-cover w-96 h-full border rounded-box shadow-inner"
               />
             </figure>
             <div
@@ -78,7 +86,15 @@
               </p>
             </div>
 
-            <div class="flex items-center space-x-6 text-gray-500">
+            <div
+              class="
+                flex flex-col
+                md:flex-row md:items-center md:space-x-6
+                text-gray-500
+                md:text-xs
+                lg:text-sm
+              "
+            >
               <p>
                 last update:
                 <span class="capitalize text-info font-semibold">{{
@@ -101,7 +117,7 @@
           <!-- product details -->
         </div>
       </div>
-    </HtSection>
+    </div>
   </WebLayout>
 </template>
 
