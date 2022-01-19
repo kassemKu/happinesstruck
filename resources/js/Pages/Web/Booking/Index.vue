@@ -3,16 +3,33 @@
     <Head title="BOOKING">
       <meta title="description" content="lorem ipsum" />
     </Head>
-    <div class="htw-page htw-page__collection mt-36">
-      <HtSection>
-        <div class="flex space-x-8">
-          <div class="flex-1">
+    <div class="htw-page htw-page__collection my-12">
+      <HtSection padding-x="0" padding-y="0">
+        <div
+          class="
+            flex flex-col
+            lg:flex-row lg:space-x-8
+            px-0
+            sm:px-8
+            md:px-16
+            -mx-4
+            sm:-mx-0
+          "
+        >
+          <div class="order-last lg:order-first lg:flex-1 mt-8 lg:mt-0">
             <div class="mb-4">
               <h2 class="text-lg capitalize font-semibold text-info">
-                booking summary
+                {{ $t('booking_summary') }}
               </h2>
             </div>
-            <div class="grid grid-cols-2 gap-x-4">
+            <div
+              class="
+                grid grid-cols-1
+                md:grid-cols-2
+                gap-y-8
+                md:gap-y-0 md:gap-x-4
+              "
+            >
               <div
                 v-for="packg in form.packages"
                 :key="packg.id"
@@ -20,9 +37,14 @@
               >
                 <img
                   :src="packg.media[0].full_url"
-                  :alt="packg.en_name"
+                  :alt="$i18n.locale === 'ar' ? packg.ar_name : packg.en_name"
                   class="h-96 object-cover rounded-box"
                 />
+                <div>
+                  <h4 class="uppercase font-semibold">
+                    {{ $i18n.locale === 'ar' ? packg.ar_name : packg.en_name }}
+                  </h4>
+                </div>
                 <div
                   v-show="
                     packg.en_name === 'package picasso' ||
@@ -34,6 +56,7 @@
                     type="button"
                     class="
                       btn
+                      md:btn-sm
                       border-info
                       text-info
                       space-x-2
@@ -44,12 +67,13 @@
                     @click="increasePicassoPackage(packg)"
                   >
                     <VueFeather type="plus" stroke-width="3" class="w-5 h-5" />
-                    <span>increase one more</span>
+                    <span>{{ $t('increase_one') }}</span>
                   </button>
                   <button
                     type="button"
                     class="
                       btn
+                      md:btn-sm
                       border-red-500
                       text-red-500
                       space-x-2
@@ -61,16 +85,16 @@
                     @click="decreasePicassoPackage(packg)"
                   >
                     <VueFeather type="minus" stroke-width="3" class="w-5 h-5" />
-                    <span>decrease one</span>
+                    <span>{{ $t('decrease_one') }}</span>
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="w-96">
+          <div class="w-full md:w-96">
             <div class="mb-4">
               <h2 class="text-lg capitalize font-semibold text-info">
-                cart total
+                {{ $t('cart_total') }}
               </h2>
             </div>
             <div
@@ -89,29 +113,33 @@
                 :key="packg.id"
                 class="flex justify-between py-4 items-center"
               >
-                <p>
-                  {{ packg.en_name }}
-                  <span class="text-warning">
-                    ({{ packg.price_per_event }} X {{ packg.quantity }})</span
-                  >
-                </p>
+                <div dir="ltr">
+                  {{ $i18n.locale === 'ar' ? packg.ar_name : packg.en_name }}
+                  <p class="text-warning">
+                    (
+                    <span>{{ packg.price_per_event }}</span>
+                    <span> X </span><span>{{ packg.quantity }}</span> )
+                  </p>
+                </div>
                 <p class="bg-gray-200 py-1 px-2 rounded">
                   {{
                     getPackageTotalPrice(packg.price_per_event, packg.quantity)
                   }}
-                  dk
+                  {{ $i18n.locale === 'en' ? 'dk' : 'دك' }}
                 </p>
               </div>
               <div class="flex justify-between py-4 items-center">
-                <p>subtotal</p>
+                <p>{{ $t('subtotal') }}</p>
                 <p class="bg-gray-200 py-1 px-2 rounded">
-                  {{ getCollectionSubtotal() }} dk
+                  {{ getCollectionSubtotal() }}
+                  {{ $i18n.locale === 'en' ? 'dk' : 'دك' }}
                 </p>
               </div>
               <div class="flex justify-between py-4 items-center">
-                <p>total</p>
+                <p>{{ $t('total') }}</p>
                 <p class="bg-gray-200 py-1 px-2 rounded">
-                  {{ getCollectionSubtotal() }} dk
+                  {{ getCollectionSubtotal() }}
+                  {{ $i18n.locale === 'en' ? 'dk' : 'دك' }}
                 </p>
               </div>
             </div>

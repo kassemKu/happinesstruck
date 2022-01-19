@@ -3,71 +3,108 @@
     <Head title="OUR-COLLECTION">
       <meta title="description" content="lorem ipsum" />
     </Head>
-    <div class="htw-page htw-page__collection mt-36">
-      <HtSection>
-        <h2 class="text-2xl capitalize font-semibold">
-          our packages collections
-        </h2>
-      </HtSection>
-      <HtSection>
-        <div
-          v-for="collection in collections"
-          :key="collection.id"
-          class="min-h-screen"
+    <div class="htw-page htw-page__collection mt-12">
+      <div class="w-full flex items-center justify-center px-4 md:px-0">
+        <h2
+          class="
+            text-2xl
+            md:text-4xl
+            capitalize
+            font-bold
+            text-slate-500
+            max-w-screen-sm
+            leading-relaxed
+            text-center
+          "
         >
-          <h1 class="text-center text-2xl font-bold uppercase">
-            {{ collection.en_name }}
-            <span class="text-warning font-bold text-2xl"
-              >{{ collection.min_price_per_event }} dk</span
-            >
-          </h1>
+          {{ $t('our_collection') }}
+        </h2>
+      </div>
+      <HtSection>
+        <div class="px-8 flex flex-col space-y-12">
           <div
-            class="grid grid-cols-2 gap-10 mt-12 justify-center items-center"
+            v-for="collection in collections"
+            :key="collection.id"
+            class="min-h-screen"
           >
+            <h1 class="text-center text-2xl font-bold uppercase text-slate-600">
+              {{
+                $i18n.locale === 'en' ? collection.en_name : collection.ar_name
+              }}
+              <span class="text-warning font-bold text-2xl rtl:mr-2"
+                >{{ collection.min_price_per_event }}
+                {{ $i18n.locale === 'en' ? 'dk' : 'دك' }}</span
+              >
+            </h1>
             <div
-              v-for="packg in convertDataToArray(collection.packages)"
-              :key="packg.id"
-              class="flex flex-col space-y-8"
+              class="
+                grid grid-cols-1
+                md:grid-cols-2
+                gap-10
+                mt-8
+                justify-center
+                items-center
+              "
             >
-              <p class="text-center text-lg uppercase font-bold">
-                {{ packg.en_name }}({{ packg.price_per_event }} DK X
-                {{ packg.quantity }})
-              </p>
-              <div>
-                <img
-                  :src="packg.media[0].full_url"
-                  :alt="packg.en_name"
-                  class="htw-collection-package__img w-full object-cover"
-                />
+              <div
+                v-for="packg in convertDataToArray(collection.packages)"
+                :key="packg.id"
+                class="flex flex-col space-y-8"
+              >
+                <p class="text-center text-lg uppercase font-bold">
+                  {{ $i18n.locale === 'en' ? packg.en_name : packg.ar_name }}
+                  <span class="text-info rtl:mr-2 ltr:ml-2">
+                    ({{ packg.price_per_event }}
+                    {{ $i18n.locale === 'en' ? 'dk' : 'دك' }} X
+                    {{ packg.quantity }})
+                  </span>
+                </p>
+                <div>
+                  <img
+                    :src="packg.media[0].full_url"
+                    :alt="packg.en_name"
+                    class="
+                      htw-collection-package__img
+                      w-full
+                      object-cover
+                      rounded-box
+                    "
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="w-full flex items-center justify-center my-8 space-x-4">
-            <Link
-              :href="route('web.booking', collection.id)"
-              class="
-                btn btn-wide
-                space-x-2
-                bg-info
-                border-2 border-info
-                hover:bg-transparent hover:border-info hover:text-info
-              "
-            >
-              <span>booking for {{ collection.min_price_per_event }} DK</span>
-            </Link>
-            <p class="text-2xl uppercase font-bold">or</p>
-            <Link
-              href="//nHref"
-              class="
-                btn btn-wide
-                space-x-2
-                bg-info
-                border-2 border-info
-                hover:bg-transparent hover:border-info hover:text-info
-              "
-            >
-              <span>more details</span>
-            </Link>
+            <div class="w-full flex items-center justify-center my-8 space-x-4">
+              <Link
+                :href="route('web.booking', collection.id)"
+                class="
+                  btn btn-md
+                  md:btn-wide
+                  bg-info
+                  border-2 border-info
+                  hover:bg-transparent hover:border-info hover:text-info
+                "
+              >
+                <span
+                  >{{ $t('booking_for') }} {{ collection.min_price_per_event }}
+                  {{ $i18n.locale === 'en' ? 'dk' : 'دك' }}</span
+                >
+              </Link>
+              <p class="text-xl md:text-2xl uppercase font-bold">
+                {{ $t('or') }}
+              </p>
+              <Link
+                href="//nHref"
+                class="
+                  btn btn-md
+                  md:btn-wide
+                  bg-info
+                  border-2 border-info
+                  hover:bg-transparent hover:border-info hover:text-info
+                "
+              >
+                <span>{{ $t('more_details') }}</span>
+              </Link>
+            </div>
           </div>
         </div>
       </HtSection>

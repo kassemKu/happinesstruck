@@ -162,7 +162,7 @@
               <div class="w-full flex space-x-8">
                 <div class="form-control">
                   <label class="cursor-pointer label justify-start space-x-2">
-                    <span class="label-text">active</span>
+                    <span class="label-text">{{$t('active')}}</span>
                     <input
                       v-model="form.status"
                       type="radio"
@@ -175,7 +175,7 @@
 
                 <div class="form-control">
                   <label class="cursor-pointer label justify-start space-x-2">
-                    <span class="label-text">inactive</span>
+                    <span class="label-text">{{$t('inactive')}}</span>
                     <input
                       v-model="form.status"
                       type="radio"
