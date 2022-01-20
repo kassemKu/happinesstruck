@@ -6,14 +6,14 @@
       h-screen
       min-h-screen
       max-h-screen
-      w-screen
+      w-full
       max-w-screen
       min-w-screen
       bg-cover bg-center
     "
     style="background-image: url(/images/auth/Oreti.svg)"
   >
-    <div class="htw-page htw-auth__conatiner px-12">
+    <div class="htw-page htw-auth__container px-8 md:px-12">
       <header
         class="mtw-login__header h-36 w-full flex justify-between items-center"
       >
@@ -48,16 +48,18 @@
           <VueFeather type="arrow-right" />
         </Link>
       </header>
-      <main class="mtw-auth__contene w-full flex justify-end">
+      <main class="mtw-auth__content w-full flex justify-end">
         <div
           class="
             mtw-login__form-container
-            w-1/2
+            w-full
+            md:w-1/2
             bg-base-100
             rounded-box
             shadow-2xl
-            px-16
-            py-8
+            mb-12
+            p-8
+            md:px-16 md:py-8
           "
         >
           <template v-if="activeAuthView === 'login'">
