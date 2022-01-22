@@ -3,7 +3,7 @@
     <Head title="BOOKING">
       <meta title="description" content="lorem ipsum" />
     </Head>
-    <div class="htw-page htw-page__booking-checkout mt-36">
+    <div class="htw-page htw-page__booking-checkout my-8">
       <HtSection>
         <div class="w-full flex items-center justify-center mb-8">
           <div class="text-center">
@@ -15,10 +15,27 @@
         </div>
         <!-- page title -->
         <div>
-          <div class="flex space-x-8">
+          <div
+            class="
+              flex flex-col
+              lg:flex-row
+              space-x-0
+              lg:space-x-8
+              sm:px-8 sm:-mx-0
+            "
+          >
             <div class="flex-1">
               <form>
-                <div class="grid grid-cols-2 gap-8">
+                <div
+                  class="
+                    grid grid-cols-1
+                    xl:grid-cols-2
+                    gap-y-8
+                    xl:gap-y-0
+                    gap-x-0
+                    xl:gap-x-8
+                  "
+                >
                   <div>
                     <div class="mb-6">
                       <h2 class="text-lg capitalize font-semibold text-info">
@@ -516,7 +533,20 @@
                 </div>
               </form>
             </div>
-            <div class="w-96 sticky top-36 h-96">
+            <div
+              class="
+                w-full
+                lg:w-96
+                relative
+                lg:sticky lg:top-36
+                h-auto
+                lg:h-96
+                order-first
+                lg:order-last
+                mb-12
+                lg:mb-0
+              "
+            >
               <div class="mb-4">
                 <h2 class="text-lg capitalize font-semibold text-info">
                   cart total

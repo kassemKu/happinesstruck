@@ -4,16 +4,16 @@
       <TextField
         v-model="form.email"
         name="email"
-        :placeholder="'email'"
-        :label="'email'"
+        :placeholder="$t('email')"
+        :label="$t('email')"
         :server-error="$page.props.errors.email"
       />
       <TextField
         v-model="form.password"
         name="password"
         :type="'password'"
-        :placeholder="'password'"
-        :label="'password'"
+        :placeholder="$t('password')"
+        :label="$t('password')"
         :server-error="$page.props.errors.password"
       />
       <button type="submit" class="btn btn-info btn-block mt-4 text-lg">

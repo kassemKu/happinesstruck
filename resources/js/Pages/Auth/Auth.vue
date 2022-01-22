@@ -27,39 +27,48 @@
             space-x-2
             uppercase
             font-black
-            text-xl text-warning
+            text-lg
+            md:text-xl
+            text-warning
             transform
             hover:bg-transparent hover:text-info
           "
         >
-          <span>happiness</span>
-          <span>truck</span>
+          {{ $t('site_title') }}
         </Link>
-        <Link
-          class="
-            btn btn-ghost
-            space-x-2
-            transform
-            hover:bg-transparent hover:scale-105 hover:text-info
-          "
-          :href="route('web.landing')"
-        >
-          <span class="font-medium capitalize">back to website</span>
-          <VueFeather type="arrow-right" />
-        </Link>
+        <div class="flex space-x-4">
+          <LanguageSwitcher />
+          <Link
+            class="
+              btn btn-ghost
+              space-x-2
+              transform
+              hover:bg-transparent hover:scale-105 hover:text-info
+            "
+            :href="route('web.landing')"
+          >
+            <span class="font-medium capitalize">{{
+              $t('back_to_website')
+            }}</span>
+            <VueFeather
+              :type="$i18n.locale === 'en' ? 'arrow-right' : 'arrow-left'"
+            />
+          </Link>
+        </div>
       </header>
       <main class="mtw-auth__content w-full flex justify-end">
         <div
           class="
             mtw-login__form-container
             w-full
-            md:w-1/2
+            md:w-2/3
             bg-base-100
+            max-w-screen-md
             rounded-box
             shadow-2xl
             mb-12
             p-8
-            md:px-16 md:py-8
+            lg:px-16 lg:py-8
           "
         >
           <template v-if="activeAuthView === 'login'">
@@ -79,11 +88,18 @@ import { mapState } from 'vuex'
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import RegisterFormView from '@/Components/Auth/RegisterView'
 import LoginFormView from '@/Components/Auth/LoginView'
+import LanguageSwitcher from '@/Shared/Partials/LanguageSwitcher'
 
-const components = { Head, Link, RegisterFormView, LoginFormView }
+const components = {
+  Head,
+  Link,
+  RegisterFormView,
+  LoginFormView,
+  LanguageSwitcher,
+}
 
 export default {
-  name: 'Authentiction',
+  name: 'Authentication',
 
   components,
 

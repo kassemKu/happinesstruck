@@ -12,14 +12,14 @@
           :disabled="activeView === 'login' ? 'disabled' : null"
           @click="setAuthView('login')"
         >
-          login
+          {{ $t('login') }}
         </button>
         <button
           class="btn btn-info"
           :disabled="activeView === 'register' ? 'disabled' : null"
           @click="setAuthView('register')"
         >
-          create new account
+          {{ $t('create_new_account') }}
         </button>
       </div>
       <div class="mt-8">
