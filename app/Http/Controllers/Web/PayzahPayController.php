@@ -43,7 +43,7 @@ class PayzahPayController extends Controller
                     ->header('X-Inertia-Location', url()->current());
             }
 
-            return Redirect($json->data->PaymentUrl . '?PaymentID=' . $json->data->PaymentID);
+            return redirect()->away($json->data->PaymentUrl . '?PaymentID=' . $json->data->PaymentID);
         }
     }
 
