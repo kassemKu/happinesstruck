@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import axios from 'axios'
 import Cookies from 'js-cookie'
 const convertCookieToBoolean = (str) => {
   switch (str.toLowerCase().trim()) {
@@ -22,8 +23,9 @@ export const store = new Vuex.Store({
   state: {
     applyTheme: Cookies.get('theme') || 'light',
     isManageSidebarOpen:
-      Cookies.get('isManageSidebarOpen') &&
-      convertCookieToBoolean(Cookies.get('isManageSidebarOpen')),
+      (Cookies.get('isManageSidebarOpen') &&
+        convertCookieToBoolean(Cookies.get('isManageSidebarOpen'))) ||
+      true,
     isWebMenuOpen: false,
     isModalOpen: false,
     activeAuthView: 'login',
@@ -36,6 +38,9 @@ export const store = new Vuex.Store({
       delay: 500,
     },
     cartCount: 0,
+    cartSubtotal: 0,
+    cartTotal: 0,
+    cart: [],
   },
   getters: {
     isManageSidebarOpen: (state) => state.isManageSidebarOpen,
@@ -48,6 +53,9 @@ export const store = new Vuex.Store({
     notificationContent: (state) => state.notification.content,
     activeAuthView: (state) => state.activeAuthView,
     getCartCount: (state) => state.cartCount,
+    getCart: (state) => state.cart,
+    getCartSubtotal: (state) => state.cartSubtotal,
+    getCartTotal: (state) => state.cartTotal,
   },
   mutations: {
     // manage sidebar
@@ -106,9 +114,69 @@ export const store = new Vuex.Store({
     setActiveAuthView(state, payload) {
       state.activeAuthView = payload
     },
+    // user cart details
+    getUserCart(state, payload) {
+      state.cart = payload
+    },
+    updateCartItemQty(state, payload) {
+      if (!state.cart.includes(payload.item)) return
+      const item = state.cart.filter((i) => i.rowId === payload.item.rowId)
+      if (payload.type === 'increase') {
+        item[0].qty++
+      } else {
+        if (item[0].qty === 1) return
+        item[0].qty--
+      }
+    },
+    // update cart item count
+    async updateCartItemQtyDB(state, payload) {
+      if (payload.qty < 1) return
+      await axios
+        .post(
+          route('web.updateQuantity', {
+            rowId: payload.rowId,
+            qty: payload.qty,
+          }),
+        )
+        .then((res) => {
+          const { data } = res
+          state.cartCount = data.count
+          const item = state.cart.find((i) => i.rowId === payload.rowId)
+          item.subtotal = (item.qty * item.price).toFixed(2)
+          state.cartSubtotal = data.subtotal
+          state.cartTotal = data.total
+          state.cartCount = data.count
+        })
+    },
+    // delete item from cart
+    async deleteCartItem(state, payload) {
+      const index = state.cart.findIndex((el) => el.rowId === payload)
+      if (index >= 0) {
+        state.cart.splice(index, 1)
+      }
+      state.cart.filter((item) => item.rowId !== payload)
+      await axios
+        .post(route('web.deleteCartItem', payload))
+        .then((res) => {
+          const { data } = res
+          state.cartSubtotal = data.subtotal
+          state.cartTotal = data.total
+          state.cartCount = data.count
+        })
+        .then(() => {})
+    },
+
     // user cart counter
     updateCartCount(state, payload) {
       state.cartCount = payload
+    },
+    // user cart subtotal
+    getCartSubtotal(state, payload) {
+      state.cartSubtotal = payload
+    },
+    // user cart total
+    getCartTotal(state, payload) {
+      state.cartTotal = payload
     },
     // cart quantity
     addItemToCart(state) {

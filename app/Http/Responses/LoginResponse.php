@@ -10,6 +10,6 @@ class LoginResponse implements ContractsLoginResponse
         if ($user->hasRole(['superadministrator', 'administrator', 'entry'])) {
             return redirect()->intended(route('manage.dashboard'));
         }
-        return redirect()->intended(route('web.dashboard'));
+        return redirect()->intended(route('web.landing'));
     }
 }

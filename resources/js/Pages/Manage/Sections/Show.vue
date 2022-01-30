@@ -14,8 +14,11 @@
       />
     </template>
     <div class="htm-page htm-page__sections-show">
-      <div class="grid grid-cols-2 gap-8" :class="section.media.length > 0">
-        <div class="flex flex-col space-y-4">
+      <div
+        class="grid"
+        :class="section.media.length > 0 ? 'grid-cols-2 gap-8' : 'grid-cols-1'"
+      >
+        <div v-if="section.media.length > 0" class="flex flex-col space-y-4">
           <img
             :src="section.media[0].full_url"
             :alt="section.en_name"

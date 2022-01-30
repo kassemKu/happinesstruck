@@ -29,7 +29,10 @@ class Order extends Model
 
         'shipping_full_name',
         'shipping_address',
+        'shipping_country',
         'shipping_city',
+        'shipping_area',
+        'shipping_avenue',
         'shipping_state',
         'shipping_zip_code',
         'shipping_phone',
@@ -37,8 +40,11 @@ class Order extends Model
 
         'billing_full_name',
         'billing_address',
-        'billing_city',
+        'country_id',
+        'city_id',
         'billing_state',
+        'billing_avenue',
+        'area_id',
         'billing_zip_code',
         'billing_phone',
 
@@ -66,5 +72,20 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo('App\Models\Country');
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo('App\Models\City');
+    }
+
+    public function area(): BelongsTo
+    {
+        return $this->belongsTo('App\Models\area');
     }
 }

@@ -15,10 +15,10 @@ class CreateToolsTable extends Migration
     {
         Schema::create('tools', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('ar_name', 191);
-            $table->string('en_name', 191);
-            $table->string('ar_slug', 200)->unique()->nullable();
-            $table->string('en_slug', 200)->unique()->nullable();
+            $table->string('ar_name', 191)->unique();
+            $table->string('en_name', 191)->unique();
+            $table->string('ar_slug', 200)->nullable();
+            $table->string('en_slug', 200)->nullable();
             $table->decimal('price');
             $table->mediumText('ar_short_description')->nullable();
             $table->mediumText('en_short_description')->nullable();

@@ -1,5 +1,5 @@
 <template>
-  <div class="htm-header__user-area-actions">
+  <div class="htm-header__user-area-actions relative">
     <Menu as="div">
       <div>
         <MenuButton
@@ -11,7 +11,7 @@
             btn-ghost
             rounded-none
             text-info
-            hover:bg-opacity-40 hover:text-warning
+            hover:bg-transparent hover:text-warning
           "
         >
           <span class="font-bold">{{ $page.props.user.full_name }}</span>
@@ -37,103 +37,166 @@
             mt-2
             bg-white
             overflow-hidden
-            divide-y divide-gray-200
             rounded-box
             shadow-2xl
+            z-10
+            rtl:left-12 rtl:origin-top-left
+            ltr:right-12 ltr:origin-top-right
             ring-1 ring-black ring-opacity-5
             focus:outline-none
           "
-          :class="
-            $i18n.locale === 'ar'
-              ? 'left-0 origin-top-left'
-              : 'right-0 origin-top-right'
-          "
         >
-          <div class="px-1 py-1">
-            <MenuItem v-if="$page.props.isAdmins" v-slot="{ active }">
+          <MenuItem>
+            <Link
+              :href="route('web.landing')"
+              class="
+                flex
+                items-center
+                space-x-2
+                px-2
+                h-14
+                capitalize
+                ltr:border-l-2
+                rtl:border-r-2
+                font-medium
+                border-transparent border-opacity-50
+                hover:border-info hover:bg-base-300
+              "
+            >
+              <VueFeather
+                type="home"
+                class="w-6 h-6 ltr:mr-2 rtl:ml-2 hover-group:text-info"
+                aria-hidden="true"
+              />
+              {{ $t('home') }}
+            </Link>
+          </MenuItem>
+          <MenuItem v-if="$page.props.isAdmins">
+            <Link
+              :href="route('manage.dashboard')"
+              class="
+                flex
+                items-center
+                space-x-2
+                px-2
+                h-14
+                capitalize
+                ltr:border-l-2
+                rtl:border-r-2
+                font-medium
+                border-transparent border-opacity-50
+                hover:border-info hover:bg-base-300
+              "
+            >
+              <VueFeather
+                type="bar-chart-2"
+                class="w-6 h-6 ltr:mr-2 rtl:ml-2 hover-group:text-info"
+                aria-hidden="true"
+              />
+              {{ $t('dashboard') }}
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link
+              :href="route('web.landing')"
+              class="
+                flex
+                items-center
+                space-x-2
+                px-2
+                h-14
+                capitalize
+                ltr:border-l-2
+                rtl:border-r-2
+                font-medium
+                border-transparent border-opacity-50
+                hover:border-info hover:bg-base-300
+              "
+            >
+              <VueFeather
+                type="smile"
+                class="w-6 h-6 ltr:mr-2 rtl:ml-2 hover-group:text-info"
+                aria-hidden="true"
+              />
+              {{ $t('profile') }}
+            </Link>
+          </MenuItem>
+          <template v-if="!$page.props.isAdmins">
+            <MenuItem>
               <Link
-                :href="route('manage.dashboard')"
-                :class="[
-                  active ? 'bg-info text-white' : 'text-gray-900',
-                  'group flex items-center w-full px-2 py-2 text-sm',
-                ]"
+                :href="route('web.landing')"
+                class="
+                  flex
+                  items-center
+                  space-x-2
+                  px-2
+                  h-14
+                  ltr:border-l-2
+                  rtl:border-r-2
+                  font-medium
+                  border-transparent border-opacity-50
+                  hover:border-info hover:bg-base-300
+                "
               >
                 <VueFeather
-                  type="home"
-                  :active="active"
-                  class="w-5 h-5 mr-2 text-info"
+                  type="shopping-bag"
+                  class="w-6 h-6 ltr:mr-2 rtl:ml-2 hover-group:text-info"
                   aria-hidden="true"
                 />
-                {{ $t('dashboard') }}
+                {{ $t('orders') }}
               </Link>
             </MenuItem>
-            <MenuItem v-slot="{ active }">
-              <button
-                :class="[
-                  active ? 'bg-info text-white' : 'text-gray-900',
-                  'group flex items-center w-full px-2 py-2 text-sm',
-                ]"
+            <MenuItem>
+              <Link
+                :href="route('web.landing')"
+                class="
+                  flex
+                  items-center
+                  space-x-2
+                  px-2
+                  h-14
+                  ltr:border-l-2
+                  rtl:border-r-2
+                  font-medium
+                  border-transparent border-opacity-50
+                  hover:border-info hover:bg-base-300
+                "
               >
-                <!-- <DuplicateIcon
-                  :active="active"
-                  class="w-5 h-5 mr-2 text-info"
+                <VueFeather
+                  type="truck"
+                  class="w-6 h-6 ltr:mr-2 rtl:ml-2 hover-group:text-info"
                   aria-hidden="true"
-                /> -->
-                Duplicate
-              </button>
+                />
+                {{ $t('bookings') }}
+              </Link>
             </MenuItem>
-          </div>
-          <div class="px-1 py-1">
-            <MenuItem v-slot="{ active }">
-              <button
-                :class="[
-                  active ? 'bg-info text-white' : 'text-gray-900',
-                  'group flex rounded-md items-center w-full px-2 py-2 text-sm',
-                ]"
-              >
-                <!-- <ArchiveIcon
-                  :active="active"
-                  class="w-5 h-5 mr-2 text-info"
-                  aria-hidden="true"
-                /> -->
-                Archive
-              </button>
-            </MenuItem>
-            <MenuItem v-slot="{ active }">
-              <button
-                :class="[
-                  active ? 'bg-info text-white' : 'text-gray-900',
-                  'group flex rounded-md items-center w-full px-2 py-2 text-sm',
-                ]"
-              >
-                <!-- <MoveIcon
-                  :active="active"
-                  class="w-5 h-5 mr-2 text-info"
-                  aria-hidden="true"
-                /> -->
-                Move
-              </button>
-            </MenuItem>
-          </div>
-
-          <div class="px-1 py-1">
-            <MenuItem v-slot="{ active }">
-              <button
-                :class="[
-                  active ? 'bg-info text-white' : 'text-gray-900',
-                  'group flex rounded-md items-center w-full px-2 py-2 text-sm',
-                ]"
-                @click="logout"
-              >
-                <!-- <DeleteIcon
-                  :active="active"
-                  class="w-5 h-5 mr-2 text-info"
-                  aria-hidden="true"
-                /> -->
-                logout
-              </button>
-            </MenuItem>
-          </div>
+          </template>
+          <MenuItem>
+            <button
+              class="
+                w-full
+                flex
+                items-center
+                space-x-2
+                px-2
+                h-14
+                capitalize
+                ltr:border-l-2
+                rtl:border-r-2
+                font-medium
+                border-transparent border-opacity-50
+                hover:border-info hover:bg-base-300
+              "
+              @click="logout"
+            >
+              <VueFeather
+                type="log-out"
+                class="w-6 h-6 ltr:mr-2 rtl:ml-2 hover-group:text-info"
+                aria-hidden="true"
+              />
+              {{ $t('logout') }}
+            </button>
+          </MenuItem>
         </MenuItems>
       </transition>
     </Menu>

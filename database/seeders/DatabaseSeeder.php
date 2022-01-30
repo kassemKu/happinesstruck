@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Product::factory(22)->create();
         // $this->call(TruckSeeder::class);
         // $this->call(PackageSeeder::class);
+        $this->call(CountrySeeder::class);
     }
 }

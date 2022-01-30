@@ -31,6 +31,7 @@
             ease-in
             hover:bg-transparent hover:text-info hover:scale-105
           "
+          @click="navigateTo('web.landing')"
         >
           <CircleFilled32 />
           <span class="font-black text-base lg:text-xl htw-header__logo-text">{{
@@ -44,17 +45,18 @@
             <div class="indicator-item badge badge-info text-sm font-semibold">
               {{ getCartItemsCount }}
             </div>
-            <Link
-              :href="route('web.mycart')"
+            <button
+              type="button"
               class="
                 btn btn-ghost
                 font-semibold
                 transform
                 hover:bg-transparent hover:text-info hover:scale-110
               "
+              @click="navigateTo('web.mycart')"
             >
               <VueFeather type="shopping-bag" />
-            </Link>
+            </button>
           </div>
           <button
             class="
@@ -546,10 +548,14 @@ export default {
     })
 
     const navigateTo = (routeName) => {
-      store.commit('closeWebMenu')
-      setTimeout(() => {
+      if (isMenuOpen.value) {
+        store.commit('closeWebMenu')
+        setTimeout(() => {
+          Inertia.get(route(routeName))
+        }, 1000)
+      } else {
         Inertia.get(route(routeName))
-      }, 1000)
+      }
     }
 
     // links hover anim

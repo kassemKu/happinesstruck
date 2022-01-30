@@ -15,7 +15,9 @@
 
             <div v-else class="w-full flex flex-col">
               <div class="self-center md:self-end w-full md:w-1/2 lg:w-1/3">
-                <h6 class="mb-2 text-lg uppercase font-bold">cart total</h6>
+                <h6 class="mb-2 text-lg uppercase font-bold">
+                  {{ $t('cart_total') }}
+                </h6>
                 <div
                   class="
                     divide-y-2
@@ -29,16 +31,18 @@
                   "
                 >
                   <div class="flex justify-between py-4">
-                    <p>subtotal</p>
+                    <p>{{ $t('subtotal') }}</p>
                     <p class="bg-gray-200 py-1 px-2 rounded">
-                      {{ cartSubtotal }} KD
+                      {{ cartSubtotal }}
+                      {{ $i18n.locale === 'ar' ? 'دك' : 'kd' }}
                     </p>
                   </div>
                   <div>
                     <div class="flex justify-between py-4 items-center">
-                      <p>total</p>
+                      <p>{{ $t('total') }}</p>
                       <p class="bg-gray-200 py-1 px-2 rounded">
-                        {{ cartTotal }} KD
+                        {{ cartTotal }}
+                        {{ $i18n.locale === 'ar' ? 'دك' : 'kd' }}
                       </p>
                     </div>
                   </div>
@@ -56,12 +60,24 @@
                         border-b-2 border-gray-200
                       "
                     >
-                      <th class="px-6 md:px-4 py-2">image</th>
-                      <th class="px-6 md:px-4 py-2">product</th>
-                      <th class="px-6 md:px-4 text-center py-2">qtd</th>
-                      <th class="px-6 md:px-4 text-center py-2">unit price</th>
-                      <th class="px-6 md:px-4 text-center py-2">total price</th>
-                      <th class="px-6 md:px-4 text-center py-2">action</th>
+                      <th class="px-6 md:px-4 py-2 text-center">
+                        {{ $t('image') }}
+                      </th>
+                      <th class="px-6 md:px-4 py-2 text-center">
+                        {{ $t('product_name') }}
+                      </th>
+                      <th class="px-6 md:px-4 text-center py-2">
+                        {{ $t('quantity') }}
+                      </th>
+                      <th class="px-6 md:px-4 text-center py-2">
+                        {{ $t('unit_price') }}
+                      </th>
+                      <th class="px-6 md:px-4 text-center py-2">
+                        {{ $t('total_price') }}
+                      </th>
+                      <th class="px-6 md:px-4 text-center py-2">
+                        {{ $t('action') }}
+                      </th>
                     </tr>
                   </thead>
 
@@ -89,19 +105,23 @@
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 md:px-4 text-xs py-2 md:py-6">
-                        <span>{{ item.options.en_name }}</span>
-                        <button
+                      <td class="px-6 md:px-4 text-xs py-2 md:py-6 text-center">
+                        <span>{{
+                          $i18n.locale === 'en'
+                            ? item.options.en_name
+                            : item.options.ar_name
+                        }}</span>
+                        <span
                           class="
                             block
                             text-xs text-gray-400
                             font-semibold
                             focus:outline-none
                           "
-                          @click="deleteItem(item.id)"
+                          @click="deleteItem(item.rowId)"
                         >
                           ({{ item.options.SKU }})
-                        </button>
+                        </span>
                       </td>
                       <td class="px-6 md:px-4 py-2 md:py-6 text-center">
                         <div class="form-control">
@@ -113,9 +133,7 @@
                                 btn btn-outline btn-square btn-sm btn-info
                                 hover:text-base-100 hover:bg-info
                               "
-                              @click="
-                                updateQty(item.rowId, item.qty, 'increase')
-                              "
+                              @click="updateQty(item, 'increase')"
                             >
                               <VueFeather
                                 type="plus"
@@ -144,9 +162,7 @@
                                 btn btn-outline btn-square btn-sm btn-info
                                 hover:text-base-100 hover:bg-info
                               "
-                              @click="
-                                updateQty(item.rowId, item.qty, 'decrease')
-                              "
+                              @click="updateQty(item, 'decrease')"
                             >
                               <VueFeather
                                 type="minus"
@@ -167,7 +183,8 @@
                             bg-blue-100
                             text-blue-500
                           "
-                          >{{ item.price }} KD</span
+                          >{{ item.price }}
+                          {{ $i18n.locale === 'ar' ? 'دك' : 'kd' }}</span
                         >
                       </td>
                       <td class="px-6 md:px-4 text-center py-6">
@@ -178,7 +195,8 @@
                             bg-green-100
                             text-green-500 text-xs
                           "
-                          >{{ item.subtotal }} KD</span
+                          >{{ item.subtotal }}
+                          {{ $i18n.locale === 'ar' ? 'دك' : 'kd' }}</span
                         >
                       </td>
                       <td class="px-6 md:px-4 text-center">
@@ -228,12 +246,11 @@
 </template>
 
 <script>
-import { reactive, ref } from 'vue'
+import { onMounted, computed } from 'vue'
 import { Head, Link, usePage } from '@inertiajs/inertia-vue3'
 import { useStore } from 'vuex'
 import WebLayout from '@/Layouts/Web/WebLayout'
 import HtSection from '@/Shared/Layouts/HtSection'
-import axios from 'axios'
 
 const components = {
   Head,
@@ -249,40 +266,36 @@ export default {
 
   setup() {
     const page = usePage()
-    const cart = reactive(Object.values(page.props.value.cart))
-    const cartSubtotal = ref(page.props.value.cartSubtotal)
-    const cartTotal = ref(page.props.value.cartTotal)
     const store = useStore()
+    const cart = computed(() => {
+      return store.state.cart
+    })
 
-    const updateQty = (rowId, qty, type) => {
-      if (qty < 1) return
+    const cartSubtotal = computed(() => {
+      return store.state.cartSubtotal
+    })
 
-      if (type === 'increase') {
-        qty++
-      } else {
-        qty--
-      }
+    const cartTotal = computed(() => {
+      return store.state.cartTotal
+    })
 
-      axios
-        .post(route('web.updateQuantity', { rowId, qty }), { type })
-        .then((res) => {
-          const { data } = res
-
-          store.commit('updateCartCount', data.count)
-        })
-
-      //   Inertia.post(route('web.updateQuantity', { rowId, qty }), {
-      //     onSuccess: () => {
-      //       cart, cartSubtotal, cartTotal
-      //     },
-      //   })
+    const updateQty = (item, type) => {
+      store.commit('updateCartItemQty', { item, type })
+      store.commit('updateCartItemQtyDB', item)
     }
 
     const deleteItem = (rowId) => {
-      Inertia.post(route('web.deleteCartItem', { rowId }), {
-        onSuccess: () => {},
-      })
+      store.commit('deleteCartItem', rowId)
     }
+
+    onMounted(() => {
+      store.commit(
+        'getUserCart',
+        Array.from(Object.values(page.props.value.cart)),
+      )
+      store.commit('getCartSubtotal', page.props.value.cartSubtotal)
+      store.commit('getCartTotal', page.props.value.cartTotal)
+    })
 
     return { cart, cartSubtotal, cartTotal, updateQty, deleteItem }
   },

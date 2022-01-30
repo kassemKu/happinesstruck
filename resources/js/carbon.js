@@ -36,6 +36,7 @@ import ArrowUp32 from '@carbon/icons-vue/es/arrow--up/32'
 import FaceActivated32 from '@carbon/icons-vue/es/face--activated/32'
 import Coronavirus32 from '@carbon/icons-vue/es/coronavirus/32'
 import Bullhorn24 from '@carbon/icons-vue/es/bullhorn/24'
+import LocationHazard24 from '@carbon/icons-vue/es/location--hazard/24'
 
 export const components = {
   ArrowLeft20,
@@ -76,4 +77,5 @@ export const components = {
   FaceActivated32,
   Coronavirus32,
   Bullhorn24,
+  LocationHazard24,
 }

@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <h1>dashboard</h1>
-  </div>
+  <WebLayout> </WebLayout>
 </template>
 
 <script>
+import { Head, Link } from '@inertiajs/inertia-vue3'
+import WebLayout from '@/Layouts/Web/WebLayout'
+
+const components = { Head, Link, WebLayout }
+
 export default {
-  components: {},
+  name: '',
+  components,
 }
 </script>

@@ -185,6 +185,15 @@
                 <Book24 />
               </template>
             </ManageSideNavLink>
+            <ManageSideNavLink
+              :name="$t('locations')"
+              :href="'/'"
+              :active="$page.url.includes('manage/pages')"
+            >
+              <template #icon>
+                <LocationHazard24 />
+              </template>
+            </ManageSideNavLink>
           </ManageSideNavGroup>
         </template>
       </div>

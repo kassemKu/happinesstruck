@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
-use Symfony\Component\HttpFoundation\Request;
+use App\Models\Product;
 
 class MyCartPageController extends Controller
 {
@@ -62,16 +59,16 @@ class MyCartPageController extends Controller
      * @param int $qty
      * @return Illuminate\Http\RedirectResponse;
      */
-    public function updateCart(String $rowId, Int $qty, Request $request): JsonResponse {
-        // dd($rowId, $qty, $request->all());
-        Cart::update($rowId, [
-            'qty' => $qty
-        ]);
+    public function updateCart(String $rowId, Int $qty): JsonResponse {
+        $item = Cart::update($rowId, $qty);
 
         return response()->json([
             'status' => 200,
-            'message' => 'item added to cart successfully',
+            'message' => 'item updated to cart successfully',
+            'item' => $item,
             'count' => Cart::count(),
+            'subtotal' => Cart::subtotal(),
+            'total' => Cart::total()
         ]);
     }
 
@@ -79,9 +76,15 @@ class MyCartPageController extends Controller
      * @param string $rowId
      * @return Illuminate\Http\RedirectResponse;
      */
-    public function deleteCartItem(String $rowId): RedirectResponse {
+    public function deleteCartItem(String $rowId): JsonResponse {
         Cart::remove($rowId);
 
-        return Redirect::back()->with('success', 'item removed');
+        return response()->json([
+            'status' => 200,
+            'message' => 'item updated to cart successfully',
+            'count' => Cart::count(),
+            'subtotal' => Cart::subtotal(),
+            'total' => Cart::total(),
+        ]);
     }
 }
