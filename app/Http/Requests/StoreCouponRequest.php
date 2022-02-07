@@ -27,6 +27,9 @@ class StoreCouponRequest extends FormRequest
             'code' => ['required','min:16','max:16','string', 'unique:coupons,code'],
             'value' => ['required', 'numeric'],
             'type' => ['required', 'in:fixed,percent'],
+            'isValid' => ['required'],
+            'user_id' => ['nullable'],
+            'valid_for_times' => ['required', 'int'],
             'date.*' => [
                 ['required', 'strtotime']
             ]

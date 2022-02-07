@@ -1,6 +1,16 @@
 <template>
-  <HtSection padding-x="0" padding-y="0">
-    <div class="capitalize flex flex-col space-y-12 bg-indigo-50 px-24 py-12">
+  <div>
+    <div
+      class="
+        capitalize
+        flex flex-col
+        space-y-12
+        bg-indigo-50
+        px-8
+        md:px-16
+        py-12
+      "
+    >
       <div v-if="featuredProducts.length > 0" class="flex flex-col space-y-8">
         <div class="w-full flex items-center space-x-4">
           <h3 class="text-2xl font-semibold">
@@ -9,9 +19,10 @@
           <div class="flex-grow bg-gray-600 h-px bg-opacity-10"></div>
         </div>
         <carousel
-          :items-to-show="4"
+          :items-to-show="1"
           :wrap-around="true"
           :autoplay="2000"
+          :breakpoints="breakpoints"
           class="flex-col overflow-x-visible"
         >
           <slide
@@ -97,9 +108,10 @@
           <div class="flex-grow bg-gray-600 h-px bg-opacity-10"></div>
         </div>
         <carousel
-          :items-to-show="4"
+          :items-to-show="1"
           :wrap-around="true"
           :autoplay="2000"
+          :breakpoints="breakpoints"
           class="flex-col overflow-x-visible"
         >
           <slide
@@ -194,7 +206,7 @@
         </div>
       </div>
     </div>
-  </HtSection>
+  </div>
 </template>
 
 <script>
@@ -234,7 +246,29 @@ export default {
       })
     }
 
-    return { addToCart }
+    const breakpoints = {
+      640: {
+        itemsToShow: 2,
+        snapAlign: 'center',
+      },
+      // 768 and up
+      768: {
+        itemsToShow: 2.5,
+        snapAlign: 'start',
+      },
+      // 1024 and up
+      1024: {
+        itemsToShow: 3.5,
+        snapAlign: 'start',
+      },
+      // 1280 and up
+      1280: {
+        itemsToShow: 4.5,
+        snapAlign: 'start',
+      },
+    }
+
+    return { addToCart, breakpoints }
   },
 }
 </script>
@@ -258,10 +292,12 @@ export default {
   animation: button-pop var(--animation-btn, 0.25s) ease-out;
 }
 .carousel__prev {
-  left: -1.5rem;
+  left: -0.5rem;
+  top: 25%;
 }
 .carousel__next {
-  right: -1.5rem;
+  right: -0.5rem;
+  top: 25%;
 }
 .carousel__prev:hover,
 .carousel__next:hover {

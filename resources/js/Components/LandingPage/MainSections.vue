@@ -21,7 +21,6 @@
             sm:mt-48
             mb-8
             sm:mb-0
-            px-0
             md:px-12
           "
         >

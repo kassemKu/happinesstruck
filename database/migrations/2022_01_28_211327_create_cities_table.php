@@ -20,10 +20,14 @@ class CreateCitiesTable extends Migration
             $table->string('ar_slug', 200)->nullable();
             $table->string('en_slug', 200)->nullable();
             $table->enum('status',['available','unavailable'])->default('available');
+            $table->decimal('shipping_cost')->nullable();
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained();
-            $table->foreignId('country_id')
+            $table->foreignId('state_id')
+                ->nullable()
+                ->constrained();
+            $table->foreignId('city_id')
                 ->nullable()
                 ->constrained();
             $table->softDeletes();

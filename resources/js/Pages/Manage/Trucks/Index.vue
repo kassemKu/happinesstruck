@@ -143,7 +143,7 @@ const components = {
 }
 
 export default {
-  name: 'ManagetrucksIndex',
+  name: 'ManageTrucksIndex',
 
   components,
 
@@ -155,18 +155,18 @@ export default {
   },
 
   setup() {
-    let truckTodeleteId = 0
+    let truckToDeleteId = 0
     const store = useStore()
 
     const isModalOpen = store.state.isModalOpen
 
     const openConfirmDelete = (truckId) => {
       store.commit('openModal')
-      truckTodeleteId = truckId
+      truckToDeleteId = truckId
     }
 
     const deleteTruck = () => {
-      Inertia.delete(route('manage.trucks.destroy', truckTodeleteId), {
+      Inertia.delete(route('manage.trucks.destroy', truckToDeleteId), {
         onFinish: () => {
           store.commit('closeModal')
 

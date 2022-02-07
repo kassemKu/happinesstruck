@@ -391,7 +391,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.divide-y-2 > *, .border, .border-2, .border-0, .border-b-2, .border-l-4, .border-t, .border-b, .border-r, .border-t-4, .border-b-0, .ltr\:border-l-2, .ltr\:border-r, .ltr\:border-l-4, .rtl\:border-r-2, .rtl\:border-l, .rtl\:border-r-4, .sm\:border, .sm\:border-t-0, .sm\:border-b, .md\:border-t-0, .md\:border-l, .lg\:border-b-0, .lg\:border-r {
+.divide-y-2 > *, .border, .border-2, .border-0, .border-b-2, .border-l-4, .border-t, .border-b, .border-r, .border-t-4, .border-b-0, .hover\:border-0, .ltr\:border-l-2, .ltr\:border-r, .ltr\:border-l-4, .rtl\:border-r-2, .rtl\:border-l, .rtl\:border-r-4, .sm\:border, .sm\:border-t-0, .sm\:border-b, .md\:border-t-0, .md\:border-l, .lg\:border-b-0, .lg\:border-r {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
@@ -1216,6 +1216,13 @@ html {
   --tw-shadow: 0 0 0 1px var(--border-color) !important;
 }
 
+[data-theme=lofi] *:where(.card) {
+  border-color: var(--border-color) !important;
+  --tw-border-opacity: 1 !important;
+  --tw-text-opacity: 1 !important;
+  --tw-shadow: 0 0 0 1px var(--border-color) !important;
+}
+
 [data-theme=pastel] {
   --p: 284 21.6% 80%;
   --pf: 282 21.6% 70%;
@@ -2020,6 +2027,53 @@ html {
 }
 .btn-group>input[type=radio].btn:before {
   content: attr(data-title);
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  border-radius: var(--rounded-box,1rem);
+}
+.card:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: var(--padding-card,2rem);
+}
+.card figure,.card figure>* {
+  width: 100%;
+}
+.card.image-full {
+  display: grid;
+}
+.card.image-full:before {
+  position: relative;
+  content: "";
+  --tw-bg-opacity: 1;
+  background-color: hsla(var(--n)/var(--tw-bg-opacity,1));
+  opacity: .75;
+  z-index: 10;
+  border-radius: var(--rounded-box,1rem);
+}
+.card.image-full:before,.card.image-full>* {
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+.card.image-full>figure img {
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.card.image-full>.card-body {
+  position: relative;
+  --tw-text-opacity: 1;
+  color: hsla(var(--nc)/var(--tw-text-opacity,1));
+  z-index: 20;
 }
 .carousel {
   display: flex;
@@ -2838,6 +2892,19 @@ html {
   to {
     transform: scale(1);
   }
+}
+.card:focus-visible {
+  box-shadow: 0 0 0 2px currentColor;
+}
+.card.bordered {
+  --tw-border-opacity: 1;
+  border-color: hsla(var(--b2)/var(--tw-border-opacity,1));
+  border-width: 1px;
+}
+.card.compact .card-body {
+  font-size: .875rem;
+  line-height: 1.25rem;
+  padding: 1rem;
 }
 .card.compact .card-title {
   margin-bottom: .25rem;
@@ -3681,10 +3748,6 @@ html {
 .mx-8 {
   margin-left: 2rem;
   margin-right: 2rem;
-}
-.-my-4 {
-  margin-top: -1rem;
-  margin-bottom: -1rem;
 }
 .my-1 {
   margin-top: 0.25rem;
@@ -4710,10 +4773,6 @@ html {
   -o-object-fit: cover;
      object-fit: cover;
 }
-.object-scale-down {
-  -o-object-fit: scale-down;
-     object-fit: scale-down;
-}
 .p-2 {
   padding: 0.5rem;
 }
@@ -4799,10 +4858,6 @@ html {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
-}
-.px-24 {
-  padding-left: 6rem;
-  padding-right: 6rem;
 }
 .py-1\.5 {
   padding-top: 0.375rem;
@@ -5564,6 +5619,9 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-scale-y: 1.25;
   transform: var(--tw-transform);
 }
+.hover\:border-0:hover {
+  border-width: 0px;
+}
 .hover\:border-none:hover {
   border-style: none;
 }
@@ -5586,6 +5644,9 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
 .hover\:border-neutral:hover {
   --tw-border-opacity: 1;
   border-color: hsla(var(--n) / var(--tw-border-opacity));
+}
+.hover\:border-transparent:hover {
+  border-color: transparent;
 }
 .hover\:border-red-500:hover {
   --tw-border-opacity: 1;

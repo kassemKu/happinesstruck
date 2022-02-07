@@ -22,12 +22,20 @@
             <template #groupIcon>
               <Identification24 class="w-7 h-7" />
             </template>
-            <ManageSideNavLink :name="$t('permissions')" :href="'/'">
+            <ManageSideNavLink
+              :name="$t('permissions')"
+              :href="route('manage.permissions.index')"
+              :active="$page.url.includes('manage/permissions')"
+            >
               <template #icon>
                 <Password24 />
               </template>
             </ManageSideNavLink>
-            <ManageSideNavLink :name="$t('roles')" :href="'/'">
+            <ManageSideNavLink
+              :name="$t('roles')"
+              :href="route('manage.roles.index')"
+              :active="$page.url.includes('manage/roles')"
+            >
               <template #icon>
                 <Function24 />
               </template>

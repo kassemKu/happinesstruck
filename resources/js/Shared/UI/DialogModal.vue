@@ -10,7 +10,7 @@
         class="text-lg uppercase font-semibold"
         :class="{ 'text-error': modalType === 'error' }"
       >
-        <slot name="title"> </slot>
+        <slot name="title" />
       </h4>
 
       <div class="mt-4">
@@ -38,6 +38,11 @@ export default {
     show: {
       type: Boolean,
       default: false,
+      required: true,
+    },
+    title: {
+      type: String,
+      default: null,
     },
     maxWidth: {
       type: String,

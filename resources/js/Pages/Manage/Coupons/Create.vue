@@ -42,6 +42,52 @@
                 :label="$t('coupon_value')"
                 :server-error="$page.props.errors.value"
               />
+              <div class="form-control mb-4">
+                <label class="label">
+                  <span class="label-text capitalize font-semibold"
+                    >valid date</span
+                  ></label
+                >
+                <litepie-datepicker
+                  v-model="form.date"
+                  i18n="id"
+                  :shortcuts="false"
+                  separator=" TO "
+                ></litepie-datepicker>
+                <label class="label">
+                  <span
+                    v-show="$page.props.errors.date"
+                    class="label-text-alt text-error"
+                    >{{ $page.props.errors.date }}</span
+                  >
+                </label>
+              </div>
+              <!-- coupon date -->
+              <TextField
+                v-model="form.valid_for_times"
+                name="valid_for_times"
+                type="number"
+                :placeholder="$t('coupon_valid_for_times')"
+                :label="$t('coupon_valid_for_times')"
+                :server-error="$page.props.errors.valid_for_times"
+              />
+              <!-- valid times -->
+            </div>
+            <div class="grid grid-cols-2 gap-4 items-center">
+              <div class="form-control">
+                <label class="cursor-pointer label justify-start space-x-2">
+                  <input
+                    v-model="form.isValid"
+                    type="checkbox"
+                    class="checkbox"
+                    name="publish"
+                  />
+                  <span class="label-text text-sm font-semibold capitalize"
+                    >valid coupon?</span
+                  >
+                </label>
+              </div>
+              <!-- is valid checkbox -->
               <div class="w-full flex h-full items-center space-x-8 my-4">
                 <div class="form-control">
                   <label class="cursor-pointer label justify-start space-x-2">
@@ -57,67 +103,53 @@
                     />
                   </label>
                 </div>
-
-                <div class="form-control">
+                <div>
+                  <div class="form-control">
+                    <label class="cursor-pointer label justify-start space-x-2">
+                      <span class="label-text font-semibold capitalize"
+                        >percent</span
+                      >
+                      <input
+                        v-model="form.type"
+                        type="radio"
+                        name="type"
+                        class="radio"
+                        value="percent"
+                      />
+                    </label>
+                  </div>
+                  <p
+                    v-if="$page.props.errors.type"
+                    class="text-xs text-red-500 font-bold"
+                  >
+                    {{ $page.props.errors.type }}
+                  </p>
+                </div>
+              </div>
+              <!-- type radio  -->
+            </div>
+            <div class="flex items-center justify-between my-6">
+              <div class="flex-1 flex h-full items-center space-x-8">
+                <div
+                  v-for="(model, index) in related"
+                  :key="index"
+                  class="form-control"
+                >
                   <label class="cursor-pointer label justify-start space-x-2">
                     <span class="label-text font-semibold capitalize"
-                      >percent</span
+                      >for {{ model }}</span
                     >
                     <input
-                      v-model="form.type"
+                      v-model="form.related"
                       type="radio"
-                      name="type"
+                      name="related"
                       class="radio"
-                      value="percent"
+                      :value="model"
                     />
                   </label>
                 </div>
-
-                <p
-                  v-if="$page.props.errors.type"
-                  class="text-xs text-red-500 font-bold"
-                >
-                  {{ $page.props.errors.type }}
-                </p>
               </div>
-              <!-- type radio  -->
-              <div class="form-control mb-4">
-                <label class="label">
-                  <span class="label-text capitalize font-semibold"
-                    >valid date</span
-                  ></label
-                >
-                <litepie-datepicker
-                  v-model="form.date"
-                  i18n="id"
-                  :shortcuts="false"
-                  separator=" TO "
-                ></litepie-datepicker>
-              </div>
-              <!-- coupon date -->
-            </div>
-            <div class="w-full flex h-full items-center space-x-8 my-4">
-              <div
-                v-for="(model, index) in related"
-                :key="index"
-                class="form-control"
-              >
-                <label class="cursor-pointer label justify-start space-x-2">
-                  <span class="label-text font-semibold capitalize"
-                    >{{ model }} coupon</span
-                  >
-                  <input
-                    v-model="form.related"
-                    type="radio"
-                    name="related"
-                    class="radio"
-                    :value="model"
-                  />
-                </label>
-              </div>
-            </div>
-            <!-- coupon related radio  -->
-            <div class="w-full flex justify-center my-6">
+              <!-- coupon related radio  -->
               <button
                 type="button"
                 class="
@@ -156,19 +188,21 @@
               class="capitalize"
               :class="{ 'text-info font-bold': selectedModel(model) }"
             >
-              {{ model.en_name }}
+              {{ form.related === 'user' ? model.full_name : model.en_name }}
             </p>
           </div>
           <div
             class="flex items-center relative rounded-box group"
             :class="{ 'border-2 border-info': selectedModel(model) }"
           >
-            <img
-              v-if="model.media.length > 0"
-              :src="model.media[0].full_url"
-              :alt="model.en_name"
-              class="w-full h-48 object-cover rounded-box"
-            />
+            <template v-if="form.related !== 'user'">
+              <img
+                v-if="model.media.length > 0"
+                :src="model.media[0].full_url"
+                :alt="model.en_name"
+                class="w-full h-48 object-cover rounded-box"
+              />
+            </template>
             <div
               v-else
               class="
@@ -228,9 +262,6 @@
           </div>
         </div>
       </div>
-      <pre>
-        {{ form.relatedModels }}
-      </pre>
     </div>
   </Modal>
 </template>
@@ -266,6 +297,10 @@ export default {
   components,
 
   props: {
+    users: {
+      type: Array,
+      default: () => [],
+    },
     collections: {
       type: Array,
       default: () => [],
@@ -277,10 +312,13 @@ export default {
   },
 
   setup(props) {
-    const form = useForm({
+    const form = useForm('storeCoupon', {
       code: null,
       type: 'fixed',
       value: null,
+      isValid: true,
+      valid_for_times: 1,
+      user_id: null,
       date: {
         start_date: null,
         expiry_date: null,
@@ -317,7 +355,11 @@ export default {
       form.code = code
     }
 
-    const related = ref(['product', 'collection' /* 'cart', 'booking' */])
+    const related = ref([
+      'product',
+      'collection',
+      'user' /* 'cart', 'booking' */,
+    ])
     form.related = related.value[0]
 
     watch(
@@ -328,6 +370,11 @@ export default {
             models.splice(0, models.length)
             form.relatedModels.splice(0, form.relatedModels.length)
             props.collections.forEach((m) => models.push(m))
+            break
+          case 'user':
+            models.splice(0, models.length)
+            form.relatedModels.splice(0, form.relatedModels.length)
+            props.users.forEach((m) => models.push(m))
             break
           default:
             models.splice(0, models.length)

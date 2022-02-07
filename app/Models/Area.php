@@ -10,6 +10,7 @@ use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use App\Models\City;
+use App\Models\State;
 
 class Area extends Model
 {
@@ -29,6 +30,8 @@ class Area extends Model
         'en_slug',
         'user_id',
         'city_id',
+        'state_id',
+        'shipping_cost',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -62,5 +65,11 @@ class Area extends Model
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    // relation city
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(State::class);
     }
 }

@@ -166,6 +166,10 @@ export const store = new Vuex.Store({
         .then(() => {})
     },
 
+    // add shipping cost to total if excite
+    async AddShippingCostToCartTotal(state, payload) {
+      state.cartTotal = state.cartTotal + payload
+    },
     // user cart counter
     updateCartCount(state, payload) {
       state.cartCount = payload

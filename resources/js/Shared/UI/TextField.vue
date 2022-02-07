@@ -24,7 +24,9 @@
         hover:border-neutral hover:border-opacity-50
         shadow-sm
       "
-      :class="{ 'cursor-not-allowed': disabled }"
+      :class="{
+        'cursor-not-allowed hover:border-0 hover:border-transparent': disabled,
+      }"
       :type="type"
       :placeholder="placeholder"
       :value="modelValue"

@@ -40,159 +40,391 @@
             "
           >
             <form class="w-full lg:w-2/3" @submit.prevent="checkout">
-              <div class="flex flex-col space-y-6">
-                <h3 class="text-xl text-info font-bold uppercase">
-                  billing details
-                </h3>
+              <div class="flex flex-col space-y-8">
+                <div class="flex flex-col space-y-4">
+                  <h3 class="text-xl text-info font-bold uppercase">
+                    {{ $t('shipping_details') }}
+                  </h3>
+                  <div class="form-control">
+                    <label class="cursor-pointer label justify-start space-x-2">
+                      <input
+                        v-model="useUserInfo"
+                        type="checkbox"
+                        class="checkbox"
+                        :checked="useUserInfo"
+                      />
+                      <span class="label-text text-xs font-medium capitalize">{{
+                        $t('ask_to_user_account')
+                      }}</span>
+                    </label>
+                  </div>
+                  <div>
+                    <TextField
+                      v-model="form.shipping_full_name"
+                      name="shipping_full_name"
+                      :placeholder="$t('shipping') + ' | ' + $t('full_name')"
+                      :label="$t('shipping') + ' | ' + $t('full_name')"
+                      :server-error="$page.props.errors.shipping_full_name"
+                    />
+                    <div class="form-control mb-4">
+                      <label class="label">
+                        <span class="label-text capitalize font-semibold">{{
+                          $t('shipping') + ' | ' + $t('country')
+                        }}</span>
+                        <Link
+                          href="/"
+                          class="
+                            label-text-alt
+                            capitalize
+                            font-semibold
+                            text-info
+                          "
+                        >
+                          ({{ $t('shipping_cost') }})
+                          {{ $t('check_shipping_price') }}
+                        </Link>
+                      </label>
+                      <vue-select
+                        v-model="form.shipping_country"
+                        :options="shippingCountries"
+                        value-by="ar_name"
+                        :label-by="
+                          $i18n.locale === 'en' ? 'en_name' : 'ar_name'
+                        "
+                        :placeholder="$t('shipping') + ' | ' + $t('country')"
+                        close-on-select
+                      ></vue-select>
+                      <label class="label">
+                        <span
+                          v-show="$page.props.errors.shipping_country"
+                          class="label-text-alt text-error"
+                          >{{ $page.props.errors.shipping_country }}</span
+                        >
+                      </label>
+                    </div>
+                    <!-- shipping country -->
+                    <div class="form-control mb-4">
+                      <label class="label">
+                        <span class="label-text capitalize font-semibold">{{
+                          $t('shipping') + ' | ' + $t('state')
+                        }}</span>
+                        <Link
+                          href="/"
+                          class="
+                            label-text-alt
+                            capitalize
+                            font-semibold
+                            text-info
+                          "
+                        >
+                          ({{ $t('shipping_cost') }})
+                          {{ $t('check_shipping_price') }}
+                        </Link>
+                      </label>
+                      <vue-select
+                        v-model="form.shipping_state"
+                        :options="shippingStates"
+                        value-by="ar_name"
+                        :label-by="
+                          $i18n.locale === 'en' ? 'en_name' : 'ar_name'
+                        "
+                        :placeholder="$t('shipping') + ' | ' + $t('state')"
+                        close-on-select
+                        @selected="shippingStateSelected"
+                        @removed="clearShippingStateSelected"
+                      ></vue-select>
+                      <label class="label">
+                        <span
+                          v-show="$page.props.errors.shipping_state"
+                          class="label-text-alt text-error"
+                          >{{ $page.props.errors.shipping_state }}</span
+                        >
+                      </label>
+                    </div>
+                    <!-- shipping state -->
+                    <div class="form-control mb-4">
+                      <label class="label">
+                        <span class="label-text capitalize font-semibold">{{
+                          $t('shipping') + ' | ' + $t('area')
+                        }}</span>
+                        <Link
+                          href="/"
+                          class="
+                            label-text-alt
+                            capitalize
+                            font-semibold
+                            text-info
+                          "
+                        >
+                          ({{ $t('shipping_cost') }})
+                          {{ $t('check_shipping_price') }}
+                        </Link>
+                      </label>
+                      <vue-select
+                        v-model="form.shipping_area"
+                        :options="shippingAreas"
+                        value-by="ar_name"
+                        :label-by="
+                          $i18n.locale === 'en' ? 'en_name' : 'ar_name'
+                        "
+                        :placeholder="$t('shipping') + ' | ' + $t('area')"
+                        close-on-select
+                        @selected="shippingAreaSelected"
+                        @removed="clearShippingAreaSelected"
+                      ></vue-select>
+                      <label class="label">
+                        <span
+                          v-show="$page.props.errors.shipping_area"
+                          class="label-text-alt text-error"
+                          >{{ $page.props.errors.shipping_area }}</span
+                        >
+                      </label>
+                    </div>
+                    <!-- shipping area -->
+                    <TextField
+                      v-model="form.shipping_zip_code"
+                      name="shipping_zip_code"
+                      :placeholder="$t('shipping') + ' | ' + $t('zip_code')"
+                      :label="$t('shipping') + ' | ' + $t('zip_code')"
+                      :server-error="$page.props.errors.shipping_zip_code"
+                    />
+                    <TextField
+                      v-model="form.shipping_avenue"
+                      name="shipping_avenue"
+                      :placeholder="$t('shipping') + ' | ' + $t('avenue')"
+                      :label="$t('shipping') + ' | ' + $t('avenue')"
+                      :server-error="$page.props.errors.shipping_avenue"
+                    />
+                    <TextField
+                      v-model="form.shipping_street"
+                      name="shipping_street"
+                      :placeholder="$t('shipping') + ' | ' + $t('street')"
+                      :label="$t('shipping') + ' | ' + $t('street')"
+                      :server-error="$page.props.errors.shipping_street"
+                    />
+                    <TextField
+                      v-model="form.shipping_address"
+                      name="shipping_address"
+                      :placeholder="$t('shipping') + ' | ' + $t('address')"
+                      :label="$t('shipping') + ' | ' + $t('address')"
+                      :server-error="$page.props.errors.shipping_address"
+                    />
+                    <TextField
+                      v-model="form.shipping_phone"
+                      name="shipping_phone"
+                      :placeholder="$t('shipping') + ' | ' + $t('phone')"
+                      :label="$t('shipping') + ' | ' + $t('phone')"
+                      :server-error="$page.props.errors.shipping_phone"
+                    />
+                  </div>
+                </div>
                 <div class="form-control">
                   <label class="cursor-pointer label justify-start space-x-2">
                     <input
-                      v-model="useUserInfo"
+                      v-model="form.useShippingDetails"
                       type="checkbox"
                       class="checkbox"
-                      :checked="useUserInfo"
+                      :checked="form.useShippingDetails"
                     />
-                    <span class="label-text text-sm font-semibold capitalize"
-                      >use your happiness truck account details?</span
-                    >
+                    <span class="label-text text-xs font-medium capitalize">{{
+                      $t('same_shipping_details')
+                    }}</span>
                   </label>
                 </div>
-                <div>
-                  <TextField
-                    v-model="form.billing_full_name"
-                    name="billing_full_name"
-                    :placeholder="$t('billing') + ' | ' + $t('full_name')"
-                    :label="$t('billing') + ' | ' + $t('full_name')"
-                    :server-error="$page.props.errors.billing_full_name"
-                  />
-                  <div class="form-control mb-4">
-                    <label class="label">
-                      <span class="label-text capitalize font-semibold">{{
-                        $t('billing') + ' | ' + $t('country')
-                      }}</span>
-                    </label>
-                    <vue-select
-                      v-model="form.country_id"
-                      :options="countries"
-                      value-by="id"
-                      :label-by="$i18n.locale === 'en' ? 'en_name' : 'ar_name'"
-                      :placeholder="$t('billing') + ' | ' + $t('country')"
-                      close-on-select
-                    ></vue-select>
-                    <label class="label">
-                      <span
-                        v-show="$page.props.errors.country_id"
-                        class="label-text-alt text-error"
-                        >{{ $page.props.errors.country_id }}</span
-                      >
-                    </label>
+                <!-- shipping details -->
+                <div class="flex flex-col space-y-4">
+                  <h3 class="text-xl text-info font-bold uppercase">
+                    {{ $t('billing_details') }}
+                  </h3>
+                  <div>
+                    <TextField
+                      v-model="form.billing_full_name"
+                      name="billing_full_name"
+                      :placeholder="$t('billing') + ' | ' + $t('full_name')"
+                      :label="$t('billing') + ' | ' + $t('full_name')"
+                      :server-error="$page.props.errors.billing_full_name"
+                      :disabled="
+                        form.useShippingDetails &&
+                        form.shipping_full_name !== ''
+                      "
+                    />
+                    <template
+                      v-if="form.useShippingDetails && form.shipping_country"
+                    >
+                      <TextField
+                        v-model="form.billing_country"
+                        name="billing_country"
+                        :placeholder="$t('billing') + ' | ' + $t('country')"
+                        :label="$t('billing') + ' | ' + $t('country')"
+                        :server-error="$page.props.errors.billing_country"
+                        :disabled="true"
+                      />
+                    </template>
+                    <div v-else class="form-control mb-4">
+                      <label class="label">
+                        <span class="label-text capitalize font-semibold">{{
+                          $t('billing') + ' | ' + $t('country')
+                        }}</span>
+                      </label>
+                      <vue-select
+                        v-model="form.billing_country"
+                        :options="billingCountries"
+                        value-by="ar_name"
+                        :label-by="
+                          $i18n.locale === 'en' ? 'en_name' : 'ar_name'
+                        "
+                        :placeholder="$t('billing') + ' | ' + $t('country')"
+                        close-on-select
+                      ></vue-select>
+                      <label class="label">
+                        <span
+                          v-show="$page.props.errors.shipping_country"
+                          class="label-text-alt text-error"
+                          >{{ $page.props.errors.shipping_country }}</span
+                        >
+                      </label>
+                    </div>
+                    <!-- billing country -->
+                    <template
+                      v-if="form.useShippingDetails && form.shipping_state"
+                    >
+                      <TextField
+                        v-model="form.billing_state"
+                        name="billing_state"
+                        :placeholder="$t('billing') + ' | ' + $t('state')"
+                        :label="$t('billing') + ' | ' + $t('state')"
+                        :server-error="$page.props.errors.billing_state"
+                        :disabled="true"
+                      />
+                    </template>
+                    <div v-else class="form-control mb-4">
+                      <label class="label">
+                        <span class="label-text capitalize font-semibold">{{
+                          $t('billing') + ' | ' + $t('state')
+                        }}</span>
+                      </label>
+                      <vue-select
+                        v-model="form.billing_state"
+                        :options="billingStates"
+                        value-by="ar_name"
+                        :label-by="
+                          $i18n.locale === 'en' ? 'en_name' : 'ar_name'
+                        "
+                        :placeholder="$t('billing') + ' | ' + $t('state')"
+                        close-on-select
+                        @selected="billingStateSelected"
+                        @removed="clearBillingStateSelected"
+                      ></vue-select>
+                      <label class="label">
+                        <span
+                          v-show="$page.props.errors.billing_state"
+                          class="label-text-alt text-error"
+                          >{{ $page.props.errors.billing_state }}</span
+                        >
+                      </label>
+                    </div>
+                    <!-- billing state -->
+                    <template
+                      v-if="form.useShippingDetails && form.shipping_area"
+                    >
+                      <TextField
+                        v-model="form.billing_area"
+                        name="billing_area"
+                        :placeholder="$t('billing') + ' | ' + $t('area')"
+                        :label="$t('billing') + ' | ' + $t('area')"
+                        :server-error="$page.props.errors.billing_area"
+                        :disabled="true"
+                      />
+                    </template>
+                    <div v-else class="form-control mb-4">
+                      <label class="label">
+                        <span class="label-text capitalize font-semibold">{{
+                          $t('billing') + ' | ' + $t('area')
+                        }}</span>
+                      </label>
+                      <vue-select
+                        v-model="form.billing_area"
+                        :options="billingAreas"
+                        value-by="id"
+                        :label-by="
+                          $i18n.locale === 'en' ? 'en_name' : 'ar_name'
+                        "
+                        :placeholder="$t('billing') + ' | ' + $t('area')"
+                        close-on-select
+                      ></vue-select>
+                      <label class="label">
+                        <span
+                          v-show="$page.props.errors.billing_area"
+                          class="label-text-alt text-error"
+                          >{{ $page.props.errors.billing_area }}</span
+                        >
+                      </label>
+                    </div>
+                    <!-- billing area -->
+                    <TextField
+                      v-model="form.billing_zip_code"
+                      name="billing_zip_code"
+                      :placeholder="$t('billing') + ' | ' + $t('zip_code')"
+                      :label="$t('billing') + ' | ' + $t('zip_code')"
+                      :server-error="$page.props.errors.billing_zip_code"
+                      :disabled="
+                        form.useShippingDetails && form.shipping_zip_code !== ''
+                      "
+                    />
+                    <TextField
+                      v-model="form.billing_avenue"
+                      name="billing_avenue"
+                      :placeholder="$t('billing') + ' | ' + $t('avenue')"
+                      :label="$t('billing') + ' | ' + $t('avenue')"
+                      :server-error="$page.props.errors.billing_avenue"
+                      :disabled="
+                        form.useShippingDetails && form.shipping_avenue !== ''
+                      "
+                    />
+                    <TextField
+                      v-model="form.billing_street"
+                      name="billing_street"
+                      :placeholder="$t('billing') + ' | ' + $t('street')"
+                      :label="$t('billing') + ' | ' + $t('street')"
+                      :server-error="$page.props.errors.billing_street"
+                      :disabled="
+                        form.useShippingDetails && form.shipping_street !== ''
+                      "
+                    />
+                    <TextField
+                      v-model="form.billing_address"
+                      name="billing_address"
+                      :placeholder="$t('billing') + ' | ' + $t('address')"
+                      :label="$t('billing') + ' | ' + $t('address')"
+                      :server-error="$page.props.errors.billing_address"
+                      :disabled="
+                        form.useShippingDetails && form.shipping_address !== ''
+                      "
+                    />
+                    <TextField
+                      v-model="form.billing_phone"
+                      name="billing_phone"
+                      :placeholder="$t('billing') + ' | ' + $t('phone')"
+                      :label="$t('billing') + ' | ' + $t('phone')"
+                      :server-error="$page.props.errors.billing_phone"
+                      :disabled="
+                        form.useShippingDetails && form.shipping_phone !== ''
+                      "
+                    />
                   </div>
-                  <!-- country -->
-                  <TextField
-                    v-model="form.billing_state"
-                    name="billing_state"
-                    :placeholder="`Billing | state`"
-                    label="
-                    Billing | state
-                  "
-                    :server-error="$page.props.errors.billing_state"
-                  />
-                  <div class="form-control mb-4">
-                    <label class="label">
-                      <span class="label-text capitalize font-semibold">{{
-                        $t('billing') + ' | ' + $t('city')
-                      }}</span>
-                    </label>
-                    <vue-select
-                      v-model="form.city_id"
-                      :options="cities"
-                      value-by="id"
-                      :label-by="$i18n.locale === 'en' ? 'en_name' : 'ar_name'"
-                      :placeholder="$t('billing') + ' | ' + $t('city')"
-                      close-on-select
-                      @selected="getAreas"
-                      @removed="clearAreas"
-                    ></vue-select>
-                    <label class="label">
-                      <span
-                        v-show="$page.props.errors.city_id"
-                        class="label-text-alt text-error"
-                        >{{ $page.props.errors.city_id }}</span
-                      >
-                    </label>
-                  </div>
-                  <!-- city -->
-                  <div class="form-control mb-4">
-                    <label class="label">
-                      <span class="label-text capitalize font-semibold">{{
-                        $t('billing') + ' | ' + $t('area')
-                      }}</span>
-                    </label>
-                    <vue-select
-                      v-model="form.area_id"
-                      :options="areas"
-                      value-by="id"
-                      :label-by="$i18n.locale === 'en' ? 'en_name' : 'ar_name'"
-                      :placeholder="$t('billing') + ' | ' + $t('area')"
-                      close-on-select
-                    ></vue-select>
-                    <label class="label">
-                      <span
-                        v-show="$page.props.errors.area_id"
-                        class="label-text-alt text-error"
-                        >{{ $page.props.errors.area_id }}</span
-                      >
-                    </label>
-                  </div>
-                  <!-- area -->
-                  <TextField
-                    v-model="form.billing_zip_code"
-                    name="billing_zip_code"
-                    :placeholder="`Billing | zip code`"
-                    label="
-                    Billing | zip code
-                  "
-                    :server-error="$page.props.errors.billing_zip_code"
-                  />
-                  <TextField
-                    v-model="form.billing_avenue"
-                    name="billing_avenue"
-                    :placeholder="`Billing | avenue`"
-                    label="
-                    Billing | avenue
-                  "
-                    :server-error="$page.props.errors.billing_avenue"
-                  />
-                  <TextField
-                    v-model="form.billing_address"
-                    name="billing_address"
-                    :placeholder="`Billing | address`"
-                    label="
-                    Billing | address
-                  "
-                    :server-error="$page.props.errors.billing_address"
-                  />
-                  <TextField
-                    v-model="form.billing_phone"
-                    name="billing_phone"
-                    :placeholder="`Billing | phone`"
-                    label="
-                    Billing | phone
-                  "
-                    :server-error="$page.props.errors.billing_phone"
-                  />
                 </div>
-                <div class="-my-4">
-                  <span class="label-text capitalize font-semibold"
-                    >payment methods</span
-                  >
+                <!-- billing details -->
+                <div>
+                  <span class="label-text capitalize font-semibold">{{
+                    $t('payment_methods')
+                  }}</span>
                 </div>
                 <div class="w-full flex h-full items-center space-x-8">
                   <div class="form-control">
                     <label class="cursor-pointer label justify-start space-x-2">
-                      <span class="label-text font-semibold capitalize"
-                        >credit</span
-                      >
+                      <span class="label-text font-semibold capitalize">{{
+                        $t('credit')
+                      }}</span>
                       <input
                         v-model="form.payment_method"
                         type="radio"
@@ -224,17 +456,16 @@
                   </p>
                 </div>
                 <div class="mt-4">
-                  <p class="text-neutral text-opacity-60 text-sm">
-                    there is one available payment getaway until now,
-                    <a class="link italic text-info"
-                      >payment getaway company link</a
-                    >
+                  <p class="text-neutral text-opastate-60 text-sm">
+                    {{ $t('one_available_payment') }},
+                    <a class="link italic text-info">{{ $t('payzah_link') }}</a>
                   </p>
                   <div class="form-control">
                     <label class="cursor-pointer label justify-start space-x-2">
                       <input type="checkbox" class="checkbox" />
-                      <span class="label-text text-sm font-semibold capitalize"
-                        >agree</span
+                      <span
+                        class="label-text text-sm font-semibold capitalize"
+                        >{{ $t('agree') }}</span
                       >
                     </label>
                   </div>
@@ -243,7 +474,7 @@
               <!-- TODO:: to update to shipping company -->
               <div class="flex w-full justify-center">
                 <button type="submit" class="btn btn-info mt-8 btn-block">
-                  pay now
+                  {{ $t('pay_now') }}
                 </button>
               </div>
             </form>
@@ -261,9 +492,9 @@
                 lg:mb-0
               "
             >
-              <div class="flex flex-col space-y-6">
+              <div class="flex flex-col space-y-4">
                 <h3 class="text-xl text-info font-bold uppercase">
-                  payment details
+                  {{ $t('payment_details') }}
                 </h3>
                 <div
                   class="
@@ -278,16 +509,83 @@
                   "
                 >
                   <div class="flex justify-between py-4">
-                    <p>subtotal</p>
+                    <p>{{ $t('subtotal') }}</p>
                     <p class="bg-gray-200 py-1 px-2 rounded">
-                      {{ $page.props.cartSubtotal }} KD
+                      {{ $page.props.cartSubtotal }}
+                      {{ $i18n.locale === 'en' ? 'dk' : 'دك' }}
                     </p>
                   </div>
+                  <div class="flex justify-between py-4">
+                    <p>{{ $t('shipping_cost') }}</p>
+                    <p class="bg-gray-200 py-1 px-2 rounded">
+                      {{ shipping_cost }}
+                      {{ $i18n.locale === 'en' ? 'dk' : 'دك' }}
+                    </p>
+                  </div>
+                  <div class="form-control py-4">
+                    <label class="cursor-pointer label justify-start space-x-2">
+                      <input
+                        v-model="haveCoupon"
+                        type="checkbox"
+                        class="checkbox checkbox-sm checkbox-accent"
+                        :checked="haveCoupon"
+                      />
+                      <span
+                        class="
+                          label-text
+                          text-xm
+                          font-semibold
+                          capitalize
+                          text-accent
+                        "
+                        >{{ $t('have_coupon?') }}</span
+                      >
+                    </label>
+                  </div>
+                  <form
+                    v-show="haveCoupon"
+                    class="py-4"
+                    @submit.prevent="checkCoupon"
+                  >
+                    <div class="form-control">
+                      <label class="label">
+                        <span class="label-text">{{
+                          $t('enter_coupon_code')
+                        }}</span>
+                      </label>
+                      <div>
+                        <div class="flex space-x-2">
+                          <input
+                            v-model="couponForm.code"
+                            type="text"
+                            :placeholder="$t('enter_coupon_code')"
+                            class="
+                              w-full
+                              input
+                              border-base-300 border-2
+                              bg-transparent
+                              hover:border-neutral hover:border-opastate-50
+                              shadow-sm
+                            "
+                          />
+                          <button class="btn btn-info">
+                            {{ $t('apply') }}
+                          </button>
+                        </div>
+                        <p
+                          v-show="checkCouponError.length > 0"
+                          class="text-error font-semibold text-xs capitalize"
+                        >
+                          {{ checkCouponError[0] }}
+                        </p>
+                      </div>
+                    </div>
+                  </form>
                   <div>
                     <div class="flex justify-between py-4 items-center">
-                      <p>total</p>
+                      <p>{{ $t('total') }}</p>
                       <p class="bg-gray-200 py-1 px-2 rounded">
-                        {{ $page.props.cartTotal }} KD
+                        {{ cartTotal }}{{ $i18n.locale === 'en' ? 'dk' : 'دك' }}
                       </p>
                     </div>
                   </div>
@@ -303,9 +601,10 @@
 </template>
 
 <script>
-import { ref, watch, computed, reactive } from 'vue'
-import { Head, useForm, usePage } from '@inertiajs/inertia-vue3'
+import { ref, watch, computed, reactive, onMounted } from 'vue'
+import { Head, useForm, usePage, Link } from '@inertiajs/inertia-vue3'
 import { useStore } from 'vuex'
+import axios from 'axios'
 import WebLayout from '@/Layouts/Web/WebLayout'
 import HtSection from '@/Shared/Layouts/HtSection'
 import TextField from '@/Shared/UI/TextField'
@@ -318,6 +617,7 @@ export default {
     WebLayout,
     HtSection,
     TextField,
+    Link,
   },
 
   props: {
@@ -325,45 +625,67 @@ export default {
       type: Array,
       default: () => [],
     },
-    countryCities: {
+    countryStates: {
       type: Array,
       default: () => [],
     },
   },
 
   setup(props) {
-    const form = useForm({
+    const form = useForm('saveOrder', {
       payment_method: 'payzah',
 
       billing_full_name: null,
-      country_id: null,
-      area_id: null,
+      billing_country: null,
+      billing_area: null,
       billing_avenue: null,
       billing_state: null,
-      city_id: null,
+      billing_city: null,
       billing_address: null,
+      billing_street: null,
       billing_phone: null,
       billing_zip_code: null,
 
-      shipping_full_name: 'to updated',
-      shipping_state: 'to updated',
-      shipping_country: 'to updated',
-      shipping_city: 'to updated',
-      shipping_address: 'to updated',
-      shipping_phone: 'to updated',
-      shipping_zip_code: 'to updated',
-      shipping_area: 'to updated',
-      shipping_avenue: 'to updated',
-      notes: 'to updated',
-    })
+      shipping_full_name: null,
+      shipping_state: null,
+      shipping_country: null,
+      shipping_city: null,
+      shipping_address: null,
+      shipping_street: null,
+      shipping_phone: null,
+      shipping_zip_code: null,
+      shipping_area: null,
+      shipping_avenue: null,
+      notes: null,
 
+      country_id: null,
+      state_id: null,
+      city_id: null,
+      area_id: null,
+      useShippingDetails: true,
+    })
+    const couponForm = reactive({
+      code: null,
+    })
     const page = usePage()
     const store = useStore()
     const useUserInfo = ref(false)
     const user = computed(() => page.props.value.user)
-    const countries = reactive(props.allCountries)
-    const cities = reactive(props.countryCities)
-    let areas = reactive([])
+    const shippingCountries = reactive(props.allCountries)
+    const shippingStates = reactive(props.countryStates)
+    let shippingAreas = reactive([])
+    const billingCountries = reactive(props.allCountries)
+    const billingStates = reactive(props.countryStates)
+    let billingAreas = reactive([])
+
+    let haveCoupon = ref(false)
+    let couponValue = ref(null)
+    const checkCouponError = reactive([])
+    const shipping_cost = ref(0.0)
+
+    const cartTotal = computed(() => {
+      return store.state.cartTotal
+    })
 
     watch(useUserInfo, () => {
       form.billing_full_name = !useUserInfo.value ? null : user.value.full_name
@@ -372,16 +694,131 @@ export default {
       form.shipping_phone = !useUserInfo.value ? null : user.value.mobile
     })
 
-    const getAreas = (e) => {
+    // shipping state logic
+    const shippingStateSelected = (e) => {
       e.areas.forEach((area) => {
-        areas.push(area)
+        shippingAreas.push(area)
       })
     }
-    // empty areas if city selected removed
-    const clearAreas = () => {
-      while (areas.length > 0) {
-        areas.pop()
+    // shipping empty areas if state selected removed
+    const clearShippingStateSelected = () => {
+      while (shippingAreas.length > 0) {
+        shippingAreas.pop()
       }
+      if (shipping_cost.value === 0) return
+      store.commit(
+        'getCartTotal',
+        (Number(cartTotal.value) - Number(shipping_cost.value)).toFixed(2),
+      )
+    }
+
+    // billing state logic
+    const billingStateSelected = (e) => {
+      e.areas.forEach((area) => {
+        billingAreas.push(area)
+      })
+    }
+    // shipping empty areas if state selected removed
+    const clearBillingStateSelected = () => {
+      while (billingAreas.length > 0) {
+        billingAreas.pop()
+      }
+    }
+
+    // shipping area logic
+    const shippingAreaSelected = (e) => {
+      shipping_cost.value = 0
+      if (!e.shipping_cost || Number(e.shipping_cost) === 0) return
+      shipping_cost.value = Number(e.shipping_cost).toFixed(2)
+      store.commit(
+        'getCartTotal',
+        (Number(cartTotal.value) + Number(shipping_cost.value)).toFixed(2),
+      )
+    }
+    // reset cost shipping value if area removed
+    const clearShippingAreaSelected = (e) => {
+      store.commit(
+        'getCartTotal',
+        (Number(cartTotal.value) - Number(e.shipping_cost)).toFixed(2),
+      )
+      shipping_cost.value = 0
+    }
+
+    // apply shipping details to billing if useShippingDetails
+    watch(
+      () => ({ ...form }),
+      (val) => {
+        if (val.useShippingDetails) {
+          form.billing_full_name =
+            form.shipping_full_name !== ''
+              ? form.shipping_full_name
+              : form.billing_full_name
+          form.billing_country = form.shipping_country
+            ? form.shipping_country
+            : form.billing_country
+          form.billing_state = form.shipping_state
+            ? form.shipping_state
+            : form.billing_state
+          form.billing_city = form.shipping_city
+            ? form.shipping_city
+            : form.billing_city
+          form.billing_street =
+            form.shipping_street !== ''
+              ? form.shipping_street
+              : form.billing_street
+          form.billing_address =
+            form.shipping_address !== ''
+              ? form.shipping_address
+              : form.billing_address
+          form.billing_avenue =
+            form.shipping_avenue !== ''
+              ? form.shipping_avenue
+              : form.billing_avenue
+          form.billing_area = form.shipping_area
+            ? form.shipping_area
+            : form.billing_area
+          form.billing_zip_code =
+            form.shipping_zip_code !== ''
+              ? form.shipping_zip_code
+              : form.billing_zip_code
+          form.billing_phone =
+            form.shipping_phone !== ''
+              ? form.shipping_phone
+              : form.billing_phone
+        }
+      },
+    )
+
+    // check coupon
+    // valid test coupon joR4GJroOGfpyTB7
+    const checkCoupon = async () => {
+      await axios
+        .post(route('web.checkCoupon'), couponForm)
+        .then((res) => {
+          couponValue.value = res.data.coupon.value
+          console.log(res.data)
+          haveCoupon.value = false
+          if (res.data.coupon.type === 'fixed') {
+            store.commit(
+              'getCartTotal',
+              (Number(cartTotal.value) - Number(couponValue.value)).toFixed(2),
+            )
+          } else {
+            store.commit(
+              'getCartTotal',
+              ((cartTotal.value * couponValue.value) / 100).toFixed(2),
+            )
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response.data)
+            while (checkCouponError.length > 0) {
+              checkCouponError.pop()
+            }
+            checkCouponError.push(error.response.data.errors.code[0])
+          }
+        })
     }
 
     const checkout = () => {
@@ -413,15 +850,33 @@ export default {
       })
     }
 
+    onMounted(() => {
+      store.commit('getCartTotal', page.props.value.cartTotal)
+    })
+
     return {
       checkout,
       form,
       useUserInfo,
-      countries,
-      cities,
-      getAreas,
-      clearAreas,
-      areas,
+      shippingCountries,
+      shippingStates,
+      billingCountries,
+      billingStates,
+      billingAreas,
+      shippingStateSelected,
+      billingStateSelected,
+      clearShippingStateSelected,
+      clearBillingStateSelected,
+      shippingAreaSelected,
+      clearShippingAreaSelected,
+      shippingAreas,
+      haveCoupon,
+      couponValue,
+      couponForm,
+      checkCouponError,
+      checkCoupon,
+      shipping_cost,
+      cartTotal,
     }
   },
 }
@@ -494,10 +949,12 @@ export default {
   background-color: hsla(var(--in) / var(--tw-bg-opacity, 1));
 }
 .vue-dropdown-item.selected.highlighted {
-  background-color: #10b981;
+  --tw-text-opacity: 1;
+  background-color: hsla(var(--a) / var(--tw-text-opacity));
 }
 .vue-dropdown-item.selected {
-  background-color: #bbf7d0;
+  --tw-text-opacity: 0.5;
+  background-color: hsla(var(--a) / var(--tw-text-opacity));
 }
 .vue-select-header input::placeholder {
   color: #6b7280;

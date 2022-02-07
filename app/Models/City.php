@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
-use App\Models\Country;
+use App\Models\State;
 use App\Models\Area;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -30,7 +30,8 @@ class City extends Model
         'ar_slug',
         'en_slug',
         'user_id',
-        'country_id',
+        'shipping_cost',
+        'state_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -61,9 +62,9 @@ class City extends Model
     }
 
     // relation country
-    public function country(): BelongsTo
+    public function state(): BelongsTo
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(State::class);
     }
 
     // relation area

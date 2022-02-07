@@ -11,8 +11,8 @@ class CheckoutPageController extends Controller
 {
     public function index (): Response {
         $countries = Country::all();
-        $cities = Country::find(1)->cities()->with('areas')->get();
+        $states = Country::find(1)->states()->with('areas')->get();
 
-        return Inertia::render('Web/Checkout/Index', ['allCountries' => $countries, 'countryCities' => $cities]);
+        return Inertia::render('Web/Checkout/Index', ['allCountries' => $countries, 'countryStates' => $states]);
     }
 }

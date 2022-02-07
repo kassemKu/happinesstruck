@@ -22,17 +22,19 @@ class OrdersController extends Controller
         $order->shipping_area = $request->shipping_area;
         $order->shipping_avenue = $request->shipping_avenue;
         $order->shipping_address = $request->shipping_address;
+        $order->shipping_street = $request->shipping_street;
         $order->shipping_phone = $request->shipping_phone;
         $order->shipping_zip_code = $request->shipping_zip_code;
 
         $order->payment_method = $request->payment_method;
 
         $order->billing_full_name = $request->billing_full_name;
-        $order->country_id = $request->country_id;
+        $order->billing_country = $request->billing_country;
         $order->billing_state = $request->billing_state;
-        $order->city_id = $request->city_id;
-        $order->area_id = $request->area_id;
+        $order->billing_city = $request->billing_city;
+        $order->billing_area = $request->billing_area;
         $order->billing_avenue = $request->billing_avenue;
+        $order->billing_street = $request->billing_street;
         $order->billing_address = $request->billing_address;
         $order->billing_phone = $request->billing_phone;
         $order->billing_zip_code = $request->billing_zip_code;

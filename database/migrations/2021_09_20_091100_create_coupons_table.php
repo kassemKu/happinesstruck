@@ -18,6 +18,8 @@ class CreateCouponsTable extends Migration
             $table->string('code', 16)->unique();
             $table->enum('type', ['fixed', 'percent']);
             $table->decimal('value');
+            $table->boolean('isValid')->default(true);
+            $table->tinyInteger('valid_for_times')->default(1);
             $table->date('start_date');
             $table->date('expiry_date');
             $table->timestamps();

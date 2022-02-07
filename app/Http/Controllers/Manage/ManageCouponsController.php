@@ -9,6 +9,7 @@ use App\Models\Coupon;
 use App\Models\Package;
 use App\Models\Product;
 use App\Models\Truck;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -64,8 +65,14 @@ class ManageCouponsController extends Controller
                 'media' => $product->media()->get()->map->only('id', 'directory_name', 'full_url')
             ];
         });
+        $users = User::latest()->get()->unique('id')->transform(function ($product) {
+            return [
+                'id' => $product->id,
+                'full_name' => $product->full_name,
+            ];
+        });
 
-        return Inertia::render('Manage/Coupons/Create', ['collections' => $collections, 'products' => $products]);
+        return Inertia::render('Manage/Coupons/Create', ['collections' => $collections, 'products' => $products, 'users' => $users]);
     }
 
     /**
@@ -75,11 +82,11 @@ class ManageCouponsController extends Controller
         if($model === 'product') {
             return Product::where('id', $id)->first();
         }
-        // elseif($model === 'package') {
-        //     return Package::where('id', $id)->first();
-        // }
         elseif($model === 'collection') {
             return Truck::where('id', $id)->first();
+        }
+        elseif($model === 'user') {
+            return User::where('id', $id)->first();
         }
     }
     /**
@@ -94,6 +101,8 @@ class ManageCouponsController extends Controller
             'code' => $request->code,
             'value' => $request->value,
             'type' => $request->type,
+            'isValid' => $request->isValid,
+            'valid_for_times' => $request->valid_for_times,
             'start_date' => $request->date['start_date'],
             'expiry_date' => $request->date['expiry_date'],
         ]);

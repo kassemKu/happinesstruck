@@ -17,12 +17,16 @@ class CheckCouponsController extends Controller
      */
     public function __invoke(CheckCouponRequest $request): JsonResponse
     {
-        $coupon = Coupon::where('code', $request->code)->first();
+        $coupon = Coupon::valid()->where('code', $request->code)->first();
 
         if($coupon) {
+            $coupon->decrement('valid_for_times', 1);
+
+
             return response()->json(
                 [
                     'status' => 200,
+                    'success' => true,
                     'message' => 'checked successfully',
                     'coupon' => $coupon
                 ]
@@ -31,6 +35,7 @@ class CheckCouponsController extends Controller
 
         return  response()->json([
             'status' => 402,
+            'success' => false,
             'message' => 'coupon not found Or invalid coupon',
         ]);
     }

@@ -33,10 +33,15 @@
           "
           @click="navigateTo('web.landing')"
         >
-          <CircleFilled32 />
+          <!-- <CircleFilled32 />
           <span class="font-black text-base lg:text-xl htw-header__logo-text">{{
             $t('site_title')
-          }}</span>
+          }}</span> -->
+          <img
+            src="/images/ht_logo new.png"
+            :alt="$t('site_title')"
+            class="w-24 h-24 object-cover"
+          />
         </button>
       </div>
       <div class="flex space-x-8">

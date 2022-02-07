@@ -26,9 +26,6 @@ class MyCartPageController extends Controller
         $cartItem = Cart::add(array(
             'id' => $product->id,
             'name' => $product->ar_name,
-            'e_name' => $product->en_name,
-            'ar_description' => $product->ar_description,
-            'e_description' => $product->en_description,
             'price' => $product->price,
             'qty' => 1,
             'options' => [
@@ -57,7 +54,7 @@ class MyCartPageController extends Controller
     /**
      * @param string $rowId
      * @param int $qty
-     * @return Illuminate\Http\RedirectResponse;
+     * @return Illuminate\Http\JsonResponse;
      */
     public function updateCart(String $rowId, Int $qty): JsonResponse {
         $item = Cart::update($rowId, $qty);
@@ -74,7 +71,7 @@ class MyCartPageController extends Controller
 
     /**
      * @param string $rowId
-     * @return Illuminate\Http\RedirectResponse;
+     * @return Illuminate\Http\JsonResponse;
      */
     public function deleteCartItem(String $rowId): JsonResponse {
         Cart::remove($rowId);
@@ -85,6 +82,21 @@ class MyCartPageController extends Controller
             'count' => Cart::count(),
             'subtotal' => Cart::subtotal(),
             'total' => Cart::total(),
+        ]);
+    }
+
+    /**
+     * @param number $shipping_cost;
+     * @return Illuminate\Http\JsonResponse;
+     */
+    public function updateCartTotal(Int $shipping_cost): JsonResponse {
+        if(Cart::count() > 0) {
+            dd(Cart::content());
+        }
+
+        return response()->json([
+            'status' => '201',
+            'message' => 'this cart completly empty'
         ]);
     }
 }

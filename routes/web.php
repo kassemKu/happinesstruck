@@ -19,6 +19,8 @@ use App\Http\Controllers\Manage\ManageTrucksController;
 use App\Http\Controllers\Manage\ManagePackagesController;
 use App\Http\Controllers\Manage\ManageToolsController;
 use App\Http\Controllers\Manage\ManageCouponsController;
+use App\Http\Controllers\Manage\ManagePermissionsController;
+use App\Http\Controllers\Manage\ManageRolesController;
 use App\Http\Controllers\Web\CheckCouponsController;
 use App\Http\Controllers\Web\OrdersController;
 use App\Http\Controllers\Web\PayzahPayController;
@@ -53,6 +55,8 @@ Route::name('web.')
         Route::post('/add-to-cart/{product}', [MyCartPageController::class, 'addToCart'])->name('addToCart');
         // update cart items @pram item id and quantity
         Route::post('/cart-update-quantity/{rowId}/{qty}', [MyCartPageController::class, 'updateCart'])->name('updateQuantity');
+         // update cart total if has shipping cost or valid coupon
+         Route::post('/cart-update-total/{shipping_cost}', [MyCartPageController::class, 'updateCartTotal'])->name('updateTotal');
         // remove item from cart
         Route::post('/cart-remove-item/{rowId}', [MyCartPageController::class, 'deleteCartItem'])->name('deleteCartItem');
 
@@ -92,6 +96,10 @@ Route::name('manage.')
     ->group(function () {
         // app settings TODO
         Route::get('/dashboard', [ManageDashboardController::class, 'index'] )->name('dashboard');
+        // permissions route
+        Route::resource('/permissions', ManagePermissionsController::class, ['parameters' => ['' => 'permission']]);
+        // roles route
+        Route::resource('/roles', ManageRolesController::class, ['parameters' => ['' => 'role']]);
         // Sections routes
         Route::resource('/sections', ManageSectionsController::class, ['parameters' => ['' => 'section']]);
         // Categories routes

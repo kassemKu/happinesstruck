@@ -20,6 +20,7 @@ class CreateCountriesTable extends Migration
             $table->string('ar_slug', 200)->nullable();
             $table->string('en_slug', 200)->nullable();
             $table->enum('status',['available','unavailable'])->default('available');
+            $table->decimal('shipping_cost')->nullable();
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained();

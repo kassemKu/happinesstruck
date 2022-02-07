@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \DateTimeInterface;
+use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Coupon extends Model
 {
@@ -22,7 +22,14 @@ class Coupon extends Model
         'code',
         'type',
         'value',
+        'user_id',
+        'order_id',
+        'product_id',
+        'booking_id',
+        'package_id',
         'expiry_date',
+        'valid_for_times',
+        'isValid',
         'start_date',
         'created_at',
         'updated_at',
@@ -43,7 +50,22 @@ class Coupon extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
+    /**
+     *
+     */
+    public function scopeValid($query) {
+        return $query->where('valid_for_times', '>', 0);
+    }
+
     public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class);
+    }
+    public function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class);
+    }
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
     }

@@ -37,7 +37,7 @@
                 <img
                   :src="img.full_url"
                   class="
-                    object-scale-down
+                    object-cover
                     w-20
                     h-20
                     border
