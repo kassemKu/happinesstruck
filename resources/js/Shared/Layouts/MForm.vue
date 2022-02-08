@@ -29,6 +29,7 @@
       <slot />
       <button
         class="btn btn-block btn-info font-bold tracking-wider text-base"
+        :class="loading && 'loading'"
         type="submit"
       >
         {{ btnTitle }}
@@ -51,6 +52,11 @@ export default {
       type: String,
       default: null,
       required: true,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+      required: false,
     },
     maxWidth: {
       type: String,

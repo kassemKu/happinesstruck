@@ -22,6 +22,7 @@
               $t('action_model', { action: $t('add'), model: $t('product') })
             "
             max-width="5xl"
+            :loading="loading"
             @formSubmitted="createProduct"
           >
             <div class="grid grid-cols-2 gap-x-10 items-center">
@@ -372,6 +373,7 @@ export default {
         mediaIds: [],
       }),
       media: [],
+      loading: false,
     }
   },
 
@@ -393,6 +395,7 @@ export default {
 
   methods: {
     uploadProductMedia(files) {
+      this.loading = true
       Array.from(files).forEach((media) => {
         let reader = new FileReader()
 
@@ -410,7 +413,6 @@ export default {
 
           formData.append('file', media)
           formData.append('directory_name', 'products')
-
           axios
             .post(route('manage.media.store'), formData)
             .then((res) => {
@@ -426,24 +428,26 @@ export default {
           this.media.push(item)
         }
       })
+      this.loading = false
     },
     removeImg(index, img) {
+      this.loading = true
       this.media.splice(index, 1)
 
       if (img.id) {
         axios
           .delete(route('manage.media.destroy', img.id))
-          .catch((error) => {
-            console.log(error)
-            this.media.splice(index, 0, img)
-          })
           .then(() => {
             this.$store.commit('openNotification', {
               title: 'delete file',
               content: `product image deleted successfully`,
             })
           })
+          .catch((error) => {
+            console.log(error)
+          })
       }
+      this.loading = false
     },
     generateSKU() {
       const char =
