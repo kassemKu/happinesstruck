@@ -22,6 +22,7 @@
             :btn-title="
               $t('action_model', { action: $t('add'), model: $t('category') })
             "
+            :loading="loading"
             @formSubmitted="createCategory"
           >
             <div class="grid grid-cols-2 gap-x-10 items-center">
@@ -275,7 +276,7 @@ export default {
         is_parent: true,
         mediaIds: [],
       }),
-
+      loading: false,
       media: [],
     }
   },
@@ -298,12 +299,13 @@ export default {
 
   methods: {
     uploadProductMedia(files) {
+      this.loading = true
       Array.from(files).forEach((media) => {
         let reader = new FileReader()
 
         reader.readAsDataURL(media)
 
-        reader.onload = (e) => {
+        reader.onload = async (e) => {
           let item = {
             url: e.target.result,
             id: undefined,
@@ -316,23 +318,42 @@ export default {
           formData.append('file', media)
           formData.append('directory_name', 'categories')
 
-          axios.post(route('manage.media.store'), formData).then((res) => {
-            item.id = res.data.id
-          })
+          await axios
+            .post(route('manage.media.store'), formData)
+            .then((res) => {
+              item.id = res.data.id
+            })
+            .then(() => {
+              this.loading = false
+              this.$store.commit('openNotification', {
+                title: 'upload file',
+                content: `category image uploaded successfully`,
+              })
+            })
 
           this.media.push(item)
         }
       })
     },
     // remove image
-    removeImg(index, img) {
-      this.media.splice(index, 1)
+    async removeImg(index, img) {
+      this.loading = true
 
       if (img.id) {
-        axios.delete(route('manage.media.destroy', img.id)).catch((error) => {
-          console.log(error)
-          this.media.splice(index, 0, img)
-        })
+        await axios
+          .delete(route('manage.media.destroy', img.id))
+          .then(() => {
+            this.media.splice(index, 1)
+            this.$store.commit('openNotification', {
+              title: 'delete file',
+              content: `category image deleted successfully`,
+            })
+            this.loading = false
+          })
+          .catch((error) => {
+            this.loading = false
+            console.log(error)
+          })
       }
     },
     // create category

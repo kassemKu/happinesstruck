@@ -432,9 +432,8 @@ export default {
     },
     async removeImg(index, img) {
       this.loading = true
-      this.media.splice(index, 1)
-
       if (img.id) {
+        this.media.splice(index, 1)
         await axios
           .delete(route('manage.media.destroy', img.id))
           .then(() => {
@@ -445,6 +444,7 @@ export default {
             this.loading = false
           })
           .catch((error) => {
+            this.loading = false
             console.log(error)
           })
       }
