@@ -324,14 +324,19 @@ export default {
               item.id = res.data.id
             })
             .then(() => {
-              this.loading = false
               this.$store.commit('openNotification', {
                 title: 'upload file',
                 content: `category image uploaded successfully`,
               })
             })
-
-          this.media.push(item)
+            .then(() => {
+              this.media.push(item)
+              this.loading = false
+            })
+            .catch((error) => {
+              console.log(error)
+              this.loading = false
+            })
         }
       })
     },

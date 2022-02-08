@@ -424,9 +424,14 @@ export default {
                 content: `product image uploaded successfully`,
               })
             })
-
-          this.media.push(item)
-          this.loading = false
+            .then(() => {
+              this.media.push(item)
+              this.loading = false
+            })
+            .catch((error) => {
+              this.loading = false
+              console.log(error)
+            })
         }
       })
     },
@@ -437,11 +442,11 @@ export default {
         await axios
           .delete(route('manage.media.destroy', img.id))
           .then(() => {
+            this.loading = false
             this.$store.commit('openNotification', {
               title: 'delete file',
               content: `product image deleted successfully`,
             })
-            this.loading = false
           })
           .catch((error) => {
             this.loading = false
