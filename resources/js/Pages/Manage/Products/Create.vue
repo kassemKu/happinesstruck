@@ -401,7 +401,7 @@ export default {
 
         reader.readAsDataURL(media)
 
-        reader.onload = (e) => {
+        reader.onload = async (e) => {
           let item = {
             url: e.target.result,
             id: undefined,
@@ -413,7 +413,7 @@ export default {
 
           formData.append('file', media)
           formData.append('directory_name', 'products')
-          axios
+          await axios
             .post(route('manage.media.store'), formData)
             .then((res) => {
               item.id = res.data.id
@@ -426,28 +426,28 @@ export default {
             })
 
           this.media.push(item)
+          this.loading = false
         }
       })
-      this.loading = false
     },
-    removeImg(index, img) {
+    async removeImg(index, img) {
       this.loading = true
       this.media.splice(index, 1)
 
       if (img.id) {
-        axios
+        await axios
           .delete(route('manage.media.destroy', img.id))
           .then(() => {
             this.$store.commit('openNotification', {
               title: 'delete file',
               content: `product image deleted successfully`,
             })
+            this.loading = false
           })
           .catch((error) => {
             console.log(error)
           })
       }
-      this.loading = false
     },
     generateSKU() {
       const char =
