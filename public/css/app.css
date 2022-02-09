@@ -2264,6 +2264,22 @@ html {
 .input-group>*,.input-group>.input {
   border-radius: 0;
 }
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  --tw-bg-opacity: 1;
+  background-color: hsla(var(--b2)/var(--tw-bg-opacity,1));
+  --tw-border-opacity: 0.2;
+  border-color: hsla(var(--nf)/var(--tw-border-opacity,1));
+  border-width: 1px;
+  padding-right: .5rem;
+  padding-left: .5rem;
+  border-radius: var(--rounded-btn,.5rem);
+  border-bottom-width: 2px;
+  min-height: 2.2em;
+  min-width: 2.2em;
+}
 .link {
   cursor: pointer;
   text-decoration: underline;
@@ -3725,6 +3741,10 @@ html {
   margin-left: -2rem;
   margin-right: -2rem;
 }
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -3865,6 +3885,9 @@ html {
 .ml-28 {
   margin-left: 7rem;
 }
+.mt-\[10vh\] {
+  margin-top: 10vh;
+}
 .-mb-1 {
   margin-bottom: -0.25rem;
 }
@@ -4003,6 +4026,9 @@ html {
 .max-h-screen {
   max-height: 100vh;
 }
+.max-h-\[80vh\] {
+  max-height: 80vh;
+}
 .max-h-60 {
   max-height: 15rem;
 }
@@ -4057,14 +4083,14 @@ html {
 .w-1\/3 {
   width: 33.333333%;
 }
-.w-screen {
-  width: 100vw;
-}
 .w-72 {
   width: 18rem;
 }
 .w-28 {
   width: 7rem;
+}
+.w-screen {
+  width: 100vw;
 }
 .w-1\/2 {
   width: 50%;
@@ -4142,6 +4168,9 @@ html {
 }
 .max-w-screen-lg {
   max-width: 1024px;
+}
+.max-w-2xl {
+  max-width: 42rem;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -4271,6 +4300,9 @@ html {
 }
 .place-content-center {
   place-content: center;
+}
+.items-start {
+  align-items: flex-start;
 }
 .items-center {
   align-items: center;
@@ -4666,6 +4698,14 @@ html {
 .bg-error {
   --tw-bg-opacity: 1;
   background-color: hsla(var(--er) / var(--tw-bg-opacity));
+}
+.bg-slate-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+}
+.bg-slate-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity));
 }
 .bg-transparent {
   background-color: transparent;
@@ -5277,6 +5317,18 @@ html {
   --tw-placeholder-opacity: 1;
   color: rgb(156 163 175 / var(--tw-placeholder-opacity));
 }
+.placeholder-gray-400::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-placeholder-opacity));
+}
+.placeholder-gray-400:-ms-input-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-placeholder-opacity));
+}
+.placeholder-gray-400::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-placeholder-opacity));
+}
 .opacity-0 {
   opacity: 0;
 }
@@ -5329,6 +5381,10 @@ html {
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 .ring-1 {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
@@ -6032,6 +6088,12 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
 [dir="ltr"] .ltr\:-right-12 {
   right: -3rem;
 }
+[dir="ltr"] .ltr\:left-0 {
+  left: 0px;
+}
+[dir="ltr"] .ltr\:right-0 {
+  right: 0px;
+}
 [dir="ltr"] .ltr\:mr-2 {
   margin-right: 0.5rem;
 }
@@ -6066,6 +6128,12 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
 [dir="ltr"] .ltr\:pl-10 {
   padding-left: 2.5rem;
 }
+[dir="ltr"] .ltr\:pl-4 {
+  padding-left: 1rem;
+}
+[dir="ltr"] .ltr\:pl-12 {
+  padding-left: 3rem;
+}
 [dir="ltr"] .ltr\:text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -6081,6 +6149,12 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
 }
 [dir="rtl"] .rtl\:-left-12 {
   left: -3rem;
+}
+[dir="rtl"] .rtl\:right-0 {
+  right: 0px;
+}
+[dir="rtl"] .rtl\:left-0 {
+  left: 0px;
 }
 [dir="rtl"] .rtl\:ml-2 {
   margin-left: 0.5rem;
@@ -6127,6 +6201,12 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
 }
 [dir="rtl"] .rtl\:pr-10 {
   padding-right: 2.5rem;
+}
+[dir="rtl"] .rtl\:pr-4 {
+  padding-right: 1rem;
+}
+[dir="rtl"] .rtl\:pr-12 {
+  padding-right: 3rem;
 }
 [dir="rtl"] .rtl\:text-lg {
   font-size: 1.125rem;

@@ -35,6 +35,7 @@ Route::name('web.')
          */
         // landing page
         Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+        Route::post('/search/{param}', [LandingPageController::class, 'search'])->name('search');
         // store page
         Route::get('/our-store', [StorePageController::class, 'index'])->name('store');
         // product page

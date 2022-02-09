@@ -63,15 +63,7 @@
               <VueFeather type="shopping-bag" />
             </button>
           </div>
-          <button
-            class="
-              btn btn-ghost
-              transform
-              hover:bg-transparent hover:text-info hover:scale-110
-            "
-          >
-            <VueFeather type="search" />
-          </button>
+          <WebSearch />
           <LanguageSwitcher />
           <template v-if="$page.props.user">
             <UserAreaDropdown />
@@ -425,8 +417,9 @@ import gsap from 'gsap'
 import LanguageSwitcher from '@/Shared/Partials/LanguageSwitcher'
 import UserAreaDropdown from '@/Shared/UI/UserAreaDropdown'
 import { Inertia } from '@inertiajs/inertia'
+import WebSearch from '../../../../Shared/Partials/WebSearch'
 
-const components = { Link, LanguageSwitcher, UserAreaDropdown }
+const components = { Link, LanguageSwitcher, UserAreaDropdown, WebSearch }
 
 export default {
   name: 'WebHeader',

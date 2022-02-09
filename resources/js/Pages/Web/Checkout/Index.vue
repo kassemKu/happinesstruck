@@ -959,4 +959,7 @@ export default {
 .vue-select-header input::placeholder {
   color: #6b7280;
 }
+.vue-input input {
+  font-size: inherit;
+}
 </style>

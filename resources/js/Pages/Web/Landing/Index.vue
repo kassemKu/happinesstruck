@@ -53,22 +53,11 @@ const components = {
   OurClientSays,
   OurGallery,
   RecentBlog,
-  // Slider,
+  //   Slider,
 }
 
 export default {
   components,
-
-  // Link,
-  // WebLayout,
-  // MainSections,
-  // ProductsSlider,
-  // SingleService,
-  // OurClientSays,
-  // OurGallery,
-  // RecentBlog,
-  // Slider,
-  // },
 
   props: {
     recentProducts: {

@@ -1,20 +1,11 @@
 <template>
   <div class="htw-slider-wrap relative">
-    <div
-      class="
-        htw-slider-container
-        h-screen
-        max-h-screen
-        absolute
-        min-h-screen
-        bg-base-100
-      "
-    >
+    <div class="htw-slider-container bg-base-100">
       <section
-        v-for="(product, index) in products"
+        v-for="(index, product) in products"
         :key="index"
         :ref="product[activeSlide]"
-        class="htm-slide h-screen w-screen bg-slate-100 relative"
+        class="htm-slide w-full bg-slate-100 relative"
       ></section>
     </div>
   </div>

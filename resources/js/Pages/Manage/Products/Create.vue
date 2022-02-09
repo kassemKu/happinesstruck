@@ -395,8 +395,8 @@ export default {
 
   methods: {
     uploadProductMedia(files) {
-      this.loading = true
       Array.from(files).forEach((media) => {
+        this.loading = true
         let reader = new FileReader()
 
         reader.readAsDataURL(media)
