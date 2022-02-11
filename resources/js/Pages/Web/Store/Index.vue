@@ -86,13 +86,22 @@
             focus-within:text-info
           "
         >
-          <VueFeather
-            type="search"
-            stroke-width="3"
-            class="absolute ltr:ml-3 rtl:mr-3 pointer-events-none"
-          />
+          <button
+            class="
+              h-full
+              absolute
+              ltr:ml-3
+              rtl:mr-3
+              pointer-events-none
+              flex
+              items-center
+            "
+          >
+            <VueFeather type="search" stroke-width="3" />
+          </button>
           <input
-            :placeholder="$i18n.locale === 'en' ? 'Search...' : 'بحث ...'"
+            v-model="filterForm.search"
+            :placeholder="$t('search.')"
             class="
               ltr:pr-4
               rtl:pl-4
@@ -102,32 +111,30 @@
               border-none
               rounded-xl
               w-full
+              placeholder-gray-500
               ring-1 ring-base-300
-              text-neutral-content
-              placeholder-base-300
               font-semibold
               focus:ring-1 focus:ring-info
             "
-            type="search"
+            type="text"
             name="search"
             aria-label="search"
             autocomplete="off"
           />
           <button
             class="
-              btn btn-ghost
+              btn btn-ghost btn-xs
               hover:bg-transparent
               absolute
-              ltr:right-2
-              rtl:left-2
+              ltr:right-0
+              rtl:left-0
+              flex
+              items-center
               group-focus:text-yellow-300
             "
+            @click="clearSearch"
           >
-            <VueFeather
-              type="x"
-              stroke-width="3"
-              class="absolute right-0 h-5 w-5"
-            />
+            <VueFeather type="x" stroke-width="3" class="w-4 h-4" />
           </button>
         </div>
         <!-- search -->
@@ -135,9 +142,7 @@
         <div class="capitalize">
           <p class="text-gray-400">
             {{ $t('result_for_search') }}
-            <b class="text-base-content rtl:mr-1 text-sm"
-              >"{{ $t('lorem_11') }}"</b
-            >
+            <b class="text-base-content rtl:mr-1 text-sm">"{{ searchFor }}"</b>
           </p>
         </div>
         <!-- result text -->
@@ -192,7 +197,7 @@
         <div>
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-8 md:gap-6">
             <Link
-              v-for="product in products"
+              v-for="product in data"
               :key="product.id"
               :href="route('web.showProduct', product.id)"
               class="
@@ -287,10 +292,14 @@
 </template>
 
 <script>
+import { ref, onMounted, watch } from 'vue'
 import { Link } from '@inertiajs/inertia-vue3'
-import { Head } from '@inertiajs/inertia-vue3'
-import axios from 'axios'
+import { Head, useForm } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
 import { useStore } from 'vuex'
+import debounce from 'lodash/debounce'
+import pickBy from 'lodash/pickBy'
+import mapValues from 'lodash/mapValues'
 import WebLayout from '@/Layouts/Web/WebLayout'
 
 const components = {
@@ -306,12 +315,16 @@ export default {
 
   props: {
     products: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => ({}),
+    },
+    filters: {
+      type: Object,
+      default: () => ({}),
     },
   },
 
-  setup() {
+  setup(props) {
     const store = useStore()
 
     const addToCart = (product) => {
@@ -322,7 +335,39 @@ export default {
       })
     }
 
-    return { addToCart }
+    const data = ref([])
+    // search and filters
+    const searchFor = ref(null)
+    const filterForm = useForm(
+      {
+        search: props.filters.search,
+        category: props.filters.category,
+        sort: props.filters.sort,
+      },
+      { preserveState: true },
+    )
+    watch(
+      () => ({ ...filterForm }),
+      (val) => {
+        searchFor.value = val.search
+
+        const applyFilter = debounce(() => {
+          Inertia.get(route('web.store'), pickBy(filterForm), {
+            preserveState: true,
+          })
+        }, 250)
+
+        if (val.search && val.search.length > 2) applyFilter()
+      },
+    )
+
+    const clearSearch = () => {
+      filterForm.search = ''
+    }
+
+    onMounted(() => (data.value = props.products.data))
+
+    return { addToCart, data, filterForm, searchFor, clearSearch }
   },
 }
 </script>

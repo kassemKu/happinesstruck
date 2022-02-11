@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -46,9 +47,12 @@ class LandingPageController extends Controller
         ]);
     }
 
-    public function search (String $param): JsonResponse {
+    /**
+     *
+     */
+    public function search (): JsonResponse {
         $data = Product::latest()
-            ->filter(['search' => $param])
+            ->filter(Request::only('search'))
             ->paginate(5)
             ->withQueryString()
             ->through(fn($product) => [

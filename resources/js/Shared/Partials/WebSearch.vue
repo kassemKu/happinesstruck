@@ -171,10 +171,10 @@ export default {
 
     const search = debounce(async (e) => {
       if (e.length > 2) {
-        await axios.post(route('web.search', e)).then((res) => {
+        await axios.get(route('web.search', { search: e })).then((res) => {
           const { data } = res.data
           console.log(data)
-          if (data.data.length > 0) {
+          if (data) {
             result.value = data.data
           }
         })

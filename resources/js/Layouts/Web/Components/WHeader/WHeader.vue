@@ -38,7 +38,7 @@
             $t('site_title')
           }}</span> -->
           <img
-            src="/images/ht_logo new.png"
+            src="/images/logo.png"
             :alt="$t('site_title')"
             class="w-24 h-24 object-cover"
           />
@@ -315,7 +315,7 @@
                       ease-in-out
                       hover:bg-neutral hover:py-1 hover:px-2 hover:rounded-btn
                     "
-                    @click="navigateTo('auth')"
+                    @click="navigateTo('login')"
                   >
                     {{ $t('login') }}
                   </button>
@@ -331,7 +331,7 @@
                       ease-in-out
                       hover:bg-neutral hover:py-1 hover:px-2 hover:rounded-btn
                     "
-                    @click="navigateTo('auth')"
+                    @click="navigateTo('register')"
                   >
                     {{ $t('register') }}
                   </button>
