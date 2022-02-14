@@ -22,6 +22,7 @@
   "display_name": "display name",
   "shore_delete_model": "are you sure you want to delete this {model}, OK, you can restore it in 1 month",
   "roles": "roles",
+  "role": "role",
   "users": "users",
   "admins": "admins",
   "cancel": "cancel",
