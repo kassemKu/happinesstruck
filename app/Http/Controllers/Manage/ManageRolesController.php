@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePermissionRequest;
-use App\Models\Permission;
+use App\Http\Requests\StoreRoleRequest;
 use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -36,31 +35,33 @@ class ManageRolesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Inertia\Response
      */
-    public function create()
+    public function create(): Response
     {
-        //
+        return Inertia::render('Manage/Roles/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  App\Http\Requests\StoreRoleRequest  $request
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function store(StorePermissionRequest $request)
+    public function store(StoreRoleRequest $request): RedirectResponse
     {
-        //
+        $role = Role::create($request->all());
+
+        return Redirect::route('mange.roles.show', $role->id);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  object  $role
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
         //
     }
@@ -83,7 +84,7 @@ class ManageRolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePermissionRequest $request, $id)
+    public function update(StoreRoleRequest $request, $id)
     {
         //
     }

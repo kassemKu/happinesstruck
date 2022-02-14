@@ -2,26 +2,26 @@
   <ManageLayout>
     <template #breadcrumb>
       <Breadcrumb
-        :parent-href="route('manage.permissions.index')"
-        :parent-name="$t('permissions')"
+        :parent-href="route('manage.roles.index')"
+        :parent-name="$t('roles')"
         parent-icon="grid"
         :active-name="
-          $t('action_model', { action: $t('add'), model: $t('permission') })
+          $t('action_model', { action: $t('add'), model: $t('role') })
         "
         active-icon="pen-tool"
       />
     </template>
-    <div class="htm-page htm-page__permissions-create">
-      <div class="htm-manage-permission">
-        <div class="htm-manage-permission-action">
+    <div class="htm-page htm-page__roles-create">
+      <div class="htm-manage-role">
+        <div class="htm-manage-role-action">
           <ManageForm
             :form-title="
-              $t('action_model', { action: $t('add'), model: $t('permission') })
+              $t('action_model', { action: $t('add'), model: $t('role') })
             "
             :btn-title="
-              $t('action_model', { action: $t('add'), model: $t('permission') })
+              $t('action_model', { action: $t('add'), model: $t('role') })
             "
-            @formSubmitted="createPermission"
+            @formSubmitted="createRole"
           >
             <TextField
               v-model="form.display_name"
@@ -72,11 +72,11 @@ const components = {
 }
 
 export default {
-  name: 'ManagePermissionsCreate',
+  name: 'ManageRolesCreate',
   components,
 
   setup() {
-    const form = useForm('createPermission', {
+    const form = useForm('createRole', {
       name: null,
       display_name: null,
       description: null,
@@ -84,8 +84,8 @@ export default {
     const page = usePage()
     const store = useStore()
 
-    const createPermission = () => {
-      form.post(route('manage.permissions.store'), {
+    const createRole = () => {
+      form.post(route('manage.roles.store'), {
         onStart: () => console.log('Do Something on start'),
         onFinish: () => console.log('Do Something on finish'),
         onError: (errors) => {
@@ -102,16 +102,16 @@ export default {
           ) {
             form.reset()
             store.commit('openNotification', {
-              title: 'create permission',
+              title: 'create role',
               type: 'success',
-              content: 'permission created successfully',
+              content: 'role created successfully',
             })
           }
         },
       })
     }
 
-    return { form, createPermission }
+    return { form, createRole }
   },
 }
 </script>

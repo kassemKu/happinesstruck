@@ -21,6 +21,7 @@
   "model_management": "إدارة {model}",
   "products": "المنتجات",
   "product": "المنتج",
+  "role": "وظيفة",
   "orders": "الطلبات",
   "warehouses": "المستودعات",
   "packages": "الحزم",
