@@ -12,7 +12,7 @@
     </template>
     <div class="htm-page htm-page__categories-index">
       <div class="htm-table-container flex flex-col space-y-8">
-        <div class="htm-searsh-filter">
+        <div class="htm-search-filter">
           <SearchFilter />
         </div>
         <div class="htm-table">
@@ -32,10 +32,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-if="categories.length == 0">
+                <tr v-if="categories.data.length == 0">
                   no data to view yet!
                 </tr>
-                <tr v-for="(category, index) in categories" v-else :key="index">
+                <tr
+                  v-for="(category, index) in categories.data"
+                  v-else
+                  :key="index"
+                >
                   <td>
                     <label>
                       <input type="checkbox" class="checkbox" />
@@ -164,22 +168,26 @@ import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 import DialogModal from '@/Shared/UI/DialogModal'
 import SearchFilter from '@/Shared/UI/SearchFilter'
-
 import pickBy from 'lodash/pickBy'
 import throttle from 'lodash/throttle'
 import mapValues from 'lodash/mapValues'
 
-const components = { Link, ManageLayout, Breadcrumb, DialogModal, SearchFilter }
+const components = {
+  Link,
+  ManageLayout,
+  Breadcrumb,
+  DialogModal,
+  SearchFilter,
+}
 
 export default {
   name: 'ManageCategoriesIndex',
-
   components,
 
   props: {
     categories: {
-      type: Array,
-      default: () => ([])
+      type: Object,
+      default: () => ({}),
     },
     filters: { type: Object, default: () => ({}) },
   },

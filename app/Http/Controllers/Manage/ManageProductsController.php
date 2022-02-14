@@ -12,6 +12,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Str;
 use App\Models\Product;
+use App\Models\Category;
 
 class ManageProductsController extends Controller
 {
@@ -23,7 +24,6 @@ class ManageProductsController extends Controller
     public function index(): Response
     {
         $filters = Request::all('search', 'filters');
-
         $products = Product::latest()
             ->filter(Request::only('search', 'category'))
             ->paginate(3)
@@ -37,7 +37,10 @@ class ManageProductsController extends Controller
                 'ar_slug' => $product->ar_slug
         ]);
 
-        return Inertia::render('Manage/Products/Index', ['products' => $products, 'filters' => $filters]);
+        return Inertia::render('Manage/Products/Index', [
+            'products' => $products,
+            'filters' => $filters
+        ]);
     }
 
     /**
@@ -47,7 +50,8 @@ class ManageProductsController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Manage/Products/Create');
+        $allCategories = Category::with('section')->get();
+        return Inertia::render('Manage/Products/Create', ['allCategories' => $allCategories]);
     }
 
     /**
@@ -90,7 +94,6 @@ class ManageProductsController extends Controller
             'featured' => $request->featured,
             'quantity' => $request->quantity,
             'review' => $request->review,
-            'category_id' => 1,
         ]);
 
         if(!empty($request->mediaIds)) {
@@ -100,6 +103,10 @@ class ManageProductsController extends Controller
             ]);
             $product->update(['mediaIds' => $request->mediaIds]);
         }
+
+        if(!empty($request->categoriesIds)) {
+            $product->categories()->attach($request->categoriesIds);
+         }
 
         return Redirect::route('manage.products.show', $product->id);
     }
@@ -123,6 +130,7 @@ class ManageProductsController extends Controller
             'ar_description' => $product->ar_description,
             'en_description' => $product->en_description,
             'mediaIds' => $product->mediaIds,
+            'categories' => $product->categories,
             'media' => $product->media()->get()->map->only('id', 'directory_name', 'full_url'),
          ]]);
     }
@@ -156,7 +164,6 @@ class ManageProductsController extends Controller
                 'quantity' => $product->quantity,
                 'review' => $product->review,
                 'mediaIds' => $product->mediaIds,
-                'category_id' => $product->category_id,
                 'media' => $product->media()->get()->map->only('id', 'directory_name', 'full_url', 'size', 'filename'),
             ]
         ]);
@@ -188,7 +195,6 @@ class ManageProductsController extends Controller
             'featured' => $request->featured,
             'quantity' => $request->quantity,
             'review' => $request->review,
-            'category_id' => 1,
         ]);
 
         if(!empty($request->mediaIds)) {

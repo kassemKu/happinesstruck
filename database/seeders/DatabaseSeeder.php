@@ -16,10 +16,11 @@ class DatabaseSeeder extends Seeder
         $this->call(LaratrustSeeder::class);
         $this->call(UserSeeder::class);
         // \App\Models\User::factory(10)->create();
-        \App\Models\Category::factory(6)->create();
+        // \App\Models\Category::factory(6)->create();
         // \App\Models\Product::factory(22)->create();
         // $this->call(TruckSeeder::class);
         // $this->call(PackageSeeder::class);
         $this->call(CountrySeeder::class);
+        $this->call(SectionSeeder::class);
     }
 }

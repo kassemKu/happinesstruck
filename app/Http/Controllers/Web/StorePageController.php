@@ -3,21 +3,26 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Support\Facades\Request;
 use App\Models\Product;
+use App\Models\Section;
+use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+use ProtoneMedia\LaravelCrossEloquentSearch\Search;
 
 class StorePageController extends Controller
 {
     /**
      * @return Inertia/Response
      */
-     public function index(): Response {
-        //  dd(Request::all());
-        $filters = Request::all('search', 'category', 'sort');
+     public function index(Request $request): Response {
+        $filters = $request->all('search', 'category', 'sort');
+        $allSections = Section::with('categories')->get();
+
         $products = Product::latest()
-            ->filter(Request::only('search', 'filters'))
+            ->filter($request->only('search', 'category'))
             ->paginate(5)
             ->withQueryString()
             ->through(fn($product) => [
@@ -31,7 +36,7 @@ class StorePageController extends Controller
                 'media' =>  $product->media()->get()->map->only('full_url'),
         ]);
 
-        return Inertia::render('Web/Store/Index', ['products' => $products, 'filters' => $filters]);
+        return Inertia::render('Web/Store/Index', ['products' => $products, 'filter' => $filters, 'allSections' => $allSections]);
      }
 
      /**

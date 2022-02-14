@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import axios from 'axios'
+import { Inertia } from '@inertiajs/inertia'
 import Cookies from 'js-cookie'
 const convertCookieToBoolean = (str) => {
   switch (str.toLowerCase().trim()) {
@@ -113,6 +114,7 @@ export const store = new Vuex.Store({
     // auth screen view
     setActiveAuthView(state, payload) {
       state.activeAuthView = payload
+      Inertia.get(route(payload))
     },
     // user cart details
     getUserCart(state, payload) {

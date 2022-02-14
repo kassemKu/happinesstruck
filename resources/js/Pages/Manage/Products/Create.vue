@@ -189,31 +189,78 @@
                 @topHelperAction="generateSKU"
               />
               <!-- product SKU -->
-              <div>
-                <div class="form-control">
-                  <label class="cursor-pointer label justify-start space-x-2">
-                    <input
-                      v-model="form.featured"
-                      type="checkbox"
-                      class="checkbox"
-                      name="publish"
-                    />
-                    <span class="label-text text-sm font-semibold capitalize"
-                      >featured product?</span
-                    >
-                  </label>
-                </div>
-                <p
-                  v-if="form.errors.featured"
-                  class="text-xs text-red-500 font-bold"
-                >
-                  {{ form.errors.featured }}
-                </p>
+              <div class="-mt-1">
+                <label class="label">
+                  <span class="label-text capitalize font-semibold">{{
+                    $t('choose_section', { model: $t('section') })
+                  }}</span>
+                </label>
+                <vue-select
+                  v-model="form.categoriesIds"
+                  :options="categories"
+                  :label-by="$i18n.locale === 'en' ? `en_name` : 'ar_name'"
+                  :placeholder="$t('choose_section', { model: $t('section') })"
+                  value-by="id"
+                  multiple
+                ></vue-select>
+                <label class="label">
+                  <span
+                    v-show="$page.props.errors.billing_area"
+                    class="label-text-alt text-error"
+                    >{{ $page.props.errors.billing_area }}</span
+                  >
+                </label>
               </div>
-              <!-- featured product checkbox -->
+              <!-- section and category selection -->
+              <div class="mb-6 flex justify-between items-center">
+                <div>
+                  <div class="form-control">
+                    <label class="cursor-pointer label justify-start space-x-2">
+                      <input
+                        v-model="form.published"
+                        name="publish"
+                        type="checkbox"
+                        class="checkbox"
+                      />
+                      <span class="label-text text-sm font-semibold capitalize"
+                        >publish</span
+                      >
+                    </label>
+                  </div>
+                  <p
+                    v-if="form.errors.published"
+                    class="text-xs text-red-500 font-bold"
+                  >
+                    {{ form.errors.published }}
+                  </p>
+                </div>
+                <!-- published checkbox  -->
+                <div>
+                  <div class="form-control">
+                    <label class="cursor-pointer label justify-start space-x-2">
+                      <input
+                        v-model="form.featured"
+                        type="checkbox"
+                        class="checkbox"
+                        name="publish"
+                      />
+                      <span class="label-text text-sm font-semibold capitalize"
+                        >featured product?</span
+                      >
+                    </label>
+                  </div>
+                  <p
+                    v-if="form.errors.featured"
+                    class="text-xs text-red-500 font-bold"
+                  >
+                    {{ form.errors.featured }}
+                  </p>
+                </div>
+                <!-- featured product checkbox -->
+              </div>
             </div>
             <!-- === grid === -->
-            <div class="mb-6">
+            <div class="mb-8">
               <div class="mb-2 flex space-x-2 items-center">
                 <VueFeather
                   type="image"
@@ -296,28 +343,6 @@
               </div>
             </div>
             <!-- Media uploader -->
-            <div class="mb-6">
-              <div class="form-control">
-                <label class="cursor-pointer label justify-start space-x-2">
-                  <input
-                    v-model="form.published"
-                    name="publish"
-                    type="checkbox"
-                    class="checkbox"
-                  />
-                  <span class="label-text text-sm font-semibold capitalize"
-                    >publish</span
-                  >
-                </label>
-              </div>
-              <p
-                v-if="form.errors.published"
-                class="text-xs text-red-500 font-bold"
-              >
-                {{ form.errors.published }}
-              </p>
-            </div>
-            <!-- published checkbox  -->
           </ManageForm>
         </div>
       </div>
@@ -334,6 +359,7 @@ import TextField from '@/Shared/UI/TextField'
 import ManageForm from '@/Shared/Layouts/MForm'
 import HTextarea from '@/Shared/UI/HTextarea'
 import FileUpload from '@/Shared/UI/FileUpload'
+import 'vue-next-select/dist/index.css'
 // TODO:: to fix emit checkbox
 // import CheckBox from '@/Shared/UI/CheckBox'
 
@@ -352,7 +378,12 @@ export default {
   name: 'ManageProductCreate',
 
   components,
-
+  props: {
+    allCategories: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
       form: this.$inertia.form({
@@ -371,9 +402,11 @@ export default {
         featured: false,
         quantity: null,
         mediaIds: [],
+        categoriesIds: [],
       }),
       media: [],
       loading: false,
+      categories: this.allCategories,
     }
   },
 
@@ -485,7 +518,7 @@ export default {
             this.media = []
             this.form.mediaIds = []
             this.$store.commit('openNotification', {
-              title: 'create producut',
+              title: 'create product',
               type: 'success',
               content: 'product created successfully',
             })
@@ -496,3 +529,85 @@ export default {
   },
 }
 </script>
+
+<style>
+/* VUE SELECT OVERRIDES */
+.vue-select {
+  width: 100%;
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  background-color: transparent;
+  --tw-border-opacity: 1;
+  border-color: hsla(var(--b3) / var(--tw-border-opacity));
+  border-width: 2px;
+  flex-shrink: 1;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  height: 3rem;
+  font-size: 0.875rem;
+  line-height: 2;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  --tw-bg-opacity: 1;
+  border-radius: var(--rounded-btn, 0.5rem);
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  cursor: text;
+}
+.vue-select:hover {
+  --tw-border-opacity: 0.5;
+  border-color: hsla(var(--n) / var(--tw-border-opacity));
+}
+.vue-select.direction-bottom .vue-dropdown {
+  -tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-border-opacity: 1;
+  border-color: hsla(var(--b3) / var(--tw-border-opacity));
+  border-width: 2px;
+  border-bottom-right-radius: var(--rounded-box, 1rem);
+  border-bottom-left-radius: var(--rounded-box, 1rem);
+}
+.vue-select.direction-top .vue-dropdown {
+  -tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-border-opacity: 1;
+  border-color: hsla(var(--b3) / var(--tw-border-opacity));
+  border-width: 2px;
+  border-top-right-radius: var(--rounded-box, 1rem);
+  border-top-left-radius: var(--rounded-box, 1rem);
+}
+.icon.arrow-downward {
+  border-width: 6px 6px 0;
+}
+.vue-dropdown-item {
+  border: 2px solid transparent;
+  padding: 0.5rem;
+}
+.vue-dropdown-item:hover,
+.vue-dropdown-item.highlighted {
+  --tw-bg-opacity: 1;
+  background-color: hsla(var(--in) / var(--tw-bg-opacity, 1));
+}
+.vue-dropdown-item.selected.highlighted {
+  --tw-text-opacity: 1;
+  background-color: hsla(var(--a) / var(--tw-text-opacity));
+}
+.vue-dropdown-item.selected {
+  --tw-text-opacity: 0.5;
+  background-color: hsla(var(--a) / var(--tw-text-opacity));
+}
+.vue-select-header input::placeholder {
+  color: #6b7280;
+}
+.vue-input input {
+  font-size: inherit;
+}
+</style>

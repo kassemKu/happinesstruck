@@ -9,10 +9,9 @@ use \DateTimeInterface;
 use Illuminate\Support\Str;
 use App\Models\Category;
 use Facade\Ignition\QueryRecorder\Query;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Product extends Model
 {
@@ -68,9 +67,9 @@ class Product extends Model
     }
 
     // relation to category
-    public function category(): BelongsTo
+    public function categories(): BelongsToMany
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class, 'product_category');
     }
 
     // morph relation to media
@@ -121,7 +120,10 @@ class Product extends Model
             });
         })
         ->when($filters['category'] ?? null, function($query, $category) {
-            $query->where('category_id', $category)->get();
+            $cats = explode (",", $category);
+            $query->whereHas('categories', function($query) use ($cats) {
+                $query->whereIn('id', $cats);
+            })->get();
         });
     }
 

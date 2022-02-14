@@ -17,8 +17,8 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('ar_name', 191);
             $table->string('en_name', 191);
-            $table->string('ar_slug', 200)->unique()->nullable();
-            $table->string('en_slug', 200)->unique()->nullable();
+            $table->string('ar_slug', 200)->nullable();
+            $table->string('en_slug', 200)->nullable();
             $table->decimal('price');
             $table->decimal('supplier_percent_discount')->nullable();
             $table->decimal('sale_price');
@@ -33,11 +33,6 @@ class CreateProductsTable extends Migration
             $table->integer('review')->nullable();
             $table->tinyInteger('published')->default('1');
             $table->json('mediaIds')->nullable();
-
-            $table->foreignId('category_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();

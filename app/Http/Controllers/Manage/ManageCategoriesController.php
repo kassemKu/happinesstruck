@@ -8,6 +8,9 @@ use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Category;
@@ -23,21 +26,31 @@ class ManageCategoriesController extends Controller
     public function index(): Response
     {
         $filters = Request::all('search', 'trashed');
-        $categories = Category::latest()
-            ->paginate(10)
-            // ->filter(Request::only('search', 'trashed'))
-            ->transform(function($category) {
-                return [
-                    'id' => $category->id,
-                    'ar_name' => $category->ar_name,
-                    'en_name' => $category->en_name,
-                    'created_at' => $category->created_at->diffForHumans(),
-                    'deleted_at' => $category->deleted_at,
-                    'published' => $category->published,
-                ];
+        // $categories = Category::latest()
+        //     ->paginate(10)
+        //     // ->filter(Request::only('search', 'trashed'))
+        //     ->transform(function($category) {
+        //         return [
+        //             'id' => $category->id,
+        //             'ar_name' => $category->ar_name,
+        //             'en_name' => $category->en_name,
+        //             'created_at' => $category->created_at->diffForHumans(),
+        //             'deleted_at' => $category->deleted_at,
+        //             'published' => $category->published,
+        //         ];
+        // });
+        $globalSearch = AllowedFilter::callback('global', function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                $query->where('en_name', 'LIKE', "%{$value}%")->orWhere('ar_name', 'LIKE', "%{$value}%");
+            });
         });
 
-        return Inertia::render('Manage/Categories/Index', ['categories' => $categories, 'filters' => $filters,]);
+
+        $categories = QueryBuilder::for(Category::class)
+            ->paginate()
+            ->withQueryString();
+
+        return Inertia::render('Manage/Categories/Index', ['categories' => $categories]);
     }
 
     /**

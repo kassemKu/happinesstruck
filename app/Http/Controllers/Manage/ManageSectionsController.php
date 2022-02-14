@@ -23,9 +23,10 @@ class ManageSectionsController extends Controller
      */
     public function index(): Response
     {
-        $filters = Request::all('search', 'filters');
+        $filters = Request::all('search', 'categories');
+
         $sections = Section::latest()
-            ->filter(Request::only('search', 'category'))
+            ->filter(Request::only('search', 'categories'))
             ->paginate(3)
             ->withQueryString()
             ->through(fn ($section) => [

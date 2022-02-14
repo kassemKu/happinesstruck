@@ -15,6 +15,7 @@
   "cancel": "إلغاء",
   "users": "المستخدمين",
   "search.": "البحث...",
+  "choose_section": "اختر {model}",
   "admins": "المشرفون",
   "customers": "العملاء",
   "model_management": "إدارة {model}",

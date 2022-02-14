@@ -29,8 +29,9 @@ class StoreCategoryRequest extends FormRequest
             'en_name' => ['required','min:6','max:191','string'],
             'en_summary' => ['nullable','min:6','string'],
             'published' => ['nullable'],
-            'ar_slug' => ['nullable', 'alpha_dash', 'unique:categories,ar_slug,', $this->id],
-            'en_slug' => ['nullable', 'alpha_dash', 'unique:categories,en_slug,', $this->id],
+            'ar_slug' => ['nullable', 'alpha_dash'],
+            'en_slug' => ['nullable', 'alpha_dash'],
+            'section_id' => ['nullable'],
             'is_parent' => ['required'],
             'mediaIds.*' => [
                 'nullable', 'numeric'

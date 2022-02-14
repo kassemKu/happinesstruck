@@ -549,8 +549,12 @@ export default {
       if (isMenuOpen.value) {
         store.commit('closeWebMenu')
         setTimeout(() => {
-          Inertia.get(route(routeName))
-        }, 1000)
+          if (routeName === 'login' || routeName === 'register') {
+            store.commit('setActiveAuthView', routeName)
+          } else {
+            Inertia.get(route(routeName))
+          }
+        }, 800)
       } else {
         Inertia.get(route(routeName))
       }

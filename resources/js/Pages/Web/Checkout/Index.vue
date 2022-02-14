@@ -886,7 +886,7 @@ export default {
 /* VUE SELECT OVERRIDES */
 .vue-select {
   width: 100%;
-  -tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);

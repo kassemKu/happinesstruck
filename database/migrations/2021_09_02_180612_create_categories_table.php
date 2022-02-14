@@ -20,8 +20,8 @@ class CreateCategoriesTable extends Migration
             $table->mediumText('en_summary')->nullable();
             $table->mediumText('ar_summary')->nullable();
             $table->tinyInteger('published')->default('1');
-            $table->string('ar_slug', 191)->unique()->nullable();
-            $table->string('en_slug', 191)->unique()->nullable();
+            $table->string('ar_slug', 191)->nullable();
+            $table->string('en_slug', 191)->nullable();
             $table->json('mediaIds')->nullable();
             $table->boolean('is_parent')->default(true)->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();

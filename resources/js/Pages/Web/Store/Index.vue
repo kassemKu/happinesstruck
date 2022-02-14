@@ -23,7 +23,7 @@
       <div
         class="
           hidden
-          w-64
+          w-72
           md:flex
           flex-col
           ltr:border-r
@@ -38,40 +38,35 @@
           <VueFeather type="filter" />
           <h5 class="text-xl">{{ $t('filters') }}</h5>
         </div>
-        <div class="border-b px-6 py-6 flex flex-col space-y-6">
-          <h5 class="font-medium text-gray-500">{{ $t('categories') }}</h5>
-          <ul class="flex flex-col space-y-8">
-            <li class="flex space-x-2">
-              <input type="checkbox" class="checkbox" />
-              <span class="text-sm">{{ $t('category_name') }}</span>
-            </li>
-            <li class="flex space-x-2">
-              <input type="checkbox" class="checkbox" />
-              <span class="text-sm">{{ $t('category_name') }}</span>
-            </li>
-            <li class="flex space-x-2">
-              <input type="checkbox" class="checkbox" />
-              <span class="text-sm">{{ $t('category_name') }}</span>
-            </li>
-            <li class="flex space-x-2">
-              <input type="checkbox" class="checkbox" />
-              <span class="text-sm">{{ $t('category_name') }}e</span>
-            </li>
-          </ul>
-        </div>
-        <div class="border-b px-6 py-6 flex flex-col space-y-6">
-          <h5 class="font-medium text-gray-500">{{ $t('price_range') }}</h5>
-          <div class="flex items-center justify-between">
-            <span class="uppercase text-gray-400">{{ $t('max') }}</span>
-            <input
-              type="text"
-              :placeholder="$i18n.locale === 'en' ? '400DK' : '400دك'"
-              class="input input-bordered w-24"
-            />
+        <div class="px-8 flex flex-col space-y-6">
+          <div
+            v-for="section in sections"
+            :key="section.id"
+            class="py-6 flex flex-col space-y-6"
+          >
+            <div class="flex space-x-2">
+              <p class="font-semibold text-gray-500 uppercase">
+                {{ $i18n.locale === 'ar' ? section.ar_name : section.en_name }}
+              </p>
+            </div>
+            <ul class="flex flex-col space-y-4">
+              <li
+                v-for="category in section.categories"
+                :key="category.id"
+                class="flex space-x-2"
+              >
+                <input
+                  type="checkbox"
+                  class="checkbox"
+                  :name="category.en_name"
+                  @input="selectCategory(category)"
+                />
+                <span class="text-sm">{{
+                  $i18n.locale === 'ar' ? category.ar_name : category.en_name
+                }}</span>
+              </li>
+            </ul>
           </div>
-          <button class="btn btn btn-info capitalize">
-            {{ $t('set_price') }}
-          </button>
         </div>
       </div>
       <!-- filters -->
@@ -100,7 +95,7 @@
             <VueFeather type="search" stroke-width="3" />
           </button>
           <input
-            v-model="filterForm.search"
+            v-model="filtersForm.search"
             :placeholder="$t('search.')"
             class="
               ltr:pr-4
@@ -132,7 +127,7 @@
               items-center
               group-focus:text-yellow-300
             "
-            @click="clearSearch"
+            @click.prevent="clearSearch"
           >
             <VueFeather type="x" stroke-width="3" class="w-4 h-4" />
           </button>
@@ -142,7 +137,9 @@
         <div class="capitalize">
           <p class="text-gray-400">
             {{ $t('result_for_search') }}
-            <b class="text-base-content rtl:mr-1 text-sm">"{{ searchFor }}"</b>
+            <b class="text-base-content rtl:mr-1 text-sm"
+              >"{{ filtersForm.search }}"</b
+            >
           </p>
         </div>
         <!-- result text -->
@@ -214,21 +211,6 @@
                 hover:shadow-2xl
               "
             >
-              <!-- <button
-                class="
-                  btn btn-outline btn-square
-                  absolute
-                  border-none
-                  right-4
-                  btn-sm
-                  bg-red-500 bg-opacity-10
-                "
-              >
-                <VueFeather
-                  type="heart"
-                  class="fill-current text-error w-5 h-5"
-                />
-              </button> -->
               <figure class="flex items-center justify-center">
                 <img
                   :src="product.media[0].full_url"
@@ -242,17 +224,6 @@
                       $i18n.locale === 'ar' ? product.ar_name : product.en_name
                     }}
                   </h2>
-                  <!-- <div class="flex items-center space-x-2">
-                    <div class="flex items-center space-x-2">
-                      <span v-for="star in 5" :key="star">
-                        <VueFeather
-                          type="star"
-                          class="w-5 h-5 fill-current text-warning"
-                        />
-                      </span>
-                    </div>
-                    <span class="uppercase text-sm">(85)</span>
-                  </div> -->
                 </div>
                 <div class="flex items-center justify-between">
                   <div>
@@ -286,16 +257,16 @@
         </div>
         <!-- products view -->
       </div>
-      <!-- <div class="w-72">side right</div> -->
     </div>
   </WebLayout>
 </template>
 
 <script>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, reactive } from 'vue'
 import { Link } from '@inertiajs/inertia-vue3'
-import { Head, useForm } from '@inertiajs/inertia-vue3'
+import { Head } from '@inertiajs/inertia-vue3'
 import { Inertia } from '@inertiajs/inertia'
+import axios from 'axios'
 import { useStore } from 'vuex'
 import debounce from 'lodash/debounce'
 import pickBy from 'lodash/pickBy'
@@ -322,6 +293,7 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    allSections: { type: Array, default: () => [] },
   },
 
   setup(props) {
@@ -336,38 +308,55 @@ export default {
     }
 
     const data = ref([])
-    // search and filters
-    const searchFor = ref(null)
-    const filterForm = useForm(
-      {
-        search: props.filters.search,
-        category: props.filters.category,
-        sort: props.filters.sort,
-      },
-      { preserveState: true },
-    )
+    const sections = reactive(props.allSections)
+
+    // search
+    const filtersForm = reactive({
+      search: props.filters.search,
+      category: props.filters.category,
+      sort: props.filters.sort,
+    })
+
     watch(
-      () => ({ ...filterForm }),
-      (val) => {
-        searchFor.value = val.search
-
-        const applyFilter = debounce(() => {
-          Inertia.get(route('web.store'), pickBy(filterForm), {
-            preserveState: true,
-          })
-        }, 250)
-
-        if (val.search && val.search.length > 2) applyFilter()
-      },
+      () => ({ ...filtersForm }),
+      debounce((val) => {
+        Inertia.get(route('web.store'), pickBy(val), {
+          preserveState: true,
+          onSuccess: async () => {
+            data.value = await props.products.data
+          },
+        })
+      }, 250),
     )
-
-    const clearSearch = () => {
-      filterForm.search = ''
+    const clearSearch = () => (filtersForm.search = '')
+    // filters
+    const selectedCategories = reactive([])
+    const selectedCategory = (cat) => selectedCategories.includes(cat)
+    const selectCategory = (cat) => {
+      if (!selectedCategory(cat.id)) {
+        selectedCategories.push(cat.id)
+        filtersForm.category = selectedCategories.toString()
+      } else {
+        const removeIndex = selectedCategories.findIndex(
+          (item) => item === cat.id,
+        )
+        selectedCategories.splice(removeIndex, 1)
+        filtersForm.category = selectedCategories.toString()
+      }
     }
 
     onMounted(() => (data.value = props.products.data))
 
-    return { addToCart, data, filterForm, searchFor, clearSearch }
+    return {
+      addToCart,
+      data,
+      filtersForm,
+      clearSearch,
+      sections,
+      selectedCategories,
+      selectedCategory,
+      selectCategory,
+    }
   },
 }
 </script>

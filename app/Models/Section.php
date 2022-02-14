@@ -28,6 +28,7 @@ class Section extends Model
         'mediaIds',
         'ar_slug',
         'en_slug',
+        'section_id',
         'created_at',
         'updated_at',
         'deleted_at',

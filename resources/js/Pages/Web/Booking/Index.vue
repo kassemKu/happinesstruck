@@ -183,7 +183,6 @@ import {
   ListboxOption,
 } from '@headlessui/vue'
 import { useCookie } from 'vue-cookie-next'
-import Multiselect from '@vueform/multiselect'
 
 const components = {
   Head,
@@ -197,7 +196,6 @@ const components = {
   ListboxButton,
   ListboxOptions,
   ListboxOption,
-  Multiselect,
 }
 
 export default {
@@ -529,7 +527,6 @@ export default {
 }
 </script>
 
-<style src="@vueform/multiselect/themes/default.css"></style>
 <style>
 .htw-collection-package__img {
   width: 100%;

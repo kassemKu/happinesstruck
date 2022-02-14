@@ -9,7 +9,8 @@ use \DateTimeInterface;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Facade\Ignition\QueryRecorder\Query;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Category extends Model
@@ -33,6 +34,7 @@ class Category extends Model
         'en_slug',
         'parent_id',
         'is_parent',
+        'product_id',
         'section_id',
         'created_at',
         'updated_at',
@@ -57,12 +59,6 @@ class Category extends Model
         return $query->where('publish', '=', 1);
     }
 
-    // relation to category
-    public function products(): HasMany
-    {
-        return $this->hasMany(Product::class);
-    }
-
     // morph relation
     public function media(): MorphMany
     {
@@ -81,6 +77,16 @@ class Category extends Model
         return $this->attributes['en_slug'] = Str::slug($this->attributes['en_name']);
      }
 
+     /**
+      *
+      */
+     public function products(): BelongsToMany {
+         return $this->belongsToMany(Product::class, 'product_category');
+     }
+
+     public function section(): BelongsTo {
+         return $this->belongsTo(Section::class);
+     }
 
     public function scopeFilter($query, array $filters): void
     {
