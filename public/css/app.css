@@ -3703,6 +3703,9 @@ html {
 .m-4 {
   margin: 1rem;
 }
+.m-36 {
+  margin: 9rem;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -4984,6 +4987,10 @@ html {
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+.text-7xl {
+  font-size: 4.5rem;
+  line-height: 1;
 }
 .font-medium {
   font-weight: 500;

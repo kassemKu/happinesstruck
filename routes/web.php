@@ -21,6 +21,7 @@ use App\Http\Controllers\Manage\ManageToolsController;
 use App\Http\Controllers\Manage\ManageCouponsController;
 use App\Http\Controllers\Manage\ManagePermissionsController;
 use App\Http\Controllers\Manage\ManageRolesController;
+use App\Http\Controllers\Manage\ManageLocationsController;
 use App\Http\Controllers\Web\CheckCouponsController;
 use App\Http\Controllers\Web\OrdersController;
 use App\Http\Controllers\Web\PayzahPayController;
@@ -106,6 +107,8 @@ Route::name('manage.')
         Route::resource('/sections', ManageSectionsController::class, ['parameters' => ['' => 'section']]);
         // Categories routes
         Route::resource('/categories', ManageCategoriesController::class, ['parameters' => ['' => 'category']]);
+        // Categories routes
+        Route::resource('/locations', ManageLocationsController::class, ['parameters' => ['' => 'location']]);
         // Products routes
         Route::resource('/products', ManageProductsController::class, ['parameters' => ['' => 'product']]);
         // Banners routes

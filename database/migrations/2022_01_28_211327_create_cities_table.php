@@ -27,9 +27,6 @@ class CreateCitiesTable extends Migration
             $table->foreignId('state_id')
                 ->nullable()
                 ->constrained();
-            $table->foreignId('city_id')
-                ->nullable()
-                ->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

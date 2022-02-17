@@ -195,8 +195,8 @@
             </ManageSideNavLink>
             <ManageSideNavLink
               :name="$t('locations')"
-              :href="'/'"
-              :active="$page.url.includes('manage/pages')"
+              :href="route('manage.locations.index')"
+              :active="$page.url.includes('manage/locations')"
             >
               <template #icon>
                 <LocationHazard24 />

@@ -123,12 +123,16 @@
 
       
   <!-- <pre> {{data.products}} </pre> -->
+=======
+    <div class="htm-dashboard-index grid grid-cols-4 gap-6"></div>
+>>>>>>> e32635d22e9bc082febac31c1f97e24150bbf708
   </ManageLayout>
 </template>
 
 <script>
 import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
+import DashboardCard from '../../../Shared/Layouts/DashboardCard'
 
 const components = { 
   ManageLayout, 
@@ -139,7 +143,6 @@ export default {
   name: 'ManageDashboard',
 
   components,
-
   props: {
     data: {
       type: Array,
