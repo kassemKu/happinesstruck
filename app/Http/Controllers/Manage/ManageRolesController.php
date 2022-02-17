@@ -12,7 +12,7 @@ use Inertia\Response;
 
 class ManageRolesController extends Controller
 {
-   /**
+    /**
      * Display a listing of the resource.
      *
      * @return Inertia\Response

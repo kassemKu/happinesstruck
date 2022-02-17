@@ -4565,6 +4565,10 @@ html {
   --tw-border-opacity: 1;
   border-color: hsla(var(--b3) / var(--tw-border-opacity));
 }
+.border-green-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(21 128 61 / var(--tw-border-opacity));
+}
 .border-gray-500 {
   --tw-border-opacity: 1;
   border-color: rgb(107 114 128 / var(--tw-border-opacity));
@@ -5152,6 +5156,14 @@ html {
 .text-base-300 {
   --tw-text-opacity: 1;
   color: hsla(var(--b3) / var(--tw-text-opacity));
+}
+.text-green-700 {
+  --tw-text-opacity: 1;
+  color: rgb(21 128 61 / var(--tw-text-opacity));
+}
+.text-blue-400 {
+  --tw-text-opacity: 1;
+  color: rgb(96 165 250 / var(--tw-text-opacity));
 }
 .text-yellow-900 {
   --tw-text-opacity: 1;

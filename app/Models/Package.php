@@ -42,7 +42,9 @@ class Package extends Model
         'deleted_at',
     ];
 
-    protected $cast=['mediaIds'=>'array'];
+    protected $cast=[
+        'mediaIds'=>'array'
+    ];
 
     protected $dates = [
         'created_at',
@@ -104,11 +106,11 @@ class Package extends Model
     /**
      * @return string
      */
-     public function setArSlugAttribute() {
+    public function setArSlugAttribute() {
         return $this->attributes['ar_slug'] = Str::slug($this->attributes['ar_name']);
-     }
+    }
 
-     public function setEnSlugAttribute() {
+    public function setEnSlugAttribute() {
         return $this->attributes['en_slug'] = Str::slug($this->attributes['en_name']);
-     }
+    }
 }
