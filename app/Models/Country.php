@@ -59,7 +59,7 @@ class Country extends Model
         return $this->belongsTo(User::class);
     }
 
-    // relation to city
+    // relation to states
     public function states(): HasMany
     {
         return $this->hasMany(State::class);

@@ -12,7 +12,7 @@
     </template>
     <div class="htm-page htm-page__packages-index">
       <div class="htm-table-container flex flex-col space-y-8">
-        <div class="htm-searsh-filter">
+        <div class="htm-search-filter">
           <SearchFilter />
         </div>
         <div class="htm-table">

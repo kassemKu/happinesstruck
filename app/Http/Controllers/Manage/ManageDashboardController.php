@@ -30,6 +30,6 @@ class ManageDashboardController extends Controller
             'bookings' => $bookingsCount
         ];
 
-        return Inertia::render('Manage/Dashboard/Index', ['data' => $data]);
+        return Inertia::render('Manage/Dashboard/Index', ['allData' => $data]);
     }
 }

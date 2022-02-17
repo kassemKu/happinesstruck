@@ -61,7 +61,7 @@ class City extends Model
         return $this->belongsTo(User::class);
     }
 
-    // relation country
+    // relation state
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);
