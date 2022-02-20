@@ -3730,11 +3730,11 @@ html {
 .col-span-6 {
   grid-column: span 6 / span 6;
 }
-.m-4 {
-  margin: 1rem;
-}
 .m-36 {
   margin: 9rem;
+}
+.m-4 {
+  margin: 1rem;
 }
 .mx-auto {
   margin-left: auto;
@@ -5032,10 +5032,6 @@ html {
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
-}
-.text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
 }
 .text-7xl {
   font-size: 4.5rem;
