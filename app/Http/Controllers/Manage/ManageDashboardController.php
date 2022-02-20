@@ -13,21 +13,15 @@ use Inertia\Inertia;
 
 class ManageDashboardController extends Controller
 {
-    public function index() {
-        $usersCount = User::count();
-        $ordersCount = Order::count();
-        $categoriesCount = Category::count();
-        $productsCount = Product::count();
-        $packagesCount = Package::count();
-        $bookingsCount = Booking::count();
-
+    public function index() 
+    {
         $data = [
-            'users' => $usersCount,
-            'orders' => $ordersCount,
-            'categories' => $categoriesCount,
-            'products' => $productsCount,
-            'packages' => $packagesCount,
-            'bookings' => $bookingsCount
+            'users' => User::count(),
+            'orders' => Order::count(),
+            'categories' => Category::count(),
+            'products' => Product::count(),
+            'packages' => Package::count(),
+            'bookings' => Booking::count(),
         ];
 
         return Inertia::render('Manage/Dashboard/Index', ['allData' => $data]);
