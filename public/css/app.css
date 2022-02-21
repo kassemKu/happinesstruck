@@ -6013,6 +6013,9 @@ body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
 .disabled\:opacity-25:disabled {
   opacity: 0.25;
 }
+.group:hover .group-hover\:block {
+  display: block;
+}
 .group:hover .group-hover\:flex {
   display: flex;
 }

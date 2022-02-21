@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,14 +18,27 @@ class ManageLocationsController extends Controller
      */
     public function index(): Response
     {
-        $locations = Area::latest()
-            ->paginate()
-            ->through(fn($location) => [
-                'id' => $location->id,
-                'ar_name' => $location->ar_name,
-                'en_name' => $location->en_name,
-                'state' => $location->state
-        ]);
+        // $locations = Country::latest()
+        //     ->paginate()
+        //     ->through(fn($location) => [
+        //         'id' => $location->id,
+        //         'ar_name' => $location->ar_name,
+        //         'en_name' => $location->en_name,
+        //         'states' => $location->states()->with('areas')
+        // ]);
+
+        $locations = Country::latest()
+            ->get()
+            ->transform(function($location) {
+                return [
+                    'id' => $location->id,
+                    'ar_name' => $location->ar_name,
+                    'en_name' => $location->en_name,
+                    'status' => $location->status,
+                    'shipping_cost' => $location->shipping_cost,
+                    'states' => $location->states()->with('areas')->get()
+                ];
+            });
 
         return Inertia::render('Manage/Locations/Index', ['allLocations' => $locations]);
     }
@@ -37,6 +51,18 @@ class ManageLocationsController extends Controller
     public function create(): Response
     {
         return Inertia::render('Manage/Locations/Create');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateCountry(Request $request, $id)
+    {
+        
     }
 
     /**

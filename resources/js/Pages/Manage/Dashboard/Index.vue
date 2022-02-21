@@ -132,7 +132,6 @@
 <script>
 import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
-import DashboardCard from '../../../Shared/Layouts/DashboardCard'
 
 const components = { 
   ManageLayout, 

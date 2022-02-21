@@ -110,8 +110,14 @@ Route::name('manage.')
         Route::resource('/sections', ManageSectionsController::class, ['parameters' => ['' => 'section']]);
         // Categories routes
         Route::resource('/categories', ManageCategoriesController::class, ['parameters' => ['' => 'category']]);
-        // Categories routes
-        Route::resource('/locations', ManageLocationsController::class, ['parameters' => ['' => 'location']]);
+        // Locations routes
+        Route::name('locations.')
+            ->prefix('/locations')
+            ->group(function() {
+                Route::get('', [ManageLocationsController::class, 'index'])->name('index');
+                Route::get('/create', [ManageLocationsController::class, 'create'])->name('create');
+                Route::post('/update-country', [ManageLocationsController::class, 'updateCountry'])->name('updateCountry');
+        });
         // Products routes
         Route::resource('/products', ManageProductsController::class, ['parameters' => ['' => 'product']]);
         // Banners routes

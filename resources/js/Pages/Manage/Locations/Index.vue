@@ -3,7 +3,7 @@
     <template #breadcrumb>
       <Breadcrumb
         :active-name="$t('locations')"
-        active-icon="grid"
+        active-icon="map-pin"
         :action-name="
           $t('action_model', { model: $t('location'), action: $t('add') })
         "
@@ -129,18 +129,131 @@
         </div>
       </div>
     </div> -->
+
+      <div class="flex flex-col space-y-8">
+        <div v-for="country in locations" :key="country.id" class="htm-countries">
+          <div class="flex flex-col space-y-4">
+            <div class="max-w-xs flex justify-between items-center cursor-pointer group">
+              <h4 class="uppercase text-2xl font-semibold">{{$i18n.locale === "ar" ? country.ar_name : country.en_name}}</h4>
+              <div class="flex items-center hidden group-hover:block">
+                <button class="btn btn-ghost btn-sm text-gray-400 hover:bg-transparent hover:text-info" @click.prevent="isCountryEdit=!isCountryEdit">
+                  <VueFeather type="edit" />
+                </button>
+                <button class="btn btn-ghost btn-sm text-gray-400 hover:bg-transparent hover:text-error">
+                  <VueFeather type="trash-2" />
+                </button>
+              </div>
+            </div>
+            <div v-if="isCountryEdit">
+              <div class="max-w-md bg-white rounded-box p-4">
+                <form @submit.prevent="updateCountry">
+                  <div class="form-control">
+                    <TextField
+                      v-model="countryForm.en_name"
+                      name="en_name"
+                      :placeholder="country.en_name"
+                      :label="
+                        $t('field_name_lang', {
+                          field: $t('country'),
+                          name: $t('name'),
+                          lang: $t('the_english'),
+                        })
+                      "
+                      :server-error="$page.props.errors.en_name"
+                    />
+                  </div>
+                  <div class="form-control">
+                    <TextField
+                      v-model="countryForm.ar_name"
+                      name="ar_name"
+                      :placeholder="country.ar_name"
+                      :label="
+                        $t('field_name_lang', {
+                          field: $t('country'),
+                          name: $t('name'),
+                          lang: $t('the_arabic'),
+                        })
+                      "
+                      :server-error="$page.props.errors.ar_name"
+                    />
+                  </div>
+                  <div class="form-control">
+                    <TextField
+                      v-model="countryForm.shipping_cost"
+                      name="shipping_cost"
+                      :placeholder="country.shipping_cost"
+                      :label=" $t('shipping_cost') "
+                      :server-error="$page.props.errors.shipping_cost"
+                    />
+                  </div>
+
+                  <div class="mb-8">
+                    <div class="form-control">
+                      <div class="flex space-x-6 items-center">
+                        <label class="cursor-pointer label justify-start space-x-2">
+                          <input
+                            v-model="countryForm.status"
+                            value="available"
+                            type="radio"
+                            class="radio"
+                            :checked="countryForm.status === 'available'"
+                          />
+                          <span class="label-text text-sm font-semibold capitalize"> available </span>
+                        </label>
+                        <label class="cursor-pointer label justify-start space-x-2">
+                          <input
+                            v-model="countryForm.status"
+                            value="unavailable"
+                            type="radio"
+                            class="radio"
+                            :checked="countryForm.status === 'unavailable'"
+                          />
+                          <span class="label-text text-sm font-semibold capitalize"> unavailable </span>
+                        </label>
+                      </div>
+                    </div>
+                    <p
+                      v-if="countryForm.errors.status"
+                      class="text-xs text-red-500 font-bold"
+                    >
+                      {{ countryForm.errors.status }}
+                    </p>
+                  </div>
+
+                  <button
+                    class="btn btn-block btn-info font-bold tracking-wider text-base"
+                    :class="loading && 'loading'"
+                    type="submit"
+                  >
+                    {{ $t('update') + " " + ($i18n.locale === "ar" ? country.ar_name : country.en_name) }}
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <pre>{{locations[0].states}}</pre> -->
+      </div>
     </div>
+
   </ManageLayout>
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 import SearchFilter from '@/Shared/UI/SearchFilter'
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link, useForm } from '@inertiajs/inertia-vue3'
+import TextField from '@/Shared/UI/TextField'
 
-const components = { ManageLayout, Breadcrumb, SearchFilter, Link }
+const components = { 
+  ManageLayout, 
+  Breadcrumb, 
+  SearchFilter, 
+  Link,
+  TextField
+}
 
 export default {
   name: 'ManageLocationsIndex',
@@ -149,15 +262,36 @@ export default {
 
   props: {
     allLocations: {
-      type: Object,
-      default: () => ({}),
+      type: Array,
+      default: () => [],
     },
   },
 
   setup(props) {
-    const locations = reactive(props.allLocations.data)
+    const locations = reactive(props.allLocations)
 
-    return { locations }
+    const countryForm = useForm('updateCountryForm', {
+      en_name:locations.en_name,
+      ar_name:locations.ar_name,
+      status:locations.status,
+      shipping_cost:locations.shipping_cost,
+    })
+
+    const isCountryEdit = ref(false)
+    const loading = ref(false)
+
+    const updateCountry = () => {
+      console.log("111")
+    }
+
+
+    return { 
+      locations, 
+      isCountryEdit,
+      updateCountry,
+      countryForm,
+      loading
+    }
   },
 }
 </script>
