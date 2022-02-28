@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Web\WebDashboardController;
 use App\Http\Controllers\Web\LandingPageController;
 use App\Http\Controllers\Web\StorePageController;
@@ -9,6 +10,10 @@ use App\Http\Controllers\Web\CollectionPageController;
 use App\Http\Controllers\Web\CheckoutPageController;
 use App\Http\Controllers\Web\MyCartPageController;
 use App\Http\Controllers\Web\BookingPageController;
+use App\Http\Controllers\Web\CheckCouponsController;
+use App\Http\Controllers\Web\OrdersController;
+use App\Http\Controllers\Web\PayzahPayController;
+
 use App\Http\Controllers\Manage\ManageDashboardController;
 use App\Http\Controllers\Manage\ManageSectionsController;
 use App\Http\Controllers\Manage\ManageCategoriesController;
@@ -22,9 +27,7 @@ use App\Http\Controllers\Manage\ManageCouponsController;
 use App\Http\Controllers\Manage\ManagePermissionsController;
 use App\Http\Controllers\Manage\ManageRolesController;
 use App\Http\Controllers\Manage\ManageLocationsController;
-use App\Http\Controllers\Web\CheckCouponsController;
-use App\Http\Controllers\Web\OrdersController;
-use App\Http\Controllers\Web\PayzahPayController;
+
 
 /**
  * TODO:: To write better comment
@@ -58,8 +61,8 @@ Route::name('web.')
         Route::post('/add-to-cart/{product}', [MyCartPageController::class, 'addToCart'])->name('addToCart');
         // update cart items @pram item id and quantity
         Route::post('/cart-update-quantity/{rowId}/{qty}', [MyCartPageController::class, 'updateCart'])->name('updateQuantity');
-         // update cart total if has shipping cost or valid coupon
-         Route::post('/cart-update-total/{shipping_cost}', [MyCartPageController::class, 'updateCartTotal'])->name('updateTotal');
+        // update cart total if has shipping cost or valid coupon
+        Route::post('/cart-update-total/{shipping_cost}', [MyCartPageController::class, 'updateCartTotal'])->name('updateTotal');
         // remove item from cart
         Route::post('/cart-remove-item/{rowId}', [MyCartPageController::class, 'deleteCartItem'])->name('deleteCartItem');
 
@@ -107,8 +110,14 @@ Route::name('manage.')
         Route::resource('/sections', ManageSectionsController::class, ['parameters' => ['' => 'section']]);
         // Categories routes
         Route::resource('/categories', ManageCategoriesController::class, ['parameters' => ['' => 'category']]);
-        // Categories routes
-        Route::resource('/locations', ManageLocationsController::class, ['parameters' => ['' => 'location']]);
+        // Locations routes
+        Route::name('locations.')
+            ->prefix('/locations')
+            ->group(function() {
+                Route::get('', [ManageLocationsController::class, 'index'])->name('index');
+                Route::get('/create', [ManageLocationsController::class, 'create'])->name('create');
+                Route::post('/update-country', [ManageLocationsController::class, 'updateCountry'])->name('updateCountry');
+        });
         // Products routes
         Route::resource('/products', ManageProductsController::class, ['parameters' => ['' => 'product']]);
         // Banners routes
