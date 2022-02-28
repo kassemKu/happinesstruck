@@ -238,6 +238,8 @@
   "packages_items": "packages items",
   "package_item": "package item",
   "package": "package",
+  "prev": "previous",
+  "next": "next",
   "package_tools": "package tools",
   "price_per_event": "price per event",
   "min_price_per_event": "min price per event",

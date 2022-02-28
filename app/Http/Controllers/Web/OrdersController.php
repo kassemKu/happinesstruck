@@ -60,6 +60,6 @@ class OrdersController extends Controller
         Cart::destroy();
 
         // send email to user
-
+        return Redirect::route('web.landing');
     }
 }

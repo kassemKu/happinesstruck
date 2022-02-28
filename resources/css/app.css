@@ -171,3 +171,15 @@ body[dir='rtl'] .space-x-4 > :not([hidden]) ~ :not([hidden]),
 body[dir='rtl'] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 1;
 }
+
+body[dir='ltr'] .btn-group > .btn:not(:last-child) {
+  border-radius: var(--rounded-btn, 0.5rem);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+body[dir='ltr'] .btn-group > .btn:not(:first-child) {
+  border-radius: var(--rounded-btn, 0.5rem);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

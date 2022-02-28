@@ -1,6 +1,6 @@
 <template>
   <div class="relative min-h-screen w-full grid grid-cols-1 sm:grid-cols-2">
-    <!-- <div class="absolute top-16 ltr:left-1/4 rtl:left-1/3 htw-site-title">
+    <div class="absolute top-16 ltr:left-1/4 rtl:left-1/3 htw-site-title">
       <div class="w-full flex flex-col items-center justify-center">
         <h3 class="text-3xl sm:text-5xl uppercase font-bold">
           {{ $t('site_title') }}
@@ -9,8 +9,8 @@
           {{ $t('site_subtitle') }}
         </p>
       </div>
-    </div> -->
-    <!-- <div class="bg-warning bg-opacity-40">
+    </div>
+    <div class="bg-warning bg-opacity-40">
       <HtSection padding-x="16">
         <div
           class="
@@ -58,10 +58,10 @@
           </div>
         </div>
       </HtSection>
-    </div> -->
+    </div>
     <!-- our packages collections -->
 
-    <!-- <div class="bg-info bg-opacity-40">
+    <div class="bg-info bg-opacity-40">
       <HtSection padding-x="16">
         <div
           class="
@@ -110,11 +110,8 @@
           </div>
         </div>
       </HtSection>
-    </div> -->
+    </div>
     <!-- our store -->
-    <h1 class="font-body-arabic m-36 text-7xl font-black text-warning">
-      عربة السعادة
-    </h1>
     <div class="htm-products-slider"></div>
   </div>
 </template>

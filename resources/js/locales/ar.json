@@ -237,6 +237,8 @@
   "packages_items": "عناصر الباكجز",
   "package_item": "عنصر الباكج",
   "package": "باكج",
+  "prev": "السابق",
+  "next": "التالي",
   "package_tools": "معدات الباكاج",
   "price_per_event": "السعر لكل مناسبة",
   "min_price_per_event": "الحد الأدنى للسعر لكل مناسبة",
