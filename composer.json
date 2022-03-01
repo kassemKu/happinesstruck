@@ -19,7 +19,6 @@
     "laravel/jetstream": "^2.3",
     "laravel/sanctum": "^2.6",
     "laravel/tinker": "^2.5",
-    "protonemedia/laravel-cross-eloquent-search": "^2.7",
     "santigarcor/laratrust": "^6.3",
     "spatie/laravel-query-builder": "^4.0.2",
     "tightenco/ziggy": "^1.0"
