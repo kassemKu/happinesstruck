@@ -42,7 +42,7 @@ class OrdersController extends Controller
         $order->grand_total = Cart::total();
         $order->item_count = Cart::count();
 
-        $order->user_id = auth()->id();
+        // $order->user_id = auth()->id();
 
         $order->save();
 

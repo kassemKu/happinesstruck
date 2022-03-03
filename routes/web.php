@@ -65,6 +65,24 @@ Route::name('web.')
         Route::post('/cart-update-total/{shipping_cost}', [MyCartPageController::class, 'updateCartTotal'])->name('updateTotal');
         // remove item from cart
         Route::post('/cart-remove-item/{rowId}', [MyCartPageController::class, 'deleteCartItem'])->name('deleteCartItem');
+        // check valid coupon
+        Route::post('/check-coupon', CheckCouponsController::class)->name('checkCoupon');
+        // checkout page
+        Route::get('/checkout', [CheckoutPageController::class, 'index'])->name('checkout');
+        /**
+         * urls begin with (/order) prefix
+         * names starts with web.order
+         * only Customer Auth user && Supper Admin can access this routes
+         */
+        Route::name('orders.')
+        ->prefix('orders')
+        ->group(function() {
+            // orders routes
+            Route::post('/store', [OrdersController::class, 'store'])->name('store');
+            Route::get('/index', [OrdersController::class, 'index'])->name('index');
+            // payzah payment Controller
+            Route::get('/payzah/checkout/{order}', [PayzahPayController::class, 'checkout'])->name('payzah.checkout');
+        });
 
         // routes web need auth
         Route::middleware(['auth:sanctum', 'verified', 'role:superadministrator|customer|entry'])
@@ -72,24 +90,6 @@ Route::name('web.')
                 Route::get('/dashboard', [WebDashboardController::class, 'index'])->name('dashboard');
                 // booking checkout
                 Route::get('/booking/checkout', [BookingPageController::class, 'bookingCheckout'])->name('bookingCheckout');
-                // check valid coupon
-                Route::post('/check-coupon', CheckCouponsController::class)->name('checkCoupon');
-                // checkout page
-                Route::get('/checkout', [CheckoutPageController::class, 'index'])->name('checkout');
-                /**
-                 * urls begin with (/order) prefix
-                 * names starts with web.order
-                 * only Customer Auth user && Supper Admin can access this routes
-                 */
-                Route::name('orders.')
-                ->prefix('orders')
-                ->group(function() {
-                    // orders routes
-                    Route::post('/store', [OrdersController::class, 'store'])->name('store');
-                    Route::get('/index', [OrdersController::class, 'index'])->name('index');
-                    // payzah payment Controller
-                    Route::get('/payzah/checkout/{order}', [PayzahPayController::class, 'checkout'])->name('payzah.checkout');
-                });
         });
 });
 

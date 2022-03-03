@@ -53,6 +53,7 @@ class PayzahPayController extends Controller
             "amount" => 0.100,
             "success_url" => route("web.landing"),
             "error_url" => route("web.landing"),
+            "cancel_url" => route("web.landing"),
             "language" => "ARA",
             "currency" => 414,
             "payment_type" => 1
