@@ -37,6 +37,7 @@ class Order extends Model
         'shipping_street',
         'shipping_zip_code',
         'shipping_phone',
+        'shipping_cost',
         'notes',
 
         'billing_full_name',

@@ -650,6 +650,7 @@ export default {
       shipping_state: null,
       shipping_country: null,
       shipping_city: null,
+      shipping_cost: null,
       shipping_address: null,
       shipping_street: null,
       shipping_phone: null,
@@ -730,6 +731,7 @@ export default {
       shipping_cost.value = 0
       if (!e.shipping_cost || Number(e.shipping_cost) === 0) return
       shipping_cost.value = Number(e.shipping_cost).toFixed(2)
+      form.shipping_cost = shipping_cost.value
       store.commit(
         'getCartTotal',
         (Number(cartTotal.value) + Number(shipping_cost.value)).toFixed(2),
@@ -737,6 +739,7 @@ export default {
     }
     // reset cost shipping value if area removed
     const clearShippingAreaSelected = (e) => {
+      form.shipping_cost = 0
       store.commit(
         'getCartTotal',
         (Number(cartTotal.value) - Number(e.shipping_cost)).toFixed(2),
