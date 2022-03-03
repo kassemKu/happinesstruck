@@ -45,7 +45,7 @@
                   <h3 class="text-xl text-info font-bold uppercase">
                     {{ $t('shipping_details') }}
                   </h3>
-                  <div class="form-control">
+                  <div v-if="$page.props.user" class="form-control">
                     <label class="cursor-pointer label justify-start space-x-2">
                       <input
                         v-model="useUserInfo"

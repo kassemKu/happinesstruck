@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Support\Facades\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Redirect;
 
 class PayzahPayController extends Controller
 {
     public function checkout(String $orderId) {
-        $checkoutData =  $this->checkoutData();
+        $order = Order::where('id', $orderId)->first();
+        $checkoutData =  $this->checkoutData($order);
         $collection = collect($checkoutData);
 
         $curl = curl_init();
@@ -47,10 +47,10 @@ class PayzahPayController extends Controller
         }
     }
 
-    public function checkoutData() {
+    public function checkoutData(Order $order) {
         $checkoutData = [
             "trackid" => uniqid(),
-            "amount" => 0.100,
+            "amount" => $order->grand_total,
             "success_url" => route("web.landing"),
             "error_url" => route("web.landing"),
             "cancel_url" => route("web.landing"),
