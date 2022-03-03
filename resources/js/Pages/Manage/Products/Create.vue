@@ -163,7 +163,8 @@
               <!-- product supplier percent discount -->
               <TextField
                 v-model="form.sale_price"
-                type="number"
+                type="text"
+                pattern="^\d*(\.\d{0,2})?$"
                 name="sale_price"
                 :placeholder="$t('sale_price')"
                 :label="$t('sale_price')"

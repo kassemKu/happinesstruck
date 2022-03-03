@@ -20,6 +20,7 @@ class PayzahPayController extends Controller
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
+            CURLOPT_POST => 1,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => $collection,
@@ -53,7 +54,6 @@ class PayzahPayController extends Controller
             "amount" => $order->grand_total,
             "success_url" => route("web.landing"),
             "error_url" => route("web.landing"),
-            "cancel_url" => route("web.landing"),
             "language" => "ARA",
             "currency" => 414,
             "payment_type" => 1

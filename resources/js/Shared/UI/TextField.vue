@@ -32,6 +32,7 @@
       :value="modelValue"
       :name="name"
       :disabled="disabled"
+      step="any"
       @input="updateValue($event.target.value)"
     />
     <label class="label">
