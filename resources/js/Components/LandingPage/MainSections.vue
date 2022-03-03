@@ -112,7 +112,7 @@
       </HtSection>
     </div>
     <!-- our store -->
-    <div class="htm-products-slider"></div>
+    <!-- <div class="htm-products-slider"></div> -->
   </div>
 </template>
 
