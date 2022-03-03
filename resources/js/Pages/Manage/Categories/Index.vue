@@ -143,7 +143,7 @@
     </template>
 
     <template #content>
-      are you sure you want to delete your category, OK, you can restort it in 1
+      are you sure you want to delete your category, OK, you can restore it in 1
       month
       <div class="mt-4"></div>
     </template>

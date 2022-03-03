@@ -6,12 +6,12 @@
     @close="close"
   >
     <div class="px-6 py-4">
-      <h4
+      <div
         class="text-lg uppercase font-semibold"
         :class="{ 'text-error': modalType === 'error' }"
       >
-        <slot name="title" />
-      </h4>
+        <slot name="title"></slot>
+      </div>
 
       <div class="mt-4">
         <slot name="content"> </slot>

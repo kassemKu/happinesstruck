@@ -26,7 +26,7 @@ class MyCartPageController extends Controller
         $cartItem = Cart::add(array(
             'id' => $product->id,
             'name' => $product->ar_name,
-            'price' => $product->price,
+            'price' => $product->sale_price,
             'qty' => 1,
             'options' => [
                 'en_name' => $product->en_name,

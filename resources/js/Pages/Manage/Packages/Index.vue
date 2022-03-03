@@ -94,7 +94,7 @@
                         transform
                         hover:bg-transparent hover:scale-125
                       "
-                      @click="openConfirmDelete(pg.id)"
+                      @click="openModel(pg)"
                     >
                       <VueFeather
                         type="trash-2"
@@ -122,35 +122,58 @@
       </div>
     </div>
   </ManageLayout>
-  <Modal
-    max-width="xl"
-    :title="`delete package ?`"
-    type="warning"
-    action-title="delete package"
-    @modalAction="deletePackage"
+  <DialogModal
+    :show="confirmDeletePackage"
+    modal-type="error"
+    @close="closeModal"
   >
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
-      temporibus quo impedit?
-    </p>
-  </Modal>
+    <template #title>
+      {{
+        $i18n.locale === 'ar'
+          ? packageToDelete.ar_name
+          : packageToDelete.en_name
+      }}
+    </template>
+
+    <template #content>
+      are you sure you want to delete your
+      {{
+        $i18n.locale === 'ar'
+          ? packageToDelete.ar_name
+          : packageToDelete.en_name
+      }}, OK, you can restore it in 1 month
+    </template>
+
+    <template #footer>
+      <div class="flex space-x-2">
+        <button class="btn btn-sm" @click="closeModal">Cancel</button>
+
+        <button class="btn btn-sm btn-error" @click="deletePackage">
+          {{
+            $t('action_model', { model: $t('package'), action: $t('delete') })
+          }}
+        </button>
+      </div>
+    </template>
+  </DialogModal>
 </template>
 
 <script>
+import { ref } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { useStore } from 'vuex'
 import { Link } from '@inertiajs/inertia-vue3'
 import ManageLayout from '@/Layouts/Manage/ManageLayout'
 import Breadcrumb from '@/Shared/Layouts/Breadcrumb'
 import SearchFilter from '@/Shared/UI/SearchFilter'
-import Modal from '@/Shared/Layouts/Modal'
+import DialogModal from '@/Shared/UI/DialogModal'
 
 const components = {
   Link,
   ManageLayout,
   Breadcrumb,
   SearchFilter,
-  Modal,
+  DialogModal,
 }
 
 export default {
@@ -166,31 +189,43 @@ export default {
   },
 
   setup() {
-    let packageToDeleteId = 0
+    let packageToDelete = ref(null)
+    const confirmDeletePackage = ref(false)
     const store = useStore()
 
-    const isModalOpen = store.state.isModalOpen
-
-    const openConfirmDelete = (packageId) => {
-      store.commit('openModal')
-      packageToDeleteId = packageId
+    const openModel = (packg) => {
+      packageToDelete.value = packg
+      confirmDeletePackage.value = true
+    }
+    const closeModal = () => {
+      confirmDeletePackage.value = false
+      packageToDelete.value = null
     }
 
     const deletePackage = () => {
-      Inertia.delete(route('manage.packages.destroy', packageToDeleteId), {
-        onFinish: () => {
-          store.commit('closeModal')
+      Inertia.delete(
+        route('manage.packages.destroy', { package: packageToDelete.value.id }),
+        {
+          onFinish: () => {
+            store.commit('closeModal')
 
-          store.commit('openNotification', {
-            title: 'delete product',
-            type: 'success',
-            content: 'package deleted successfully',
-          })
+            store.commit('openNotification', {
+              title: 'delete package',
+              type: 'success',
+              content: 'package deleted successfully',
+            })
+          },
         },
-      })
+      )
     }
 
-    return { openConfirmDelete, isModalOpen, deletePackage }
+    return {
+      packageToDelete,
+      openModel,
+      closeModal,
+      deletePackage,
+      confirmDeletePackage,
+    }
   },
 }
 </script>

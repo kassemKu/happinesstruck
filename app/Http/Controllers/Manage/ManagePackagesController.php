@@ -148,11 +148,12 @@ class ManagePackagesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  object  $package
+     * @return Illuminate\Support\Facades\Redirect
      */
-    public function destroy($id)
+    public function destroy(Package $package): RedirectResponse
     {
-        //
+        dd($package->media);
+        return back();
     }
 }
