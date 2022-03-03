@@ -31,8 +31,9 @@
       :placeholder="placeholder"
       :value="modelValue"
       :name="name"
+      :step="step"
+      :min="min"
       :disabled="disabled"
-      step="any"
       @input="updateValue($event.target.value)"
     />
     <label class="label">
@@ -87,6 +88,16 @@ export default {
     labelTopHelper: {
       type: String,
       default: null,
+      required: false,
+    },
+    step: {
+      type: [String, Number],
+      default: 'any',
+      required: false,
+    },
+    min: {
+      type: [String, Number],
+      default: 0,
       required: false,
     },
   },

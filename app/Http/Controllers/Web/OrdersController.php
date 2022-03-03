@@ -41,9 +41,9 @@ class OrdersController extends Controller
 
         $order->grand_total = Cart::total();
         $order->item_count = Cart::count();
-        if($request->shipping_cost || $request->shipping_cost > 0) {
-            $order->grand_total += $request->shipping_cost;
-        }
+        // if($request->shipping_cost || $request->shipping_cost > 0) {
+        //     $order->grand_total += $request->shipping_cost;
+        // }
 
         // $order->user_id = auth()->id();
 

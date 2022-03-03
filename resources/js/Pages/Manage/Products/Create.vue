@@ -146,6 +146,8 @@
                 v-model="form.price"
                 type="number"
                 name="price"
+                step="any"
+                :min="0"
                 :placeholder="$t('price')"
                 :label="$t('price')"
                 :server-error="$page.props.errors.price"
@@ -156,6 +158,8 @@
                 optional
                 type="number"
                 name="supplier_percent_discount"
+                step="any"
+                :min="0"
                 :placeholder="$t('supplier_percent_discount')"
                 :label="$t('supplier_percent_discount')"
                 :server-error="$page.props.errors.supplier_percent_discount"
@@ -163,8 +167,9 @@
               <!-- product supplier percent discount -->
               <TextField
                 v-model="form.sale_price"
-                type="text"
-                pattern="^\d*(\.\d{0,2})?$"
+                type="number"
+                step="any"
+                :min="0"
                 name="sale_price"
                 :placeholder="$t('sale_price')"
                 :label="$t('sale_price')"
