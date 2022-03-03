@@ -57,7 +57,12 @@
             </div>
             <div class="flex space-x-8 items-center">
               <div>
-                <h3 class="text-2xl uppercase font-bold">12 DK</h3>
+                <h3 class="text-2xl uppercase font-bold">
+                  <span>{{ product.sale_price }} </span>
+                  <span class="uppercase">
+                    {{ $i18n.locale === 'ar' ? 'دك' : 'kd' }}</span
+                  >
+                </h3>
               </div>
               <!-- <div class="flex space-x-2 items-center">
                 <span class="capitalize">quantity: </span>
