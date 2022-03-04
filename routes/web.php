@@ -79,9 +79,12 @@ Route::name('web.')
         ->group(function() {
             // orders routes
             Route::post('/store', [OrdersController::class, 'store'])->name('store');
-            Route::get('/index', [OrdersController::class, 'index'])->name('index');
+            // Route::get('/index', [OrdersController::class, 'index'])->name('index');
             // payzah payment Controller
             Route::get('/payzah/checkout/{order}', [PayzahPayController::class, 'checkout'])->name('payzah.checkout');
+            Route::post('/payzah/checkout/success_url', [PayzahPayController::class, 'success'])->name('payzah.success');
+            Route::post('/payzah/checkout/canceled_url', [PayzahPayController::class, 'canceled'])->name('payzah.canceled');
+            Route::post('/payzah/checkout/error_url', [PayzahPayController::class, 'error'])->name('payzah.error');
         });
 
         // routes web need auth

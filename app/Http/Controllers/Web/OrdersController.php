@@ -56,7 +56,10 @@ class OrdersController extends Controller
             $order->items()->attach($item->id, ['price'=> $item->price, 'quantity'=> $item->qty]);
         }
 
-        return Redirect::route('web.orders.payzah.checkout',  $order->id);
+        if($order->payment_method === 'payzah' || $order->payment_method === 'credit') {
+            return Redirect::route('web.orders.payzah.checkout',  $order->id);
+        }
+
 
         $order->is_paid = true;
 
