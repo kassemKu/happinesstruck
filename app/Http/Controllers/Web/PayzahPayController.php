@@ -69,13 +69,7 @@ class PayzahPayController extends Controller
         return $checkoutData;
     }
 
-    public function success($request, Throwable $e) {
-        $response = parent::render($request, $e);
-        if ($response->status() === 419) {
-            return redirect()->route('web.landing')->with([
-                'message' => 'The page expired, please try again.',
-            ]);
-        }
+    public function success() {
         return redirect()->route('web.landing');
     }
 

@@ -12,6 +12,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        '/orders/payzah/checkout/success_url',
+        '/orders/payzah/checkout/error_url',
+        '/orders/payzah/checkout/canceled_url'
     ];
 }
