@@ -23,7 +23,6 @@ class ManageProductsController extends Controller
      */
     public function index(): Response
     {
-        // latest update
         $filters = Request::all('search', 'filters');
         $products = Product::latest()
             ->filter(Request::only('search', 'category'))
