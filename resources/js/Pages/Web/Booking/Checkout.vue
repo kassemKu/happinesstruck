@@ -193,15 +193,15 @@ export default {
       //   if (isLastStep) return
       currentStep.value++
     }
-    const totalSteps = () => {
-      steps.length
-    }
-    const isFirstStep = () => {
-      currentStep.value === 0
-    }
-    const isLastStep = () => {
-      currentStep.value === totalSteps - 1
-    }
+    // const totalSteps = () => {
+    //   steps.length
+    // }
+    // const isFirstStep = () => {
+    //   currentStep.value === 0
+    // }
+    // const isLastStep = () => {
+    //   currentStep.value === totalSteps - 1
+    // }
 
     const booking = () => {
       console.log(form)
